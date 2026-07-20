@@ -1,0 +1,17 @@
+{
+  "name": "@le-space/landing-shared",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./tokens.css": "./src/tokens.css",
+    "./site-config": "./src/site-config.js",
+    "./i18n": "./src/i18n.js",
+    "./projects": "./src/data/projects.js",
+    "./components/*": "./src/components/*",
+    "./icons/*": "./src/icons/*"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  }
+}

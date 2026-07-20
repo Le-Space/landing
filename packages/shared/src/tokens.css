@@ -1,0 +1,103 @@
+/* Le-Space design tokens — Space theme */
+:root {
+  /* Brand */
+  --ls-red: #e63946;
+  --ls-red-bright: #ff5a5f;
+  --ls-accent: #4dd8ff;       /* p2p link color */
+  --ls-accent-2: #9d7bff;     /* relay / infra */
+  --ls-green: #3ddc97;        /* live / connected */
+  --ls-amber: #ffb74d;
+
+  /* Space background scale */
+  --ls-bg-0: #05070f;
+  --ls-bg-1: #0a0e1a;
+  --ls-bg-2: #111827;
+  --ls-bg-3: #1b2436;
+
+  /* Text */
+  --ls-text: #e8ecf4;
+  --ls-text-dim: #9aa5b8;
+  --ls-text-faint: #5c677a;
+
+  /* Surfaces */
+  --ls-card: rgba(255, 255, 255, 0.04);
+  --ls-card-border: rgba(255, 255, 255, 0.09);
+  --ls-card-hover: rgba(255, 255, 255, 0.08);
+
+  /* Typography */
+  --ls-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ls-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+
+  /* Layout */
+  --ls-max-width: 1120px;
+  --ls-radius: 14px;
+  --ls-radius-sm: 8px;
+
+  /* Effects */
+  --ls-glow-red: 0 0 24px rgba(230, 57, 70, 0.35);
+  --ls-glow-accent: 0 0 20px rgba(77, 216, 255, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--ls-bg-0);
+  color: var(--ls-text);
+  font-family: var(--ls-font);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: var(--ls-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.ls-container {
+  max-width: var(--ls-max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.ls-section {
+  padding: 96px 0;
+  position: relative;
+}
+
+.ls-section-title {
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  margin: 0 0 8px;
+}
+
+.ls-section-sub {
+  color: var(--ls-text-dim);
+  max-width: 640px;
+  margin: 0 0 48px;
+}
+
+.ls-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-family: var(--ls-font-mono);
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--ls-card-border);
+  color: var(--ls-text-dim);
+  white-space: nowrap;
+}

@@ -1,0 +1,18 @@
+{
+  "name": "le-space-landing",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev:local-first": "pnpm --filter @le-space/site-local-first dev",
+    "dev:le-space": "pnpm --filter @le-space/site-le-space dev",
+    "build": "pnpm -r build",
+    "build:local-first": "pnpm --filter @le-space/site-local-first build",
+    "build:le-space": "pnpm --filter @le-space/site-le-space build",
+    "preview:local-first": "pnpm --filter @le-space/site-local-first preview",
+    "preview:le-space": "pnpm --filter @le-space/site-le-space preview"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,91 @@
+name: Build & Deploy to Aleph IPFS
+
+permissions:
+  contents: read
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      domain_local_first:
+        description: 'Override domain for the local-first site (empty = local-first.le-space.de on main push)'
+        required: false
+        default: ''
+      domain_le_space:
+        description: 'Override domain for the le-space site (empty = le-space.de on main push)'
+        required: false
+        default: ''
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - site: local-first
+            package: '@le-space/site-local-first'
+            site_name: le-space-local-first
+            domain: local-first.le-space.de
+          - site: le-space
+            package: '@le-space/site-le-space'
+            site_name: le-space-landing
+            domain: le-space.de
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24.x'
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build ${{ matrix.site }}
+        run: pnpm --filter ${{ matrix.package }} build
+
+      - name: Install isolated Aleph deploy tooling
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: npm install --prefix /tmp/le-space-deployer @le-space/node@0.6.30
+
+      - name: Publish to Aleph IPFS
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        id: publish
+        env:
+          ALEPH_VM_MODE: site-publish
+          ALEPH_SITE_DIRECTORY: ${{ github.workspace }}/sites/${{ matrix.site }}/dist
+          ALEPH_SITE_PIN: 'true'
+          ALEPH_SITE_NAME: ${{ matrix.site_name }}
+          ALEPH_SITE_CHANNEL: ALEPH-CLOUDSOLUTIONS
+          ALEPH_PRIVATE_KEY: ${{ secrets.ALEPH_PRIVATE_KEY }}
+        run: |
+          for attempt in 1 2 3; do
+            if node --input-type=module -e "import('/tmp/le-space-deployer/node_modules/@le-space/node/index.js').then((m) => m.runSiteMode())"; then
+              exit 0
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              exit 1
+            fi
+            echo "Aleph publish attempt $attempt failed; retrying..."
+            sleep $((attempt * 15))
+          done
+
+      - name: Link custom domain
+        if: >-
+          (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+          (github.event_name == 'workflow_dispatch')
+        env:
+          ALEPH_VM_MODE: site-domain-link
+          ALEPH_SITE_ITEM_HASH: ${{ steps.publish.outputs.item_hash }}
+          ALEPH_SITE_IPFS_CID: ${{ steps.publish.outputs.ipfs_cid }}
+          ALEPH_SITE_IPFS_CID_V0: ${{ steps.publish.outputs.ipfs_cid_v0 }}
+          ALEPH_SITE_DOMAIN: ${{ matrix.site == 'local-first' && (inputs.domain_local_first || matrix.domain) || (inputs.domain_le_space || matrix.domain) }}
+          ALEPH_SITE_DOMAIN_CATCH_ALL_PATH: /index.html
+          ALEPH_PRIVATE_KEY: ${{ secrets.ALEPH_PRIVATE_KEY }}
+        run: node --input-type=module -e "import('/tmp/le-space-deployer/node_modules/@le-space/node/index.js').then((m) => m.runSiteMode())"

@@ -1,0 +1,29 @@
+{
+  "hero": {
+    "kicker": "Software you can keep",
+    "title": "Local-First Peer-to-Peer Software",
+    "subtitle": "No servers. No accounts. No passwords. Your data lives on your device, collaboration happens directly between browsers — relay infrastructure starts on demand and stops when you're done.",
+    "cta_projects": "Explore the stack",
+    "cta_github": "GitHub"
+  },
+  "stack": {
+    "title": "The Local-First Stack",
+    "sub": "Every layer works without a central service — and every layer is an open-source building block you can use on its own.",
+    "identity": { "name": "Identity", "desc": "WebAuthn / Passkeys / DIDs — your keys, your browser, no extensions" },
+    "data": { "name": "Data", "desc": "OrbitDB — your data on your device, replicated peer-to-peer" },
+    "sync": { "name": "Sync", "desc": "libp2p — direct browser-to-browser connections across NATs" },
+    "infra": { "name": "Infrastructure", "desc": "Relay Button — on-demand relays on decentralized compute, sponsorable by anyone" },
+    "archive": { "name": "Archive", "desc": "Storacha / Filecoin — durable backups that outlive devices" }
+  },
+  "projects": {
+    "title": "Projects",
+    "sub": "Working software, not slideware — each project is a building block of the stack with demo, source, and packages.",
+    "demo": "Live demo",
+    "source": "Source",
+    "all": "All layers"
+  },
+  "footer": {
+    "imprint": "Imprint",
+    "privacy": "Privacy"
+  }
+}
