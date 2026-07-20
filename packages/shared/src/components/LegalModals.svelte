@@ -13,6 +13,10 @@
     showPrivacy = false;
   };
 
+  const onOverlayClick = (e) => {
+    if (e.target === e.currentTarget) close();
+  };
+
   function onKeydown(e) {
     if (e.key === 'Escape') close();
   }
@@ -21,8 +25,8 @@
 <svelte:window onkeydown={onKeydown} />
 
 {#if showImprint || showPrivacy}
-  <div class="overlay" onclick={close} role="presentation">
-    <div class="modal" onclick={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
+  <div class="overlay" onclick={onOverlayClick} role="presentation">
+    <div class="modal" role="dialog" aria-modal="true" tabindex="-1">
       <header>
         <h3>
           {#if showImprint}

@@ -5,10 +5,11 @@
   let { project, dimmed = false } = $props();
 
   let showVideo = $state(false);
+  let imgFailed = $state(false);
 </script>
 
 <article class="card" class:dimmed>
-  <div class="media" style="--layer-color: {LAYERS[project.layers[0]].color}">
+  <div class="media" class:missing={imgFailed} style="--layer-color: {LAYERS[project.layers[0]].color}">
     {#if project.video && showVideo}
       <!-- svelte-ignore a11y_media_has_caption -->
       <video src={project.video} autoplay loop muted playsinline></video>
@@ -18,7 +19,7 @@
         alt="{project.name} screenshot"
         loading="lazy"
         onmouseenter={() => project.video && (showVideo = true)}
-        onerror={(e) => e.currentTarget.closest('.media').classList.add('missing')}
+        onerror={() => (imgFailed = true)}
       />
     {/if}
     <div class="placeholder" aria-hidden="true">{project.name}</div>

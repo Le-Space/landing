@@ -12,11 +12,10 @@
     <h2 class="ls-section-title">{$t('stack.title')}</h2>
     <p class="ls-section-sub">{$t('stack.sub')}</p>
 
-    <div class="layers" role="list">
+    <div class="layers">
       {#each order as id (id)}
         {@const layer = LAYERS[id]}
         <button
-          role="listitem"
           class="layer"
           class:active={activeLayer === id}
           style="--layer-color: {layer.color}"
