@@ -38,10 +38,7 @@ export const siteConfig = {
     register: 'HRB 25885',
     registerCourt: 'Amtsgericht Leipzig',
     vatId: 'DE270240660',
-    // Phone numbers as published on le-space.de (EN and DE imprint differ in source)
     phone: '+49 / 87 21 / 5 06 49 96',
-    fax: '+49 / 87 21 / 5 06 49 94',
-    phoneDe: '+498721-1289600-0',
-    faxDe: '+498721-1289600-9'
+    fax: '+49 / 87 21 / 5 06 49 94'
   }
 };

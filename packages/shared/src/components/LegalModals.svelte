@@ -42,7 +42,7 @@
             <p>Handelsregister: {siteConfig.legal.register}<br>Registergericht: {siteConfig.legal.registerCourt}</p>
             <p><strong>Vertreten durch:</strong><br>{siteConfig.legal.representative}</p>
             <h2>Kontakt</h2>
-            <p>Telefon: {siteConfig.legal.phoneDe}<br>Telefax: {siteConfig.legal.faxDe}<br>E-Mail: {siteConfig.email.info}</p>
+            <p>Telefon: {siteConfig.legal.phone}<br>Telefax: {siteConfig.legal.fax}<br>E-Mail: {siteConfig.email.info}</p>
             <h2>Umsatzsteuer-ID</h2>
             <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br>{siteConfig.legal.vatId}</p>
             <h2>Redaktionell verantwortlich</h2>

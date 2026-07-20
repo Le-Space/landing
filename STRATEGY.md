@@ -129,9 +129,8 @@ Workflow wie simple-todo (`@le-space/node`, `ALEPH_VM_MODE: site-publish`):
 - ucan-store: Upgrade auf upload-service 1.0 ist unabhängig, aber Karte vermerkt es.
 - ✅ Impressum/Datenschutz aus nico-krause-landing übernommen (`LegalModals.svelte`,
   DE/EN, Inhalte 1:1 aus dem Le-Space-Modus des Footers).
-- Hinweis: Die Telefonnummern im DE- und EN-Impressum der Quell-Site weichen
-  voneinander ab (+498721-1289600-0 vs. +49 / 87 21 / 5 06 49 96) — beide sind
-  in `site-config.js` hinterlegt, bitte prüfen, welche aktuell gilt.
+- ✅ Telefonnummer vereinheitlicht auf +49 / 87 21 / 5 06 49 96 (DE + EN,
+  bestätigt; die abweichende Nummer im DE-Impressum der Quell-Site war veraltet).
 
 ## 8. Analyse `convert-to-personal.js` (Modus-Umschaltung)
 
