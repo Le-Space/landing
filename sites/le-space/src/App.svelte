@@ -4,6 +4,10 @@
   import ParticlesBackground from '@le-space/landing-shared/components/ParticlesBackground.svelte';
   import LeSpaceLogo from '@le-space/landing-shared/components/LeSpaceLogo.svelte';
   import SocialIcons from '@le-space/landing-shared/components/SocialIcons.svelte';
+  import LegalModals from '@le-space/landing-shared/components/LegalModals.svelte';
+
+  let showImprint = $state(false);
+  let showPrivacy = $state(false);
 
   // Extend this list as more products go live
   const products = [
@@ -35,10 +39,12 @@
 
   <footer>
     <a href="mailto:{siteConfig.email.contact}">{siteConfig.email.contact}</a>
-    <a href={siteConfig.legal.imprintUrl}>Impressum</a>
-    <a href={siteConfig.legal.privacyUrl}>Datenschutz</a>
+    <button class="legal" onclick={() => (showImprint = true)}>Impressum</button>
+    <button class="legal" onclick={() => (showPrivacy = true)}>Datenschutz</button>
   </footer>
 </main>
+
+<LegalModals bind:showImprint bind:showPrivacy />
 
 <style>
   main {
@@ -121,5 +127,19 @@
 
   footer a {
     color: var(--ls-text-faint);
+  }
+
+  .legal {
+    background: none;
+    border: none;
+    color: var(--ls-text-faint);
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-family: var(--ls-font);
+    padding: 0;
+  }
+
+  .legal:hover {
+    color: var(--ls-text);
   }
 </style>

@@ -127,4 +127,26 @@ Workflow wie simple-todo (`@le-space/node`, `ALEPH_VM_MODE: site-publish`):
 - Screenshots/Videos je Projekt sammeln (Platzhalter sind im Skeleton vorgesehen).
 - Entscheidung `www.le-space.de`: Redirect oder eigener Domain-Link.
 - ucan-store: Upgrade auf upload-service 1.0 ist unabhängig, aber Karte vermerkt es.
-- Impressum/Datenschutz-Texte aus der bestehenden Site übernehmen (Footer vorhanden).
+- ✅ Impressum/Datenschutz aus nico-krause-landing übernommen (`LegalModals.svelte`,
+  DE/EN, Inhalte 1:1 aus dem Le-Space-Modus des Footers).
+- Hinweis: Die Telefonnummern im DE- und EN-Impressum der Quell-Site weichen
+  voneinander ab (+498721-1289600-0 vs. +49 / 87 21 / 5 06 49 96) — beide sind
+  in `site-config.js` hinterlegt, bitte prüfen, welche aktuell gilt.
+
+## 8. Analyse `convert-to-personal.js` (Modus-Umschaltung)
+
+Das Script der alten Site ist ein Zwei-Wege-Regex-Konverter (~90 Ersetzungsregeln
+vorwärts, ~70 rückwärts) über genau 6 Dateien: `index.html`, `src/locales/en.json`,
+`src/locales/de.json`, `public/favicon.svg`, `package.json`,
+`src/components/SocialIcons.svelte`. Mechanik: lange „About"-Volltexte werden zuerst
+komplett ersetzt, dann Marken-/Pronomen-/Domain-Regeln (mit Platzhalter-Tricks gegen
+Doppel-Ersetzungen wie „Nico Krause Nico Krause"), zuletzt Fix-up-Regeln. Zusätzlich
+gibt es Laufzeit-Erkennung im Footer (`package.json`-Name oder Hostname enthält
+„nico" → Impressum ausblenden).
+
+Konsequenz für das neue Repo: Diese Fragilität entfällt — Branding und
+Modus-Unterschiede sind Daten (`site-config.js`), nicht Textersetzungen. Die aus dem
+Script extrahierten Le-Space-Werte: X `@le_space_beta`, Telegram `t.me/lfp2p`,
+GitHub `github.com/le-space`, kein LinkedIn, OG-Image `og-le-image.png`,
+Favicon-Text „LS", E-Mail `kontakt@`/`contact@le-space.de`. Bluesky und Discord
+(`seidenwege`) sind in beiden Modi identisch.
