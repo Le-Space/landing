@@ -46,13 +46,14 @@
     {/if}
 
     <footer>
-      {#if project.demo}
+      {#if project.demos}
+        {#each project.demos as d (d.url)}
+          <a class="link demo" href={d.url} target="_blank" rel="noopener noreferrer">▶ {d.label}</a>
+        {/each}
+      {:else if project.demo}
         <a class="link demo" href={project.demo} target="_blank" rel="noopener noreferrer">▶ {$t('projects.demo')}</a>
       {/if}
       <a class="link" href={project.github} target="_blank" rel="noopener noreferrer">{$t('projects.source')}</a>
-      {#if project.npm}
-        <a class="link npm" href="https://www.npmjs.com/package/{project.npm}" target="_blank" rel="noopener noreferrer">npm</a>
-      {/if}
     </footer>
   </div>
 </article>
@@ -134,6 +135,7 @@
   .status-stable { color: var(--ls-green); border-color: var(--ls-green); }
   .status-beta { color: var(--ls-amber); border-color: var(--ls-amber); }
   .status-prototype { color: var(--ls-text-dim); }
+  .status-tutorial { color: var(--ls-accent-2); border-color: var(--ls-accent-2); }
 
   .layers {
     display: flex;
@@ -167,7 +169,4 @@
     font-weight: 600;
   }
 
-  .link.npm {
-    color: var(--ls-red-bright);
-  }
 </style>

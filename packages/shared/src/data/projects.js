@@ -35,16 +35,19 @@ export const projects = [
     id: 'simple-todo',
     name: 'Simple Todo',
     layers: ['identity', 'data', 'sync'],
-    status: 'stable',
+    status: 'tutorial',
     featured: true,
     github: 'https://github.com/NiKrause/simple-todo',
-    demo: 'https://simple-todo.le-space.de',
+    demos: [
+      { url: 'https://simple-todo.le-space.de', label: 'simple-todo' },
+      { url: 'https://collab01.le-space.de', label: 'collab01' }
+    ],
     npm: null,
     screenshot: '/media/simple-todo.png',
     video: null,
     tagline: {
-      en: 'A fully local-first P2P todo PWA: WebAuthn identity, OrbitDB data, browser-to-browser sync. No server, no accounts, no passwords.',
-      de: 'Vollständig local-first P2P-Todo-PWA: WebAuthn-Identität, OrbitDB-Daten, Browser-zu-Browser-Sync. Kein Server, keine Accounts, keine Passwörter.'
+      en: 'Tutorial for local-first P2P PWAs: WebAuthn/Passkey identity, OrbitDB data, browser-to-browser sync. No server, no accounts, no passwords.',
+      de: 'Tutorial für local-first P2P-PWAs: WebAuthn/Passkey-Identität, OrbitDB-Daten, Browser-zu-Browser-Sync. Kein Server, keine Accounts, keine Passwörter.'
     }
   },
   {
@@ -54,7 +57,7 @@ export const projects = [
     status: 'stable',
     featured: true,
     github: 'https://github.com/NiKrause/universal-connectivity',
-    demo: null, // TODO add demo URL
+    demo: 'https://connect.nicokrause.com',
     npm: null,
     screenshot: '/media/uc-chat.png',
     video: null,
@@ -70,14 +73,14 @@ export const projects = [
     status: 'beta',
     featured: true,
     github: 'https://github.com/NomadKids/ucan-store',
-    demo: null, // TODO IPFS demo URL
+    demo: 'https://ucan.nicokrause.com',
     npm: null,
     screenshot: '/media/ucan-store.png',
     video: null,
     note: { en: 'Storacha upload-service fork — 1.0 upgrade planned', de: 'Storacha-Upload-Service-Fork — Upgrade auf 1.0 geplant' },
     tagline: {
-      en: 'Browser-only storage with WebAuthn DIDs and UCAN delegations — upload to Filecoin without accounts or passwords.',
-      de: 'Browser-only Storage mit WebAuthn-DIDs und UCAN-Delegationen — Upload nach Filecoin ohne Accounts oder Passwörter.'
+      en: 'Browser-based storage with WebAuthn/Passkey DIDs and UCAN delegations — upload to Filecoin (planned) without accounts or passwords.',
+      de: 'Browser basierter Storage mit WebAuthn/Passkey-DIDs und UCAN-Delegationen — Upload nach Filecoin (geplant) ohne Accounts oder Passwörter.'
     }
   },
   {
