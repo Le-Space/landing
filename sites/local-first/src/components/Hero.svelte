@@ -1,7 +1,7 @@
 <script>
   import { t } from '@le-space/landing-shared/i18n';
   import LeSpaceLogo from '@le-space/landing-shared/components/LeSpaceLogo.svelte';
-  import NetworkViz from './NetworkViz.svelte';
+  import NetworkViz from '@le-space/landing-shared/components/NetworkViz.svelte';
 </script>
 
 <section class="hero">
@@ -18,7 +18,7 @@
       <a class="btn" href="https://github.com/le-space" target="_blank" rel="noopener noreferrer">{$t('hero.cta_github')}</a>
     </div>
   </div>
-  <NetworkViz />
+  <NetworkViz live />
 </section>
 
 <style>

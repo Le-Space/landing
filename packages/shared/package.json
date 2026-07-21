@@ -9,9 +9,27 @@
     "./i18n": "./src/i18n.js",
     "./projects": "./src/data/projects.js",
     "./components/*": "./src/components/*",
-    "./icons/*": "./src/icons/*"
+    "./icons/*": "./src/icons/*",
+    "./lib/*": "./src/lib/*"
   },
   "peerDependencies": {
     "svelte": "^5.0.0"
+  },
+  "dependencies": {
+    "@chainsafe/libp2p-noise": "^17.0.0",
+    "@chainsafe/libp2p-yamux": "^8.0.1",
+    "@le-space/aleph-bootstrap": "0.6.34",
+    "@libp2p/autonat": "^3.0.24",
+    "@libp2p/bootstrap": "^12.0.27",
+    "@libp2p/circuit-relay-v2": "^4.2.9",
+    "@libp2p/dcutr": "^3.0.24",
+    "@libp2p/gossipsub": "^16.0.5",
+    "@libp2p/identify": "^4.1.10",
+    "@libp2p/ping": "^3.1.9",
+    "@libp2p/pubsub-peer-discovery": "^12.0.0",
+    "@libp2p/webrtc": "^6.0.27",
+    "@libp2p/websockets": "^10.1.17",
+    "@multiformats/multiaddr": "^13.0.3",
+    "libp2p": "^3.3.6"
   }
 }
