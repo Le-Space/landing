@@ -23,6 +23,8 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     strategy:
+      # Don't cancel a healthy site's deploy because the other site failed.
+      fail-fast: false
       matrix:
         include:
           - site: local-first
@@ -77,9 +79,12 @@ jobs:
           done
 
       - name: Link custom domain
+        # Only link a domain to a CID that was actually published this run.
         if: >-
-          (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
-          (github.event_name == 'workflow_dispatch')
+          steps.publish.outcome == 'success' &&
+          steps.publish.outputs.item_hash != '' &&
+          ((github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+           (github.event_name == 'workflow_dispatch'))
         env:
           ALEPH_VM_MODE: site-domain-link
           ALEPH_SITE_ITEM_HASH: ${{ steps.publish.outputs.item_hash }}
