@@ -2,7 +2,7 @@
   "hero": {
     "kicker": "Software, die dir gehört",
     "title": "Local-First Peer-to-Peer Software",
-    "subtitle": "Keine Server. Keine Accounts. Keine Passwörter. Deine Daten bleiben auf deinem Gerät, Zusammenarbeit passiert direkt zwischen Browsern — Relay-Infrastruktur startet auf Knopfdruck und stoppt, wenn du fertig bist.",
+    "subtitle": "Keine Server. Keine Accounts. Keine Passwörter. Deine Daten bleiben auf deinem Gerät, Zusammenarbeit passiert direkt zwischen Geräten — Relay-Infrastruktur startet auf Knopfdruck und stoppt, wenn du fertig bist. Datenarchivierung auf dezentralem Storage.",
     "cta_projects": "Stack erkunden",
     "cta_github": "GitHub"
   },
@@ -17,7 +17,7 @@
   },
   "projects": {
     "title": "Projekte",
-    "sub": "Funktionierende Software statt Folien — jedes Projekt ist ein Baustein des Stacks mit Demo, Quellcode und Paketen.",
+    "sub": "Demos und Prototypen statt Folien — jedes Projekt ist ein Baustein des Stacks mit Demo, Quellcode und Paketen.",
     "demo": "Live-Demo",
     "source": "Quellcode",
     "all": "Alle Schichten"

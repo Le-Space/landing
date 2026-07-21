@@ -9,13 +9,13 @@ import { writable, derived, get } from 'svelte/store';
 
 const dictionaries = {};
 
-export const locale = writable('en');
+export const locale = writable('de');
 
 export function initI18n(dicts, initial) {
   Object.assign(dictionaries, dicts);
   const saved = typeof localStorage !== 'undefined' ? localStorage.getItem('ls-locale') : null;
-  const browser = typeof navigator !== 'undefined' && navigator.language?.startsWith('de') ? 'de' : 'en';
-  locale.set(initial || saved || browser);
+  // Default to German for every visitor; a saved choice (via the switcher) always wins.
+  locale.set(initial || saved || 'de');
   locale.subscribe((l) => {
     try { localStorage.setItem('ls-locale', l); } catch { /* private mode */ }
   });
