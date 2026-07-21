@@ -10,7 +10,7 @@ Lebendes Dokument. Status + offene Punkte. Details zur Gesamtstrategie in `STRAT
 | Org-Secret `ALEPH_PRIVATE_KEY` | ✅ gesetzt (Wallet `0x0E69…888f`) |
 | **le-space.de** (Minimal) | ✅ live |
 | **local-first.le-space.de** (Portfolio) | ✅ live, mit Live-NetworkViz (libp2p) |
-| **www.le-space.de** | ❌ kaputt (HTTP 000, hängt am alten Server) |
+| **www.le-space.de** | ✅ 301 → le-space.de (Cloudflare-Redirect) |
 
 ## ✅ Erledigt (diese Session)
 
@@ -30,14 +30,14 @@ Lebendes Dokument. Status + offene Punkte. Details zur Gesamtstrategie in `STRAT
 
 ## Sofort / offen
 
-- [ ] **www.le-space.de fixen** — Cloudflare Redirect-Rule `www → https://le-space.de` (301), oder eigene 3 Aleph-Records.
+- [x] **www.le-space.de** — 301-Redirect → le-space.de (Cloudflare, erledigt 2026-07-21).
 - [ ] **GITHUB_PAT_LE_SPACE widerrufen** — Push erledigt, Token noch gültig (Developer settings → Fine-grained tokens).
 - [ ] **Cloudflare-Token rotieren** — der im Chat eingefügte `cfat_…`-Token sollte gelöscht/neu erstellt werden.
 
 ## NetworkViz — nächste Ausbaustufen
 
-- [ ] **pubsub-Topics als Linien** zwischen Nodes zeichnen (neues Feature) — Peers, die dieselben
-  Topics teilen, mit Verbindungslinien darstellen; Core müsste Topic-Zugehörigkeit mitliefern.
+- [x] **pubsub-Topics als Linien** — erledigt: farbcodiertes Topic-Web (chat/sync/identity …),
+  synthetisch immer sichtbar + echte Live-Topics via `peer:topics`.
 - [ ] **libp2p on-demand starten** (niedrigere Prio) — statt sofort: erst bei Hover/Touch auf die
   Grafik einen Button „Live-View aktivieren" zeigen, der dann libp2p startet. Abwägung: sofortiges
   Erscheinen der Live-Nodes ist auch cool → später entscheiden. (`live`-Prop ist schon parametrierbar.)
