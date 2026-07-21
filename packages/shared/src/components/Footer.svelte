@@ -1,6 +1,6 @@
 <script>
   import { siteConfig } from '../site-config.js';
-  import { t, toggleLocale, locale } from '../i18n.js';
+  import { t, locale } from '../i18n.js';
   import SocialIcons from './SocialIcons.svelte';
   import LegalModals from './LegalModals.svelte';
 
@@ -25,7 +25,6 @@
       <div class="links">
         <button class="legal" onclick={() => (showImprint = true)}>{$t('footer.imprint', 'Impressum')}</button>
         <button class="legal" onclick={() => (showPrivacy = true)}>{$t('footer.privacy', 'Datenschutz')}</button>
-        <button class="lang" onclick={toggleLocale}>{$locale === 'en' ? 'DE' : 'EN'}</button>
       </div>
     </div>
   </div>
@@ -94,17 +93,4 @@
     font-size: 0.85rem;
   }
 
-  .lang {
-    background: none;
-    border: 1px solid var(--ls-card-border);
-    color: var(--ls-text-dim);
-    border-radius: 6px;
-    padding: 2px 8px;
-    cursor: pointer;
-    font-family: var(--ls-font-mono);
-  }
-
-  .lang:hover {
-    color: var(--ls-text);
-  }
 </style>

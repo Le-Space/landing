@@ -2,6 +2,7 @@
   import { t } from '@le-space/landing-shared/i18n';
   import { siteConfig } from '@le-space/landing-shared/site-config';
   import ParticlesBackground from '@le-space/landing-shared/components/ParticlesBackground.svelte';
+  import LanguageSwitcher from '@le-space/landing-shared/components/LanguageSwitcher.svelte';
   import LeSpaceLogo from '@le-space/landing-shared/components/LeSpaceLogo.svelte';
   import SocialIcons from '@le-space/landing-shared/components/SocialIcons.svelte';
   import LegalModals from '@le-space/landing-shared/components/LegalModals.svelte';
@@ -16,6 +17,7 @@
 </script>
 
 <ParticlesBackground density={130} />
+<LanguageSwitcher />
 
 <main>
   <div class="center">
