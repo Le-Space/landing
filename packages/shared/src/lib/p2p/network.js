@@ -114,6 +114,20 @@ export function createP2PNetwork(opts = {}) {
         emit('peer:remove', { id: evt.detail.toString() });
       });
 
+      // gossipsub subscription changes → which topics each peer shares
+      try {
+        node.services.pubsub?.addEventListener('subscription-change', (evt) => {
+          const id = evt.detail?.peerId?.toString?.();
+          const subs = evt.detail?.subscriptions || [];
+          if (id) {
+            emit('peer:topics', {
+              id,
+              subscriptions: subs.map((s) => ({ topic: s.topic, subscribe: !!s.subscribe }))
+            });
+          }
+        });
+      } catch { /* pubsub may be unavailable */ }
+
       emit('status', 'started');
     } catch (err) {
       emit('error', err);

@@ -39,6 +39,25 @@
     'webauthn-did'
   ];
 
+  // Illustrative topics per synthetic peer → a colourful "topic web".
+  // Real live peers contribute their actual gossipsub topics on top of this.
+  const PEER_TOPICS = {
+    'uc-go-peer': ['chat', 'sync'],
+    'uc-rust-peer': ['chat', 'sync'],
+    'simple-todo': ['todos', 'sync'],
+    'ucan-store': ['storage', 'identity'],
+    'orbit-blog': ['blog', 'sync'],
+    'p2pass': ['identity'],
+    'webauthn-did': ['identity']
+  };
+  const TOPIC_COLORS = ['#4dd8ff', '#9d7bff', '#3ddc97', '#ffb454', '#ff6ac1', '#35d0ba'];
+  // Fixed, clearly-distinct colours for the illustrative topics (avoid the
+  // relay purple / peer cyan). Unknown live topics fall back to the palette.
+  const TOPIC_COLOR_MAP = {
+    chat: '#ff6ac1', sync: '#ffb454', identity: '#35d0ba',
+    todos: '#4dd8ff', storage: '#9d7bff', blog: '#3ddc97'
+  };
+
   onMount(() => {
     const ctx = canvas.getContext('2d');
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -54,6 +73,15 @@
       text: css('--ls-text-dim') || '#9aa5b8',
       tipText: css('--ls-text') || '#e8ecf4',
       tipBg: css('--ls-bg-2') || '#111827'
+    };
+
+    const topicColorCache = {};
+    const topicColor = (topic) => {
+      if (TOPIC_COLOR_MAP[topic]) return TOPIC_COLOR_MAP[topic];
+      if (topicColorCache[topic]) return topicColorCache[topic];
+      let hash = 0;
+      for (let i = 0; i < topic.length; i++) hash = (hash * 31 + topic.charCodeAt(i)) | 0;
+      return (topicColorCache[topic] = TOPIC_COLORS[Math.abs(hash) % TOPIC_COLORS.length]);
     };
 
     let relays = [];
@@ -106,6 +134,7 @@
           kind: 'peer',
           name: PEER_NAMES[i % PEER_NAMES.length]
         };
+        p.topics = new Set(PEER_TOPICS[p.name] || []);
         p.relay = relays.reduce((best, rel) => (dist(p, rel) < dist(p, best) ? rel : best), relays[0]);
         return p;
       });
@@ -140,6 +169,7 @@
         phase: Math.random() * Math.PI * 2,
         kind: 'live',
         name: `${id.slice(0, 4)}…${id.slice(-4)}`,
+        topics: new Set(),
         relay: relays.reduce((best, rel) => (dist(pos, rel) < dist(pos, best) ? rel : best), relays[0])
       });
     }
@@ -155,6 +185,14 @@
         const net = createP2PNetwork({ bootstrap, topics, webrtc });
         net.on('peer:add', (p) => addLivePeer(p.id));
         net.on('peer:remove', (p) => removeLivePeer(p.id));
+        net.on('peer:topics', ({ id, subscriptions }) => {
+          const lp = livePeers.find((p) => p.id === id);
+          if (!lp) return;
+          for (const s of subscriptions) {
+            if (s.subscribe) lp.topics.add(s.topic);
+            else lp.topics.delete(s.topic);
+          }
+        });
         net.on('status', (s) => {
           if (s === 'started') liveStatus = 'live';
           else if (s === 'error' || s === 'no-bootstrap') liveStatus = 'error';
@@ -180,6 +218,43 @@
       ctx.stroke();
       ctx.globalAlpha = 1;
       ctx.setLineDash([]);
+    }
+
+    // Curved, colour-per-topic lines between any two nodes that share a topic.
+    function drawTopicLines(t) {
+      const all = [...peers, ...livePeers];
+      for (let i = 0; i < all.length; i++) {
+        for (let j = i + 1; j < all.length; j++) {
+          const a = all[i];
+          const b = all[j];
+          if (!a.topics || !b.topics || !a.topics.size || !b.topics.size) continue;
+          const ea = a.alpha ?? 1;
+          const eb = b.alpha ?? 1;
+          if (ea < 0.05 || eb < 0.05) continue;
+          let k = 0;
+          for (const topic of a.topics) {
+            if (!b.topics.has(topic)) continue;
+            const dx = b.x - a.x;
+            const dy = b.y - a.y;
+            const len = Math.hypot(dx, dy) || 1;
+            const nx = -dy / len;
+            const ny = dx / len;
+            const off = ((k % 3) - 1) * 22;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.quadraticCurveTo((a.x + b.x) / 2 + nx * off, (a.y + b.y) / 2 + ny * off, b.x, b.y);
+            ctx.strokeStyle = topicColor(topic);
+            ctx.globalAlpha = 0.3 * Math.min(ea, eb);
+            ctx.lineWidth = 1.4;
+            ctx.setLineDash([5, 7]);
+            ctx.lineDashOffset = -((t / 55) % 12);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.globalAlpha = 1;
+            k++;
+          }
+        }
+      }
     }
 
     function node(p, color, t, isRelay = false, baseAlpha = 1) {
@@ -286,6 +361,9 @@
 
       // live peer links (fade with the node)
       for (const lp of livePeers) line(lp, lp.relay, COLORS.live, 0.35 * lp.alpha, [2, 3]);
+
+      // pubsub topic web (shared topics between nodes)
+      drawTopicLines(t);
 
       // packets
       for (const pk of packets) {
