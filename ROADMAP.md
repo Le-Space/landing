@@ -51,7 +51,7 @@ Lebendes Dokument. Status + offene Punkte. Details zur Gesamtstrategie in `STRAT
 
 ## Website-Inhalte: FAQ & Roadmap (hohe Prio, muss)
 
-- [ ] **FAQ-Sektion auf local-first.le-space.de** (DE/EN, eigene Sektion oder ausklappbare
+- [x] **FAQ-Sektion auf local-first.le-space.de** — implementiert (faq.js + FaqSection.svelte, 9 Fragen DE/EN; Build-Verifikation via CI/lokal ausstehend) (DE/EN, eigene Sektion oder ausklappbare
   Accordion-Karten). Muss-Themen:
   - **Was heißt „local-first"?** — die 7 Ideale nach Ink & Switch
     ([Kleppmann et al.](https://www.inkandswitch.com/local-first/)):

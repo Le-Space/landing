@@ -8,6 +8,7 @@
     "./site-config": "./src/site-config.js",
     "./i18n": "./src/i18n.js",
     "./projects": "./src/data/projects.js",
+    "./faq": "./src/data/faq.js",
     "./components/*": "./src/components/*",
     "./icons/*": "./src/icons/*",
     "./lib/*": "./src/lib/*"

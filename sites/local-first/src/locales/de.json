@@ -37,6 +37,10 @@
     "source": "Quellcode",
     "all": "Alle Schichten"
   },
+  "faq": {
+    "title": "FAQ",
+    "sub": "Häufige Fragen zu Local-First, Verschlüsselung, Metadaten und Infrastruktur — ehrlich beantwortet, inklusive dessen, was noch nicht fertig ist."
+  },
   "footer": {
     "imprint": "Impressum",
     "privacy": "Datenschutz"

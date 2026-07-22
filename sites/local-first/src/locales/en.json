@@ -37,6 +37,10 @@
     "source": "Source",
     "all": "All layers"
   },
+  "faq": {
+    "title": "FAQ",
+    "sub": "Common questions about local-first, encryption, metadata and infrastructure — answered honestly, including what isn't finished yet."
+  },
   "footer": {
     "imprint": "Imprint",
     "privacy": "Privacy"
