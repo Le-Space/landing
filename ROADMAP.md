@@ -49,6 +49,30 @@ Lebendes Dokument. Status + offene Punkte. Details zur Gesamtstrategie in `STRAT
 - [ ] Restliche Demo-Links: `uc-chat`, `ucan-store`, `simple-todo` (IPFS-Mirrors liefern aktuell 504 — nicht verlinkbar); ggf. eigene Mirrors/Screens.
 - [ ] Texte DE/EN feinschleifen.
 
+## Website-Inhalte: FAQ & Roadmap (hohe Prio, muss)
+
+- [ ] **FAQ-Sektion auf local-first.le-space.de** (DE/EN, eigene Sektion oder ausklappbare
+  Accordion-Karten). Muss-Themen:
+  - **OrbitDB & Verschlüsselung** — was ist heute verschlüsselt (Transport via libp2p/noise),
+    was nicht (Oplog-Einträge at rest auf Relays/Pinning), was ist geplant
+    (Payload-Verschlüsselung, WebAuthn-PRF-basierte Keys, encrypted backups via
+    storacha-bridge-Roadmap).
+  - **Metadaten** — welche Metadaten fallen an (PeerIDs, DB-Adressen, Topics, IPs gegenüber
+    Relays), wer kann sie sehen, wie minimieren wir sie (eigene Relays, kurze Relay-Laufzeiten).
+  - **Aleph-Bindung / Provider-Unabhängigkeit** — sind wir fest an Aleph gebunden? Antwort:
+    Aleph ist das erste Deployment-Target, nicht das einzige. Akash läuft als Prototyp
+    (akash-deploy-pwa), ucan-store zielt zusätzlich auf Fly.io (zentralisiert);
+    die Abstraktion des Deployment-Layers ist Kernbestandteil der STF-Phase-1-Arbeit
+    (`@le-space/core` v2, plattform-agnostischer Provider-Interface).
+  - Weitere Kandidaten: Was heißt local-first konkret? Was passiert, wenn alle Peers offline
+    sind? Wem „gehört" die Datenbank (Access Controller)? Wie unterscheidet sich das von
+    Blockchain? Kosten eines Relays?
+- [ ] **Roadmap-Sektion auf local-first.le-space.de** (öffentliche Produkt-Roadmap, DE/EN) —
+  speist sich aus dieser Datei + STRATEGY.md-Meilensteinen; zeigt Stack-Reifegrad je Schicht
+  (Identity/Data/Sync/Infra/Archive) und die geplanten Schritte (Multi-Provider, UCAN 1.0,
+  Live-Widget, Multi-Device-Recovery). Datengetrieben wie `projects.js`
+  (z. B. `packages/shared/src/data/roadmap.js`), damit Proposals und Website synchron bleiben.
+
 ## M3 — Launch-Politur
 
 - [ ] Lighthouse-Check (Performance/A11y/SEO).
