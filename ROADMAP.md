@@ -56,7 +56,14 @@ Lebendes Dokument. Status + offene Punkte. Details zur Gesamtstrategie in `STRAT
   - **OrbitDB & Verschlüsselung** — was ist heute verschlüsselt (Transport via libp2p/noise),
     was nicht (Oplog-Einträge at rest auf Relays/Pinning), was ist geplant
     (Payload-Verschlüsselung, WebAuthn-PRF-basierte Keys, encrypted backups via
-    storacha-bridge-Roadmap).
+    storacha-bridge-Roadmap). Konkrete Bausteine:
+    - [orbitdb/simple-encryption](https://github.com/orbitdb/simple-encryption) —
+      offizielles OrbitDB-Modul für Payload-Verschlüsselung (Einträge verschlüsselt,
+      Replikation bleibt möglich) → Basis für die FAQ-Antwort „geht heute schon".
+    - [NiKrause/de2do](https://github.com/NiKrause/de2do) — unser Prototyp mit
+      **WebAuthn-PRF-Key-Verschlüsselung** (Schlüssel aus Passkey-PRF abgeleitet,
+      derzeit broken) → reparieren und als Referenz-Demo für PRF-verschlüsselte
+      OrbitDB-Payloads wiederbeleben; Kandidat für Portfolio-Karte + NLnet-Material.
   - **Metadaten** — welche Metadaten fallen an (PeerIDs, DB-Adressen, Topics, IPs gegenüber
     Relays), wer kann sie sehen, wie minimieren wir sie (eigene Relays, kurze Relay-Laufzeiten).
   - **Aleph-Bindung / Provider-Unabhängigkeit** — sind wir fest an Aleph gebunden? Antwort:
