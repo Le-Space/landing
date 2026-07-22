@@ -77,7 +77,7 @@ export const projects = [
     npm: null,
     screenshot: '/media/ucan-store.png',
     video: null,
-    note: { en: 'Storacha upload-service fork — 1.0 upgrade planned', de: 'Storacha-Upload-Service-Fork — Upgrade auf 1.0 geplant' },
+    note: { en: 'Storacha upload-service fork — UCAN 1.0 upgrade planned', de: 'Storacha-Upload-Service-Fork — Upgrade auf UCAN 1.0 geplant' },
     tagline: {
       en: 'Browser-based storage with WebAuthn/Passkey DIDs and UCAN delegations — upload to Filecoin (planned) without accounts or passwords.',
       de: 'Browser basierter Storage mit WebAuthn/Passkey-DIDs und UCAN-Delegationen — Upload nach Filecoin (geplant) ohne Accounts oder Passwörter.'
