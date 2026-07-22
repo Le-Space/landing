@@ -1,6 +1,6 @@
 {
   "hero": {
-    "kicker": "Software you can keep",
+    "kicker": "Data and software you own.",
     "title": "The Local-First Peer-to-Peer Software Stack",
     "subtitle": "No servers. No accounts. No passwords. Your data lives on your device, collaboration happens directly between devices — relay infrastructure starts on demand and stops when you're done. Data archiving on decentralized storage.",
     "cta_projects": "Explore the stack",
@@ -9,11 +9,26 @@
   "stack": {
     "title": "The Local-First Stack",
     "sub": "Every layer works without a central service — and every layer is an open-source building block you can use on its own.",
-    "identity": { "name": "Identity", "desc": "WebAuthn / Passkeys / DIDs — your keys, your browser, no extensions" },
-    "data": { "name": "Data", "desc": "OrbitDB — your data on your device, replicated peer-to-peer" },
-    "sync": { "name": "Sync", "desc": "libp2p — direct browser-to-browser connections across NATs" },
-    "infra": { "name": "Infrastructure", "desc": "Relay Button — on-demand relays on decentralized compute, sponsorable by anyone" },
-    "archive": { "name": "Archive", "desc": "Storacha / Filecoin — durable backups that outlive devices" }
+    "identity": {
+      "name": "Identity",
+      "desc": "WebAuthn / Passkeys / DIDs — your keys, your browser, no extensions"
+    },
+    "data": {
+      "name": "Data",
+      "desc": "OrbitDB — your data on your device, replicated peer-to-peer"
+    },
+    "sync": {
+      "name": "Sync",
+      "desc": "libp2p — direct browser-to-browser connections across NATs"
+    },
+    "infra": {
+      "name": "Infrastructure",
+      "desc": "Relay Button — on-demand relays on decentralized compute, sponsorable by anyone"
+    },
+    "archive": {
+      "name": "Archive",
+      "desc": "Storacha / Filecoin — durable backups that outlive devices"
+    }
   },
   "projects": {
     "title": "Projects",
