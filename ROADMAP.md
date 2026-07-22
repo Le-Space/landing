@@ -53,6 +53,21 @@ Lebendes Dokument. Status + offene Punkte. Details zur Gesamtstrategie in `STRAT
 
 - [ ] **FAQ-Sektion auf local-first.le-space.de** (DE/EN, eigene Sektion oder ausklappbare
   Accordion-Karten). Muss-Themen:
+  - **Was heißt „local-first"?** — die 7 Ideale nach Ink & Switch
+    ([Kleppmann et al.](https://www.inkandswitch.com/local-first/)):
+    1. No spinners — schnell, weil mit lokalen Daten gearbeitet wird
+    2. Multi-device — nahtloser Sync über alle Geräte
+    3. Offline — voller Lese-/Schreibzugriff ohne Internet
+    4. Collaboration — Echtzeit-Zusammenarbeit mehrerer Nutzer
+    5. Longevity — Daten über Jahrzehnte nutzbar, überleben jeden Server
+    6. Privacy — verschlüsselte Daten, für Service-Provider nicht lesbar
+    7. User control — volle Datenhoheit: kopieren, ändern, löschen
+  - **Was heißt bei uns „local-first *peer-to-peer*"?** — wir gehen einen Schritt weiter:
+    Es gibt keinen Hosting-Server. Die App selbst ist ein statisches JS/HTML-Bundle,
+    als PWA auf IPFS publiziert — sie startet auf jedem Desktop- oder Mobilgerät
+    auch ganz ohne Server (IPFS-Gateway, Download oder USB-Stick). Sync läuft
+    Browser-zu-Browser über libp2p; Relays sind optionale, austauschbare
+    Infrastruktur auf Knopfdruck — nicht das Backend der App.
   - **OrbitDB & Verschlüsselung** — was ist heute verschlüsselt (Transport via libp2p/noise),
     was nicht (Oplog-Einträge at rest auf Relays/Pinning), was ist geplant
     (Payload-Verschlüsselung, WebAuthn-PRF-basierte Keys, encrypted backups via
@@ -71,7 +86,7 @@ Lebendes Dokument. Status + offene Punkte. Details zur Gesamtstrategie in `STRAT
     (akash-deploy-pwa), ucan-store zielt zusätzlich auf Fly.io (zentralisiert);
     die Abstraktion des Deployment-Layers ist Kernbestandteil der STF-Phase-1-Arbeit
     (`@le-space/core` v2, plattform-agnostischer Provider-Interface).
-  - Weitere Kandidaten: Was heißt local-first konkret? Was passiert, wenn alle Peers offline
+  - Weitere Kandidaten: Was passiert, wenn alle Peers offline
     sind? Wem „gehört" die Datenbank (Access Controller)? Wie unterscheidet sich das von
     Blockchain? Kosten eines Relays?
 - [ ] **Roadmap-Sektion auf local-first.le-space.de** (öffentliche Produkt-Roadmap, DE/EN) —
