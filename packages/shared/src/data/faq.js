@@ -83,10 +83,25 @@ export const faq = [
       de: 'Seid ihr fest an Aleph Cloud gebunden?'
     },
     a: {
-      en: `<p>No. Aleph Cloud is our <strong>first</strong> deployment target, not the only one. <a href="https://github.com/NiKrause/akash-deploy-pwa" target="_blank" rel="noopener noreferrer">akash-deploy-pwa</a> already runs relay-button-style deployments on Akash Network, and <a href="https://github.com/NomadKids/ucan-store" target="_blank" rel="noopener noreferrer">ucan-store</a> additionally targets Fly.io — a deliberately centralized option, because provider independence includes the freedom to choose centralized hosting.</p>
+      en: `<p>No. Aleph Cloud is our <strong>first</strong> deployment target, not the only one. <a href="https://github.com/NiKrause/akash-deploy-pwa" target="_blank" rel="noopener noreferrer">akash-deploy-pwa</a> already runs relay-button-style deployments on Akash Network, and support for further providers is planned — decentralized as well as deliberately centralized ones, because provider independence includes the freedom to choose centralized hosting.</p>
 <p>Making the deployment layer fully platform-agnostic (an abstract provider interface in <code>@le-space/core</code>) is a core work package of our funding roadmap. The principle: the app never depends on a specific provider — infrastructure is replaceable.</p>`,
-      de: `<p>Nein. Aleph Cloud ist unser <strong>erstes</strong> Deployment-Target, nicht das einzige. <a href="https://github.com/NiKrause/akash-deploy-pwa" target="_blank" rel="noopener noreferrer">akash-deploy-pwa</a> macht Relay-Button-artige Deployments bereits auf dem Akash Network, und <a href="https://github.com/NomadKids/ucan-store" target="_blank" rel="noopener noreferrer">ucan-store</a> zielt zusätzlich auf Fly.io — bewusst auch eine zentralisierte Option, denn Provider-Unabhängigkeit schließt die Freiheit ein, zentrales Hosting zu wählen.</p>
+      de: `<p>Nein. Aleph Cloud ist unser <strong>erstes</strong> Deployment-Target, nicht das einzige. <a href="https://github.com/NiKrause/akash-deploy-pwa" target="_blank" rel="noopener noreferrer">akash-deploy-pwa</a> macht Relay-Button-artige Deployments bereits auf dem Akash Network, und weitere Anbieter sind geplant — dezentrale ebenso wie bewusst zentrale, denn Provider-Unabhängigkeit schließt die Freiheit ein, zentrales Hosting zu wählen.</p>
 <p>Die vollständige Plattform-Abstraktion des Deployment-Layers (abstraktes Provider-Interface in <code>@le-space/core</code>) ist ein Kern-Arbeitspaket unserer Funding-Roadmap. Das Prinzip: Die App hängt nie von einem bestimmten Anbieter ab — Infrastruktur ist austauschbar.</p>`
+    }
+  },
+  {
+    id: 'aleph-security',
+    q: {
+      en: 'How secure are Aleph Cloud instances? Who could read the data on a relay?',
+      de: 'Wie sicher sind Aleph-Cloud-Instanzen? Wer könnte die Daten auf einem Relay lesen?'
+    },
+    a: {
+      en: `<p>Aleph Cloud VMs run on Compute Resource Nodes operated by independent node operators. As with any hosting — centralized or decentralized — the operator of the physical machine could in principle inspect the memory and disk of a <em>regular</em> VM. The difference to a classic cloud: it isn't one corporation, but many independent operators, and you can choose or run the node yourself.</p>
+<p>Why this matters less in our architecture: a relay is <strong>forwarding and pinning infrastructure, not a data custodian</strong>. Transport is end-to-end encrypted (libp2p/noise), keys live in the users' browsers and authenticators — never on the VM. With payload encryption enabled (see the encryption question), a relay only ever stores and forwards ciphertext; a curious node operator sees nothing usable.</p>
+<p>For deployments where even that isn't enough, there are <strong>Confidential VMs (TEE)</strong>: <a href="https://docs.aleph.cloud" target="_blank" rel="noopener noreferrer">Aleph Cloud</a> supports confidential computing based on AMD SEV — the VM's memory is hardware-encrypted, so even the node operator cannot inspect it. Evaluating TEE-backed relays for sensitive use cases is on our roadmap.</p>`,
+      de: `<p>Aleph-Cloud-VMs laufen auf Compute Resource Nodes, die von unabhängigen Node-Betreibern betrieben werden. Wie bei jedem Hosting — zentral oder dezentral — könnte der Betreiber der physischen Maschine bei einer <em>normalen</em> VM prinzipiell Arbeitsspeicher und Disk einsehen. Der Unterschied zur klassischen Cloud: Es ist nicht ein Konzern, sondern viele unabhängige Betreiber — und man kann den Node wählen oder selbst betreiben.</p>
+<p>Warum das in unserer Architektur weniger wiegt: Ein Relay ist <strong>Weiterleitungs- und Pinning-Infrastruktur, kein Daten-Treuhänder</strong>. Der Transport ist Ende-zu-Ende verschlüsselt (libp2p/Noise), Schlüssel leben in den Browsern und Authenticatoren der Nutzer — nie auf der VM. Mit aktivierter Payload-Verschlüsselung (siehe Verschlüsselungs-Frage) speichert und leitet ein Relay ausschließlich Ciphertext weiter — ein neugieriger Node-Betreiber sieht nichts Verwertbares.</p>
+<p>Für Deployments, denen selbst das nicht genügt, gibt es <strong>Confidential VMs (TEE)</strong>: <a href="https://docs.aleph.cloud" target="_blank" rel="noopener noreferrer">Aleph Cloud</a> unterstützt Confidential Computing auf Basis von AMD SEV — der Arbeitsspeicher der VM ist hardwareverschlüsselt, sodass selbst der Node-Betreiber nicht hineinschauen kann. Die Evaluierung TEE-gestützter Relays für sensible Anwendungsfälle steht auf unserer Roadmap.</p>`
     }
   },
   {
