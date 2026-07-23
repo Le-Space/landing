@@ -159,6 +159,23 @@
     flex: 1;
   }
 
+  .tagline :global(ul) {
+    margin: 8px 0 0;
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .tagline :global(li) {
+    font-size: 0.88rem;
+  }
+
+  .tagline :global(strong) {
+    color: var(--ls-text);
+    font-weight: 600;
+  }
+
   .demo-notes {
     display: flex;
     flex-direction: column;

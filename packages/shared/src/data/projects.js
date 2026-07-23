@@ -27,8 +27,24 @@ export const projects = [
     screenshot: '/media/relay-button.png',
     video: null,
     tagline: {
-      en: 'Deploy libp2p relay infrastructure on demand — the toolchain at the core of the local-first stack. Relays currently run on <a href="https://aleph.cloud" target="_blank" rel="noopener noreferrer">Aleph Cloud</a>, a decentralized compute network (VMs without a cloud account, censorship-resistant, pay-as-you-go). Support for further providers is planned — decentralized (e.g. Akash) as well as centralized ones.',
-      de: 'Libp2p-Relay-Infrastruktur auf Knopfdruck — die Toolchain im Zentrum des Local-First-Stacks. Relays laufen derzeit auf <a href="https://aleph.cloud" target="_blank" rel="noopener noreferrer">Aleph Cloud</a>, einem dezentralen Compute-Netzwerk (VMs ohne Cloud-Account, zensurresistent, nutzungsbasiert bezahlt). Weitere Anbieter sind geplant — dezentrale (z. B. Akash) ebenso wie zentrale.'
+      en: `Deploy libp2p relay infrastructure on demand — the toolchain at the core of the local-first stack.
+<ul>
+<li><strong>One click, one relay:</strong> deploys a libp2p/OrbitDB relay (signaling, bootstrap, IPFS pinning) — run it for a meeting, a project or years, then stop it.</li>
+<li><strong>Full automation:</strong> build qcow2 RootFS images, publish to IPFS, manage VM lifecycle &amp; retention via CLI and GitHub Actions.</li>
+<li><strong>Embeddable UI:</strong> React &amp; Svelte components — the actual "Relay Button" — for any app.</li>
+<li><strong>Bootstrap discovery:</strong> relays register themselves; apps discover them automatically.</li>
+<li><strong>New — remote browser replication:</strong> CI spins up a real browser on a fresh VM in another network and verifies true cross-network P2P replication end-to-end — replacing services like testingbot.com for local-first P2P apps.</li>
+<li><strong>Runs on <a href="https://aleph.cloud" target="_blank" rel="noopener noreferrer">Aleph Cloud</a>:</strong> decentralized compute, VMs without a cloud account; further providers — decentralized and centralized — planned.</li>
+</ul>`,
+      de: `Libp2p-Relay-Infrastruktur auf Knopfdruck — die Toolchain im Zentrum des Local-First-Stacks.
+<ul>
+<li><strong>Ein Klick, ein Relay:</strong> deployt einen libp2p/OrbitDB-Relay (Signaling, Bootstrap, IPFS-Pinning) — läuft für ein Meeting, ein Projekt oder Jahre, danach wird er gestoppt.</li>
+<li><strong>Volle Automatisierung:</strong> qcow2-RootFS-Images bauen, auf IPFS publizieren, VM-Lifecycle &amp; Retention per CLI und GitHub Actions.</li>
+<li><strong>Einbettbare UI:</strong> React- &amp; Svelte-Komponenten — der eigentliche „Relay Button" — für jede App.</li>
+<li><strong>Bootstrap-Discovery:</strong> Relays registrieren sich selbst; Apps finden sie automatisch.</li>
+<li><strong>Neu — Remote-Browser-Replication:</strong> Die CI startet einen echten Browser auf einer frischen VM in einem anderen Netz und verifiziert echte Cross-Network-P2P-Replikation Ende-zu-Ende — ersetzt Dienste wie testingbot.com für Local-First-P2P-Apps.</li>
+<li><strong>Läuft auf <a href="https://aleph.cloud" target="_blank" rel="noopener noreferrer">Aleph Cloud</a>:</strong> dezentrales Compute, VMs ohne Cloud-Account; weitere Anbieter — dezentrale wie zentrale — geplant.</li>
+</ul>`
     }
   },
   {
