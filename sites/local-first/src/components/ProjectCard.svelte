@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from 'svelte';
   import { t, locale } from '@le-space/landing-shared/i18n';
   import { LAYERS } from '@le-space/landing-shared/projects';
 
@@ -6,6 +7,47 @@
 
   let showVideo = $state(false);
   let imgFailed = $state(false);
+
+  // Overflowing card bodies get a capped height with a soft scrollbar and a
+  // slow film-credits auto-scroll (ping-pong, paused while the pointer is over it).
+  let scrollEl = $state();
+  let autoPaused = $state(false);
+
+  onMount(() => {
+    const el = scrollEl;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const SPEED = 12; // px/s downwards, credits-style
+    const EDGE_PAUSE = 2600; // ms rest at top/bottom
+    let raf;
+    let dir = 1;
+    let wait = EDGE_PAUSE; // initial rest before scrolling starts
+    let carry = 0;
+    let last = performance.now();
+
+    const step = (t) => {
+      const dt = Math.min(t - last, 100);
+      last = t;
+      const max = el.scrollHeight - el.clientHeight;
+      if (max > 8 && !autoPaused) {
+        if (wait > 0) {
+          wait -= dt;
+        } else {
+          carry += ((SPEED * dt) / 1000) * dir * (dir < 0 ? 2 : 1);
+          if (Math.abs(carry) >= 0.5) {
+            el.scrollTop += carry;
+            carry = 0;
+          }
+          if (dir > 0 && el.scrollTop >= max - 1) { dir = -1; wait = EDGE_PAUSE; }
+          else if (dir < 0 && el.scrollTop <= 1) { dir = 1; wait = EDGE_PAUSE; }
+        }
+      }
+      raf = requestAnimationFrame(step);
+    };
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  });
 </script>
 
 <article class="card" class:dimmed>
@@ -39,20 +81,28 @@
       {/each}
     </div>
 
-    <!-- Taglines are trusted content from packages/shared/src/data/projects.js (may contain links) -->
-    <p class="tagline">{@html project.tagline[$locale] || project.tagline.en}</p>
+    <div
+      class="scrollbody"
+      bind:this={scrollEl}
+      onpointerenter={() => (autoPaused = true)}
+      onpointerleave={() => (autoPaused = false)}
+      ontouchstart={() => (autoPaused = true)}
+    >
+      <!-- Taglines are trusted content from packages/shared/src/data/projects.js (may contain links) -->
+      <p class="tagline">{@html project.tagline[$locale] || project.tagline.en}</p>
 
-    {#if project.note}
-      <p class="note">→ {project.note[$locale] || project.note.en}</p>
-    {/if}
+      {#if project.note}
+        <p class="note">→ {project.note[$locale] || project.note.en}</p>
+      {/if}
 
-    {#if project.demos && project.demos.some((d) => d.desc)}
-      <div class="demo-notes">
-        {#each project.demos.filter((d) => d.desc) as d (d.url)}
-          <p><span class="dlabel">▶ {d.label}</span> — {d.desc[$locale] || d.desc.en}</p>
-        {/each}
-      </div>
-    {/if}
+      {#if project.demos && project.demos.some((d) => d.desc)}
+        <div class="demo-notes">
+          {#each project.demos.filter((d) => d.desc) as d (d.url)}
+            <p><span class="dlabel">▶ {d.label}</span> — {d.desc[$locale] || d.desc.en}</p>
+          {/each}
+        </div>
+      {/if}
+    </div>
 
     <footer>
       {#if project.demos}
@@ -152,11 +202,38 @@
     flex-wrap: wrap;
   }
 
+  .scrollbody {
+    flex: 1;
+    max-height: 240px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-right: 6px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+    /* soft fade at both edges so cut-off text looks intentional */
+    mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 16px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 16px), transparent 100%);
+  }
+
+  .scrollbody::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .scrollbody::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+  }
+
+  .scrollbody::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
   .tagline {
     color: var(--ls-text-dim);
     font-size: 0.92rem;
     margin: 0;
-    flex: 1;
   }
 
   .tagline :global(ul) {
