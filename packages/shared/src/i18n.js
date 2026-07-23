@@ -14,8 +14,20 @@ export const locale = writable('de');
 export function initI18n(dicts, initial) {
   Object.assign(dictionaries, dicts);
   const saved = typeof localStorage !== 'undefined' ? localStorage.getItem('ls-locale') : null;
-  // Default to German for every visitor; a saved choice (via the switcher) always wins.
-  locale.set(initial || saved || 'de');
+  // Auto-detect from browser language preferences (in order): first match of
+  // de → de or en → en wins; any other language falls back to de.
+  // A saved choice (via the switcher) always wins over detection.
+  const browserLangs = typeof navigator !== 'undefined'
+    ? (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language])
+    : [];
+  let detected = 'de';
+  for (const l of browserLangs) {
+    if (typeof l !== 'string') continue;
+    const lang = l.toLowerCase();
+    if (lang.startsWith('de')) { detected = 'de'; break; }
+    if (lang.startsWith('en')) { detected = 'en'; break; }
+  }
+  locale.set(initial || saved || detected);
   locale.subscribe((l) => {
     try { localStorage.setItem('ls-locale', l); } catch { /* private mode */ }
   });
