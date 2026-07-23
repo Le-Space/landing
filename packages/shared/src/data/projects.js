@@ -27,8 +27,8 @@ export const projects = [
     screenshot: '/media/relay-button.png',
     video: null,
     tagline: {
-      en: 'Deploy libp2p relay infrastructure on demand — the toolchain at the core of the local-first stack.',
-      de: 'Libp2p-Relay-Infrastruktur auf Knopfdruck — die Toolchain im Zentrum des Local-First-Stacks.'
+      en: 'Deploy libp2p relay infrastructure on demand — the toolchain at the core of the local-first stack. Relays currently run on <a href="https://aleph.cloud" target="_blank" rel="noopener noreferrer">Aleph Cloud</a>, a decentralized compute network (VMs without a cloud account, censorship-resistant, pay-as-you-go). Support for further providers is planned — decentralized (e.g. Akash) as well as centralized ones.',
+      de: 'Libp2p-Relay-Infrastruktur auf Knopfdruck — die Toolchain im Zentrum des Local-First-Stacks. Relays laufen derzeit auf <a href="https://aleph.cloud" target="_blank" rel="noopener noreferrer">Aleph Cloud</a>, einem dezentralen Compute-Netzwerk (VMs ohne Cloud-Account, zensurresistent, nutzungsbasiert bezahlt). Weitere Anbieter sind geplant — dezentrale (z. B. Akash) ebenso wie zentrale.'
     }
   },
   {

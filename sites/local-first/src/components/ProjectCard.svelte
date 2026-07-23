@@ -39,7 +39,8 @@
       {/each}
     </div>
 
-    <p class="tagline">{project.tagline[$locale] || project.tagline.en}</p>
+    <!-- Taglines are trusted content from packages/shared/src/data/projects.js (may contain links) -->
+    <p class="tagline">{@html project.tagline[$locale] || project.tagline.en}</p>
 
     {#if project.note}
       <p class="note">→ {project.note[$locale] || project.note.en}</p>
@@ -148,6 +149,12 @@
     font-size: 0.92rem;
     margin: 0;
     flex: 1;
+  }
+
+  .tagline :global(a) {
+    color: var(--ls-accent);
+    text-decoration: underline;
+    text-decoration-color: rgba(77, 216, 255, 0.4);
   }
 
   .note {
