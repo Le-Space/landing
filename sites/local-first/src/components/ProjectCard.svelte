@@ -204,17 +204,18 @@
 
   .scrollbody {
     flex: 1;
-    max-height: 240px;
+    max-height: 260px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding-right: 6px;
+    /* top/bottom padding >= fade height, so resting text sits fully outside the fade */
+    padding: 18px 6px 22px 0;
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
-    /* soft fade at both edges so cut-off text looks intentional */
-    mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 16px), transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 16px), transparent 100%);
+    /* soft fade at both edges so scrolling text glides out gently */
+    mask-image: linear-gradient(to bottom, transparent 0, #000 16px, #000 calc(100% - 18px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 16px, #000 calc(100% - 18px), transparent 100%);
   }
 
   .scrollbody::-webkit-scrollbar {
