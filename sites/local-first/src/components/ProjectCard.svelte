@@ -46,6 +46,14 @@
       <p class="note">→ {project.note[$locale] || project.note.en}</p>
     {/if}
 
+    {#if project.demos && project.demos.some((d) => d.desc)}
+      <div class="demo-notes">
+        {#each project.demos.filter((d) => d.desc) as d (d.url)}
+          <p><span class="dlabel">▶ {d.label}</span> — {d.desc[$locale] || d.desc.en}</p>
+        {/each}
+      </div>
+    {/if}
+
     <footer>
       {#if project.demos}
         {#each project.demos as d (d.url)}
@@ -149,6 +157,24 @@
     font-size: 0.92rem;
     margin: 0;
     flex: 1;
+  }
+
+  .demo-notes {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .demo-notes p {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--ls-text-faint);
+  }
+
+  .demo-notes .dlabel {
+    color: var(--ls-green);
+    font-weight: 600;
+    white-space: nowrap;
   }
 
   .tagline :global(a) {

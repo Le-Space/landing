@@ -39,8 +39,22 @@ export const projects = [
     featured: true,
     github: 'https://github.com/NiKrause/simple-todo',
     demos: [
-      { url: 'https://simple-todo.le-space.de', label: 'simple-todo' },
-      { url: 'https://collab01.le-space.de', label: 'collab01' }
+      {
+        url: 'https://simple-todo.le-space.de',
+        label: 'simple-todo',
+        desc: {
+          en: 'chapter "main" — every visitor automatically joins the same shared todo list; just open the URL.',
+          de: 'Kapitel „main" — alle Besucher teilen automatisch dieselbe gemeinsame Todo-Liste; URL öffnen genügt.'
+        }
+      },
+      {
+        url: 'https://collab01.le-space.de',
+        label: 'collab01',
+        desc: {
+          en: 'chapter "collab01" — create your own lists and share them with chosen peers via their OrbitDB address.',
+          de: 'Kapitel „collab01" — eigene Listen erstellen und gezielt per OrbitDB-Adresse mit anderen Peers teilen.'
+        }
+      }
     ],
     npm: null,
     screenshot: '/media/simple-todo.png',
