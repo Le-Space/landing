@@ -62,8 +62,8 @@ export const projects = [
     screenshot: '/media/uc-chat.png',
     video: null,
     tagline: {
-      en: "libp2p's official cross-language showcase — chat between Go, Rust, TypeScript and Nim peers in the browser.",
-      de: 'Offizieller Cross-Language-Showcase von libp2p — Chat zwischen Go-, Rust-, TypeScript- und Nim-Peers im Browser.'
+      en: 'Our fork of the <a href="https://github.com/libp2p/universal-connectivity" target="_blank" rel="noopener noreferrer">official libp2p project</a> with the Relay Button built in: the cross-language showcase — chat between Go, Rust, TypeScript and Nim peers in the browser — extended so anyone can deploy their own relay on demand.',
+      de: 'Unser Fork des <a href="https://github.com/libp2p/universal-connectivity" target="_blank" rel="noopener noreferrer">offiziellen libp2p-Projekts</a> mit eingebautem Relay-Button: der Cross-Language-Showcase — Chat zwischen Go-, Rust-, TypeScript- und Nim-Peers im Browser — erweitert, sodass jeder auf Knopfdruck einen eigenen Relay deployen kann.'
     }
   },
   {
