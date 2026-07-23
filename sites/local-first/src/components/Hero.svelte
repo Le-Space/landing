@@ -15,6 +15,7 @@
     <p class="subtitle">{$t('hero.subtitle')}</p>
     <div class="ctas">
       <a class="btn primary" href="#projects">{$t('hero.cta_projects')}</a>
+      <a class="btn" href="#faq">{$t('hero.cta_faq')}</a>
       <a class="btn" href="https://github.com/le-space" target="_blank" rel="noopener noreferrer">{$t('hero.cta_github')}</a>
     </div>
   </div>

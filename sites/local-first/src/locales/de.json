@@ -4,6 +4,7 @@
     "title": "Der Local-First Peer-to-Peer Software Stack",
     "subtitle": "Keine Server. Keine Accounts. Keine Passwörter. Deine Daten bleiben auf deinem Gerät, Zusammenarbeit passiert direkt zwischen Geräten — Relay-Infrastruktur startet auf Knopfdruck und stoppt, wenn du fertig bist. Datenarchivierung auf dezentralem Datenspeichern.",
     "cta_projects": "Stack erkunden",
+    "cta_faq": "FAQ",
     "cta_github": "GitHub"
   },
   "stack": {
