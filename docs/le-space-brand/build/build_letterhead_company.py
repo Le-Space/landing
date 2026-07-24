@@ -29,9 +29,9 @@ MAIL = "nico.krause@le-space.de"
 WEB = "le-space.de"
 
 STR = {
- "de": {"claim": "Der Local-First Peer-to-Peer Software Stack",
+ "de": {"claim": "Der Local-First Peer-to-Peer Stack",
         "date": "Eggenfelden, __.__.____"},
- "en": {"claim": "The Local-First Peer-to-Peer Software Stack",
+ "en": {"claim": "The Local-First Peer-to-Peer Stack",
         "date": "Eggenfelden, ____-__-__"},
 }
 

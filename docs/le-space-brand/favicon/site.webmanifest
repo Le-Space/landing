@@ -1,7 +1,7 @@
 {
   "name": "Le-Space",
   "short_name": "Le-Space",
-  "description": "Der Local-First Peer-to-Peer Software Stack",
+  "description": "Der Local-First Peer-to-Peer Stack",
   "icons": [
     { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
     { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }

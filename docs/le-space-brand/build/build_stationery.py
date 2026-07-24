@@ -111,9 +111,9 @@ for key, lang, tl in VARIANTS:
 # ---------------- letterheads (A4, light) ----------------
 W, H = A4
 LH_STR = {
- "de": {"foot": "Le-Space — Der Local-First Peer-to-Peer Software Stack",
+ "de": {"foot": "Le-Space — Der Local-First Peer-to-Peer Stack",
         "date": "Germany, ", "tel": "Tel."},
- "en": {"foot": "Le-Space — The Local-First Peer-to-Peer Software Stack",
+ "en": {"foot": "Le-Space — The Local-First Peer-to-Peer Stack",
         "date": "Germany, ", "tel": "Phone"},
 }
 

@@ -25,12 +25,12 @@ MAIL = "nico.krause@le-space.de"
 WEB = "le-space.de"
 
 STR = {
-    "de": dict(claim="Der Local-First Peer-to-Peer Software Stack",
+    "de": dict(claim="Der Local-First Peer-to-Peer Stack",
                date="Eggenfelden, [Datum]", subject="Betreff: …",
                recip="[Empfängeradresse]",
                salute="Sehr geehrte Damen und Herren,", body="[Ihr Text]",
                close="Mit freundlichen Grüßen", sig="[Name]"),
-    "en": dict(claim="The Local-First Peer-to-Peer Software Stack",
+    "en": dict(claim="The Local-First Peer-to-Peer Stack",
                date="Eggenfelden, [Date]", subject="Subject: …",
                recip="[Recipient address]",
                salute="Dear Sir or Madam,", body="[Your text]",
