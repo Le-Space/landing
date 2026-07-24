@@ -70,10 +70,15 @@
       peer: css('--ls-accent') || '#4dd8ff',
       direct: css('--ls-green') || '#3ddc97',
       live: css('--ls-green') || '#3ddc97',
+      self: css('--ls-red-bright') || '#ff5a5f',
       text: css('--ls-text-dim') || '#9aa5b8',
       tipText: css('--ls-text') || '#e8ecf4',
       tipBg: css('--ls-bg-2') || '#111827'
     };
+
+    // Long protocol topic names → short display labels.
+    const shortTopic = (topic) =>
+      /_peer-discovery\./.test(topic) ? 'discovery' : topic.length > 14 ? `${topic.slice(0, 12)}…` : topic;
 
     const topicColorCache = {};
     const topicColor = (topic) => {
@@ -88,8 +93,12 @@
     let peers = [];
     let packets = [];
     let directLinks = [];
-    // live peers: { id, slot, x, y, r, alpha, dir, phase, name, kind:'live' }
+    // live peers: { id, slot, x, y, r, alpha, dir, phase, name, kind:'live', rtt?, rttUntil? }
     let livePeers = [];
+    // our own browser libp2p node (live mode): { id, x, y, r, kind:'self', topics }
+    let selfNode = null;
+    // ping round-trips in flight: { to, t (0..1), dir (1 out, -1 back) }
+    let pingPulses = [];
     let liveStatus = ''; // '', 'connecting', 'live', 'error'
     const mouse = { x: -1, y: -1, node: null };
 
@@ -140,8 +149,20 @@
       });
       directLinks = [];
       packets = [];
+      pingPulses = [];
       // reposition live peers onto their slots
       for (const lp of livePeers) Object.assign(lp, slotPos(lp.slot));
+      // our own node sits bottom-centre, visually "in front of" the mesh
+      if (selfNode) positionSelf();
+    }
+
+    function positionSelf() {
+      selfNode.x = cx;
+      selfNode.y = h - 46;
+      selfNode.relay = relays.reduce(
+        (best, rel) => (dist(selfNode, rel) < dist(selfNode, best) ? rel : best),
+        relays[0]
+      );
     }
 
     // ---- live peer management ----
@@ -183,15 +204,38 @@
       try {
         const { createP2PNetwork } = await import('../lib/p2p/network.js');
         const net = createP2PNetwork({ bootstrap, topics, webrtc });
+        net.on('self', ({ id }) => {
+          selfNode = {
+            id,
+            kind: 'self',
+            name: 'you — this browser',
+            r: 11,
+            phase: 0,
+            alpha: 1,
+            topics: new Set()
+          };
+          positionSelf();
+        });
+        net.on('self:topics', ({ topics: own }) => {
+          if (selfNode) selfNode.topics = new Set(own.map(shortTopic));
+        });
         net.on('peer:add', (p) => addLivePeer(p.id));
         net.on('peer:remove', (p) => removeLivePeer(p.id));
         net.on('peer:topics', ({ id, subscriptions }) => {
           const lp = livePeers.find((p) => p.id === id);
           if (!lp) return;
           for (const s of subscriptions) {
-            if (s.subscribe) lp.topics.add(s.topic);
-            else lp.topics.delete(s.topic);
+            const label = shortTopic(s.topic);
+            if (s.subscribe) lp.topics.add(label);
+            else lp.topics.delete(label);
           }
+        });
+        net.on('peer:ping', ({ id, rtt }) => {
+          const lp = livePeers.find((p) => p.id === id);
+          if (!lp || !selfNode) return;
+          lp.rtt = rtt;
+          lp.rttUntil = performance.now() + 4200;
+          if (pingPulses.length < 8) pingPulses.push({ to: lp, t: 0, dir: 1 });
         });
         net.on('status', (s) => {
           if (s === 'started') liveStatus = 'live';
@@ -222,7 +266,7 @@
 
     // Curved, colour-per-topic lines between any two nodes that share a topic.
     function drawTopicLines(t) {
-      const all = [...peers, ...livePeers];
+      const all = [...peers, ...livePeers, ...(selfNode ? [selfNode] : [])];
       for (let i = 0; i < all.length; i++) {
         for (let j = i + 1; j < all.length; j++) {
           const a = all[i];
@@ -244,9 +288,9 @@
             ctx.moveTo(a.x, a.y);
             ctx.quadraticCurveTo((a.x + b.x) / 2 + nx * off, (a.y + b.y) / 2 + ny * off, b.x, b.y);
             ctx.strokeStyle = topicColor(topic);
-            ctx.globalAlpha = 0.3 * Math.min(ea, eb);
-            ctx.lineWidth = 1.4;
-            ctx.setLineDash([5, 7]);
+            ctx.globalAlpha = 0.5 * Math.min(ea, eb);
+            ctx.lineWidth = 1.9;
+            ctx.setLineDash([6, 6]);
             ctx.lineDashOffset = -((t / 55) % 12);
             ctx.stroke();
             ctx.setLineDash([]);
@@ -282,9 +326,11 @@
     }
 
     function tooltip(p) {
+      const rttInfo = p.kind === 'live' && p.rtt != null ? ` · ${Math.round(p.rtt)} ms` : '';
       const label =
         p.kind === 'relay' ? `${p.name} · relay`
-        : p.kind === 'live' ? `peer · ${p.name}`
+        : p.kind === 'live' ? `peer · ${p.name}${rttInfo}`
+        : p.kind === 'self' ? p.name
         : p.name;
       ctx.font = '600 12px ui-monospace, Menlo, monospace';
       const padX = 9;
@@ -301,7 +347,11 @@
       ctx.fill();
       ctx.globalAlpha = 1;
       ctx.lineWidth = 1;
-      ctx.strokeStyle = p.kind === 'relay' ? COLORS.relay : p.kind === 'live' ? COLORS.live : COLORS.peer;
+      ctx.strokeStyle =
+        p.kind === 'relay' ? COLORS.relay
+        : p.kind === 'live' ? COLORS.live
+        : p.kind === 'self' ? COLORS.self
+        : COLORS.peer;
       ctx.stroke();
       ctx.fillStyle = COLORS.tipText;
       ctx.textAlign = 'center';
@@ -312,7 +362,7 @@
 
     function hitTest() {
       let found = null;
-      for (const p of [...relays, ...peers, ...livePeers]) {
+      for (const p of [...relays, ...peers, ...livePeers, ...(selfNode ? [selfNode] : [])]) {
         if (p.alpha !== undefined && p.alpha < 0.4) continue;
         if (dist(mouse, p) <= p.r + 8) { found = p; break; }
       }
@@ -362,8 +412,50 @@
       // live peer links (fade with the node)
       for (const lp of livePeers) line(lp, lp.relay, COLORS.live, 0.35 * lp.alpha, [2, 3]);
 
+      // our own node: link to its relay + a line to every live peer we ping
+      if (selfNode) {
+        line(selfNode, selfNode.relay, COLORS.self, 0.4, [], 1.4);
+        for (const lp of livePeers) {
+          if (lp.alpha < 0.3) continue;
+          line(selfNode, lp, COLORS.self, 0.18 * lp.alpha, [2, 5]);
+          // rtt label near the peer while a fresh measurement exists
+          if (lp.rtt != null && performance.now() < (lp.rttUntil || 0)) {
+            const mx = selfNode.x + (lp.x - selfNode.x) * 0.72;
+            const my = selfNode.y + (lp.y - selfNode.y) * 0.72;
+            ctx.font = '10px ui-monospace, Menlo, monospace';
+            ctx.fillStyle = COLORS.self;
+            ctx.globalAlpha = 0.9 * lp.alpha;
+            ctx.textAlign = 'center';
+            ctx.fillText(`${Math.round(lp.rtt)} ms`, mx, my - 6);
+            ctx.globalAlpha = 1;
+          }
+        }
+      }
+
       // pubsub topic web (shared topics between nodes)
       drawTopicLines(t);
+
+      // ping round-trips: pulse travels self → peer → self
+      for (const pp of pingPulses) {
+        if (!selfNode || pp.to.alpha < 0.1) { pp.done = true; continue; }
+        pp.t += 0.035;
+        if (pp.t >= 1) {
+          if (pp.dir > 0) { pp.dir = -1; pp.t = 0; }
+          else { pp.done = true; continue; }
+        }
+        const from = pp.dir > 0 ? selfNode : pp.to;
+        const to = pp.dir > 0 ? pp.to : selfNode;
+        const x = from.x + (to.x - from.x) * pp.t;
+        const y = from.y + (to.y - from.y) * pp.t;
+        ctx.beginPath();
+        ctx.arc(x, y, 3.2, 0, Math.PI * 2);
+        ctx.fillStyle = COLORS.self;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = COLORS.self;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+      pingPulses = pingPulses.filter((p) => !p.done);
 
       // packets
       for (const pk of packets) {
@@ -402,11 +494,48 @@
       }
       livePeers = livePeers.filter((lp) => !(lp.dir < 0 && lp.alpha <= 0));
 
+      // our own node, drawn last (in front), with a distinct ring + label
+      if (selfNode) {
+        ctx.shadowBlur = 14;
+        ctx.shadowColor = COLORS.self;
+        node(selfNode, COLORS.self, t, true);
+        ctx.shadowBlur = 0;
+        ctx.font = '600 11px ui-monospace, Menlo, monospace';
+        ctx.fillStyle = COLORS.self;
+        ctx.textAlign = 'center';
+        ctx.fillText('your browser', selfNode.x, selfNode.y + selfNode.r + 20);
+      }
+
       // static label
       ctx.font = '11px ui-monospace, Menlo, monospace';
       ctx.fillStyle = COLORS.text;
       ctx.textAlign = 'center';
       ctx.fillText('relay mesh — on demand', cx, cy + h * 0.12 + 34);
+
+      // topic legend (bottom-right): every topic currently drawn in the web
+      {
+        const active = new Map();
+        for (const n of [...peers, ...livePeers, ...(selfNode ? [selfNode] : [])]) {
+          if ((n.alpha ?? 1) < 0.5 || !n.topics) continue;
+          for (const topic of n.topics) if (!active.has(topic)) active.set(topic, topicColor(topic));
+        }
+        if (active.size) {
+          ctx.font = '10px ui-monospace, Menlo, monospace';
+          ctx.textAlign = 'right';
+          let ly = h - 14;
+          let shown = 0;
+          for (const [topic, color] of active) {
+            if (shown++ >= 7) break;
+            ctx.fillStyle = COLORS.text;
+            ctx.fillText(topic, w - 24, ly);
+            ctx.beginPath();
+            ctx.arc(w - 14, ly - 3.5, 3.5, 0, Math.PI * 2);
+            ctx.fillStyle = color;
+            ctx.fill();
+            ly -= 16;
+          }
+        }
+      }
 
       // live status (bottom-left)
       if (live) {

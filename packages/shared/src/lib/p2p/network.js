@@ -65,6 +65,7 @@ export function createP2PNetwork(opts = {}) {
 
   let node = null;
   let stopped = false;
+  let pingTimer = null;
 
   async function start() {
     emit('status', 'starting');
@@ -128,6 +129,24 @@ export function createP2PNetwork(opts = {}) {
         });
       } catch { /* pubsub may be unavailable */ }
 
+      // Own gossipsub subscriptions (e.g. the peer-discovery topics)
+      try {
+        const own = node.services.pubsub?.getTopics?.() || [];
+        emit('self:topics', { topics: own.map(String) });
+      } catch { /* pubsub may be unavailable */ }
+
+      // Periodic ping to connected peers → emit('peer:ping', { id, rtt }) per result.
+      pingTimer = setInterval(async () => {
+        if (!node) return;
+        const peers = node.getPeers().slice(0, 12);
+        for (const p of peers) {
+          try {
+            const rtt = await node.services.ping.ping(p);
+            emit('peer:ping', { id: p.toString(), rtt: Number(rtt) });
+          } catch { /* peer gone or ping unsupported */ }
+        }
+      }, 4000);
+
       emit('status', 'started');
     } catch (err) {
       emit('error', err);
@@ -137,6 +156,7 @@ export function createP2PNetwork(opts = {}) {
 
   async function stop() {
     stopped = true;
+    if (pingTimer) { clearInterval(pingTimer); pingTimer = null; }
     try { if (node) await node.stop(); } catch { /* noop */ }
     node = null;
     emit('status', 'stopped');
