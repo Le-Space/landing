@@ -27,7 +27,7 @@ Damit ist die Seite gleichzeitig:
 
 Sektionen (eine Seite, Scroll):
 
-1. **Hero** — Le-Space-Logo, Claim „Local-First Peer-to-Peer Software.
+1. **Hero** — Le-Space-Logo, Claim „Local-First Peer-to-Peer Stack.
    No servers. No accounts. No passwords." + animierte **P2P-Netzwerk-Visualisierung**
    (Canvas: Browser-Peers verbinden sich direkt und über einen Relay-Knoten,
    Datenpakete pulsieren zwischen Peers). Space-Theme: dunkel, Particles, wie gewohnt.
