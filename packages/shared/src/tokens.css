@@ -1,22 +1,22 @@
 /* Le-Space design tokens — Space theme */
 :root {
-  /* Brand */
-  --ls-red: #e63946;
-  --ls-red-bright: #ff5a5f;
-  --ls-accent: #4dd8ff;       /* p2p link color */
-  --ls-accent-2: #9d7bff;     /* relay / infra */
-  --ls-green: #3ddc97;        /* live / connected */
-  --ls-amber: #ffb74d;
+  /* Brand — Le-Space Kernpalette (docs/le-space-brand) */
+  --ls-red: #ff6b5b;          /* Signal Coral — Primärakzent, lokaler Knoten */
+  --ls-red-bright: #ff8577;   /* helle Coral-Variante (Glow / self-node) */
+  --ls-accent: #58c7f3;       /* Sync Cyan — Links, Peers, Sync */
+  --ls-accent-2: #a78bfa;     /* Infrastruktur */
+  --ls-green: #3edc97;        /* Identität — live / connected */
+  --ls-amber: #ffc24b;        /* Daten */
 
-  /* Space background scale */
-  --ls-bg-0: #05070f;
-  --ls-bg-1: #0a0e1a;
-  --ls-bg-2: #111827;
-  --ls-bg-3: #1b2436;
+  /* Space background scale — Deep Space → Nebula → Horizon */
+  --ls-bg-0: #0b0e15;         /* Deep Space — Hintergrund */
+  --ls-bg-1: #10141f;
+  --ls-bg-2: #141926;         /* Nebula — Cards, Panels */
+  --ls-bg-3: #232b3d;         /* Horizon — Borders */
 
   /* Text */
-  --ls-text: #e8ecf4;
-  --ls-text-dim: #9aa5b8;
+  --ls-text: #edf1f8;         /* Starlight — Überschriften */
+  --ls-text-dim: #a8b3c7;     /* Stardust — Fließtext */
   --ls-text-faint: #5c677a;
 
   /* Surfaces */
@@ -34,8 +34,8 @@
   --ls-radius-sm: 8px;
 
   /* Effects */
-  --ls-glow-red: 0 0 24px rgba(230, 57, 70, 0.35);
-  --ls-glow-accent: 0 0 20px rgba(77, 216, 255, 0.3);
+  --ls-glow-red: 0 0 24px rgba(255, 107, 91, 0.35);
+  --ls-glow-accent: 0 0 20px rgba(88, 199, 243, 0.3);
 }
 
 * {
