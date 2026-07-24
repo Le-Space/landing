@@ -1,6 +1,9 @@
 node_modules/
 dist/
 build/
+# keep the brand style-guide generator scripts that ship inside docs/
+!docs/le-space-brand/build/
+!docs/le-space-brand/build/**
 .DS_Store
 *.log
 .env
