@@ -162,7 +162,7 @@ c.showPage()
 # ================= 2: MARKENKERN =================
 page_bg()
 y = header("01 · Markenkern", "Wer wir sind",
-    "Le-Space ist der offene Software-Stack für Anwendungen, die ihren Nutzern gehören. "
+    "Le-Space ist der offene Local-First-Peer-to-Peer-Stack für Anwendungen, die ihren Nutzern gehören. "
     "Daten leben auf dem eigenen Gerät, Zusammenarbeit passiert direkt zwischen Geräten.")
 h3(MARGIN, y, "Positionierung"); y -= 18
 y = body(MARGIN, y, "Software you can keep: Le-Space steht für digitale Selbstbestimmung. "

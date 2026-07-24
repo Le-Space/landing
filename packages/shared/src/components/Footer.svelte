@@ -14,7 +14,7 @@
   <div class="ls-container inner">
     <div class="left">
       <strong>Le-Space</strong>
-      <span class="dim">Local-first peer-to-peer software</span>
+      <span class="dim">Local-first peer-to-peer stack</span>
       <a href="mailto:{email}">{email}</a>
       <span class="dim small">
         {siteConfig.legal.registerCourt} · {siteConfig.legal.register} · USt-ID {siteConfig.legal.vatId}
