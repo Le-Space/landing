@@ -166,15 +166,28 @@
     }
 
     // ---- live peer management ----
+    // Bottom-centre slot is kept clear for our own node (see positionSelf),
+    // so a real peer never overlaps the red "your browser" marker.
+    const SELF_SLOT = Math.round(maxPeers / 2);
     function nextSlot() {
       const used = new Set(livePeers.map((p) => p.slot));
-      for (let s = 0; s < maxPeers; s++) if (!used.has(s)) return s;
+      for (let s = 0; s < maxPeers; s++) if (s !== SELF_SLOT && !used.has(s)) return s;
       return -1;
     }
-    function addLivePeer(id) {
-      if (livePeers.some((p) => p.id === id)) {
-        const p = livePeers.find((x) => x.id === id);
-        p.dir = 1; // was fading out, keep it
+    // state: 'connected' = an open libp2p connection (verified online) →
+    // solid green. 'discovered' = only read from the Aleph/pubsub registry,
+    // not (yet) reachable → dim, low-alpha. A discovered peer that later
+    // connects is upgraded in place.
+    function addLivePeer(id, state) {
+      if (selfNode && id === selfNode.id) return; // never draw ourselves as a peer
+      const connected = state === 'connected';
+      const existing = livePeers.find((p) => p.id === id);
+      if (existing) {
+        existing.dir = 1; // was fading out, keep it
+        if (connected && !existing.connected) {
+          existing.connected = true;
+          existing.max = 1; // brighten from "discovered" to "online"
+        }
         return;
       }
       const slot = nextSlot();
@@ -187,6 +200,8 @@
         r: 9,
         alpha: 0,
         dir: 1,
+        connected,
+        max: connected ? 1 : 0.45,
         phase: Math.random() * Math.PI * 2,
         kind: 'live',
         name: `${id.slice(0, 4)}…${id.slice(-4)}`,
@@ -219,7 +234,7 @@
         net.on('self:topics', ({ topics: own }) => {
           if (selfNode) selfNode.topics = new Set(own.map(shortTopic));
         });
-        net.on('peer:add', (p) => addLivePeer(p.id));
+        net.on('peer:add', (p) => addLivePeer(p.id, p.state));
         net.on('peer:remove', (p) => removeLivePeer(p.id));
         net.on('peer:topics', ({ id, subscriptions }) => {
           const lp = livePeers.find((p) => p.id === id);
@@ -327,9 +342,10 @@
 
     function tooltip(p) {
       const rttInfo = p.kind === 'live' && p.rtt != null ? ` · ${Math.round(p.rtt)} ms` : '';
+      const stateInfo = p.kind === 'live' ? (p.connected ? ' · online' : ' · discovered') : '';
       const label =
         p.kind === 'relay' ? `${p.name} · relay`
-        : p.kind === 'live' ? `peer · ${p.name}${rttInfo}`
+        : p.kind === 'live' ? `peer · ${p.name}${stateInfo}${rttInfo}`
         : p.kind === 'self' ? p.name
         : p.name;
       ctx.font = '600 12px ui-monospace, Menlo, monospace';
@@ -349,7 +365,7 @@
       ctx.lineWidth = 1;
       ctx.strokeStyle =
         p.kind === 'relay' ? COLORS.relay
-        : p.kind === 'live' ? COLORS.live
+        : p.kind === 'live' ? (p.connected ? COLORS.live : COLORS.text)
         : p.kind === 'self' ? COLORS.self
         : COLORS.peer;
       ctx.stroke();
@@ -363,7 +379,7 @@
     function hitTest() {
       let found = null;
       for (const p of [...relays, ...peers, ...livePeers, ...(selfNode ? [selfNode] : [])]) {
-        if (p.alpha !== undefined && p.alpha < 0.4) continue;
+        if (p.alpha !== undefined && p.alpha < 0.3) continue;
         if (dist(mouse, p) <= p.r + 8) { found = p; break; }
       }
       mouse.node = found;
@@ -409,14 +425,16 @@
       for (const p of peers) line(p, p.relay, COLORS.peer, 0.2);
       for (const [a, b] of directLinks) line(peers[a], peers[b], COLORS.direct, 0.5, [4, 4]);
 
-      // live peer links (fade with the node)
-      for (const lp of livePeers) line(lp, lp.relay, COLORS.live, 0.35 * lp.alpha, [2, 3]);
+      // live peer links (fade with the node; grey = discovered-only, green = online)
+      for (const lp of livePeers)
+        line(lp, lp.relay, lp.connected ? COLORS.live : COLORS.text, 0.35 * lp.alpha, [2, 3]);
 
-      // our own node: link to its relay + a line to every live peer we ping
+      // our own node: link to its relay + a line to every peer we're actually
+      // connected to (discovered-only peers get no self-link and no ping)
       if (selfNode) {
         line(selfNode, selfNode.relay, COLORS.self, 0.4, [], 1.4);
         for (const lp of livePeers) {
-          if (lp.alpha < 0.3) continue;
+          if (!lp.connected || lp.alpha < 0.3) continue;
           line(selfNode, lp, COLORS.self, 0.18 * lp.alpha, [2, 5]);
           // rtt label near the peer while a fresh measurement exists
           if (lp.rtt != null && performance.now() < (lp.rttUntil || 0)) {
@@ -482,13 +500,16 @@
       for (const rel of relays) node(rel, COLORS.relay, t, true);
       for (const p of peers) node(p, COLORS.peer, t);
 
-      // live peers: animate alpha then draw
+      // live peers: animate alpha then draw. Connected = solid green (verified
+      // online), discovered-only = dim grey, capped low (unverified registry entry).
       for (const lp of livePeers) {
-        lp.alpha = Math.max(0, Math.min(1, lp.alpha + lp.dir * 0.04));
+        const cap = lp.dir < 0 ? 0 : (lp.max ?? 1);
+        lp.alpha = Math.max(0, Math.min(cap, lp.alpha + lp.dir * 0.04));
         if (lp.alpha > 0.02) {
-          ctx.shadowBlur = 10 * lp.alpha;
-          ctx.shadowColor = COLORS.live;
-          node(lp, COLORS.live, t, true, lp.alpha);
+          const col = lp.connected ? COLORS.live : COLORS.text;
+          ctx.shadowBlur = (lp.connected ? 10 : 3) * lp.alpha;
+          ctx.shadowColor = col;
+          node(lp, col, t, true, lp.alpha);
           ctx.shadowBlur = 0;
         }
       }
@@ -537,14 +558,17 @@
         }
       }
 
-      // live status (bottom-left)
+      // live status (bottom-left): "online" = open connection (verified),
+      // "discovered" = only seen in the Aleph/pubsub registry, not reachable.
       if (live) {
-        const count = livePeers.filter((p) => p.dir > 0).length;
-        const label =
-          liveStatus === 'live' ? `● live · ${count} peer${count === 1 ? '' : 's'}`
+        const online = livePeers.filter((p) => p.dir > 0 && p.connected).length;
+        const discovered = livePeers.filter((p) => p.dir > 0 && !p.connected).length;
+        let label =
+          liveStatus === 'live' ? `● live · ${online} online`
           : liveStatus === 'connecting' ? '○ connecting…'
           : liveStatus === 'error' ? '○ live unavailable'
           : '';
+        if (liveStatus === 'live' && discovered) label += ` · ${discovered} discovered`;
         if (label) {
           ctx.textAlign = 'left';
           ctx.font = '11px ui-monospace, Menlo, monospace';
