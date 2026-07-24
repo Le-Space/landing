@@ -38,9 +38,6 @@ Lebendes Dokument. Status + offene Punkte. Details zur Gesamtstrategie in `STRAT
 
 - [x] **pubsub-Topics als Linien** — erledigt: farbcodiertes Topic-Web (chat/sync/identity …),
   synthetisch immer sichtbar + echte Live-Topics via `peer:topics`.
-- [ ] **libp2p on-demand starten** (niedrigere Prio) — statt sofort: erst bei Hover/Touch auf die
-  Grafik einen Button „Live-View aktivieren" zeigen, der dann libp2p startet. Abwägung: sofortiges
-  Erscheinen der Live-Nodes ist auch cool → später entscheiden. (`live`-Prop ist schon parametrierbar.)
 
 ## M2 — Design & Inhalte
 
