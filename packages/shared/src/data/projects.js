@@ -159,8 +159,20 @@ export const projects = [
     screenshot: '/media/webauthn-did.png',
     video: null,
     tagline: {
-      en: 'Passkey-based identity for OrbitDB oplog signing and UCAN signing — hardware-backed keys, no extensions, just your browser and a biometric sensor.',
-      de: 'Passkey-basierte Identität für OrbitDB-Oplog-Signierung und UCAN-Signing — hardwaregestützte Schlüssel, keine Extensions, nur Browser und Biometrie.'
+      en: `Passkey-based identity for OrbitDB — no extensions, just your browser and a biometric sensor. Every oplog entry has to be signed, so the real question is <strong>where the signing key lives</strong>:
+<ul>
+<li><strong>Plain keystore (OrbitDB default):</strong> the Ed25519 key sits unencrypted in the browser's IndexedDB. Anything that runs script on your origin can copy your identity and write as you — permanently.</li>
+<li><strong>WebAuthn-encrypted keystore:</strong> same key, AES-GCM-encrypted at rest, rehydrated into memory only after a WebAuthn unlock (PRF, largeBlob or hmac-secret). One prompt per session, writes stay fast; safe at rest, in memory while the tab is open. The pragmatic default — <a href="https://le-space.github.io/orbitdb-identity-provider-webauthn-did/ed25519-encrypted-keystore-demo/" target="_blank" rel="noopener noreferrer">demo</a>.</li>
+<li><strong>Hardware-backed keys (varsig):</strong> no OrbitDB keystore at all. The key is generated inside the authenticator — Secure Enclave, TPM, security key — and never leaves it. One passkey prompt per write, and nothing in the browser left to steal — <a href="https://le-space.github.io/orbitdb-identity-provider-webauthn-did/webauthn-varsig-demo/" target="_blank" rel="noopener noreferrer">demo</a>.</li>
+<li><strong>Why varsig:</strong> an authenticator never hands you a plain signature over your payload — it signs its own authenticatorData + clientDataJSON-hash structure, with P-256 instead of Ed25519. Varsig is the self-describing envelope carrying that structure, so the assertion verifies as an OrbitDB oplog signature and, via <code>toUcantoSigner()</code>, as a UCAN delegation signature. Without it a hardware key cannot be the signer of either.</li>
+</ul>`,
+      de: `Passkey-basierte Identität für OrbitDB — keine Extensions, nur Browser und Biometrie. Jeder Oplog-Eintrag muss signiert werden; die eigentliche Frage ist, <strong>wo der Signaturschlüssel liegt</strong>:
+<ul>
+<li><strong>Klartext-Keystore (OrbitDB-Default):</strong> der Ed25519-Schlüssel liegt unverschlüsselt in der IndexedDB des Browsers. Alles, was auf deinem Origin Skript ausführt, kann die Identität kopieren und dauerhaft in deinem Namen schreiben.</li>
+<li><strong>WebAuthn-verschlüsselter Keystore:</strong> derselbe Schlüssel, per AES-GCM at rest verschlüsselt und erst nach einem WebAuthn-Unlock (PRF, largeBlob oder hmac-secret) in den Speicher geholt. Ein Prompt pro Session, Schreibvorgänge bleiben schnell; sicher at rest, im Speicher solange der Tab offen ist. Der pragmatische Default — <a href="https://le-space.github.io/orbitdb-identity-provider-webauthn-did/ed25519-encrypted-keystore-demo/" target="_blank" rel="noopener noreferrer">Demo</a>.</li>
+<li><strong>Hardwaregestützte Schlüssel (Varsig):</strong> gar kein OrbitDB-Keystore. Der Schlüssel entsteht im Authenticator — Secure Enclave, TPM, Security Key — und verlässt ihn nie. Ein Passkey-Prompt pro Schreibvorgang, dafür bleibt im Browser nichts zu stehlen — <a href="https://le-space.github.io/orbitdb-identity-provider-webauthn-did/webauthn-varsig-demo/" target="_blank" rel="noopener noreferrer">Demo</a>.</li>
+<li><strong>Wozu Varsig:</strong> ein Authenticator liefert nie eine schlichte Signatur über deine Payload — er signiert seine eigene Struktur aus authenticatorData + clientDataJSON-Hash, und zwar mit P-256 statt Ed25519. Varsig ist der selbstbeschreibende Envelope, der diese Struktur transportiert, sodass die Assertion als OrbitDB-Oplog-Signatur und über <code>toUcantoSigner()</code> auch als UCAN-Delegation-Signatur verifizierbar ist. Ohne Varsig kann ein Hardware-Schlüssel für beides nicht der Signierer sein.</li>
+</ul>`
     }
   },
   {

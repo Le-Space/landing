@@ -257,6 +257,12 @@
     font-weight: 600;
   }
 
+  .tagline :global(code) {
+    font-family: var(--ls-font-mono);
+    font-size: 0.85em;
+    color: var(--ls-text);
+  }
+
   .demo-notes {
     display: flex;
     flex-direction: column;
