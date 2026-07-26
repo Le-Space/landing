@@ -290,7 +290,8 @@
 
   footer {
     display: flex;
-    gap: 16px;
+    flex-wrap: wrap;
+    gap: 8px 16px;
     font-size: 0.9rem;
     padding-top: 4px;
   }
