@@ -35,6 +35,7 @@
     "title": "Projekte",
     "sub": "Demos und Prototypen statt Folien — jedes Projekt ist ein Baustein des Stacks mit Demo, Quellcode und Paketen.",
     "demo": "Live-Demo",
+    "docs": "Doku",
     "source": "Quellcode",
     "all": "Alle Schichten"
   },

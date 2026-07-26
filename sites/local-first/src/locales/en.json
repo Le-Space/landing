@@ -35,6 +35,7 @@
     "title": "Projects",
     "sub": "Demos and prototypes, not slideware — each project is a building block of the stack with demo, source, and packages.",
     "demo": "Live demo",
+    "docs": "Docs",
     "source": "Source",
     "all": "All layers"
   },

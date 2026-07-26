@@ -112,6 +112,9 @@
       {:else if project.demo}
         <a class="link demo" href={project.demo} target="_blank" rel="noopener noreferrer">▶ {$t('projects.demo')}</a>
       {/if}
+      {#if project.docs}
+        <a class="link docs" href={project.docs} target="_blank" rel="noopener noreferrer">{$t('projects.docs')}</a>
+      {/if}
       <a class="link" href={project.github} target="_blank" rel="noopener noreferrer">{$t('projects.source')}</a>
     </footer>
   </div>
@@ -294,6 +297,11 @@
 
   .link.demo {
     color: var(--ls-green);
+    font-weight: 600;
+  }
+
+  .link.docs {
+    color: var(--ls-accent);
     font-weight: 600;
   }
 
