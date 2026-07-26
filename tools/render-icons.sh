@@ -35,6 +35,15 @@ render "$brand/le-space-app-icon.svg" 180 "$out/apple-touch-icon.png"
 render "$brand/le-space-app-icon.svg" 192 "$out/android-chrome-192x192.png"
 render "$brand/le-space-app-icon.svg" 512 "$out/android-chrome-512x512.png"
 
+# The app icon is full-bleed on an opaque background, so its alpha channel is
+# pure overhead — and iOS composites a home-screen icon's alpha against black
+# anyway. The small favicons keep theirs: they are rounded squares.
+if command -v magick >/dev/null 2>&1; then
+  for f in apple-touch-icon android-chrome-192x192 android-chrome-512x512; do
+    magick "$out/$f.png" -background "#0B0E15" -alpha remove -alpha off -strip "$out/$f.png"
+  done
+fi
+
 # .ico carries all three classic sizes in one file, so declare it as such in
 # the <link sizes> attribute rather than claiming a single resolution.
 if command -v magick >/dev/null 2>&1; then
@@ -44,6 +53,12 @@ if command -v magick >/dev/null 2>&1; then
   rm -f "$tmp48"
 else
   echo "note: magick missing — favicon.ico not regenerated" >&2
+fi
+
+if command -v optipng >/dev/null 2>&1; then
+  optipng -quiet -o5 "$out"/favicon-16x16.png "$out"/favicon-32x32.png \
+    "$out"/apple-touch-icon.png "$out"/android-chrome-192x192.png \
+    "$out"/android-chrome-512x512.png
 fi
 
 echo "wrote icons to $out"
