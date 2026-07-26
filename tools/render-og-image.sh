@@ -18,4 +18,12 @@ else
   exit 1
 fi
 
+# The card is opaque and flat-coloured, so drop the alpha channel and squeeze
+# it — crawlers refetch this file often and the raw render is ~4x larger.
+if command -v magick >/dev/null 2>&1; then
+  magick "$out" -background "#0b0e15" -alpha remove -alpha off -strip \
+    -define png:compression-level=9 "$out"
+fi
+command -v optipng >/dev/null 2>&1 && optipng -quiet -o5 "$out"
+
 echo "wrote $out"
