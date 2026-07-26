@@ -1,0 +1,55 @@
+<!--
+  Source of truth for sites/local-first/public/og-image.png (1200x630).
+
+  The previous OG card was a hand-made PNG with the claim baked in. When the
+  brand claim changed ("…Peer-to-Peer Software Stack" → "…Peer-to-Peer Stack")
+  the meta tags were updated but the image was not, so social embeds kept
+  showing stale German copy. Edit this file and re-run tools/render-og-image.sh.
+
+  Keep the claim in sync with sites/local-first/src/locales/en.json → hero.title.
+  Colors mirror packages/shared/src/tokens.css.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="glowCyan" cx="0.78" cy="0.22" r="0.55">
+      <stop offset="0%" stop-color="#58c7f3" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#58c7f3" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glowCoral" cx="0.18" cy="0.80" r="0.55">
+      <stop offset="0%" stop-color="#ff6b5b" stop-opacity="0.09" />
+      <stop offset="100%" stop-color="#ff6b5b" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#0b0e15" />
+  <rect width="1200" height="630" fill="url(#glowCyan)" />
+  <rect width="1200" height="630" fill="url(#glowCoral)" />
+
+  <!-- brand lockup -->
+  <rect x="88" y="66" width="72" height="72" rx="18" fill="#ff6b5b" />
+  <text x="124" y="113" text-anchor="middle" fill="#ffffff"
+        font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold">LS</text>
+  <text x="182" y="115" fill="#edf1f8"
+        font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="bold"
+        letter-spacing="-0.5">Le-Space</text>
+
+  <!-- claim -->
+  <text x="88" y="266" fill="#edf1f8"
+        font-family="Helvetica, Arial, sans-serif" font-size="72" font-weight="bold"
+        letter-spacing="-2">The Local-First Peer-to-Peer</text>
+  <text x="88" y="350" fill="#edf1f8"
+        font-family="Helvetica, Arial, sans-serif" font-size="72" font-weight="bold"
+        letter-spacing="-2">Stack</text>
+
+  <!-- stack layers -->
+  <circle cx="97" cy="440" r="9" fill="#ff6b5b" />
+  <circle cx="131" cy="440" r="9" fill="#a78bfa" />
+  <circle cx="165" cy="440" r="9" fill="#58c7f3" />
+  <circle cx="199" cy="440" r="9" fill="#3edc97" />
+  <circle cx="233" cy="440" r="9" fill="#ffc24b" />
+
+  <text x="88" y="519" fill="#a8b3c7"
+        font-family="Helvetica, Arial, sans-serif" font-size="30">No servers. No accounts. No passwords.</text>
+  <text x="88" y="580" fill="#58c7f3"
+        font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="bold">local-first.le-space.de</text>
+</svg>
