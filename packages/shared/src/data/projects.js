@@ -59,6 +59,7 @@ export const projects = [
       {
         url: 'https://simple-todo.le-space.de',
         label: 'simple-todo',
+        shot: '/media/simple-todo-main.webp',
         desc: {
           en: 'chapter "main" — every visitor automatically joins the same shared todo list; just open the URL.',
           de: 'Kapitel „main" — alle Besucher teilen automatisch dieselbe gemeinsame Todo-Liste; URL öffnen genügt.'
@@ -67,6 +68,7 @@ export const projects = [
       {
         url: 'https://collab01.le-space.de',
         label: 'collab01',
+        shot: '/media/simple-todo-collab01.webp',
         desc: {
           en: 'chapter "collab01" — create your own lists and share them with chosen peers via their OrbitDB address.',
           de: 'Kapitel „collab01" — eigene Listen erstellen und gezielt per OrbitDB-Adresse mit anderen Peers teilen.'
@@ -75,6 +77,7 @@ export const projects = [
       {
         url: 'https://passkey01.le-space.de',
         label: 'passkey01',
+        shot: '/media/simple-todo-passkey01.webp',
         desc: {
           en: 'chapter "passkey01" — sign in with a passkey instead of a throwaway key. Your WebAuthn DID signs every entry and is shown as its author.',
           de: 'Kapitel „passkey01" — Anmeldung per Passkey statt Wegwerf-Schlüssel. Die WebAuthn-DID signiert jeden Eintrag und wird als Autor angezeigt.'
@@ -83,6 +86,7 @@ export const projects = [
       {
         url: 'https://acl01.le-space.de',
         label: 'acl01',
+        shot: '/media/simple-todo-acl01.webp',
         desc: {
           en: 'chapter "acl01" — private, owner-only lists with per-DID write permissions. Grant or revoke access at runtime, without the list address changing.',
           de: 'Kapitel „acl01" — private Listen nur für den Owner, mit Schreibrechten pro DID. Rechte zur Laufzeit vergeben oder entziehen, ohne dass sich die Listen-Adresse ändert.'

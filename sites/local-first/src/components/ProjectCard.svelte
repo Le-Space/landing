@@ -8,6 +8,43 @@
   let showVideo = $state(false);
   let imgFailed = $state(false);
 
+  // Chapter slideshow: demos that ship a screenshot are cross-faded in the
+  // media box. Hovering (or long-pressing) a chapter link pins its frame, so
+  // the picture answers "what does this chapter look like?" on demand. This is
+  // why these are four images and not one animated GIF — a GIF can neither be
+  // paused nor seeked to a given frame from script.
+  const shots = $derived((project.demos ?? []).filter((d) => d.shot));
+  let slide = $state(0);
+  let pinned = $state(null);
+  const shown = $derived(pinned ?? slide);
+  let pressTimer;
+
+  const SLIDE_MS = 3600;
+
+  $effect(() => {
+    if (shots.length < 2 || pinned !== null) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const id = setInterval(() => (slide = (slide + 1) % shots.length), SLIDE_MS);
+    return () => clearInterval(id);
+  });
+
+  /** Pin a frame and make it the point the rotation resumes from. */
+  function pin(i) {
+    pinned = i;
+    slide = i;
+  }
+
+  function unpin() {
+    clearTimeout(pressTimer);
+    pinned = null;
+  }
+
+  // Touch has no hover, so a long press stands in for it.
+  function longPressStart(i) {
+    clearTimeout(pressTimer);
+    pressTimer = setTimeout(() => pin(i), 350);
+  }
+
   // Overflowing card bodies get a capped height with a soft scrollbar and a
   // slow film-credits auto-scroll (ping-pong, paused while the pointer is over it).
   let scrollEl = $state();
@@ -52,7 +89,23 @@
 
 <article class="card" class:dimmed>
   <div class="media" class:missing={imgFailed} style="--layer-color: {LAYERS[project.layers[0]].color}">
-    {#if project.video && showVideo}
+    {#if shots.length}
+      {#each shots as d, i (d.url)}
+        <img
+          class="shot"
+          class:visible={i === shown}
+          src={d.shot}
+          alt="{project.name} — {d.label}"
+          loading="lazy"
+        />
+      {/each}
+      <div class="dots" aria-hidden="true">
+        {#each shots as d, i (d.url)}
+          <span class="dot" class:on={i === shown}></span>
+        {/each}
+      </div>
+      <span class="shot-label" class:pinned={pinned !== null}>{shots[shown].label}</span>
+    {:else if project.video && showVideo}
       <!-- svelte-ignore a11y_media_has_caption -->
       <video src={project.video} autoplay loop muted playsinline></video>
     {:else if project.screenshot}
@@ -98,7 +151,15 @@
       {#if project.demos && project.demos.some((d) => d.desc)}
         <div class="demo-notes">
           {#each project.demos.filter((d) => d.desc) as d (d.url)}
-            <p><span class="dlabel">▶ {d.label}</span> — {d.desc[$locale] || d.desc.en}</p>
+            <p
+              onmouseenter={() => d.shot && pin(shots.indexOf(d))}
+              onmouseleave={unpin}
+              ontouchstart={() => d.shot && longPressStart(shots.indexOf(d))}
+              ontouchend={unpin}
+              ontouchcancel={unpin}
+            >
+              <span class="dlabel">▶ {d.label}</span> — {d.desc[$locale] || d.desc.en}
+            </p>
           {/each}
         </div>
       {/if}
@@ -106,8 +167,20 @@
 
     <footer>
       {#if project.demos}
-        {#each project.demos as d (d.url)}
-          <a class="link demo" href={d.url} target="_blank" rel="noopener noreferrer">▶ {d.label}</a>
+        {#each project.demos as d, i (d.url)}
+          <a
+            class="link demo"
+            href={d.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            onmouseenter={() => d.shot && pin(shots.indexOf(d))}
+            onmouseleave={unpin}
+            onfocus={() => d.shot && pin(shots.indexOf(d))}
+            onblur={unpin}
+            ontouchstart={() => d.shot && longPressStart(shots.indexOf(d))}
+            ontouchend={unpin}
+            ontouchcancel={unpin}
+          >▶ {d.label}</a>
         {/each}
       {:else if project.demo}
         <a class="link demo" href={project.demo} target="_blank" rel="noopener noreferrer">▶ {$t('projects.demo')}</a>
@@ -161,6 +234,62 @@
 
   .media.missing img {
     display: none;
+  }
+
+  .shot {
+    opacity: 0;
+    transition: opacity 0.55s ease;
+    z-index: 1;
+  }
+
+  .shot.visible {
+    opacity: 1;
+    z-index: 2;
+  }
+
+  .dots {
+    position: absolute;
+    z-index: 3;
+    left: 10px;
+    bottom: 10px;
+    display: flex;
+    gap: 5px;
+  }
+
+  .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.28);
+    transition: background 0.3s ease;
+  }
+
+  .dot.on {
+    background: var(--ls-green);
+  }
+
+  .shot-label {
+    position: absolute;
+    z-index: 3;
+    right: 10px;
+    bottom: 8px;
+    font-family: var(--ls-font-mono);
+    font-size: 0.68rem;
+    color: var(--ls-text-faint);
+    background: rgba(11, 14, 21, 0.72);
+    border-radius: 4px;
+    padding: 2px 6px;
+    transition: color 0.3s ease;
+  }
+
+  .shot-label.pinned {
+    color: var(--ls-green);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .shot {
+      transition: none;
+    }
   }
 
   .placeholder {
