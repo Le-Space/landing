@@ -25,7 +25,7 @@ export const projects = [
     demo: null,
     docs: 'https://nikrause.github.io/relay-button/',
     npm: '@le-space/core',
-    screenshot: '/media/relay-button.png',
+    screenshot: '/media/relay-button.webp',
     video: null,
     tagline: {
       en: `Deploy libp2p relay infrastructure on demand — the toolchain at the core of the local-first stack.
