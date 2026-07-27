@@ -114,6 +114,35 @@ export const projects = [
     }
   },
   {
+    id: 'libp2p-webrtc-qr',
+    name: 'libp2p WebRTC over QR',
+    layers: ['sync'],
+    status: 'prototype',
+    featured: false,
+    github: 'https://github.com/NiKrause/libp2p-webrtc-qr',
+    demo: 'https://webrtc-qr.le-space.de',
+    npm: null,
+    screenshot: '/media/libp2p-webrtc-qr.png',
+    video: null,
+    note: { en: 'npm release of @le-space/libp2p-webrtc-qr planned', de: 'npm-Release von @le-space/libp2p-webrtc-qr geplant' },
+    tagline: {
+      en: `Two browsers connect directly as libp2p peers — no relay, no signaling server. One phone scans the WebRTC handshake off the other screen.
+<ul>
+<li><strong>Signaling as a QR code:</strong> offer and answer travel out-of-band as signed, deflate-compressed payloads instead of through a circuit relay. A text field is the copy/paste fallback.</li>
+<li><strong>Signed, not just scanned:</strong> the SDP carries the DTLS fingerprint, so signing it with the libp2p key binds the WebRTC session to the peer id — the same idea <code>certhash</code> uses in WebRTC-Direct. That is what makes it safe to skip the usual encryption handshake.</li>
+<li><strong>Tampering fails closed:</strong> a modified payload is rejected before any dial happens, and a browser refuses its own offer instead of self-dialing.</li>
+<li><strong>Works without infrastructure:</strong> useful where there is no relay to reach — the same room, the same LAN, an air-gapped network.</li>
+</ul>`,
+      de: `Zwei Browser verbinden sich direkt als libp2p-Peers — ohne Relay, ohne Signaling-Server. Ein Handy scannt den WebRTC-Handshake vom Bildschirm des anderen.
+<ul>
+<li><strong>Signaling als QR-Code:</strong> Offer und Answer laufen out-of-band als signierte, deflate-komprimierte Payloads statt über ein Circuit-Relay. Ein Textfeld dient als Copy/Paste-Fallback.</li>
+<li><strong>Signiert, nicht nur gescannt:</strong> das SDP enthält den DTLS-Fingerprint — wird es mit dem libp2p-Schlüssel signiert, ist die WebRTC-Session an die Peer-ID gebunden. Dasselbe Prinzip wie <code>certhash</code> bei WebRTC-Direct, und genau deshalb darf der übliche Verschlüsselungs-Handshake entfallen.</li>
+<li><strong>Manipulation scheitert sicher:</strong> eine veränderte Payload wird vor jedem Verbindungsversuch abgelehnt, und ein Browser verweigert sein eigenes Offer statt sich selbst zu dialen.</li>
+<li><strong>Funktioniert ohne Infrastruktur:</strong> nützlich, wo kein Relay erreichbar ist — derselbe Raum, dasselbe LAN, ein abgeschottetes Netz.</li>
+</ul>`
+    }
+  },
+  {
     id: 'ucan-store',
     name: 'UCAN Store',
     layers: ['identity', 'archive'],
