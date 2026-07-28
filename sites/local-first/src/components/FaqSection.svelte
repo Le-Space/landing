@@ -26,11 +26,13 @@
             <span>{item.q[$locale] || item.q.en}</span>
             <span class="chevron" aria-hidden="true">{open === item.id ? '−' : '+'}</span>
           </button>
-          {#if open === item.id}
-            <div class="answer" id="faq-{item.id}">
-              {@html item.a[$locale] || item.a.en}
-            </div>
-          {/if}
+          <!-- Always in the DOM, only hidden: a collapsed answer that is never
+               rendered is invisible to crawlers too, and these ten answers are
+               the bulk of the site's indexable text (docs/seo-plan.md). It also
+               makes aria-controls above point at an element that exists. -->
+          <div class="answer" id="faq-{item.id}" hidden={open !== item.id}>
+            {@html item.a[$locale] || item.a.en}
+          </div>
         </div>
       {/each}
     </div>
@@ -86,6 +88,10 @@
     padding: 0 22px 18px;
     color: var(--ls-text-dim);
     font-size: 0.95rem;
+  }
+
+  .answer[hidden] {
+    display: none;
   }
 
   .answer :global(p) {

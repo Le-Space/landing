@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Single-route SPA: one entry until the per-language paths from docs/seo-plan.md
+  (Priority 2) exist. The section anchors are deliberately not listed — they are
+  fragments of this page, not separate URLs.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://local-first.le-space.de/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>

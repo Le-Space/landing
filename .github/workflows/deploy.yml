@@ -52,6 +52,33 @@ jobs:
       - name: Build ${{ matrix.site }}
         run: pnpm --filter ${{ matrix.package }} build
 
+      # Prerender + JSON-LD. Without this the published artifact's body is only
+      # <div id="app"></div>, so every crawler that does not run JavaScript sees
+      # an empty page — and IPFS hosting means no origin exists that could render
+      # on request. See docs/seo-plan.md.
+      - name: Install prerender toolchain
+        run: |
+          npm install --prefix /tmp/le-space-prerender playwright@1.61.1
+          PLAYWRIGHT_BROWSERS_PATH=/tmp/le-space-prerender/browsers \
+            /tmp/le-space-prerender/node_modules/.bin/playwright install --with-deps chromium
+
+      - name: Prerender ${{ matrix.site }}
+        env:
+          PLAYWRIGHT_DIR: /tmp/le-space-prerender/node_modules
+          PLAYWRIGHT_BROWSERS_PATH: /tmp/le-space-prerender/browsers
+        run: node tools/postbuild.mjs ${{ matrix.site }}
+
+      # A silent prerender failure would republish an empty page, which is
+      # exactly the state this whole step exists to fix — fail the deploy instead.
+      - name: Verify prerendered output
+        run: |
+          if grep -q '<div id="app"></div>' "sites/${{ matrix.site }}/dist/index.html"; then
+            echo "::error::prerender produced no content for ${{ matrix.site }}"
+            exit 1
+          fi
+          grep -q 'application/ld+json' "sites/${{ matrix.site }}/dist/index.html" \
+            || { echo "::error::JSON-LD missing for ${{ matrix.site }}"; exit 1; }
+
       - name: Install isolated Aleph deploy tooling
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         run: npm install --prefix /tmp/le-space-deployer @le-space/node@0.6.30
