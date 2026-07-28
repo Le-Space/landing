@@ -20,7 +20,61 @@ on:
         default: ''
 
 jobs:
+  # Bump the patch level once per push to main, before anything is built, so the
+  # version baked into the footer is the one this deploy publishes. Runs as its
+  # own job rather than inside the matrix — two matrix legs would bump twice and
+  # race each other on the push.
+  version:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: version-bump-main
+      cancel-in-progress: false
+    outputs:
+      sha: ${{ steps.bump.outputs.sha }}
+      version: ${{ steps.bump.outputs.version }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - id: bump
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: |
+          set -euo pipefail
+          current=$(node -p "require('./package.json').version")
+          next=$(node -p "
+            const [ma, mi, pa] = require('./package.json').version.split('.').map(Number);
+            [ma, mi, pa + 1].join('.');
+          ")
+          for f in package.json sites/local-first/package.json \
+                   sites/le-space/package.json packages/shared/package.json; do
+            node -e "
+              const fs = require('fs');
+              const p = JSON.parse(fs.readFileSync('$f', 'utf8'));
+              p.version = '$next';
+              fs.writeFileSync('$f', JSON.stringify(p, null, 2) + '\n');
+            "
+          done
+          git add package.json sites/*/package.json packages/*/package.json
+          # [skip ci] keeps this push from triggering the workflow again.
+          git commit -m "chore(release): $next [skip ci]"
+          git push origin HEAD:main
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "version=$next" >> "$GITHUB_OUTPUT"
+          echo "::notice::version $current → $next"
+
   build-and-deploy:
+    needs: [version]
+    # `version` is skipped on pull_request and workflow_dispatch; without always()
+    # a skipped dependency would skip this job too.
+    if: always() && (needs.version.result == 'success' || needs.version.result == 'skipped')
     runs-on: ubuntu-latest
     strategy:
       # Don't cancel a healthy site's deploy because the other site failed.
@@ -36,7 +90,11 @@ jobs:
             site_name: le-space-landing
             domain: le-space.de
     steps:
+      # Check out the bump commit, not the pushed one, so the build carries the
+      # version this run just published.
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ needs.version.outputs.sha || github.sha }}
 
       - uses: pnpm/action-setup@v6
         with:
@@ -50,6 +108,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
 
       - name: Build ${{ matrix.site }}
+        env:
+          APP_COMMIT: ${{ needs.version.outputs.sha || github.sha }}
         run: pnpm --filter ${{ matrix.package }} build
 
       # Prerender + JSON-LD. Without this the published artifact's body is only

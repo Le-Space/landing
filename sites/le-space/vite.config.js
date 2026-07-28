@@ -9,6 +9,9 @@ import { svelte } from '@sveltejs/vite-plugin-svelte';
 // reproducible if the build is ever pinned.
 const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8'));
 const commit = (
+  // APP_COMMIT wins: in CI the release bump lands after the trigger, so
+  // GITHUB_SHA would name the commit before the version this build carries.
+  process.env.APP_COMMIT ??
   process.env.GITHUB_SHA ??
   (() => {
     try {

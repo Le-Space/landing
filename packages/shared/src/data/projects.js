@@ -139,10 +139,13 @@ export const projects = [
     featured: false,
     github: 'https://github.com/NiKrause/libp2p-webrtc-qr',
     demo: 'https://webrtc-qr.le-space.de',
-    npm: null,
+    npm: '@le-space/libp2p-webrtc-qr',
     screenshot: '/media/libp2p-webrtc-qr.png',
     video: null,
-    note: { en: 'npm release of @le-space/libp2p-webrtc-qr planned', de: 'npm-Release von @le-space/libp2p-webrtc-qr geplant' },
+    note: {
+      en: 'New — released on npm as @le-space/libp2p-webrtc-qr',
+      de: 'Neu — auf npm veröffentlicht als @le-space/libp2p-webrtc-qr'
+    },
     tagline: {
       en: `Two browsers connect directly as libp2p peers — no relay, no signaling server. One phone scans the WebRTC handshake off the other screen.
 <ul>
@@ -211,14 +214,14 @@ export const projects = [
 <li><strong>Plain keystore (OrbitDB default):</strong> the Ed25519 key sits unencrypted in the browser's IndexedDB. Anything that runs script on your origin can copy your identity and write as you — permanently.</li>
 <li><strong>WebAuthn-encrypted keystore:</strong> same key, AES-GCM-encrypted at rest, rehydrated into memory only after a WebAuthn unlock (PRF, largeBlob or hmac-secret). One prompt per session, writes stay fast; safe at rest, in memory while the tab is open. The pragmatic default — <a href="https://le-space.github.io/orbitdb-identity-provider-webauthn-did/ed25519-encrypted-keystore-demo/" target="_blank" rel="noopener noreferrer">demo</a>.</li>
 <li><strong>Hardware-backed keys (varsig):</strong> no OrbitDB keystore at all. The key is generated inside the authenticator — Secure Enclave, TPM, security key — and never leaves it. One passkey prompt per write, and nothing in the browser left to steal — <a href="https://le-space.github.io/orbitdb-identity-provider-webauthn-did/webauthn-varsig-demo/" target="_blank" rel="noopener noreferrer">demo</a>.</li>
-<li><strong>Why varsig:</strong> an authenticator never hands you a plain signature over your payload — it signs its own authenticatorData + clientDataJSON-hash structure, with P-256 instead of Ed25519. Varsig is the self-describing envelope carrying that structure, so the assertion verifies as an OrbitDB oplog signature and, via <code>toUcantoSigner()</code>, as a UCAN delegation signature. Without it a hardware key cannot be the signer of either.</li>
+<li><strong>Why varsig:</strong> an authenticator never hands you a plain signature over your payload — it signs its own authenticatorData + clientDataJSON-hash structure. The algorithm varies on top of that: Apple, Android and Windows platform authenticators sign with ES256 (P-256), while EdDSA/Ed25519 (COSE <code>-8</code>) is in the spec and works on a handful of security keys — so a passkey DID cannot assume either curve. Varsig is the self-describing envelope carrying structure and algorithm together, so the assertion verifies as an OrbitDB oplog signature and, via <code>toUcantoSigner()</code>, as a UCAN delegation signature. Without it a hardware key cannot be the signer of either, whichever curve it happens to use.</li>
 </ul>`,
       de: `Passkey-basierte Identität für OrbitDB — keine Extensions, nur Browser und Biometrie. Jeder Oplog-Eintrag muss signiert werden; die eigentliche Frage ist, <strong>wo der Signaturschlüssel liegt</strong>:
 <ul>
 <li><strong>Klartext-Keystore (OrbitDB-Default):</strong> der Ed25519-Schlüssel liegt unverschlüsselt in der IndexedDB des Browsers. Alles, was auf deinem Origin Skript ausführt, kann die Identität kopieren und dauerhaft in deinem Namen schreiben.</li>
 <li><strong>WebAuthn-verschlüsselter Keystore:</strong> derselbe Schlüssel, per AES-GCM at rest verschlüsselt und erst nach einem WebAuthn-Unlock (PRF, largeBlob oder hmac-secret) in den Speicher geholt. Ein Prompt pro Session, Schreibvorgänge bleiben schnell; sicher at rest, im Speicher solange der Tab offen ist. Der pragmatische Default — <a href="https://le-space.github.io/orbitdb-identity-provider-webauthn-did/ed25519-encrypted-keystore-demo/" target="_blank" rel="noopener noreferrer">Demo</a>.</li>
 <li><strong>Hardwaregestützte Schlüssel (Varsig):</strong> gar kein OrbitDB-Keystore. Der Schlüssel entsteht im Authenticator — Secure Enclave, TPM, Security Key — und verlässt ihn nie. Ein Passkey-Prompt pro Schreibvorgang, dafür bleibt im Browser nichts zu stehlen — <a href="https://le-space.github.io/orbitdb-identity-provider-webauthn-did/webauthn-varsig-demo/" target="_blank" rel="noopener noreferrer">Demo</a>.</li>
-<li><strong>Wozu Varsig:</strong> ein Authenticator liefert nie eine schlichte Signatur über deine Payload — er signiert seine eigene Struktur aus authenticatorData + clientDataJSON-Hash, und zwar mit P-256 statt Ed25519. Varsig ist der selbstbeschreibende Envelope, der diese Struktur transportiert, sodass die Assertion als OrbitDB-Oplog-Signatur und über <code>toUcantoSigner()</code> auch als UCAN-Delegation-Signatur verifizierbar ist. Ohne Varsig kann ein Hardware-Schlüssel für beides nicht der Signierer sein.</li>
+<li><strong>Wozu Varsig:</strong> ein Authenticator liefert nie eine schlichte Signatur über deine Payload — er signiert seine eigene Struktur aus authenticatorData + clientDataJSON-Hash. Dazu kommt, dass das Verfahren variiert: die Plattform-Authenticator von Apple, Android und Windows signieren mit ES256 (P-256), während EdDSA/Ed25519 (COSE <code>-8</code>) zwar im Standard steht und auf einigen Security Keys funktioniert — eine Passkey-DID kann also weder die eine noch die andere Kurve voraussetzen. Varsig ist der selbstbeschreibende Envelope, der Struktur und Verfahren gemeinsam transportiert, sodass die Assertion als OrbitDB-Oplog-Signatur und über <code>toUcantoSigner()</code> auch als UCAN-Delegation-Signatur verifizierbar ist. Ohne Varsig kann ein Hardware-Schlüssel für beides nicht der Signierer sein — ganz gleich, welche Kurve er verwendet.</li>
 </ul>`
     }
   },
