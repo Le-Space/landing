@@ -72,12 +72,23 @@ jobs:
       # exactly the state this whole step exists to fix — fail the deploy instead.
       - name: Verify prerendered output
         run: |
-          if grep -q '<div id="app"></div>' "sites/${{ matrix.site }}/dist/index.html"; then
-            echo "::error::prerender produced no content for ${{ matrix.site }}"
-            exit 1
-          fi
-          grep -q 'application/ld+json' "sites/${{ matrix.site }}/dist/index.html" \
-            || { echo "::error::JSON-LD missing for ${{ matrix.site }}"; exit 1; }
+          for page in index.html de/index.html; do
+            f="sites/${{ matrix.site }}/dist/$page"
+            [ -f "$f" ] || { echo "::error::$page missing for ${{ matrix.site }}"; exit 1; }
+            if grep -q '<div id="app"></div>' "$f"; then
+              echo "::error::prerender produced no content for ${{ matrix.site }}/$page"
+              exit 1
+            fi
+            grep -q 'application/ld+json' "$f" \
+              || { echo "::error::JSON-LD missing in ${{ matrix.site }}/$page"; exit 1; }
+            grep -q 'hreflang="x-default"' "$f" \
+              || { echo "::error::hreflang missing in ${{ matrix.site }}/$page"; exit 1; }
+          done
+          # Exactly one canonical per page — a duplicate is an outright SEO error.
+          for page in index.html de/index.html; do
+            n=$(grep -o 'rel="canonical"' "sites/${{ matrix.site }}/dist/$page" | wc -l)
+            [ "$n" -eq 1 ] || { echo "::error::$n canonicals in ${{ matrix.site }}/$page"; exit 1; }
+          done
 
       - name: Install isolated Aleph deploy tooling
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'

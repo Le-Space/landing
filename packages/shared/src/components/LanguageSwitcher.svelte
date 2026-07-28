@@ -2,9 +2,12 @@
   /**
    * Fixed top-right language switcher with real SVG flags (DE / EN).
    * SVG instead of emoji flags so it renders consistently on every OS.
-   * Uses the shared `locale` store; the choice is persisted by i18n.js.
+   *
+   * These are links, not buttons: each language has its own URL (`/` and
+   * `/de/`), so switching has to navigate. It also gives crawlers a followable
+   * path to the other language version, which a click handler never would.
    */
-  import { locale } from '../i18n.js';
+  import { locale, localePath } from '../i18n.js';
 
   const langs = [
     { code: 'de', label: 'Deutsch' },
@@ -14,12 +17,12 @@
 
 <div class="lang-switcher" role="group" aria-label="Sprache / Language">
   {#each langs as l (l.code)}
-    <button
-      type="button"
+    <a
       class="flag"
       class:active={$locale === l.code}
-      onclick={() => locale.set(l.code)}
-      aria-pressed={$locale === l.code}
+      href={localePath(l.code)}
+      hreflang={l.code}
+      aria-current={$locale === l.code ? 'true' : undefined}
       aria-label={l.label}
       title={l.label}
     >
@@ -44,7 +47,7 @@
           </g>
         </svg>
       {/if}
-    </button>
+    </a>
   {/each}
 </div>
 
@@ -71,6 +74,9 @@
     border-radius: 4px;
     background: none;
     cursor: pointer;
+    /* now an <a>, so undo the link defaults the button never had */
+    text-decoration: none;
+    line-height: 0;
     opacity: 0.45;
     overflow: hidden;
     display: flex;

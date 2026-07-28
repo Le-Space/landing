@@ -49,7 +49,18 @@ routes, in rough order of effort:
 
 Recommendation: **(1) now, (2) when a route structure is needed anyway.**
 
-## Priority 2 — the language problem
+## Priority 2 — the language problem — DONE
+
+Implemented: `/` serves English, `/de/` serves German, each prerendered with its
+own `<html lang>`, title, description, OG tags, canonical and the full hreflang
+set (`en`, `de`, `x-default`). The switcher is now `<a href>` rather than a click
+handler, so crawlers can follow it. `localeFromPath()` makes the URL win over the
+stored preference — a link to `/de/` shows German even for a visitor who once
+picked EN on that device.
+
+Original analysis kept below for context.
+
+## Priority 2 — the language problem (original)
 
 `initI18n` picks DE or EN from `navigator.language` at runtime and stores the choice
 in `localStorage`. One URL therefore serves two languages, and which one a crawler

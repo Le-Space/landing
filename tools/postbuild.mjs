@@ -20,7 +20,7 @@
  */
 import { createServer } from 'node:http';
 import { pathToFileURL } from 'node:url';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve, extname, join } from 'node:path';
 
@@ -75,6 +75,17 @@ function serve() {
       res.writeHead(200, { 'content-type': MIME[extname(file)] ?? 'application/octet-stream' });
       res.end(body);
     } catch {
+      // SPA fallback. /de/ is rendered before dist/de/index.html exists, and the
+      // app derives its language from location.pathname either way.
+      if (!extname(file)) {
+        try {
+          const body = await readFile(join(dist, 'index.html'));
+          res.writeHead(200, { 'content-type': 'text/html' });
+          return res.end(body);
+        } catch {
+          /* fall through */
+        }
+      }
       res.writeHead(404).end();
     }
   });
@@ -132,45 +143,117 @@ async function buildJsonLd() {
   return [ORGANIZATION, faqPage, ...software];
 }
 
+// Per-language head. Crawlers get one URL per language; without distinct titles
+// and descriptions both would compete for the same queries in the wrong language.
+const META = {
+  'local-first': {
+    en: {
+      title: 'Le-Space — The Local-First Peer-to-Peer Stack',
+      description:
+        'Software you can keep: local-first peer-to-peer applications with no servers, no accounts, no passwords. The Le-Space open-source stack.',
+      ogDescription: 'No servers. No accounts. No passwords. The open-source local-first stack.'
+    },
+    de: {
+      title: 'Le-Space — Der Local-First Peer-to-Peer Stack',
+      description:
+        'Software, die dir bleibt: local-first Peer-to-Peer-Anwendungen ohne Server, ohne Accounts, ohne Passwörter. Der Open-Source-Stack von Le-Space.',
+      ogDescription: 'Keine Server. Keine Accounts. Keine Passwörter. Der Open-Source-Local-First-Stack.'
+    }
+  },
+  'le-space': {
+    en: {
+      title: 'Le-Space — The Local-First Peer-to-Peer Stack',
+      description: 'Le-Space — the local-first peer-to-peer stack. No servers. No accounts. No passwords.',
+      ogDescription: 'The local-first peer-to-peer stack. No servers. No accounts. No passwords.'
+    },
+    de: {
+      title: 'Le-Space — Der Local-First Peer-to-Peer Stack',
+      description: 'Le-Space — der Local-First Peer-to-Peer Stack. Keine Server. Keine Accounts. Keine Passwörter.',
+      ogDescription: 'Der Local-First Peer-to-Peer Stack. Keine Server. Keine Accounts. Keine Passwörter.'
+    }
+  }
+};
+
+const LOCALES = ['en', 'de'];
+const localePath = (code) => (code === 'en' ? '/' : `/${code}/`);
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+
 const chromium = await loadChromium();
 const { server, port } = await serve();
 const browser = await chromium.launch();
-// Pin the locale: i18n picks DE or EN from navigator.language at runtime, so an
-// unpinned run would bake whichever language the build agent happens to report.
-// English is the crawler-visible language the meta tags already commit to.
-const page = await browser.newPage({ viewport: { width: 1280, height: 900 }, locale: 'en-US' });
-await page.goto(`http://127.0.0.1:${port}/`, { waitUntil: 'networkidle', timeout: 60_000 });
-// The projects/FAQ sections render from static data, so one frame after load is
-// enough; the network visualisation animates forever and must not be waited on.
-await page.waitForSelector('#projects article', { timeout: 30_000 }).catch(() => {});
-await page.waitForTimeout(1200);
+const jsonLd = await buildJsonLd();
+const template = await readFile(resolve(dist, 'index.html'), 'utf8');
 
-const bodyHtml = await page.evaluate(() => document.getElementById('app').innerHTML);
-await browser.close();
-server.close();
-
-const indexPath = resolve(dist, 'index.html');
-let html = await readFile(indexPath, 'utf8');
-
-// Idempotent: running twice over the same dist must not stack up a second
-// canonical (which is an outright SEO error) or another set of JSON-LD blocks.
+// Idempotency markers: re-running over the same dist must not stack up a second
+// canonical (an outright SEO error) or another set of JSON-LD blocks.
 const START = '<!-- seo:start -->';
 const END = '<!-- seo:end -->';
-html = html.replace(new RegExp(`\\s*${START}[\\s\\S]*?${END}`), '');
-html = html.replace(/<div id="app">[\s\S]*?<\/div>\s*(?=<script)/, '<div id="app"></div>\n    ');
 
-const jsonLd = await buildJsonLd();
-const head = [
-  START,
-  `<link rel="canonical" href="${ORIGIN}/" />`,
-  ...jsonLd.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`),
-  END
-].join('\n    ');
+for (const lang of LOCALES) {
+  const path = localePath(lang);
+  // The locale comes from the URL, but pin navigator.language too so a build
+  // agent reporting something else cannot change what gets baked.
+  const page = await browser.newPage({
+    viewport: { width: 1280, height: 900 },
+    locale: lang === 'de' ? 'de-DE' : 'en-US'
+  });
+  await page.goto(`http://127.0.0.1:${port}${path}`, { waitUntil: 'networkidle', timeout: 60_000 });
+  // The projects/FAQ sections render from static data, so one frame after load
+  // is enough; the network visualisation animates forever and must not be awaited.
+  await page.waitForSelector('#projects article', { timeout: 30_000 }).catch(() => {});
+  await page.waitForTimeout(1200);
+  const bodyHtml = await page.evaluate(() => document.getElementById('app').innerHTML);
+  await page.close();
 
-html = html.replace('</head>', `  ${head}\n  </head>`);
-html = html.replace('<div id="app"></div>', `<div id="app">${bodyHtml}</div>`);
+  const meta = META[site][lang];
+  let html = template;
 
-await writeFile(indexPath, html);
+  html = html.replace(new RegExp(`\\s*${START}[\\s\\S]*?${END}`), '');
+  html = html.replace(/<div id="app">[\s\S]*?<\/div>\s*(?=<script)/, '<div id="app"></div>\n    ');
 
-const words = bodyHtml.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
-console.log(`${site}: prerendered ${words} words, ${jsonLd.length} JSON-LD blocks, canonical ${ORIGIN}/`);
+  // Rewrite the language-dependent parts of the static head.
+  html = html.replace(/<html lang="[^"]*"/, `<html lang="${lang}"`);
+  html = html.replace(/<title>[^<]*<\/title>/, `<title>${esc(meta.title)}</title>`);
+  html = html.replace(
+    /(<meta name="description" content=")[^"]*(")/,
+    `$1${esc(meta.description)}$2`
+  );
+  for (const [attr, key] of [['property="og:title"', 'title'], ['name="twitter:title"', 'title']]) {
+    html = html.replace(new RegExp(`(<meta ${attr} content=")[^"]*(")`), `$1${esc(meta.title)}$2`);
+  }
+  for (const attr of ['property="og:description"', 'name="twitter:description"']) {
+    html = html.replace(
+      new RegExp(`(<meta ${attr} content=")[^"]*(")`),
+      `$1${esc(meta.ogDescription)}$2`
+    );
+  }
+  html = html.replace(/(<meta property="og:url" content="[^"]*?)\/?"/, `$1${path}"`);
+
+  const alternates = LOCALES.map(
+    (l) => `<link rel="alternate" hreflang="${l}" href="${ORIGIN}${localePath(l)}" />`
+  );
+  const head = [
+    START,
+    `<link rel="canonical" href="${ORIGIN}${path}" />`,
+    ...alternates,
+    `<link rel="alternate" hreflang="x-default" href="${ORIGIN}/" />`,
+    `<meta property="og:locale" content="${lang === 'de' ? 'de_DE' : 'en_US'}" />`,
+    ...jsonLd.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`),
+    END
+  ].join('\n    ');
+
+  html = html.replace('</head>', `  ${head}\n  </head>`);
+  html = html.replace('<div id="app"></div>', `<div id="app">${bodyHtml}</div>`);
+
+  // Assets are referenced absolutely (/assets/…), so a nested page needs no
+  // rewriting — only its own directory.
+  const outPath = lang === 'en' ? resolve(dist, 'index.html') : resolve(dist, lang, 'index.html');
+  await mkdir(dirname(outPath), { recursive: true });
+  await writeFile(outPath, html);
+
+  const words = bodyHtml.replace(/<[^>]+>/g, ' ').split(/\s+/).filter(Boolean).length;
+  console.log(`${site} ${lang}: ${words} words → ${ORIGIN}${path} (${jsonLd.length} JSON-LD blocks)`);
+}
+
+await browser.close();
+server.close();

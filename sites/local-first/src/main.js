@@ -1,11 +1,11 @@
 import { mount } from 'svelte';
 import '@le-space/landing-shared/tokens.css';
-import { initI18n } from '@le-space/landing-shared/i18n';
+import { initI18n, localeFromPath } from '@le-space/landing-shared/i18n';
 import en from './locales/en.json';
 import de from './locales/de.json';
 import App from './App.svelte';
 
-initI18n({ en, de });
+initI18n({ en, de }, localeFromPath());
 
 const target = document.getElementById('app');
 // tools/postbuild.mjs bakes a prerendered copy of the app into #app so crawlers

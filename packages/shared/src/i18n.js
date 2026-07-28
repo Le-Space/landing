@@ -11,6 +11,25 @@ const dictionaries = {};
 
 export const locale = writable('de');
 
+/**
+ * Language lives in the URL: `/` is English, `/de/` is German. Crawlers need one
+ * URL per language — a single URL whose content depends on navigator.language
+ * gets indexed in whichever language the crawler happens to request.
+ * See docs/seo-plan.md.
+ */
+export const LOCALES = ['en', 'de'];
+export const DEFAULT_LOCALE = 'en';
+
+export function localeFromPath(pathname = typeof location !== 'undefined' ? location.pathname : '/') {
+  const first = pathname.split('/').filter(Boolean)[0];
+  return LOCALES.includes(first) && first !== DEFAULT_LOCALE ? first : DEFAULT_LOCALE;
+}
+
+/** URL path for a locale, preserving nothing else — these sites are one page. */
+export function localePath(code) {
+  return code === DEFAULT_LOCALE ? '/' : `/${code}/`;
+}
+
 export function initI18n(dicts, initial) {
   Object.assign(dictionaries, dicts);
   const saved = typeof localStorage !== 'undefined' ? localStorage.getItem('ls-locale') : null;
@@ -27,6 +46,8 @@ export function initI18n(dicts, initial) {
     if (lang.startsWith('de')) { detected = 'de'; break; }
     if (lang.startsWith('en')) { detected = 'en'; break; }
   }
+  // `initial` is the URL's language and must win: a visitor who follows a link
+  // to /de/ gets German even if they once clicked the EN flag on this device.
   locale.set(initial || saved || detected);
   locale.subscribe((l) => {
     try { localStorage.setItem('ls-locale', l); } catch { /* private mode */ }
