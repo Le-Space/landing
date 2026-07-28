@@ -38,8 +38,55 @@
   --ls-glow-accent: 0 0 20px rgba(88, 199, 243, 0.3);
 }
 
+/*
+ * Light theme — scaffolding only.
+ *
+ * Applied by [data-theme="light"] on <html>, which theme.js sets before paint.
+ * The brand accents keep their hue but are darkened where they would fail
+ * contrast on white: Sync Cyan and Identity Green are bright enough for dark
+ * backgrounds and unreadable on light ones.
+ *
+ * Known gaps, deliberately out of scope for the scaffolding (see the notes in
+ * the chat that accompanied this change):
+ *   - Project screenshots are captured in the demos' dark mode, so they stay
+ *     dark on a light page. They carry a frame, so they read as pictures.
+ *   - NetworkViz draws light nodes on a dark canvas and needs its own pass.
+ */
+:root[data-theme='light'] {
+  --ls-red: #d94733;
+  --ls-red-bright: #e2604c;
+  --ls-accent: #0b7fae;
+  --ls-accent-2: #6d47d9;
+  --ls-green: #12855a;
+  --ls-amber: #a86a00;
+
+  --ls-bg-0: #f7f8fb;
+  --ls-bg-1: #eef1f6;
+  --ls-bg-2: #ffffff;
+  --ls-bg-3: #d9dfe9;
+
+  --ls-text: #10141f;
+  --ls-text-dim: #47536b;
+  --ls-text-faint: #7c879b;
+
+  --ls-card: rgba(16, 20, 31, 0.025);
+  --ls-card-border: rgba(16, 20, 31, 0.12);
+  --ls-card-hover: rgba(16, 20, 31, 0.05);
+
+  --ls-glow-red: 0 0 24px rgba(217, 71, 51, 0.18);
+  --ls-glow-accent: 0 0 20px rgba(11, 127, 174, 0.16);
+}
+
 * {
   box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+}
+
+html[data-theme='light'] {
+  color-scheme: light;
 }
 
 html {

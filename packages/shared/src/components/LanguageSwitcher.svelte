@@ -8,6 +8,7 @@
    * path to the other language version, which a click handler never would.
    */
   import { locale, localePath } from '../i18n.js';
+  import ThemeToggle from './ThemeToggle.svelte';
 
   const langs = [
     { code: 'de', label: 'Deutsch' },
@@ -49,9 +50,19 @@
       {/if}
     </a>
   {/each}
+  <span class="sep" aria-hidden="true"></span>
+  <ThemeToggle />
 </div>
 
 <style>
+  .sep {
+    width: 1px;
+    align-self: stretch;
+    margin: 2px 1px;
+    background: var(--ls-card-border);
+  }
+
+  /* The pill is the whole top-right control cluster: languages plus theme. */
   .lang-switcher {
     position: fixed;
     top: 16px;

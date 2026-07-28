@@ -46,5 +46,9 @@
   "footer": {
     "imprint": "Impressum",
     "privacy": "Datenschutz"
+  },
+  "theme": {
+    "toLight": "Zum hellen Modus wechseln",
+    "toDark": "Zum dunklen Modus wechseln"
   }
 }
