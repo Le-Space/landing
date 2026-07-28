@@ -16,6 +16,7 @@
    *   webrtc    boolean  enable webRTC transport (default true)
    */
   import { onMount } from 'svelte';
+  import { theme } from '../theme.js';
 
   let {
     height = 440,
@@ -50,12 +51,28 @@
     'p2pass': ['identity'],
     'webauthn-did': ['identity']
   };
-  const TOPIC_COLORS = ['#4dd8ff', '#9d7bff', '#3ddc97', '#ffb454', '#ff6ac1', '#35d0ba'];
   // Fixed, clearly-distinct colours for the illustrative topics (avoid the
   // relay purple / peer cyan). Unknown live topics fall back to the palette.
-  const TOPIC_COLOR_MAP = {
-    chat: '#ff6ac1', sync: '#ffb454', identity: '#35d0ba',
-    todos: '#4dd8ff', storage: '#9d7bff', blog: '#3ddc97'
+  //
+  // Two sets: the bright ones are tuned for a near-black canvas and turn to
+  // pastel mush on white, so light mode gets darker, more saturated variants at
+  // the same hues. The node/edge/text colours come from the CSS tokens instead
+  // and are re-read whenever the theme changes.
+  const TOPIC_PALETTE = {
+    dark: {
+      list: ['#4dd8ff', '#9d7bff', '#3ddc97', '#ffb454', '#ff6ac1', '#35d0ba'],
+      map: {
+        chat: '#ff6ac1', sync: '#ffb454', identity: '#35d0ba',
+        todos: '#4dd8ff', storage: '#9d7bff', blog: '#3ddc97'
+      }
+    },
+    light: {
+      list: ['#0b7fae', '#6d47d9', '#12855a', '#a86a00', '#c02a86', '#0f7d70'],
+      map: {
+        chat: '#c02a86', sync: '#a86a00', identity: '#0f7d70',
+        todos: '#0b7fae', storage: '#6d47d9', blog: '#12855a'
+      }
+    }
   };
 
   onMount(() => {
@@ -65,15 +82,32 @@
 
     const css = (name) =>
       getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-    const COLORS = {
-      relay: css('--ls-accent-2') || '#9d7bff',
-      peer: css('--ls-accent') || '#4dd8ff',
-      direct: css('--ls-green') || '#3ddc97',
-      live: css('--ls-green') || '#3ddc97',
-      self: css('--ls-red-bright') || '#ff5a5f',
-      text: css('--ls-text-dim') || '#9aa5b8',
-      tipText: css('--ls-text') || '#e8ecf4',
-      tipBg: css('--ls-bg-2') || '#111827'
+
+    // Re-read on every theme change. These used to be a one-time snapshot taken
+    // at mount, so switching to light mode left the graph drawing its dark-mode
+    // colours — pale nodes and near-white labels on a white page.
+    let COLORS = {};
+    let TOPIC_COLORS = TOPIC_PALETTE.dark.list;
+    let TOPIC_COLOR_MAP = TOPIC_PALETTE.dark.map;
+
+    const readColors = () => {
+      const mode = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+      COLORS = {
+        relay: css('--ls-accent-2') || '#9d7bff',
+        peer: css('--ls-accent') || '#4dd8ff',
+        direct: css('--ls-green') || '#3ddc97',
+        live: css('--ls-green') || '#3ddc97',
+        self: css('--ls-red-bright') || '#ff5a5f',
+        text: css('--ls-text-dim') || '#9aa5b8',
+        tipText: css('--ls-text') || '#e8ecf4',
+        tipBg: css('--ls-bg-2') || '#111827',
+        // Glows read as light bleeding out of a node on black; on white the same
+        // trick only muddies the shape, so light mode suppresses them.
+        glow: mode === 'light' ? 0 : 1
+      };
+      TOPIC_COLORS = TOPIC_PALETTE[mode].list;
+      TOPIC_COLOR_MAP = TOPIC_PALETTE[mode].map;
+      for (const key of Object.keys(topicColorCache)) delete topicColorCache[key];
     };
 
     // Long protocol topic names → short display labels.
@@ -81,6 +115,11 @@
       /_peer-discovery\./.test(topic) ? 'discovery' : topic.length > 14 ? `${topic.slice(0, 12)}…` : topic;
 
     const topicColorCache = {};
+    readColors();
+    // The store fires immediately and on every toggle; the graph redraws each
+    // frame, so re-reading the tokens is all that is needed.
+    const unsubscribeTheme = theme.subscribe(() => readColors());
+
     const topicColor = (topic) => {
       if (TOPIC_COLOR_MAP[topic]) return TOPIC_COLOR_MAP[topic];
       if (topicColorCache[topic]) return topicColorCache[topic];
@@ -468,7 +507,7 @@
         ctx.beginPath();
         ctx.arc(x, y, 3.2, 0, Math.PI * 2);
         ctx.fillStyle = COLORS.self;
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = (10) * COLORS.glow;
         ctx.shadowColor = COLORS.self;
         ctx.fill();
         ctx.shadowBlur = 0;
@@ -490,7 +529,7 @@
         ctx.beginPath();
         ctx.arc(x, y, 3, 0, Math.PI * 2);
         ctx.fillStyle = pk.color;
-        ctx.shadowBlur = 8;
+        ctx.shadowBlur = (8) * COLORS.glow;
         ctx.shadowColor = pk.color;
         ctx.fill();
         ctx.shadowBlur = 0;
@@ -507,7 +546,7 @@
         lp.alpha = Math.max(0, Math.min(cap, lp.alpha + lp.dir * 0.04));
         if (lp.alpha > 0.02) {
           const col = lp.connected ? COLORS.live : COLORS.text;
-          ctx.shadowBlur = (lp.connected ? 10 : 3) * lp.alpha;
+          ctx.shadowBlur = ((lp.connected ? 10 : 3) * lp.alpha) * COLORS.glow;
           ctx.shadowColor = col;
           node(lp, col, t, true, lp.alpha);
           ctx.shadowBlur = 0;
@@ -517,7 +556,7 @@
 
       // our own node, drawn last (in front), with a distinct ring + label
       if (selfNode) {
-        ctx.shadowBlur = 14;
+        ctx.shadowBlur = (14) * COLORS.glow;
         ctx.shadowColor = COLORS.self;
         node(selfNode, COLORS.self, t, true);
         ctx.shadowBlur = 0;
@@ -608,6 +647,7 @@
 
     return () => {
       cancelAnimationFrame(raf);
+      unsubscribeTheme();
       window.removeEventListener('resize', onResize);
       canvas.removeEventListener('pointermove', onMove);
       canvas.removeEventListener('pointerleave', onLeave);
