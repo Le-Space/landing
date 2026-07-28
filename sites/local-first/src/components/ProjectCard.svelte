@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { t, locale } from '@le-space/landing-shared/i18n';
-  import { LAYERS } from '@le-space/landing-shared/projects';
+  import { LAYERS, STATUS } from '@le-space/landing-shared/projects';
 
   let { project, dimmed = false } = $props();
 
@@ -44,6 +44,26 @@
     clearTimeout(pressTimer);
     pressTimer = setTimeout(() => pin(i), 350);
   }
+
+  // Address shown in the frame's chrome: the demo the picture actually shows,
+  // falling back to whatever URL the card leads to.
+  const host = (url) => {
+    try {
+      return new URL(url).host;
+    } catch {
+      return '';
+    }
+  };
+  const hasShot = $derived(shots.length > 0 || (!!project.screenshot && !imgFailed));
+  // `shotHost` exists for pictures taken somewhere other than the project's own
+  // URL — the Relay Button shot is the panel embedded in Simple Todo, and
+  // labelling it with the docs domain would be simply wrong.
+  const addr = $derived(
+    shots.length
+      ? host(shots[shown].url)
+      : (project.shotHost ??
+        host(project.demo ?? project.docs ?? project.demos?.[0]?.url ?? project.github ?? ''))
+  );
 
   // Overflowing card bodies get a capped height with a soft scrollbar and a
   // slow film-credits auto-scroll (ping-pong, paused while the pointer is over it).
@@ -88,7 +108,17 @@
 </script>
 
 <article class="card" class:dimmed>
+  <!-- The screenshots use the same palette as this page, so without a frame it
+       is unclear where the card stops and the pictured app begins. The browser
+       chrome says "this is a different site" and shows which one. -->
   <div class="media" class:missing={imgFailed} style="--layer-color: {LAYERS[project.layers[0]].color}">
+    {#if hasShot}
+      <div class="chrome" aria-hidden="true">
+        <span class="tl"><i></i><i></i><i></i></span>
+        <span class="addr">{addr}</span>
+      </div>
+    {/if}
+    <div class="frame" class:framed={hasShot}>
     {#if shots.length}
       {#each shots as d, i (d.url)}
         <img
@@ -118,12 +148,15 @@
       />
     {/if}
     <div class="placeholder" aria-hidden="true">{project.name}</div>
+    </div>
   </div>
 
   <div class="body">
     <header>
       <h3>{project.name}</h3>
-      <span class="ls-badge status-{project.status}">{project.status}</span>
+      <span class="ls-badge status-{project.status}">
+        {STATUS[project.status]?.[$locale] ?? STATUS[project.status]?.en ?? project.status}
+      </span>
     </header>
 
     <div class="layers">
@@ -217,9 +250,61 @@
   .media {
     aspect-ratio: 16 / 9;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 12px 12px 0;
     background:
       radial-gradient(ellipse at 30% 20%, color-mix(in srgb, var(--layer-color) 22%, transparent), transparent 60%),
       var(--ls-bg-2);
+  }
+
+  /* Fake browser chrome. Purely a separator between this page and the pictured
+     app — the screenshots share this site's palette and otherwise bleed into it. */
+  .chrome {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 22px;
+    padding: 0 9px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: none;
+    border-radius: 7px 7px 0 0;
+    background: rgba(255, 255, 255, 0.055);
+  }
+
+  .tl {
+    display: flex;
+    gap: 4px;
+    flex: none;
+  }
+
+  .tl i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.22);
+  }
+
+  .addr {
+    font-family: var(--ls-font-mono);
+    font-size: 0.6rem;
+    color: var(--ls-text-faint);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .frame {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .frame.framed {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0 0 7px 7px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
   }
 
   .media img,
@@ -325,6 +410,7 @@
 
   .status-stable { color: var(--ls-green); border-color: var(--ls-green); }
   .status-beta { color: var(--ls-amber); border-color: var(--ls-amber); }
+  .status-in-development { color: var(--ls-accent); border-color: var(--ls-accent); }
   .status-prototype { color: var(--ls-text-dim); }
   .status-tutorial { color: var(--ls-accent-2); border-color: var(--ls-accent-2); }
 

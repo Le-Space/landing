@@ -1,5 +1,6 @@
 <script>
   import { siteConfig } from '../site-config.js';
+  import { buildStamp } from '../build-info.js';
   import { t, locale } from '../i18n.js';
   import SocialIcons from './SocialIcons.svelte';
   import LegalModals from './LegalModals.svelte';
@@ -26,6 +27,9 @@
         <button class="legal" onclick={() => (showImprint = true)}>{$t('footer.imprint', 'Impressum')}</button>
         <button class="legal" onclick={() => (showPrivacy = true)}>{$t('footer.privacy', 'Datenschutz')}</button>
       </div>
+      <!-- Version, commit and build date: enough to tell whether the page you
+           are looking at is the deploy you just pushed. -->
+      <span class="build" title="Version · commit · build date">{buildStamp}</span>
     </div>
   </div>
 </footer>
@@ -91,6 +95,13 @@
     gap: 16px;
     align-items: center;
     font-size: 0.85rem;
+  }
+
+  .build {
+    font-family: var(--ls-font-mono);
+    font-size: 0.7rem;
+    color: var(--ls-text-faint);
+    letter-spacing: 0.02em;
   }
 
 </style>

@@ -14,6 +14,18 @@ export const LAYERS = {
   archive: { id: 'archive', color: 'var(--ls-red-bright)', label: { en: 'Archive', de: 'Archiv' } }
 };
 
+/**
+ * Status badge labels. The badge used to print the raw status key, so the
+ * German page said "beta" and "prototype" too.
+ */
+export const STATUS = {
+  stable: { en: 'stable', de: 'stabil' },
+  beta: { en: 'beta', de: 'beta' },
+  'in-development': { en: 'in development', de: 'in Entwicklung' },
+  prototype: { en: 'prototype', de: 'Prototyp' },
+  tutorial: { en: 'tutorial', de: 'Tutorial' }
+};
+
 export const projects = [
   {
     id: 'relay-button',
@@ -26,6 +38,8 @@ export const projects = [
     docs: 'https://nikrause.github.io/relay-button/',
     npm: '@le-space/core',
     screenshot: '/media/relay-button.webp',
+    // The shot is the Relay Button panel embedded in Simple Todo, not the docs site.
+    shotHost: 'simple-todo.le-space.de',
     video: null,
     tagline: {
       en: `Deploy libp2p relay infrastructure on demand — the toolchain at the core of the local-first stack.
@@ -150,7 +164,7 @@ export const projects = [
     id: 'ucan-store',
     name: 'UCAN Store',
     layers: ['identity', 'archive'],
-    status: 'beta',
+    status: 'in-development',
     featured: true,
     github: 'https://github.com/NomadKids/ucan-store',
     demo: 'https://ucan.nicokrause.com',
