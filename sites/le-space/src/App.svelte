@@ -1,6 +1,7 @@
 <script>
   import { t } from '@le-space/landing-shared/i18n';
   import { siteConfig } from '@le-space/landing-shared/site-config';
+  import { buildStamp } from '@le-space/landing-shared/build-info';
   import ParticlesBackground from '@le-space/landing-shared/components/ParticlesBackground.svelte';
   import LanguageSwitcher from '@le-space/landing-shared/components/LanguageSwitcher.svelte';
   import LeSpaceLogo from '@le-space/landing-shared/components/LeSpaceLogo.svelte';
@@ -43,6 +44,9 @@
     <a href="mailto:{siteConfig.email.contact}">{siteConfig.email.contact}</a>
     <button class="legal" onclick={() => (showImprint = true)}>Impressum</button>
     <button class="legal" onclick={() => (showPrivacy = true)}>Datenschutz</button>
+    <!-- This site has its own footer instead of the shared Footer component,
+         so the build stamp has to be repeated here. -->
+    <span class="build" title="Version · commit · build date">{buildStamp}</span>
   </footer>
 </main>
 
@@ -129,6 +133,13 @@
 
   footer a {
     color: var(--ls-text-faint);
+  }
+
+  .build {
+    font-family: var(--ls-font-mono);
+    font-size: 0.7rem;
+    color: var(--ls-text-faint);
+    opacity: 0.75;
   }
 
   .legal {

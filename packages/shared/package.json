@@ -1,12 +1,14 @@
 {
   "name": "@le-space/landing-shared",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "exports": {
     "./tokens.css": "./src/tokens.css",
     "./site-config": "./src/site-config.js",
     "./i18n": "./src/i18n.js",
+    "./theme": "./src/theme.js",
+    "./build-info": "./src/build-info.js",
     "./projects": "./src/data/projects.js",
     "./faq": "./src/data/faq.js",
     "./components/*": "./src/components/*",
