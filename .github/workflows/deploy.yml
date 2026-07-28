@@ -63,7 +63,9 @@ jobs:
             "
           done
           git add package.json sites/*/package.json packages/*/package.json
-          # [skip ci] keeps this push from triggering the workflow again.
+          # The marker below keeps this push from triggering the workflow again.
+          # Careful: GitHub reads it from any head-commit message, so never write
+          # it into a normal commit message — that silently skips the deploy.
           git commit -m "chore(release): $next [skip ci]"
           git push origin HEAD:main
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
