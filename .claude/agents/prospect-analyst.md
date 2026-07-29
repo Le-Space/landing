@@ -17,7 +17,11 @@ Aufwand, und wenn ja — mit welchem Aufhänger?
 ## Vorgehen
 
 1. **Basis.** Firmenseite, Produktseiten, Blog/News, Karriereseite, Impressum
-   (Größe, Rechtsform, Standort), GitHub-Org falls vorhanden.
+   (Größe, Rechtsform, Standort), GitHub-Org falls vorhanden. Erreichbar sind diese
+   Seiten nur über `WebSearch` mit `site:<domain>` — `WebFetch` ist in dieser Umgebung
+   für jede URL gesperrt. Jeder so gewonnene Beleg wird im Dossier als Snippet
+   gekennzeichnet; Angaben zu Größe, Stack und Entscheidungswegen sind damit schwach
+   belegt und gehören bei Zweifel unter „Offene Fragen" statt in eine hohe Punktzahl.
 2. **Nach Beweisen suchen, nicht nach Bestätigung.** Konkret jagst du:
    - *Offline-Schmerz:* Sagt die Firma selbst irgendwo „funktioniert auch offline",
      „Synchronisation", „ohne Netz"? Dann hat sie das Problem bereits gelöst — schlecht
@@ -35,9 +39,12 @@ Aufwand, und wenn ja — mit welchem Aufhänger?
 4. **Aufhänger wählen:** genau einen Prototyp aus `prototypes.md`, plus in zwei Sätzen,
    welches konkrete Problem *dieser* Firma er löst. Passt keiner sauber, sag das —
    erfinde keinen Fit.
-5. **Dossier schreiben** nach `prospecting/data/dossiers/<slug>.md` (Vorlage unten) und
-   die Zeile in `prospects.ndjson` aktualisieren (`score`, `tier`, `signals`,
-   `prototype_ref`, `next_action`, `status: "researched"`, `updated`).
+5. **Dossier schreiben** nach `prospecting/data/dossiers/<slug>.md` (Vorlage unten).
+   **Schreibe nicht selbst in `prospects.ndjson`** — Analysten laufen oft parallel, und
+   gleichzeitige Schreibzugriffe zerstören die Datei. Gib stattdessen die aktualisierte
+   Zeile (eine Zeile, valides JSON nach dem Schema, mit `score`, `tier`, `signals`,
+   `prototype_ref`, `next_action`, `status: "researched"`, `updated`) am Ende deines
+   Reports aus. Das Zusammenführen macht der aufrufende Hauptlauf.
 
 ## Dossier-Vorlage
 

@@ -35,8 +35,12 @@ unbearbeitete aus `prospecting/queries.md`.
    - Konferenz- und Community-Quellen (FOSDEM Local-First Devroom, openlocalfirst.org,
      Local-First Conf, Meetup-/Podcast-Gästelisten, „awesome-local-first")
    - Anbieter-Verzeichnisse der Zielbranche (Capterra/OMR/Branchenportale) für Marktkarten
-3. **Jeden Treffer verifizieren.** Firmenseite per `WebFetch` öffnen, bevor du ihn anlegst.
-   Nicht erreichbar oder Inhalt passt nicht → nicht anlegen.
+3. **Jeden Treffer verifizieren.** `WebFetch` ist in dieser Umgebung für *jede* URL
+   gesperrt (403, Egress-Policy) — verifiziere per `WebSearch` mit `site:<domain>` und
+   gezielten Begriffen, mehrere Suchen pro Firma. Beleg ist ein Snippet von einer echten
+   Unterseite der Firmendomain, nicht ein Verzeichniseintrag. Deckt sich nichts oder passt
+   der Inhalt nicht → nicht anlegen. Details: `channels.md`, „Was die WebFetch-Sperre für
+   die Belegqualität bedeutet".
 4. **Anlegen** als eine Zeile in `prospecting/data/prospects.ndjson`, Schema:
    `prospecting/prospects.schema.json`. `status: "new"`, `score: null` — die Bewertung
    macht der Analyst.

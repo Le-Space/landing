@@ -8,7 +8,7 @@ Realitätsabgleich — sie verhindert, dass Agenten Zeit in Kanäle stecken, die
 | Kanal | Werkzeug | Wert | Einschränkung |
 |---|---|---|---|
 | Websuche | `WebSearch` | hoch | US-lastig. Deutsche Treffer nur mit expliziten Ortsbegriffen („Deutschland", „DACH", „Anbieter"). Deutsche *und* englische Variante jeder Query fahren. |
-| Firmen-Websites | `WebFetch` | hoch | Einzelne Seiten blocken (403). Dann Google-Cache-Treffer oder Unterseite versuchen. |
+| Firmen-Websites | `WebSearch` mit `site:firma.de` | hoch | **Nicht `WebFetch`** — siehe unten. Gezielte `site:`-Suchen liefern Snippets von echten Unterseiten; das ist der Beleg, den wir bekommen können. |
 | GitHub | `mcp__github__search_code`, `search_repositories`, `search_users` | **sehr hoch** | Bestes Signal überhaupt: wer `libp2p`, `yjs`, `automerge`, `pouchdb`, `orbitdb` in `package.json` hat, kämpft nachweislich mit Sync. Code-Suche braucht meist einen Sprach- oder Pfadfilter. |
 | Stellenanzeigen | `WebSearch` mit `site:`-Filter | hoch | Verrät den echten Stack und den aktuellen Schmerz besser als jede Marketingseite. |
 | Konferenzen/Community | `WebSearch` + `WebFetch` | hoch | FOSDEM Local-First Devroom, openlocalfirst.org, Local-First Conf, „awesome-local-first", Podcast-Gästelisten. Warmes Netzwerk statt Kaltakquise. |
@@ -18,9 +18,30 @@ Realitätsabgleich — sie verhindert, dass Agenten Zeit in Kanäle stecken, die
 
 | Kanal | Status | Warum |
 |---|---|---|
-| **X / Twitter** | gesperrt (HTTP 403) | Kein Zugriff ohne Login; Scraping verstößt gegen die Nutzungsbedingungen. |
+| **`WebFetch` — jede URL** | gesperrt (HTTP 403) | Egress-Policy des Agent-Proxys, nicht seitenspezifisch: auch `example.com` liefert 403. **Kein Seitenabruf möglich, für keine Domain.** Nicht umgehen — TLS-Prüfung nicht abschalten, `HTTPS_PROXY` nicht entfernen. Bestätigt 2026-07-29. |
+| **X / Twitter** | gesperrt | Kein Zugriff ohne Login; Scraping verstößt gegen die Nutzungsbedingungen. |
 | **LinkedIn** | praktisch gesperrt | Personenprofile sind kaum indexiert, `site:linkedin.com/in`-Suchen laufen ins Leere; automatisiertes Auslesen verstößt gegen die Nutzungsbedingungen. |
 | Handelsregister / Bonitätsdaten | nicht angebunden | Kostenpflichtig, teils personenbezogen. |
+
+### Was die WebFetch-Sperre für die Belegqualität bedeutet
+
+Der Standard „Firmenseite geöffnet und gelesen" ist in dieser Umgebung **nicht erreichbar**.
+Der ersatzweise Standard lautet:
+
+- Verifikation per `WebSearch` mit `site:<domain>` plus gezielten Begriffen. Mehrere Suchen
+  pro Firma, bis sich die Aussagen decken.
+- Als Beleg zählt ein **Snippet von einer echten Unterseite der Firmendomain** — nicht die
+  Zusammenfassung der Suchmaschine, und erst recht nicht ein Drittanbieter-Verzeichnis.
+- Jeder so gewonnene `evidence`-Eintrag wird als **Snippet, nicht geöffnete Seite**
+  gekennzeichnet. Im Dossier steht das einmal deutlich am Kopf.
+- Praktische Folge fürs Scoring: Angaben zu **Firmengröße, Tech-Stack und
+  Entscheidungswegen sind auf Snippet-Basis schwach belegt.** Wo die Punktzahl daran
+  hängt, gehört das in „Offene Fragen" und wird im Erstgespräch geklärt — nicht
+  hochgeschätzt.
+
+Sollte `WebFetch` in einer anderen Umgebung wieder funktionieren (lokale Ausführung,
+andere Netzwerk-Policy), gilt wieder der stärkere Standard. Vor einem großen Lauf einmal
+`WebFetch` auf eine neutrale URL testen und diese Datei entsprechend anpassen.
 
 **Wichtig:** Das ist kein Werkzeugproblem, das man mit einem anderen Agenten umgeht. Es ist
 eine rechtliche und technische Grenze. Der Agent versucht es gar nicht erst — er bereitet

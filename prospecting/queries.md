@@ -31,6 +31,12 @@ Wer diese Pakete in `package.json` stehen hat, hat nachweislich ein Sync-Problem
 Anschließend die Org hinter dem Repo prüfen: Firmenprofil, Standort, Website. Interessant
 sind Orgs mit Firmenseite — nicht Einzelpersonen.
 
+> **Beobachtung 2026-07-29 (Runde Sicherheitsbranche):** Null Treffer. Diese Branche
+> entwickelt geschlossen, es gibt praktisch keine öffentlichen Repos. Der GitHub-Kanal
+> bleibt insgesamt der stärkste, ist aber **branchenabhängig**: stark bei Agenturen,
+> Produktfirmen und Tooling-Häusern, wertlos bei klassischer Branchensoftware für
+> regulierte Felder. Faustregel: zwei Suchen, dann weiterziehen.
+
 Verwandte Suchen:
 - `org-Standort Deutschland` + `language:TypeScript` + Thema `offline-first`
 - Contributors der einschlägigen Repos (`yjs`, `automerge`, `orbitdb`, `libp2p`) —
@@ -40,6 +46,12 @@ Verwandte Suchen:
 ---
 
 ## B · Stellenanzeigen — der Schmerz, öffentlich beschrieben
+
+> **Beobachtung 2026-07-29 (Runde Sicherheitsbranche):** In dieser Branche komplett leer
+> gelaufen — `site:stepstone.de` und `join.com` mit Sicherheits- plus Offline-Begriffen
+> lieferten keine Firmen. Erklärung: Die Anbieter sind zu klein für Portal-Anzeigen und
+> schreiben auf der eigenen Karriereseite aus. Für kleine Branchen also nicht über
+> Jobportale, sondern `site:<firmendomain> Karriere Entwickler` je Firma.
 
 ```
 "offline-fähig" Entwickler Stellenanzeige Deutschland
