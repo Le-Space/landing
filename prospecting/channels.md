@@ -18,12 +18,47 @@ Realitätsabgleich — sie verhindert, dass Agenten Zeit in Kanäle stecken, die
 
 | Kanal | Status | Warum |
 |---|---|---|
-| **`WebFetch` — jede URL** | gesperrt (HTTP 403) | Egress-Policy des Agent-Proxys, nicht seitenspezifisch: auch `example.com` liefert 403. **Kein Seitenabruf möglich, für keine Domain.** Nicht umgehen — TLS-Prüfung nicht abschalten, `HTTPS_PROXY` nicht entfernen. Bestätigt 2026-07-29. |
+| **Jeder Seitenabruf** (`WebFetch` *und* `curl`) | gesperrt (HTTP 403) | Netzwerk-Policy der Umgebung, nicht seitenspezifisch und nicht werkzeugspezifisch — auch `example.com` liefert 403. Nicht umgehen: TLS-Prüfung nicht abschalten, `HTTPS_PROXY` nicht entfernen. Diagnose und Abhilfe unten. Bestätigt 2026-07-29. |
 | **X / Twitter** | gesperrt | Kein Zugriff ohne Login; Scraping verstößt gegen die Nutzungsbedingungen. |
 | **LinkedIn** | praktisch gesperrt | Personenprofile sind kaum indexiert, `site:linkedin.com/in`-Suchen laufen ins Leere; automatisiertes Auslesen verstößt gegen die Nutzungsbedingungen. |
 | Handelsregister / Bonitätsdaten | nicht angebunden | Kostenpflichtig, teils personenbezogen. |
 
-### Was die WebFetch-Sperre für die Belegqualität bedeutet
+### Die Sperre erkennen — 30 Sekunden vor jedem Lauf
+
+```bash
+curl -sS -o /dev/null -w '%{http_code}\n' --max-time 20 https://example.com/
+curl -sS "$HTTPS_PROXY/__agentproxy/status"
+```
+
+`200` → alles offen, der starke Belegstandard gilt, diesen Abschnitt ignorieren.
+`000` mit `CONNECT tunnel failed, response 403` → gesperrt. Der Status-Endpunkt
+protokolliert es als `connect_rejected — gateway answered 403 to CONNECT (policy denial)`.
+
+**Warum WebSearch trotzdem funktioniert:** Es läuft nicht über diesen Proxy. Deshalb ist
+Suchen möglich, Nachlesen nicht — die eigentümlichste Eigenschaft dieser Umgebung.
+
+### Die Sperre auflösen (nicht umgehen)
+
+Die Standardeinstellung von Claude Code on the web erlaubt nur Paketmanager. Man erkennt
+sie an der `no_proxy`-Liste: `registry.npmjs.org`, `pypi.org`, `index.crates.io`,
+`proxy.golang.org` sind erreichbar, damit `pnpm install` läuft — alles andere nicht.
+Drei Auswege, nach Aufwand sortiert:
+
+1. **Rückkanal** (sofort, kein Setup): Nico öffnet die Seiten im Browser und pastet den
+   Text zurück, Ablage unter `data/inbox/`. Derselbe Mechanismus wie für LinkedIn und X.
+   Für eine Handvoll bekannter Firmen der schnellste Weg.
+2. **Claude Code lokal** auf dem Rechner statt im Web (CLI oder Desktop-App im geklonten
+   Repo): kein Egress-Proxy, Seitenabruf funktioniert normal.
+3. **Netzwerk-Policy der Umgebung ändern** ([Doku](https://code.claude.com/docs/en/network-config)):
+   kein Netz · nur Paketmanager (Standard) · Paketmanager plus eigene Domain-Allowlist ·
+   voller Zugriff. Für Prospecting taugt die Allowlist kaum — der Zweck ist ja, Firmen zu
+   finden, deren Domains vorher niemand kennt. Also voller Zugriff, und zwar bewusst in
+   einer **eigenen Umgebung nur für Prospecting**: Der Container hat Schreibzugriff aufs
+   Repo, und der Agent liest dann beliebige fremde Seiten. Das ist für Recherche
+   vertretbar, aber nichts, was man pauschal für Sessions anschaltet, in denen Code
+   committet wird.
+
+### Was die Sperre für die Belegqualität bedeutet
 
 Der Standard „Firmenseite geöffnet und gelesen" ist in dieser Umgebung **nicht erreichbar**.
 Der ersatzweise Standard lautet:
@@ -39,9 +74,10 @@ Der ersatzweise Standard lautet:
   hängt, gehört das in „Offene Fragen" und wird im Erstgespräch geklärt — nicht
   hochgeschätzt.
 
-Sollte `WebFetch` in einer anderen Umgebung wieder funktionieren (lokale Ausführung,
-andere Netzwerk-Policy), gilt wieder der stärkere Standard. Vor einem großen Lauf einmal
-`WebFetch` auf eine neutrale URL testen und diese Datei entsprechend anpassen.
+Sobald der Seitenabruf funktioniert (lokale Ausführung oder geänderte Policy), gilt wieder
+der stärkere Standard „geöffnet und gelesen" — dann fallen die Snippet-Warnkästen in
+Dossiers und Pitches weg, und die Belegqualität der ganzen Pipeline steigt um eine Stufe.
+Deshalb steht der Test oben am Anfang jedes Laufs.
 
 **Wichtig:** Das ist kein Werkzeugproblem, das man mit einem anderen Agenten umgeht. Es ist
 eine rechtliche und technische Grenze. Der Agent versucht es gar nicht erst — er bereitet

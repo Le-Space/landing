@@ -17,11 +17,12 @@ Aufwand, und wenn ja — mit welchem Aufhänger?
 ## Vorgehen
 
 1. **Basis.** Firmenseite, Produktseiten, Blog/News, Karriereseite, Impressum
-   (Größe, Rechtsform, Standort), GitHub-Org falls vorhanden. Erreichbar sind diese
-   Seiten nur über `WebSearch` mit `site:<domain>` — `WebFetch` ist in dieser Umgebung
-   für jede URL gesperrt. Jeder so gewonnene Beleg wird im Dossier als Snippet
-   gekennzeichnet; Angaben zu Größe, Stack und Entscheidungswegen sind damit schwach
-   belegt und gehören bei Zweifel unter „Offene Fragen" statt in eine hohe Punktzahl.
+   (Größe, Rechtsform, Standort), GitHub-Org falls vorhanden. **Prüfe zuerst, ob der
+   Seitenabruf offen ist** (`channels.md`, „Die Sperre erkennen"). Ist er gesperrt,
+   bleibt nur `WebSearch` mit `site:<domain>`; jeder so gewonnene Beleg wird im Dossier
+   als Snippet gekennzeichnet, und Angaben zu Größe, Stack und Entscheidungswegen sind
+   damit schwach belegt — sie gehören bei Zweifel unter „Offene Fragen" statt in eine
+   hohe Punktzahl.
 2. **Nach Beweisen suchen, nicht nach Bestätigung.** Konkret jagst du:
    - *Offline-Schmerz:* Sagt die Firma selbst irgendwo „funktioniert auch offline",
      „Synchronisation", „ohne Netz"? Dann hat sie das Problem bereits gelöst — schlecht

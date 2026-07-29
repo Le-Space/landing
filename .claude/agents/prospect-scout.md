@@ -35,12 +35,13 @@ unbearbeitete aus `prospecting/queries.md`.
    - Konferenz- und Community-Quellen (FOSDEM Local-First Devroom, openlocalfirst.org,
      Local-First Conf, Meetup-/Podcast-Gästelisten, „awesome-local-first")
    - Anbieter-Verzeichnisse der Zielbranche (Capterra/OMR/Branchenportale) für Marktkarten
-3. **Jeden Treffer verifizieren.** `WebFetch` ist in dieser Umgebung für *jede* URL
-   gesperrt (403, Egress-Policy) — verifiziere per `WebSearch` mit `site:<domain>` und
-   gezielten Begriffen, mehrere Suchen pro Firma. Beleg ist ein Snippet von einer echten
-   Unterseite der Firmendomain, nicht ein Verzeichniseintrag. Deckt sich nichts oder passt
-   der Inhalt nicht → nicht anlegen. Details: `channels.md`, „Was die WebFetch-Sperre für
-   die Belegqualität bedeutet".
+3. **Jeden Treffer verifizieren.** Prüfe **zu Beginn jedes Laufs einmal**, ob der
+   Seitenabruf offen ist (`channels.md`, „Die Sperre erkennen" — ein `curl` auf eine
+   neutrale URL, 30 Sekunden). Ist er offen: Firmenseite mit `WebFetch` öffnen, bevor du
+   anlegst. Ist er gesperrt (403): per `WebSearch` mit `site:<domain>` und gezielten
+   Begriffen verifizieren, mehrere Suchen pro Firma, Beleg ist ein Snippet von einer
+   echten Unterseite der Firmendomain — kein Verzeichniseintrag. Deckt sich nichts oder
+   passt der Inhalt nicht → nicht anlegen. Welcher Modus galt, gehört in den Report.
 4. **Anlegen** als eine Zeile in `prospecting/data/prospects.ndjson`, Schema:
    `prospecting/prospects.schema.json`. `status: "new"`, `score: null` — die Bewertung
    macht der Analyst.
