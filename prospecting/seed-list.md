@@ -30,6 +30,15 @@ Lösung. Das ist ein besserer Gesprächseinstieg als ein unbeschriebenes Blatt.
 BOS-Beschaffung — kürzere Entscheidungswege, und „revisionssicher" ist dort ein
 Verkaufsargument, auf das die passkey-signierten Einträge direkt einzahlen.
 
+> **Nachtrag nach Runde 1 (2026-07-29): diese Empfehlung war falsch.** Qualifiziert
+> landeten LiteLog bei 19 und LogPro bei 21 — beide Tier B, beide zu klein für ein
+> Prototyp-Budget. Tier A wurden die beiden BOS-Anbieter, die ich hier zurückgestellt
+> hatte: **rescueTABLET (27)** und **MissionBuddies (26)**. Die BOS-Falle aus
+> `industries.md` gilt für deren *Endkunden*, nicht für sie selbst — unser Kunde ist der
+> Softwarehersteller, und der zahlt aus dem Produktbudget ohne Vergabeverfahren.
+> Lehre für die nächste Runde: Firmengröße und Zahlungsfähigkeit schlagen die
+> Marktsegment-Heuristik. Details in `data/log.md`.
+
 ---
 
 ## Mode / Fashion
