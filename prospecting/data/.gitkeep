@@ -1,0 +1,12 @@
+Arbeitsverzeichnis der Prospecting-Pipeline — Inhalt ist bewusst gitignored.
+
+Erwartete Struktur:
+
+  prospects.ndjson        eine Firma pro Zeile, Schema: ../prospects.schema.json
+  dossiers/<slug>.md      Rechercheergebnis des prospect-analyst
+  pitches/<slug>.md       Anschreiben + Prototyp-Einseiter des prospect-pitch
+  inbox/<datum>-<quelle>.txt  Rohmaterial aus manuellen LinkedIn-/X-Läufen
+  log.md                  Protokoll der Prospecting-Runden
+
+Hier landen Kontaktdaten und Gesprächsnotizen. Dieses Repo ist öffentlich —
+nichts davon gehört in einen Commit.

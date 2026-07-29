@@ -34,6 +34,14 @@ pnpm build             # builds both sites to sites/*/dist
 build → publish to Aleph IPFS (`@le-space/node`, pinned) → link domain.
 Requires the `ALEPH_PRIVATE_KEY` repository/organization secret.
 
+## Prospecting
+
+`prospecting/` holds the go-to-market method for the stack: ideal customer profile,
+industry theses, a catalogue of six pre-scoped prototypes, a scoring rubric and outreach
+templates — driven by three subagents under `.claude/agents/` and the `prospecting` skill.
+Start at [prospecting/README.md](./prospecting/README.md). Pipeline data lives in
+`prospecting/data/` and is deliberately gitignored.
+
 ## Roadmap
 
 See [STRATEGY.md](./STRATEGY.md). Phase 2 adds `@le-space/orbitdb-live-todos`,

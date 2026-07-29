@@ -13,3 +13,8 @@ coverage/
 
 # scratch output of tools/capture-demos.mjs --raw
 .capture-raw/
+
+# Prospecting pipeline: contact data, dossiers and notes stay out of this public repo.
+# The method (icp/scoring/queries/templates) is versioned, the data is not.
+prospecting/data/*
+!prospecting/data/.gitkeep
