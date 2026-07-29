@@ -133,7 +133,7 @@ kein Beweis. Quelle: `packages/shared/src/data/projects.js`.
 | Mehrere Geräte, gemeinsamer Vorgang | `simple-todo.le-space.de` | Zwei Browser, dieselbe Liste, ohne Anmeldung |
 | Rechte und private Daten | `acl01.le-space.de` | Schreibrechte pro Identität, zur Laufzeit vergeben |
 | Wer hat was geschrieben (Revision) | `passkey01.le-space.de` | Jeder Eintrag mit Passkey signiert, Autor sichtbar |
-| Gar keine Infrastruktur vorhanden | `webrtc-qr.le-space.de` | Zwei Browser verbinden sich per QR-Code, ohne Server |
+| Gar keine Infrastruktur vorhanden | `webrtc-qr.le-space.de` | Zwei Browser verbinden sich per QR-Code, ohne Server. **Dazusagen: 1:1 per Bildschirm-Scan, Status Prototyp** — kein Mesh aus acht Geräten |
 | Betriebskosten der Infrastruktur | Relay-Button-Doku | Relay an, Relay aus — Infrastruktur auf Zeit |
 
 ---
@@ -149,6 +149,17 @@ hat das Gespräch schon halb abgeschrieben.
 Alles ist Open Source, die Bausteine sind einzeln auf npm, und Ihre Entwickler arbeiten
 im Projekt mit, statt zuzusehen. Das Ergebnis läuft ohne uns weiter. Nicht wegdiskutieren,
 sondern konkret beantworten.
+
+**„Dann brauchen wir ja auch bei euch einen Server."** Der unangenehmste Einwand, und er
+ist halb berechtigt — deshalb zuerst selbst ansprechen, nie abwarten. Was ohne alles
+funktioniert: die App startet, schreibt lokal und **signiert jeden Eintrag mit dem
+Passkey** — die Beweiskette hängt am Eintrag, nicht am Server, und das gilt im dritten
+Untergeschoss. Was ein Relay braucht: dass sich zwei Geräte finden, denn Browser können
+keine lokale Peer-Discovery (kein mDNS). Der Unterschied zum heutigen Aufbau ist trotzdem
+groß: Das Relay steht **im Fahrzeug, am Objekt, im Backstage** statt im Rechenzentrum, es
+ist austauschbar, es kann dem Kunden gehören, und es läuft nur, solange es gebraucht wird.
+Details und der TLS-Haken: `prototypes.md`, Abschnitt „Was ‚ohne Netz' bei uns wirklich
+heißt". Wer das schönredet, verliert das erste technische Gespräch.
 
 **„Unsere Kunden wollen doch eine zentrale Auswertung."** Richtig, und die bleibt.
 Local-First heißt nicht serverlos um jeden Preis — es heißt, dass der Server nicht mehr

@@ -12,17 +12,57 @@ den Preis, immer als Spanne kommunizieren.
 
 ---
 
+## Vorab: was „ohne Netz" bei uns wirklich heißt
+
+Vor jedem Kundengespräch lesen. Wer hier zu großzügig formuliert, verliert das erste
+technische Gespräch — und mit ihm den Kunden.
+
+| | Ohne Internet? |
+|---|---|
+| App starten (statisches Bundle, als PWA gecacht) | **ja** |
+| Lokal lesen und schreiben (OrbitDB/IndexedDB) | **ja** |
+| Eintrag mit Passkey signieren | **ja** — braucht nie eine Verbindung |
+| Zwei Geräte im selben Raum finden sich und synchronisieren | **nein, nicht von allein** |
+
+Der letzte Punkt ist die Grenze. `packages/shared/src/lib/p2p/network.js` fährt
+`webSockets`, `webRTC`, `circuitRelayTransport` und `pubsubPeerDiscovery` über
+Bootstrap-Adressen — **es gibt kein mDNS, Browser können keine lokale Peer-Discovery.**
+WebRTC zwischen zwei Browsern braucht ein Circuit-Relay fürs Signaling. Zwei Wege
+schließen die Lücke, beide mit Preis:
+
+- **Relay im lokalen Netz** (relay-button auf einem Mini-PC — im Fahrzeug, am Objekt,
+  im Backstage). Dann funktioniert „ohne Internet", aber nicht „ohne Infrastruktur".
+  Konkreter Haken, der in jede Aufwandsschätzung gehört: Browser dialen nur `wss` oder
+  WebTransport, das verlangt ein **gültiges TLS-Zertifikat** — für eine LAN-IP oder einen
+  Gerätenamen ist das echte Arbeit, keine Fußnote.
+- **`libp2p-webrtc-qr`** — der einzige Weg wirklich ohne jede Infrastruktur. Aber Status
+  `prototype`, und es koppelt **1:1 per Bildschirm-Scan**, kein Mesh aus acht Geräten.
+
+**Konsequenz für die Ansprache:** „mehrere Geräte synchronisieren ohne Netz" ist nicht
+unser leichter Sieg, sondern unser schwieriger Fall — und ausgerechnet der, den
+Wettbewerber offen als Lücke stehen lassen. Was ohne jede Einschränkung trägt, ist die
+**Signatur beim Schreiben**: die Beweiskette hängt am Eintrag statt am Server, im dritten
+Untergeschoss ohne Verbindung. Das ist das Argument, mit dem man einsteigt. Der
+Mehrgeräte-Sync kommt danach — mit dem Relay vor Ort und dem ehrlichen Aufwand dafür.
+
+---
+
 ## P1 · Einsatzprotokoll ohne Netz *(Sicherheit)*
 
 **Problem.** Zwei Kräfte am selben Objekt dokumentieren einen Vorfall. Kein Empfang.
 Beide schreiben in ihr Gerät, keiner sieht den anderen, die Zusammenführung ist später
 Handarbeit — und ob ein Eintrag nachträglich geändert wurde, weiß am Ende nur der Server.
 
-**Was gebaut wird.** PWA-Schichtbuch. Geräte am selben Objekt finden sich direkt
-(libp2p; ohne jede Infrastruktur per QR-Handshake). Jeder Eintrag wird beim Schreiben mit
-dem Passkey des Mitarbeiters signiert — der Schlüssel bleibt in der Secure Enclave.
-Optional ein Relay im Fahrzeug für Objektübergreifendes. Nach Schichtende Export ins
-bestehende System und Archivierung.
+**Was gebaut wird.** PWA-Schichtbuch. Kern ist die **Signatur beim Schreiben**: jeder
+Eintrag wird mit dem Passkey des Mitarbeiters signiert, der Schlüssel bleibt in der
+Secure Enclave — das funktioniert ohne jede Verbindung. Für den Mehrgeräte-Fall am
+selben Objekt läuft ein **Relay im Einsatzfahrzeug** (relay-button auf einem Mini-PC);
+für die 1:1-Kopplung ohne jede Infrastruktur gibt es den QR-Handshake. Nach Schichtende
+Export ins bestehende System und Archivierung.
+
+**Nicht drin, und das gehört ins Angebot:** Geräte finden sich *nicht* von allein im
+lokalen Netz (siehe oben — kein mDNS im Browser). Das Fahrzeug-Relay ist Teil der
+Lösung, nicht Beiwerk, und sein TLS-Setup steckt im Aufwand.
 
 **Vorhandene Bausteine.** `orbitdb-identity-provider-webauthn-did` (Varsig,
 Hardware-Signatur) · `libp2p-webrtc-qr` (Pairing ohne Relay) · `relay-button`
@@ -46,9 +86,13 @@ halben Tag, das Zielformat des Exports.
 für sich und hofft, dass am Abend nichts doppelt ist.
 
 **Was gebaut wird.** Order-Session als geteilte lokale Datenbank. Alle Tablets im Raum
-sehen dieselbe Order in Echtzeit, ohne Uplink; Positionen, Mengen, Größenläufe mergen
-konfliktfrei. Am Ende ein bewusster Übergabeschritt ins ERP, mit Vorschau und Freigabe
-statt Dauersynchronisation.
+sehen dieselbe Order in Echtzeit **ohne Uplink ins Internet** — über ein kleines Relay im
+Showroom, nicht über das Messe-WLAN nach Frankfurt und zurück. Positionen, Mengen,
+Größenläufe mergen konfliktfrei. Am Ende ein bewusster Übergabeschritt ins ERP, mit
+Vorschau und Freigabe statt Dauersynchronisation.
+
+**Ehrlich dazu:** „ohne Uplink" heißt nicht „ohne alles". Das Showroom-Relay (ein
+Mini-PC oder ein Laptop) ist Teil des Aufbaus; ohne es finden sich die Tablets nicht.
 
 **Vorhandene Bausteine.** `simple-todo` Kapitel `collab01` (geteilte Listen per Adresse)
 und `acl01` (Schreibrechte pro DID) · `relay-button` für ein Showroom-Relay ·
@@ -101,6 +145,11 @@ Crew Schichtpläne, Vorfallmeldungen und Checklisten.
 Alles läuft über das lokale Netz; die App ist ein IPFS-Bundle, das auch ohne Uplink
 startet. Nach der Veranstaltung wird das Relay gestoppt und der Verlauf archiviert —
 Infrastruktur nur für die Dauer des Events.
+
+**Der Aufwand steckt im Relay, nicht in der App.** Es muss vom Browser dialbar sein, also
+`wss` mit gültigem Zertifikat auf einem Gerät im Netz des Geländes. Das ist der Teil, den
+man beim Testlauf zuerst probt — und der Grund, warum P4 fünf bis sieben Wochen dauert
+und nicht zwei.
 
 **Vorhandene Bausteine.** `relay-button` (genau dieses Ein-/Ausschalt-Muster) ·
 `uc-chat` (Gruppenkommunikation über libp2p) · `simple-todo` als PWA-Grundlage ·
