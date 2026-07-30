@@ -1,7 +1,9 @@
 # Prototyp-Katalog
 
-Sechs vorgedachte Prototypen. Zweck: In einem Erstgespräch nicht über „Local-First"
+Sieben vorgedachte Prototypen. Zweck: In einem Erstgespräch nicht über „Local-First"
 reden, sondern über eine Sache, die in vier bis acht Wochen läuft und die man anfassen kann.
+**P7 ist die Ausnahme — den gibt es schon** (`yoga-p2p`), er lässt sich vorführen statt
+beschreiben. P6 ist kein Prototyp, sondern der bezahlte Einstieg davor.
 
 Jeder Prototyp folgt derselben Logik: **Er nutzt fast nur, was schon existiert.** Das ist
 das eigentliche Verkaufsargument — nicht „wir könnten", sondern „vier von fünf Bausteinen
@@ -24,11 +26,23 @@ technische Gespräch — und mit ihm den Kunden.
 | Eintrag mit Passkey signieren | **ja** — braucht nie eine Verbindung |
 | Zwei Geräte im selben Raum finden sich und synchronisieren | **nein, nicht von allein** |
 
-Der letzte Punkt ist die Grenze. `packages/shared/src/lib/p2p/network.js` fährt
-`webSockets`, `webRTC`, `circuitRelayTransport` und `pubsubPeerDiscovery` über
-Bootstrap-Adressen — **es gibt kein mDNS, Browser können keine lokale Peer-Discovery.**
-WebRTC zwischen zwei Browsern braucht ein Circuit-Relay fürs Signaling. Zwei Wege
-schließen die Lücke, beide mit Preis:
+Der letzte Punkt ist die Grenze — aber sie verläuft anders, als es zunächst aussieht.
+`packages/shared/src/lib/p2p/network.js` fährt `webSockets`, `webRTC`,
+`circuitRelayTransport` und `pubsubPeerDiscovery` über Bootstrap-Adressen: **es gibt kein
+mDNS, Browser können sich nicht von allein im lokalen Netz finden.** Die entscheidende
+Frage ist deshalb nicht „Relay oder nicht", sondern:
+
+> **Peer-Discovery braucht entweder ein Relay — oder einen Menschen, der am selben Ort
+> steht.** Wo jemand ohnehin persönlich erscheint, ist gar keine Infrastruktur nötig.
+
+`yoga-p2p` (siehe P7) beweist die zweite Hälfte: Der Check-in an der Rezeption koppelt
+per QR-Scan, ganz ohne Relay, Broker oder Konto — gossipsub läuft ausschließlich
+*innerhalb* der so ausgehandelten WebRTC-Verbindung. Dasselbe Muster trägt bei der
+Wachablösung, der Objektübergabe, dem Crew-Briefing und der Ordersession im Showroom:
+überall dort, wo Kopplung ein **Ereignis** ist und kein Dauerzustand.
+
+Ein Relay braucht es erst, wenn Geräte einander *kontinuierlich* sehen müssen, ohne dass
+jemand vorbeikommt. Dann gibt es zwei Wege, beide mit Preis:
 
 - **Relay im lokalen Netz** (relay-button auf einem Mini-PC — im Fahrzeug, am Objekt,
   im Backstage). Dann funktioniert „ohne Internet", aber nicht „ohne Infrastruktur".
@@ -210,9 +224,56 @@ völlig anderes Gespräch als ein kostenloser.
 ## Auswahl im Gespräch
 
 1. Wo verlieren Ihre Nutzer heute das Netz — und was passiert dann?
+0. Kommen Ihre Kunden persönlich vorbei? Wenn ja, ist P7 der kürzeste Weg — dort koppelt ein Mensch mit einem QR-Code, und es braucht gar keine Infrastruktur.
 2. Wie oft, wie viele Nutzer, wie viel Nacharbeit im Monat?
 3. Blockiert der Datenschutz gerade Deals?
 4. Wer hat die Sync-Schicht gebaut, und arbeitet die Person noch bei Ihnen?
 
 Antwort 1 wählt die Branche und damit P1–P4. Fällt Antwort 4 unangenehm aus, ist es P5.
 Ist noch nichts davon scharf, ist es P6.
+
+## P7 · Guthaben ohne Server *(Kursbetrieb, Wellness, Freizeit)*
+
+**Sonderstellung: Dieser Prototyp existiert bereits** — [`yoga-p2p`](https://github.com/Le-Space/yoga-p2p),
+Kursbuchung für Yogastudios mit mehreren Standorten. Ledger und Verbindungs-Assistent
+stehen und sind getestet, Registry, Programm-Editor, Buchungen und Barkauf sind M1–M4.
+Er ist damit weniger ein Angebot als ein **Beweisstück**: das einzige Stück im Katalog,
+das man vorführen statt beschreiben kann.
+
+**Problem.** Ein Studio mit drei Standorten verkauft Zehnerkarten. Damit Standort B weiß,
+was Standort A entwertet hat, braucht es heute ein Buchungs-SaaS — monatlich pro Mitglied,
+bei Margen, die das kaum hergeben, und mit den Daten aller Kundinnen beim Anbieter. Fällt
+das Netz oder der Dienst aus, steht die Rezeption.
+
+**Was gebaut ist.** Jede Karte ist ein append-only Log aus `issue`/`redeem`/`void`,
+jedes Event vom schreibenden Gerät signiert. Guthaben wird nie gespeichert, immer
+gefaltet — deshalb kommen zwei Standorte, die dieselbe Karte unabhängig entwerten, ohne
+Abstimmung zum selben Ergebnis. Gekoppelt wird per QR an der Rezeption. **Der Kunde ist
+der Sync-Kurier:** sein Gerät trägt den eigenen Ledger von Standort zu Standort, und weil
+der Check-in die neuesten Stände *vor* dem Entwerten zieht, sieht Standort B die
+Entwertung von Standort A, sobald dieselbe Person auftaucht.
+
+**Verwendete Bausteine.** `@le-space/libp2p-webrtc-qr` (Signalisierung) ·
+Passkey-DID/WebAuthn (Identität) · OrbitDB (Ledger) · Le-Space-Design-Tokens ·
+IPFS-Deployment. Kein Relay, kein Server, kein Konto.
+
+**Ehrlich dazu — steht so in `docs/LIMITS.md` und gehört in jedes Gespräch:**
+- **Double-Spend wird erkannt, nicht verhindert.** Ohne Server oder Trusted Hardware ist
+  das unlösbar (klassisches Offline-E-Cash-Problem). Schaden pro Vorfall: eine Yogastunde.
+  Der Reducer erzeugt bei mehrdeutigem Log nie Guthaben.
+- **OrbitDB kennt keine Leserechte.** Wer eine DB-Adresse kennt und einen Peer erreicht,
+  liest sie vollständig. „Jeder repliziert nur seinen eigenen Ledger" ist eine
+  Verteilungs-Konvention, keine durchgesetzte Grenze — der Zuschnitt pro Schüler ist die
+  Antwort darauf, nicht Verschlüsselung. **Das ist der größte Einwand in jedem
+  DSGVO-Gespräch; wer ihn nicht selbst anspricht, verliert das Gespräch später.**
+- **Kein TURN.** Symmetrische NATs auf beiden Seiten verbinden nicht. Betrifft den
+  Remote-Pfad (Copy & Paste per Messenger), nicht den Studio-Pfad (QR, gleiches Netz).
+
+**Übertragbar auf** alles mit Guthaben, Check-in vor Ort und mehreren Standorten:
+Kletterhallen, Fitness, Tanzschulen, Physio und Massage, Musikschulen, Saunen und Thermen,
+Coworking, Kinderkurse, Verleih. Die Yoga-Domäne ist austauschbar, das Ledger-Muster nicht.
+
+**Umfang für eine Adaption.** 4–6 Wochen · 25–45 k€ (Domänenmodell, Oberfläche, Import
+des Bestands) — deutlich unter den anderen Prototypen, weil der Kern steht.
+
+---

@@ -67,7 +67,7 @@
     "fit_thesis": { "type": "string", "description": "Ein Satz: warum diese Firma, in ihrer Sprache." },
     "prototype_ref": {
       "type": ["string", "null"],
-      "enum": ["P1", "P2", "P3", "P4", "P5", "P6", null],
+      "enum": ["P1", "P2", "P3", "P4", "P5", "P6", "P7", null],
       "description": "ID aus prototypes.md."
     },
     "contacts": {
