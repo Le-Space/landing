@@ -135,7 +135,7 @@ export const projects = [
     id: 'libp2p-webrtc-qr',
     name: 'libp2p WebRTC over QR',
     layers: ['sync'],
-    status: 'prototype',
+    status: 'beta',
     featured: false,
     github: 'https://github.com/NiKrause/libp2p-webrtc-qr',
     demo: 'https://webrtc-qr.le-space.de',
