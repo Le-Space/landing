@@ -204,9 +204,37 @@ export const projects = [
     status: 'beta',
     featured: true,
     github: 'https://github.com/Le-Space/orbitdb-identity-provider-webauthn-did',
-    demo: 'https://le-space.github.io/orbitdb-identity-provider-webauthn-did/',
+    demos: [
+      {
+        url: 'https://le-space.github.io/orbitdb-identity-provider-webauthn-did/webauthn-todo-demo/',
+        label: 'webauthn-did',
+        shot: '/media/webauthn-did-identity.webp',
+        desc: {
+          en: 'a passkey becomes your OrbitDB identity — the DID is derived from the credential, no keystore involved.',
+          de: 'ein Passkey wird zur OrbitDB-Identität — die DID leitet sich aus dem Credential ab, ganz ohne Keystore.'
+        }
+      },
+      {
+        url: 'https://le-space.github.io/orbitdb-identity-provider-webauthn-did/ed25519-encrypted-keystore-demo/',
+        label: 'encrypted-keystore',
+        shot: '/media/webauthn-did-keystore.webp',
+        desc: {
+          en: 'an Ed25519 keystore encrypted at rest, unlocked once per session by WebAuthn — the pragmatic default.',
+          de: 'ein Ed25519-Keystore, at rest verschlüsselt und einmal pro Session per WebAuthn entsperrt — der pragmatische Default.'
+        }
+      },
+      {
+        url: 'https://le-space.github.io/orbitdb-identity-provider-webauthn-did/webauthn-varsig-demo/',
+        label: 'varsig',
+        shot: '/media/webauthn-did-varsig.webp',
+        desc: {
+          en: 'no keystore at all — the authenticator signs every entry itself, one passkey prompt per write.',
+          de: 'gar kein Keystore — der Authenticator signiert jeden Eintrag selbst, ein Passkey-Prompt pro Schreibvorgang.'
+        }
+      }
+    ],
     npm: '@le-space/orbitdb-identity-provider-webauthn-did',
-    screenshot: '/media/webauthn-did.png',
+    screenshot: null,
     video: null,
     tagline: {
       en: `Passkey-based identity for OrbitDB — no extensions, just your browser and a biometric sensor. Every oplog entry has to be signed, so the real question is <strong>where the signing key lives</strong>:

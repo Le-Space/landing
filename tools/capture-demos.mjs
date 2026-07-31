@@ -1,12 +1,17 @@
 /**
- * Captures the Simple Todo tutorial demos for the project card slideshow.
+ * Captures live demos for the project card slideshows.
  *
- *   NODE_PATH=<playwright> node tools/capture-demos.mjs [--raw]
+ *   node tools/capture-demos.mjs [--raw] [--only=<id>]
  *
- * Each chapter is opened in a fresh context, the demo's consent dialog is
- * accepted, the app is switched to dark mode (the card sits on a dark page),
- * a few neutral todos are seeded, and the chapter-specific region is written
- * to sites/local-first/public/media/simple-todo-<chapter>.png.
+ * Two families, sharing everything except how a page is made ready:
+ *
+ *  - the Simple Todo tutorial chapters, which need the consent dialog accepted,
+ *    dark mode switched on and a few neutral todos seeded;
+ *  - the OrbitDB WebAuthn DID demos, which need Carbon's theme attribute pinned
+ *    to dark and a virtual authenticator so the passkey path is reachable.
+ *
+ * Each target is opened in a fresh context and the region that makes it
+ * different is written to sites/local-first/public/media/<out>.webp.
  *
  * --raw skips cropping and writes full 1280x720 frames to the scratch dir,
  * which is how the crop regions below were chosen in the first place.
@@ -33,16 +38,32 @@ const TODOS = [
 // the chapter different, not on the boilerplate every chapter shares.
 const CLIP = { x: 200, width: 880, height: 495 };
 
+// The WebAuthn demos use a wider content column than Simple Todo, so they get
+// their own 16:9 window. The frame lands on the hero — heading, the highlighted
+// claim and the technology label are what actually distinguish the three; the
+// panel below them is near-identical everywhere.
+const WADID_CLIP = { x: 128, width: 1024, height: 576 };
+
+const WADID = 'https://le-space.github.io/orbitdb-identity-provider-webauthn-did';
+
 const CHAPTERS = [
+  // --- Simple Todo tutorial chapters ---------------------------------------
   // the populated shared list — everyone lands in the same one, so frame the
   // list itself rather than the input box every chapter has
-  { id: 'main', url: 'https://simple-todo.le-space.de', todos: TODOS, anchor: /^TODO Items/, anchorOffset: 70 },
+  { id: 'main', out: 'simple-todo-main', url: 'https://simple-todo.le-space.de', todos: TODOS, anchor: /^TODO Items/, anchorOffset: 70 },
   // "Shared list · <mnemonic>" plus the list it unlocks
-  { id: 'collab01', url: 'https://collab01.le-space.de', todos: TODOS, y: 195 },
+  { id: 'collab01', out: 'simple-todo-collab01', url: 'https://collab01.le-space.de', todos: TODOS, y: 195 },
   // the green "Passkey DID did:key:…" badge in the header
-  { id: 'passkey01', url: 'https://passkey01.le-space.de', todos: TODOS, passkey: true, y: 15 },
+  { id: 'passkey01', out: 'simple-todo-passkey01', url: 'https://passkey01.le-space.de', todos: TODOS, passkey: true, y: 15 },
   // "Create a private list" + "Open a shared list by address"
-  { id: 'acl01', url: 'https://acl01.le-space.de', todos: TODOS, y: 175 }
+  { id: 'acl01', out: 'simple-todo-acl01', url: 'https://acl01.le-space.de', todos: TODOS, y: 175 },
+
+  // --- OrbitDB WebAuthn DID demos ------------------------------------------
+  // No consent gate here; the theme comes from Carbon's `theme` attribute, and
+  // a virtual authenticator makes the passkey path reachable in all three.
+  { id: 'webauthn-did', out: 'webauthn-did-identity', url: `${WADID}/webauthn-todo-demo/`, carbon: true, passkeyOnly: true, clip: 'wadid', y: 250 },
+  { id: 'keystore', out: 'webauthn-did-keystore', url: `${WADID}/ed25519-encrypted-keystore-demo/`, carbon: true, passkeyOnly: true, clip: 'wadid', y: 250 },
+  { id: 'varsig', out: 'webauthn-did-varsig', url: `${WADID}/webauthn-varsig-demo/`, carbon: true, passkeyOnly: true, clip: 'wadid', y: 250 }
 ];
 
 /**
@@ -116,7 +137,18 @@ for (const chapter of CHAPTERS.filter((c) => !only || c.id === only)) {
   });
   const page = await context.newPage();
   console.log(`→ ${chapter.id}: ${chapter.url}`);
-  if (chapter.passkey) await useVirtualPasskey(page, context);
+  if (chapter.passkey || chapter.passkeyOnly) await useVirtualPasskey(page, context);
+  // Carbon reads its palette off a `theme` attribute the demo's store writes on
+  // mount from localStorage; seed it so the shot is dark without a UI round trip.
+  if (chapter.carbon) {
+    await context.addInitScript(() => {
+      try {
+        localStorage.setItem('carbon-theme', 'g100');
+      } catch {
+        /* ignore */
+      }
+    });
+  }
   await page.goto(chapter.url, { waitUntil: 'domcontentloaded', timeout: 90_000 });
   await page.waitForTimeout(4000);
   if (chapter.passkey) {
@@ -130,19 +162,22 @@ for (const chapter of CHAPTERS.filter((c) => !only || c.id === only)) {
       await page.getByPlaceholder(/display name/i).fill('Ada');
     }
   }
-  await acceptConsent(page).catch((e) => console.log(`   consent: ${e.message}`));
-  await useDarkMode(page);
+  if (!chapter.passkeyOnly) {
+    await acceptConsent(page).catch((e) => console.log(`   consent: ${e.message}`));
+    await useDarkMode(page);
+  }
   // The libp2p/OrbitDB boot chain needs a moment before the status pills go green.
   await page.waitForTimeout(12_000);
-  await addTodos(page, chapter.todos).catch((e) => console.log(`   todos: ${e.message}`));
+  await addTodos(page, chapter.todos ?? []).catch((e) => console.log(`   todos: ${e.message}`));
   await page.waitForTimeout(1500);
-  const out = `${outDir}/simple-todo-${chapter.id}.png`;
+  const out = `${outDir}/${chapter.out}.png`;
   let y = chapter.y;
   if (chapter.anchor) {
     const box = await page.getByText(chapter.anchor).first().boundingBox();
     if (box) y = Math.max(0, box.y + (await page.evaluate(() => window.scrollY)) - chapter.anchorOffset);
   }
-  await page.screenshot(raw ? { path: out } : { path: out, fullPage: true, clip: { ...CLIP, y } });
+  const box = chapter.clip === 'wadid' ? WADID_CLIP : CLIP;
+  await page.screenshot(raw ? { path: out } : { path: out, fullPage: true, clip: { ...box, y } });
   if (!raw) {
     // WebP keeps these dark UI shots around a tenth of the PNG size; four of
     // them load on every visit to the projects section.
