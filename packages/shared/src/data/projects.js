@@ -122,9 +122,28 @@ export const projects = [
     status: 'stable',
     featured: true,
     github: 'https://github.com/NiKrause/universal-connectivity',
-    demo: 'https://connect.nicokrause.com',
+    demos: [
+      {
+        url: 'https://connect.nicokrause.com',
+        label: 'chat',
+        shot: '/media/uc-chat-peers.webp',
+        desc: {
+          en: 'the public room with the peers currently connected — discovery takes about half a minute after you open it.',
+          de: 'der öffentliche Raum mit den gerade verbundenen Peers — die Discovery braucht nach dem Öffnen etwa eine halbe Minute.'
+        }
+      },
+      {
+        url: 'https://connect.nicokrause.com',
+        label: 'relay button',
+        shot: '/media/uc-chat-relay.webp',
+        desc: {
+          en: 'the embedded Relay Button: pick a tier and deploy your own relay without leaving the chat.',
+          de: 'der eingebettete Relay-Button: Tier wählen und einen eigenen Relay deployen, ohne den Chat zu verlassen.'
+        }
+      }
+    ],
     npm: null,
-    screenshot: '/media/uc-chat.png',
+    screenshot: null,
     video: null,
     tagline: {
       en: 'Our fork of the <a href="https://github.com/libp2p/universal-connectivity" target="_blank" rel="noopener noreferrer">official libp2p project</a> with the Relay Button built in: the cross-language showcase — chat between Go, Rust, TypeScript and Nim peers in the browser — extended so anyone can deploy their own relay on demand.',

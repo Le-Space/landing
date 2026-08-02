@@ -44,6 +44,9 @@ const CLIP = { x: 200, width: 880, height: 495 };
 // panel below them is near-identical everywhere.
 const WADID_CLIP = { x: 128, width: 1024, height: 576 };
 
+// Universal Connectivity fills the window, so the whole 16:9 viewport is the shot.
+const FULL_CLIP = { x: 0, width: 1280, height: 720 };
+
 const WADID = 'https://le-space.github.io/orbitdb-identity-provider-webauthn-did';
 
 const CHAPTERS = [
@@ -63,7 +66,15 @@ const CHAPTERS = [
   // a virtual authenticator makes the passkey path reachable in all three.
   { id: 'webauthn-did', out: 'webauthn-did-identity', url: `${WADID}/webauthn-todo-demo/`, carbon: true, passkeyOnly: true, clip: 'wadid', y: 250 },
   { id: 'keystore', out: 'webauthn-did-keystore', url: `${WADID}/ed25519-encrypted-keystore-demo/`, carbon: true, passkeyOnly: true, clip: 'wadid', y: 250 },
-  { id: 'varsig', out: 'webauthn-did-varsig', url: `${WADID}/webauthn-varsig-demo/`, carbon: true, passkeyOnly: true, clip: 'wadid', y: 250 }
+  { id: 'varsig', out: 'webauthn-did-varsig', url: `${WADID}/webauthn-varsig-demo/`, carbon: true, passkeyOnly: true, clip: 'wadid', y: 250 },
+
+  // --- Universal Connectivity ----------------------------------------------
+  // Peer discovery needs a good half-minute before the list fills; a shot taken
+  // earlier shows a lone "(You)" and quietly contradicts the card's claim of a
+  // cross-language chat. `minPeers` makes the script wait for it rather than
+  // trust a fixed timeout.
+  { id: 'uc-chat', out: 'uc-chat-peers', url: 'https://connect.nicokrause.com', plain: true, minPeers: 2, clip: 'full', y: 0 },
+  { id: 'uc-relay', out: 'uc-chat-relay', url: 'https://connect.nicokrause.com', plain: true, minPeers: 2, openRelay: true, clip: 'full', y: 0 }
 ];
 
 /**
@@ -111,6 +122,24 @@ async function useDarkMode(page) {
     await toggle.first().click();
     await page.waitForTimeout(600);
   }
+}
+
+/**
+ * Wait until the peer list has more than just us. Discovery routinely takes ~30s,
+ * and a screenshot taken before that shows an empty room.
+ */
+async function waitForPeers(page, min, timeoutMs = 90_000) {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    const n = await page.evaluate(() => {
+      const panel = document.body.innerText.split('Peers')[1] ?? '';
+      return panel.split('\n').filter((l) => /\S/.test(l)).length;
+    });
+    if (n >= min) return n;
+    await page.waitForTimeout(5000);
+  }
+  console.log(`   warning: only saw fewer than ${min} peers before the timeout`);
+  return 0;
 }
 
 async function addTodos(page, todos) {
@@ -162,9 +191,14 @@ for (const chapter of CHAPTERS.filter((c) => !only || c.id === only)) {
       await page.getByPlaceholder(/display name/i).fill('Ada');
     }
   }
-  if (!chapter.passkeyOnly) {
+  if (!chapter.passkeyOnly && !chapter.plain) {
     await acceptConsent(page).catch((e) => console.log(`   consent: ${e.message}`));
     await useDarkMode(page);
+  }
+  if (chapter.minPeers) await waitForPeers(page, chapter.minPeers);
+  if (chapter.openRelay) {
+    await page.getByRole('button', { name: /relay button/i }).first().click({ timeout: 20_000 });
+    await page.waitForTimeout(6000);
   }
   // The libp2p/OrbitDB boot chain needs a moment before the status pills go green.
   await page.waitForTimeout(12_000);
@@ -176,7 +210,7 @@ for (const chapter of CHAPTERS.filter((c) => !only || c.id === only)) {
     const box = await page.getByText(chapter.anchor).first().boundingBox();
     if (box) y = Math.max(0, box.y + (await page.evaluate(() => window.scrollY)) - chapter.anchorOffset);
   }
-  const box = chapter.clip === 'wadid' ? WADID_CLIP : CLIP;
+  const box = chapter.clip === 'wadid' ? WADID_CLIP : chapter.clip === 'full' ? FULL_CLIP : CLIP;
   await page.screenshot(raw ? { path: out } : { path: out, fullPage: true, clip: { ...box, y } });
   if (!raw) {
     // WebP keeps these dark UI shots around a tenth of the PNG size; four of

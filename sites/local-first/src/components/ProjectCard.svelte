@@ -120,7 +120,10 @@
     {/if}
     <div class="frame" class:framed={hasShot}>
     {#if shots.length}
-      {#each shots as d, i (d.url)}
+      <!-- Keyed by label, not url: two entries can point at the same page and
+           differ only in what is open on it (the UC chat and its Relay Button
+           panel). A duplicate key throws and takes the whole page down. -->
+      {#each shots as d, i (d.label)}
         <img
           class="shot"
           class:visible={i === shown}
@@ -130,7 +133,7 @@
         />
       {/each}
       <div class="dots" aria-hidden="true">
-        {#each shots as d, i (d.url)}
+        {#each shots as d, i (d.label)}
           <span class="dot" class:on={i === shown}></span>
         {/each}
       </div>
@@ -183,7 +186,7 @@
 
       {#if project.demos && project.demos.some((d) => d.desc)}
         <div class="demo-notes">
-          {#each project.demos.filter((d) => d.desc) as d (d.url)}
+          {#each project.demos.filter((d) => d.desc) as d (d.label)}
             <p
               onmouseenter={() => d.shot && pin(shots.indexOf(d))}
               onmouseleave={unpin}
@@ -200,7 +203,7 @@
 
     <footer>
       {#if project.demos}
-        {#each project.demos as d, i (d.url)}
+        {#each project.demos as d, i (d.label)}
           <a
             class="link demo"
             href={d.url}
