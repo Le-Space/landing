@@ -89,15 +89,20 @@ html[lang='de'] .lang-en, html[lang='en'] .lang-de { display: none; }
   color: var(--accent);
   margin: 0 0 1.1em;
 }
+/*
+ * Solid, deliberately not the gradient-clipped headline the landing page hero
+ * uses. background-clip:text with transparent glyphs is one failed clip away
+ * from painting the raw gradient box across the slide — reported in the wild on
+ * the cover of the WebRTC deck, not reproducible headless, and unacceptable in
+ * a document that gets projected and mailed to strangers. The accent lives in
+ * the kicker and the claim rule instead.
+ */
 h1 {
   font-size: 3.4em;
   line-height: 1.05;
   letter-spacing: -0.025em;
   margin: 0 0 0.25em;
-  background: linear-gradient(115deg, var(--ls-text) 30%, var(--accent));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--ls-text);
 }
 h2 {
   font-size: 2.2em;
