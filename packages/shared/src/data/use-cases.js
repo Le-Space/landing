@@ -935,12 +935,323 @@ export const decks = [
     ]
   },
 
+  {
+    id: 'local-first-consulting',
+    letter: 'D',
+    name: 'Local-First Consulting',
+    status: 'concept',
+    draft: false,
+    accent: 'var(--ls-amber)',
+    subtitle: {
+      de: 'Beratung und Umsetzung für Local-First- und Peer-to-Peer-Software',
+      en: 'Consulting and delivery for local-first and peer-to-peer software'
+    },
+    claim: {
+      de: 'Wir verkaufen nicht die Idee, dass es geht. Wir zeigen die Systeme, in denen es läuft.',
+      en: 'We do not sell the idea that it works. We show the systems where it does.'
+    },
+    teaser: {
+      de: 'Immer mehr Unternehmen wollen weg von der Cloud-Abhängigkeit — und finden niemanden, der Local-First tatsächlich gebaut hat. Wir haben den kompletten Stack gebaut, betreiben ihn und geben ihn als Beratung, Prototyp oder fertiges Produkt weiter.',
+      en: 'More and more companies want out of cloud dependency — and find nobody who has actually built local-first. We built the whole stack, we run it, and we pass it on as consulting, a prototype or a finished product.'
+    },
+    links: {
+      github: 'https://github.com/le-space'
+    },
+    slides: [
+      {
+        kind: 'title',
+        title: { de: 'Local-First Consulting', en: 'Local-First Consulting' }
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Warum jetzt', en: 'Why now' },
+        lead: {
+          de: 'Die Nachfrage entsteht nicht aus Technikbegeisterung, sondern aus vier sehr konkreten Zwängen.',
+          en: 'The demand does not come from enthusiasm for technology but from four very concrete pressures.'
+        },
+        bullets: [
+          {
+            t: { de: 'Datenschutz ist keine Meinung mehr', en: 'Privacy is no longer an opinion' },
+            s: {
+              de: 'Praxen, Kanzleien, Schulen und Behörden müssen begründen, warum personenbezogene Daten bei einem US-Anbieter liegen. „Bleibt auf dem Gerät" ist die kürzeste Begründung, die es gibt.',
+              en: 'Practices, law firms, schools and public bodies have to justify why personal data sits with a US provider. "It stays on the device" is the shortest justification there is.'
+            }
+          },
+          {
+            t: { de: 'Die Cloud-Rechnung wächst schneller als das Produkt', en: 'The cloud bill grows faster than the product' },
+            s: {
+              de: 'Jeder Nutzer kostet monatlich, jeder Standort kostet monatlich. Software, die zwischen Geräten läuft, hat diese Kurve nicht.',
+              en: 'Every user costs monthly, every location costs monthly. Software that runs between devices does not have that curve.'
+            }
+          },
+          {
+            t: { de: 'Offline ist Alltag, nicht Ausnahme', en: 'Offline is normal, not exceptional' },
+            s: {
+              de: 'Baustelle, Außendienst, Klinikkeller, Landstraße, Schiff, Messehalle. Anwendungen, die dort stehenbleiben, kosten Arbeitszeit — jeden Tag.',
+              en: 'Building sites, field service, hospital basements, country roads, ships, trade-fair halls. Applications that stall there cost working time — every day.'
+            }
+          },
+          {
+            t: { de: 'Es fehlen die Leute', en: 'The people are missing' },
+            s: {
+              de: 'CRDTs, libp2p, NAT-Traversal, WebAuthn, IPFS: einzeln bekannt, zusammen selten. Genau diese Kombination ist unser Alltag.',
+              en: 'CRDTs, libp2p, NAT traversal, WebAuthn, IPFS: each is known, the combination is rare. That combination is our daily work.'
+            }
+          }
+        ]
+      },
+      {
+        kind: 'columns',
+        title: { de: 'Was wir anbieten', en: 'What we offer' },
+        lead: {
+          de: 'Drei Stufen, die aufeinander aufbauen. Jede ist einzeln buchbar — niemand muss mit dem großen Projekt anfangen.',
+          en: 'Three stages that build on each other. Each can be booked on its own — nobody has to start with the big project.'
+        },
+        columns: [
+          {
+            h: { de: '1 · Orientierung', en: '1 · Orientation' },
+            items: [
+              { de: 'Architektur-Workshop, ein bis zwei Tage', en: 'Architecture workshop, one to two days' },
+              { de: 'Machbarkeit: geht Local-First für diesen Fall — und wo nicht?', en: 'Feasibility: does local-first fit this case — and where does it not?' },
+              { de: 'Schriftliches Ergebnis mit Grenzen, nicht nur mit Versprechen', en: 'A written result stating the limits, not just the promises' },
+              { de: 'Festpreis', en: 'Fixed price' }
+            ]
+          },
+          {
+            h: { de: '2 · Umsetzung', en: '2 · Delivery' },
+            items: [
+              { de: 'Prototyp in Wochen, nicht Quartalen', en: 'A prototype in weeks, not quarters' },
+              { de: 'Gebaut aus vorhandenen Bausteinen statt von null', en: 'Built from existing blocks instead of from scratch' },
+              { de: 'Anbindung an das, was schon läuft', en: 'Integration with what already runs' },
+              { de: 'Projekt oder Tagessatz', en: 'Project or day rate' }
+            ]
+          },
+          {
+            h: { de: '3 · Betrieb & Team', en: '3 · Operations & team' },
+            items: [
+              { de: 'Relays, Pinning und Archiv aus Spin-Off A', en: 'Relays, pinning and archive from spin-off A' },
+              { de: 'Schulung, damit das Team ohne uns weiterkommt', en: 'Training so the team can continue without us' },
+              { de: 'Code-Reviews und Bereitschaft', en: 'Code reviews and standby' },
+              { de: 'Retainer', en: 'Retainer' }
+            ]
+          }
+        ],
+        note: {
+          de: 'Stufe 1 ist bewusst klein und billig. Wer nach dem Workshop „nein" sagt, hat trotzdem etwas bekommen — und wir haben nichts verkauft, das nicht passt.',
+          en: 'Stage one is deliberately small and cheap. Whoever says "no" after the workshop still got something — and we sold nothing that did not fit.'
+        }
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Warum wir', en: 'Why us' },
+        lead: {
+          de: 'Local-First-Beratung gibt es kaum, weil kaum jemand die Systeme dazu gebaut hat. Wir zeigen im Termin, was läuft.',
+          en: 'Local-first consulting barely exists because barely anybody has built the systems. In the meeting we show what runs.'
+        },
+        bullets: [
+          {
+            tag: 'now',
+            t: { de: 'Der ganze Stack, offen einsehbar', en: 'The whole stack, open to inspect' },
+            s: {
+              de: 'Identität, Daten, Sync, Infrastruktur, Archiv — jede Schicht als Open-Source-Baustein, mehrere davon als npm-Paket veröffentlicht.',
+              en: 'Identity, data, sync, infrastructure, archive — every layer an open-source block, several of them published as npm packages.'
+            }
+          },
+          {
+            tag: 'now',
+            t: { de: 'Eine vollständige Anwendung als Beweis', en: 'A complete application as proof' },
+            s: {
+              de: 'Yoga Suci (Spin-Off C): Kasse, Karten, Check-in über mehrere Standorte, ohne Server — mit End-to-End-Tests über echte Geräte-Kontexte.',
+              en: 'Yoga Suci (spin-off C): till, passes, check-in across locations, without a server — with end-to-end tests across real device contexts.'
+            }
+          },
+          {
+            tag: 'now',
+            t: { de: 'Beiträge dort, wo der Standard entsteht', en: 'Contributions where the standard is made' },
+            s: {
+              de: 'Unser Fork des offiziellen libp2p-Showcase läuft öffentlich; die WebRTC-über-QR-Transportschicht ist als eigenes Paket veröffentlicht.',
+              en: 'Our fork of the official libp2p showcase runs publicly; the WebRTC-over-QR transport is published as its own package.'
+            }
+          },
+          {
+            tag: 'now',
+            t: { de: 'Wir sagen, was nicht geht', en: 'We say what does not work' },
+            s: {
+              de: 'Jedes Projekt hat ein dokumentiertes Grenzen-Kapitel. Wer im Erstgespräch hört, wo die Technik aufhört, glaubt auch den Rest.',
+              en: 'Every project has a documented limits chapter. Anyone who hears in the first meeting where the technology ends will believe the rest too.'
+            }
+          }
+        ]
+      },
+      {
+        kind: 'columns',
+        title: { de: 'Für wen', en: 'Who for' },
+        lead: {
+          de: 'Nicht für alle. Local-First lohnt dort, wo Datenhoheit, Offline-Betrieb oder laufende Kosten wirklich wehtun.',
+          en: 'Not for everyone. Local-first pays off where data sovereignty, offline operation or running costs genuinely hurt.'
+        },
+        columns: [
+          {
+            h: { de: 'Mittelstand', en: 'Mid-sized business' },
+            items: [
+              { de: 'Außendienst, Handwerk, Logistik, Landwirtschaft', en: 'Field service, trades, logistics, agriculture' },
+              { de: 'Arbeitet dort, wo das Netz nicht arbeitet', en: 'Works where the network does not' },
+              { de: 'Zahlt heute pro Nutzer für Software, die dann steht', en: 'Pays per user today for software that then stalls' }
+            ]
+          },
+          {
+            h: { de: 'Regulierte Bereiche', en: 'Regulated fields' },
+            items: [
+              { de: 'Gesundheit, Recht, Bildung, öffentliche Hand', en: 'Health, law, education, public sector' },
+              { de: 'Muss den Verbleib jedes Datensatzes begründen', en: 'Must account for where every record ends up' },
+              { de: 'Sucht Alternativen zur US-Cloud, nicht Ausreden', en: 'Wants alternatives to the US cloud, not excuses' }
+            ]
+          },
+          {
+            h: { de: 'Produkt-Teams & Agenturen', en: 'Product teams & agencies' },
+            items: [
+              { de: 'Haben die Idee, nicht die Erfahrung mit P2P', en: 'Have the idea, not the P2P experience' },
+              { de: 'Wollen einen Prototyp, bevor sie umbauen', en: 'Want a prototype before they rebuild' },
+              { de: 'Buchen uns als Unterauftrag oder White-Label', en: 'Book us as a subcontractor or white label' }
+            ]
+          }
+        ]
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Geschäftsmodell', en: 'Business model' },
+        lead: {
+          de: 'Beratung verdient sofort Geld — und ist gleichzeitig der Vertriebskanal für alles andere, was wir bauen.',
+          en: 'Consulting earns money immediately — and is at the same time the sales channel for everything else we build.'
+        },
+        bullets: [
+          {
+            t: { de: 'Workshop zum Festpreis', en: 'Fixed-price workshop' },
+            s: {
+              de: 'Die niedrige Einstiegsschwelle. Kalkulierbar für den Kunden, qualifizierend für uns: nach zwei Tagen wissen beide Seiten, ob es passt.',
+              en: 'The low barrier to entry. Predictable for the client, qualifying for us: after two days both sides know whether it fits.'
+            }
+          },
+          {
+            t: { de: 'Projekt oder Tagessatz', en: 'Project or day rate' },
+            s: {
+              de: 'Der Hauptumsatz. Weil wir aus eigenen Bausteinen bauen, ist derselbe Umfang schneller fertig als bei einer Neuentwicklung.',
+              en: 'The main revenue. Because we build from our own blocks, the same scope is finished faster than a from-scratch build.'
+            }
+          },
+          {
+            t: { de: 'Retainer für Betrieb und Bereitschaft', en: 'Retainer for operations and standby' },
+            s: {
+              de: 'Wiederkehrend und planbar. Relay- und Archivbetrieb laufen über Spin-Off A und werden mit abgerechnet.',
+              en: 'Recurring and predictable. Relay and archive operation run through spin-off A and are billed along with it.'
+            }
+          },
+          {
+            t: { de: 'Der eigentliche Hebel: Sog statt Druck', en: 'The real lever: pull, not push' },
+            s: {
+              de: 'Jedes Beratungsprojekt zieht Infrastruktur, Speicher und Lizenzen nach — und liefert die Referenz, die das nächste Projekt verkauft.',
+              en: 'Every consulting project pulls infrastructure, storage and licences behind it — and produces the reference that sells the next one.'
+            }
+          }
+        ]
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Stand & nächste Schritte', en: 'Status & next steps' },
+        lead: {
+          de: 'Die Substanz ist da, das Angebot noch nicht. Was fehlt, ist Verpackung — nicht Können.',
+          en: 'The substance exists, the offer does not. What is missing is packaging, not capability.'
+        },
+        bullets: [
+          {
+            tag: 'now',
+            t: { de: 'Referenzen laufen öffentlich', en: 'References run in public' },
+            s: {
+              de: 'Portfolio, Demos, Doku und Quellcode sind erreichbar — jedes Gespräch kann am lebenden System geführt werden statt an Folien.',
+              en: 'Portfolio, demos, docs and source are reachable — every conversation can be held on a live system instead of slides.'
+            }
+          },
+          {
+            tag: 'next',
+            t: { de: 'Angebotsblatt mit Preisen', en: 'An offer sheet with prices' },
+            s: {
+              de: 'Drei Pakete, drei Zahlen, eine Seite. Ohne genannten Preis wird aus einem Interessenten kein Termin.',
+              en: 'Three packages, three numbers, one page. Without a stated price, an interested party never becomes a meeting.'
+            }
+          },
+          {
+            tag: 'next',
+            t: { de: 'Ein Kunden-Fall zum Vorzeigen', en: 'One customer case to show' },
+            s: {
+              de: 'Yoga Suci als Fallstudie: Ausgangslage, Entscheidung, Ergebnis, Grenzen. Eine geschriebene Geschichte verkauft besser als zehn Repositories.',
+              en: 'Yoga Suci as a case study: situation, decision, outcome, limits. One written story sells better than ten repositories.'
+            }
+          },
+          {
+            tag: 'planned',
+            t: { de: 'Ein zweiter Kopf', en: 'A second head' },
+            s: {
+              de: 'Beratung skaliert mit Menschen. Der erste zusätzliche Entwickler entscheidet, ob daraus ein Geschäft oder eine Auslastungsfalle wird.',
+              en: 'Consulting scales with people. The first additional developer decides whether this becomes a business or a utilisation trap.'
+            }
+          }
+        ]
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Offene Fragen', en: 'Open questions' },
+        lead: {
+          de: 'Die Risiken dieses Spin-Offs liegen nicht in der Technik. Sie liegen im Kalender.',
+          en: 'The risks of this spin-off are not technical. They are in the calendar.'
+        },
+        bullets: [
+          {
+            t: { de: 'Beratung frisst Produktentwicklung', en: 'Consulting eats product development' },
+            s: {
+              de: 'Jeder verkaufte Tag fehlt bei A, B und C. Es braucht eine feste Regel — etwa eine Obergrenze an Kundentagen pro Monat —, bevor der erste große Auftrag kommt.',
+              en: 'Every day sold is a day missing from A, B and C. A firm rule is needed — a cap on client days per month — before the first big contract arrives.'
+            }
+          },
+          {
+            t: { de: 'Erklärungsbedürftige Kategorie', en: 'A category that needs explaining' },
+            s: {
+              de: 'Niemand sucht nach „Local-First-Beratung". Gesucht wird nach „Software, die offline funktioniert" oder „DSGVO-konforme Ablösung von Anbieter X". Danach muss die Ansprache klingen.',
+              en: 'Nobody searches for "local-first consulting". They search for "software that works offline" or "GDPR-compliant replacement for vendor X". The pitch has to sound like that.'
+            }
+          },
+          {
+            t: { de: 'Abhängigkeit von wenigen Köpfen', en: 'Dependence on very few heads' },
+            s: {
+              de: 'Das Wissen sitzt heute in ein bis zwei Personen. Ohne Dokumentation und Einarbeitung ist jeder Krankheitsfall ein Projektrisiko.',
+              en: 'The knowledge sits in one or two people today. Without documentation and onboarding, any illness is a project risk.'
+            }
+          },
+          {
+            t: { de: 'Preis gegen die Gewohnheit', en: 'Price against habit' },
+            s: {
+              de: 'Ein Projekt kostet einmal viel, ein SaaS-Abo monatlich wenig. Der Vergleich über fünf Jahre muss auf die erste Seite des Angebots.',
+              en: 'A project costs a lot once, a SaaS subscription little each month. The five-year comparison belongs on page one of the offer.'
+            }
+          }
+        ]
+      },
+      {
+        kind: 'closing',
+        title: { de: 'Gespräch?', en: 'Let\'s talk' },
+        lead: {
+          de: 'Der erste Schritt ist ein Workshop, kein Vertrag. Bringen Sie einen Anwendungsfall mit — wir sagen Ihnen ehrlich, ob Local-First dafür der richtige Weg ist.',
+          en: 'The first step is a workshop, not a contract. Bring a use case — we will tell you honestly whether local-first is the right route for it.'
+        }
+      }
+    ]
+  },
+
   // ---------------------------------------------------------------------------
-  // D–F: reserved slots. They render as decks so the folder, the URL and the PDF
+  // E–F: reserved slots. They render as decks so the folder, the URL and the PDF
   // already exist, but `draft: true` keeps them off the public landing page and
   // out of the sitemap until the content is written.
   // ---------------------------------------------------------------------------
-  ...['D', 'E', 'F'].map((letter) => ({
+  ...['E', 'F'].map((letter) => ({
     id: `spin-off-${letter.toLowerCase()}`,
     letter,
     name: `Spin-Off ${letter}`,

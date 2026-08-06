@@ -105,8 +105,13 @@ PDF `tools/render-decks.mjs`. Details im README.
 - [x] **C · Yoga Suci** — P2P-Kursverwaltung für Yogastudios, Erlöse über
       Fiat-Terminal + Fernberatung, Kryptozahlung pro Transaktion und
       Speicher-Provision aus Spin-Off A (9 Folien)
-- [ ] **D · E · F** — Platzhalter-Decks stehen (`draft: true`), Inhalte fehlen noch
+- [x] **D · Local-First Consulting** — Beratung/Umsetzung als Spin-Off: Workshop,
+      Projekt, Retainer; zieht Infrastruktur aus A nach (9 Folien)
+- [ ] **E · F** — Platzhalter-Decks stehen (`draft: true`), Inhalte fehlen noch
 - [ ] Decks vertiefen: Zahlen (Marktgröße, Preise), Wettbewerb, Team, Finanzbedarf
+- [ ] Offen bei D: die „Offene Fragen"-Folie nennt Bus-Faktor und
+      Auslastungsfalle — für ein öffentlich verlinktes Deck prüfen, ob das so
+      bleiben soll (siehe Notiz im Chat). Außerdem fehlen Preise im Angebotsblatt.
 - [ ] Offen bei C: Kassensicherungsverordnung/TSE beim Barverkauf, ZAG-Bewertung
       des Krypto-Wegs (nicht-verwahrend bleiben), DSGVO-Zuschnitt der
       Buchungs-DBs — alles vor dem ersten zahlenden Studio.
