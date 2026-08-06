@@ -24,39 +24,4 @@
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
-  <!--
-    Pitch decks under /use-cases/. One URL each: the deck carries both languages
-    in one file and switches with ?lang=, so there is no separate German URL to
-    annotate. Drafts (see packages/shared/src/data/use-cases.js) stay out.
-  -->
-  <url>
-    <loc>https://local-first.le-space.de/use-cases/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://local-first.le-space.de/use-cases/orbitdb-relay/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://local-first.le-space.de/use-cases/webrtc-qr-map/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://local-first.le-space.de/use-cases/yogasuci/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://local-first.le-space.de/use-cases/local-first-consulting/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://local-first.le-space.de/use-cases/relay-button-onchain/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
 </urlset>

@@ -94,12 +94,15 @@ Lebendes Dokument. Status + offene Punkte. Details zur Gesamtstrategie in `STRAT
 
 ## Use-Cases / Spin-Off-Pitch-Decks
 
-Sechs identifizierte Spin-Off-Projekte bekommen je ein Pitch-Deck (HTML + PDF),
-verlinkt über den „Use-Cases"-Button auf local-first.le-space.de. Quelle:
-`packages/shared/src/data/use-cases.js`, Generator `tools/build-decks.mjs`,
-PDF `tools/render-decks.mjs`. Details im README.
+Sechs identifizierte Spin-Off-Projekte bekommen je ein Pitch-Deck (HTML + PDF)
+unter `/pitchdeck/`. **Bewusst unverlinkt:** kein Button, keine Sektion, nicht in
+der Sitemap, `noindex` auf jeder Seite — ein Deck bekommt man geschickt, man
+stolpert nicht hinein. Quelle: `packages/shared/src/data/use-cases.js`,
+Generator `tools/build-decks.mjs`, PDF `tools/render-decks.mjs`. Details im README.
 
-- [x] Gerüst: Generator, PDF-Rendering, Use-Cases-Sektion, Übersichtsseite
+- [x] Gerüst: Generator, PDF-Rendering, Übersichtsseite
+- [x] Von der Landingpage entkoppelt: Sektion und Hero-Button entfernt,
+      `/use-cases/` → `/pitchdeck/`, unverlinkt und noindex
 - [x] **A · OrbitDB Relay** — Storage/Backup/Pinning + Hydration/Dehydration (8 Folien)
 - [x] **B · WebRTC Public Data Map** — Karte des Relay-Bedarfs aus QR-Verbindungen;
       Messung als Matrix (Ort × Browser × IP-Familie), Gegenstelle zugewiesen (10 Folien)

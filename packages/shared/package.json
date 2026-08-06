@@ -10,7 +10,6 @@
     "./theme": "./src/theme.js",
     "./build-info": "./src/build-info.js",
     "./projects": "./src/data/projects.js",
-    "./use-cases": "./src/data/use-cases.js",
     "./faq": "./src/data/faq.js",
     "./components/*": "./src/components/*",
     "./icons/*": "./src/icons/*",

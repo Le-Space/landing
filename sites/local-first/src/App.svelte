@@ -5,7 +5,6 @@
   import Hero from './components/Hero.svelte';
   import StackSection from './components/StackSection.svelte';
   import ProjectsSection from './components/ProjectsSection.svelte';
-  import UseCasesSection from './components/UseCasesSection.svelte';
   import FaqSection from './components/FaqSection.svelte';
 
   let activeLayer = $state(null);
@@ -18,7 +17,6 @@
   <Hero />
   <StackSection bind:activeLayer />
   <ProjectsSection {activeLayer} />
-  <UseCasesSection />
   <FaqSection />
 
   <!-- Phase 2: <LiveTodos addresses={[...]} bootstrap={[...]} /> -->

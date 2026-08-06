@@ -5,8 +5,7 @@
     "subtitle": "Keine Server. Keine Accounts. Keine Passwörter. Deine Daten bleiben auf deinem Gerät und gehen direkt an die Menschen, mit denen du sie teilst. Netzwerke laufen mit dauerhaft erreichbaren Peers oder ganz ohne sie — nimm einen dazu, wenn eine Gruppe mehr Reichweite will, und ist keiner erreichbar, verbinden sich die Geräte direkt über einen gescannten Code. Keiner der beiden Zustände ist der Notbetrieb.",
     "cta_projects": "Stack erkunden",
     "cta_faq": "FAQ",
-    "cta_github": "GitHub",
-    "cta_usecases": "Use-Cases"
+    "cta_github": "GitHub"
   },
   "stack": {
     "title": "Die fünf Schichten",
@@ -39,12 +38,6 @@
     "docs": "Doku",
     "source": "Quellcode",
     "all": "Alle Schichten"
-  },
-  "usecases": {
-    "title": "Use-Cases",
-    "sub": "Aus dem Stack wachsen eigenständige Projekte. Jedes hat ein kurzes Pitch-Deck — als Seite zum Verlinken und als PDF zum Weiterschicken.",
-    "open": "Deck öffnen",
-    "pdf": "PDF"
   },
   "faq": {
     "title": "FAQ",

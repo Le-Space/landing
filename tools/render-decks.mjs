@@ -4,9 +4,9 @@
  *   node tools/render-decks.mjs            # all decks
  *   node tools/render-decks.mjs orbitdb-relay webrtc-qr-map
  *
- * Input:  sites/local-first/public/use-cases/<id>/index.html
+ * Input:  sites/local-first/public/pitchdeck/<id>/index.html
  *         (run tools/build-decks.mjs first)
- * Output: sites/local-first/public/use-cases/<id>/<id>-pitch-<lang>.pdf
+ * Output: sites/local-first/public/pitchdeck/<id>/<id>-pitch-<lang>.pdf
  *
  * The decks are served over loopback rather than opened as file:// URLs so the
  * absolute asset paths (/favicon.svg) resolve exactly as they do on the
@@ -24,7 +24,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, resolve, extname, join } from 'node:path';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const outRoot = resolve(root, 'sites/local-first/public/use-cases');
+const outRoot = resolve(root, 'sites/local-first/public/pitchdeck');
 const publicRoot = resolve(root, 'sites/local-first/public');
 
 const LOCALES = ['de', 'en'];
@@ -95,7 +95,7 @@ const failures = [];
 for (const id of ids) {
   for (const lang of LOCALES) {
     const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
-    await page.goto(`http://127.0.0.1:${port}/use-cases/${id}/?lang=${lang}`, {
+    await page.goto(`http://127.0.0.1:${port}/pitchdeck/${id}/?lang=${lang}`, {
       waitUntil: 'networkidle',
       timeout: 60_000
     });

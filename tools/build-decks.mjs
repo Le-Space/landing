@@ -4,8 +4,13 @@
  *   node tools/build-decks.mjs
  *
  * Source of truth: packages/shared/src/data/use-cases.js
- * Output:          sites/local-first/public/use-cases/<id>/index.html
- *                  sites/local-first/public/use-cases/index.html (overview)
+ * Output:          sites/local-first/public/pitchdeck/<id>/index.html
+ *                  sites/local-first/public/pitchdeck/index.html (overview)
+ *
+ * The decks are deliberately unlisted: nothing on local-first.le-space.de links
+ * to them, they are absent from the sitemap and every page carries noindex. A
+ * deck travels as a URL somebody was given, not as something a visitor stumbles
+ * into.
  *
  * Each deck is a single self-contained file — CSS and the handful of lines of
  * navigation JS are inlined, both languages are embedded, and nothing is
@@ -22,7 +27,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const outRoot = resolve(root, 'sites/local-first/public/use-cases');
+const outRoot = resolve(root, 'sites/local-first/public/pitchdeck');
 
 const { decks, DECK_TAGS, DECK_STATUS } = await import(
   resolve(root, 'packages/shared/src/data/use-cases.js')
@@ -51,7 +56,7 @@ const UI = {
     npm: 'npm',
     hint: 'Pfeiltasten oder scrollen · P für PDF-Druck',
     draft: 'Entwurf — Inhalte folgen',
-    overviewTitle: 'Use-Cases',
+    overviewTitle: 'Pitch Decks',
     overviewLead:
       'Pitch-Decks zu den Spin-Off-Projekten aus dem Local-First-Stack. Jedes Deck gibt es als Seite und als PDF.',
     openDeck: 'Deck öffnen',
@@ -64,7 +69,7 @@ const UI = {
     npm: 'npm',
     hint: 'Arrow keys or scroll · P to print as PDF',
     draft: 'Draft — content to come',
-    overviewTitle: 'Use cases',
+    overviewTitle: 'Pitch decks',
     overviewLead:
       'Pitch decks for the spin-off projects growing out of the local-first stack. Every deck comes as a page and as a PDF.',
     openDeck: 'Open deck',
@@ -586,7 +591,8 @@ function renderDeck(deck) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
-${deck.draft ? '<meta name="robots" content="noindex">\n' : ''}<meta property="og:type" content="website">
+<meta name="robots" content="noindex">
+<meta property="og:type" content="website">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:image" content="https://local-first.le-space.de/og-image.png">
@@ -636,8 +642,9 @@ function renderOverview(list) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Le-Space — Use-Cases</title>
+<title>Le-Space — Pitch Decks</title>
 <meta name="description" content="${esc(UI.de.overviewLead)}">
+<meta name="robots" content="noindex">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <style>${CSS}</style>
 </head>
@@ -683,6 +690,6 @@ for (const [rel, buf] of keep) {
 }
 
 console.log(
-  `\n${decks.length} decks → sites/local-first/public/use-cases/ ` +
+  `\n${decks.length} decks → sites/local-first/public/pitchdeck/ ` +
     `(${keep.size} PDFs kept; run tools/render-decks.mjs to refresh them)`
 );
