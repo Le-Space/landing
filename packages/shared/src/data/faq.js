@@ -148,6 +148,25 @@ export const faq = [
     }
   },
   {
+    id: 'mesh-without-relays',
+    q: {
+      en: 'Can devices form a mesh with no relay at all?',
+      de: 'Geht ein Mesh auch ganz ohne Relay?'
+    },
+    a: {
+      en: `<p>Yes, and it costs nothing to run. With <a href="https://github.com/NiKrause/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer">libp2p-webrtc-qr</a> two devices exchange the WebRTC handshake themselves — as a scanned QR code when they are in the same room, or as an invite link sent through any messenger. Once the connection is up it is an ordinary libp2p connection: gossipsub forms its mesh across it, OrbitDB replicates over it, and a third device joining any member joins the same mesh.</p>
+<p>The handshake travels in the <strong>fragment</strong> of the link, the part after the <code>#</code>, which browsers never send to a server. No signalling server sees it — and there is none to see it.</p>
+<p>That makes it two things at once. It is the <strong>free default</strong>: an app can ship without any infrastructure behind it and still let people work together. And it is the <strong>fallback</strong> that holds when every relay is down, unreachable or blocked — because there is nothing at a fixed address left to block. What an attacker would have to interfere with is a QR code held up to a camera.</p>
+<p>What it asks for in return is a human moment. Someone scans, or sends a link, and the other side opens it. A relay spares you that: it is reachable around the clock and peers find each other without anybody doing anything. Once a mesh exists, a dropped connection can be repaired through the peers that are still connected — but the first introduction is always made by a person.</p>
+<p>Two honest limits. Devices on different networks still need STUN to discover their own public address; that is a single UDP question to a public server, carries no data, and can be switched off if both devices share a network. And a QR code holds a bounded amount, so a handshake with many candidates is split across an animated sequence rather than one still image.</p>`,
+      de: `<p>Ja — und der Betrieb kostet nichts. Mit <a href="https://github.com/NiKrause/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer">libp2p-webrtc-qr</a> tauschen zwei Geräte den WebRTC-Handshake selbst aus: als gescannten QR-Code, wenn sie im selben Raum sind, oder als Einladungslink über einen beliebigen Messenger. Steht die Verbindung, ist sie eine ganz normale libp2p-Verbindung — gossipsub bildet sein Mesh darüber, OrbitDB repliziert darüber, und ein drittes Gerät, das sich mit einem beliebigen Mitglied verbindet, ist im selben Mesh.</p>
+<p>Der Handshake steht im <strong>Fragment</strong> des Links, dem Teil hinter dem <code>#</code>, den Browser grundsätzlich nicht an einen Server schicken. Kein Signalisierungsserver sieht ihn — es gibt auch keinen, der ihn sehen könnte.</p>
+<p>Damit ist es zweierlei zugleich. Es ist der <strong>kostenlose Normalfall</strong>: Eine App kann ohne jede Infrastruktur ausgeliefert werden und Menschen trotzdem zusammenarbeiten lassen. Und es ist der <strong>Rückfallweg</strong>, der trägt, wenn jedes Relay ausfällt, unerreichbar oder blockiert ist — weil nichts mehr an einer festen Adresse steht, das man blockieren könnte. Stören müsste man einen QR-Code, den jemand vor eine Kamera hält.</p>
+<p>Verlangt wird dafür ein menschlicher Moment. Jemand scannt oder verschickt einen Link, die andere Seite öffnet ihn. Ein Relay erspart genau das: Es ist rund um die Uhr erreichbar, und Peers finden einander, ohne dass jemand etwas tut. Besteht ein Mesh erst einmal, lässt sich eine abgerissene Verbindung über die verbliebenen Peers wiederherstellen — die erste Vorstellung macht aber immer ein Mensch.</p>
+<p>Zwei ehrliche Grenzen. Geräte in verschiedenen Netzen brauchen weiterhin STUN, um ihre eigene öffentliche Adresse zu erfahren; das ist eine einzelne UDP-Frage an einen öffentlichen Server, transportiert keine Daten und lässt sich abschalten, wenn beide Geräte im selben Netz sind. Und ein QR-Code fasst eine begrenzte Menge, weshalb ein Handshake mit vielen Kandidaten als animierte Folge statt als einzelnes Standbild läuft.</p>`
+    }
+  },
+  {
     id: 'relay-cost',
     q: {
       en: 'What does a relay cost — and who pays for it?',
