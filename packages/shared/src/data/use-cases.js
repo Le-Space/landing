@@ -453,10 +453,57 @@ export const decks = [
             items: [
               { de: 'Karte öffentlich und kostenlos', en: 'Map public and free' },
               { de: 'Konkrete Empfehlung: hier reicht direkt, dort ein Relay', en: 'A concrete recommendation: direct is enough here, a relay there' },
-              { de: 'Rohdaten über UCAN-Delegation handelbar, Erlösanteil an die Messenden', en: 'Raw data tradeable via UCAN delegation, revenue share to those who measured' }
+              { de: 'Rohdaten verschlüsselt beim Nutzer, Zugriff per widerrufbarer UCAN-Delegation', en: 'Raw data encrypted with the user, access via a revocable UCAN delegation' },
+              { de: 'Abrechnung und Erlösanteil über einen Smart Contract', en: 'Settlement and revenue share through a smart contract' }
             ]
           }
-        ]
+        ],
+        note: {
+          de: 'Schritt 1 macht der heutige Client bereits — er zeigt die IP-Familien beider Seiten an. Alles ab Schritt 2 ist Entwurf.',
+          en: 'Step one is what today\'s client already does — it reports the IP families of both sides. Everything from step two is design, not code.'
+        }
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Was eine Messung wirklich sagt', en: 'What a measurement actually says' },
+        lead: {
+          de: 'Eine Verbindung liefert vier Befunde. Keiner darf die anderen einfärben.',
+          en: 'One connection yields four findings. None may colour the others.'
+        },
+        bullets: [
+          {
+            t: { de: 'Vier Achsen statt einer Ampel', en: 'Four axes, not one traffic light' },
+            s: {
+              de: 'Ort × Browser × IP-Familie × Kandidatentyp. Baut Chrome kein IPv6 auf, ist das ein Minuspunkt für Chrome — nicht für das WLAN, das IPv4 sauber liefert.',
+              en: 'Place × browser × IP family × candidate type. If Chrome fails at IPv6, that is a mark against Chrome — not against the Wi-Fi serving IPv4 fine.'
+            }
+          },
+          {
+            t: { de: 'Die Ursachen trennen sich von selbst', en: 'The causes separate on their own' },
+            s: {
+              de: 'Ein Fehler bei einem Browser über viele Orte gehört dem Browser, einer an einem Ort über viele Browser dem Netz. Nur mit Chrome rot heißt: nicht rot.',
+              en: 'A fault with one browser across many places belongs to the browser; one in a place across many browsers to the network. A place red only with Chrome is not red.'
+            }
+          },
+          {
+            t: { de: 'Das Netz wird beobachtet, nicht behauptet', en: 'The network is observed, not claimed' },
+            s: {
+              de: 'Die Gegenstelle sieht die öffentliche IP und damit Provider und ASN. Wer ein Hotel-WLAN grün messen will, muss darin sitzen — GPS braucht es nirgends.',
+              en: 'The far end sees the public IP, and with it provider and ASN. To measure a hotel Wi-Fi green you have to sit in it — no GPS needed anywhere.'
+            }
+          },
+          {
+            t: { de: 'Erfolg braucht einen Zeugen', en: 'Success needs a witness' },
+            s: {
+              de: 'Die Gegenstelle wird zugewiesen, nicht gewählt, und bestätigt unabhängig. Misserfolg zu behaupten wäre billig — nur redet niemand sein eigenes Netz schlecht.',
+              en: 'The far end is assigned, not chosen, and confirms independently. Claiming failure is cheap — but nobody wants to talk their own network down.'
+            }
+          }
+        ],
+        note: {
+          de: 'Identität nur an der Kasse: Messungen laufen pseudonym, ein Ausweis wie die EUDI-Wallet erst bei Auszahlung und Audit. Wer dort falsch misst, wird nicht gehindert — aber zurechenbar.',
+          en: 'Identity only at the till: measurements stay pseudonymous, a credential such as the EUDI wallet appears only at payout and audit. Measuring falsely there is not prevented — but it is attributable.'
+        }
       },
       {
         kind: 'columns',
@@ -471,7 +518,8 @@ export const decks = [
             items: [
               { de: 'Video-, Gaming- und P2P-Anbieter', en: 'Video, gaming and P2P providers' },
               { de: 'Wollen wissen, wo direkt reicht — und wo Relay-Kapazität eingeplant werden muss', en: 'Want to know where direct is enough — and where relay capacity has to be budgeted' },
-              { de: 'API/SDK-Abo, Abfrage nach Provider und Region', en: 'API/SDK subscription, queried by provider and region' }
+              { de: 'API/SDK-Abo, Abfrage nach Provider und Region', en: 'API/SDK subscription, queried by provider and region' },
+              { de: 'Zweiter Datensatz ohne Ortsbezug: WebRTC-Kompatibilität nach Browser und Version', en: 'A second dataset with no location in it: WebRTC compatibility by browser and version' }
             ]
           },
           {
@@ -580,8 +628,8 @@ export const decks = [
           {
             t: { de: 'Datenschutz', en: 'Privacy' },
             s: {
-              de: 'Wie grob muss der Ort sein, damit aus „dieses Netz" nicht „diese Wohnung" wird? DSGVO-Bewertung vor der ersten Messung.',
-              en: 'How coarse must the location be so "this network" never becomes "this flat"? GDPR assessment before the first measurement.'
+              de: 'Wie grob muss der Ort sein, damit aus „dieses Netz" nicht „diese Wohnung" wird — und wie bleibt ein Ausweis an der Kasse unverkettbar, damit kein Bewegungsprofil entsteht? DSGVO-Bewertung vor der ersten Messung.',
+              en: 'How coarse must the location be so "this network" never becomes "this flat" — and how does a credential at the till stay unlinkable, so no movement profile appears? GDPR assessment before the first measurement.'
             }
           },
           {
@@ -592,10 +640,10 @@ export const decks = [
             }
           },
           {
-            t: { de: 'Manipulation', en: 'Manipulation' },
+            t: { de: 'Der Startpool', en: 'The starting pool' },
             s: {
-              de: 'Was hindert einen Anbieter daran, sich grün zu messen? Signierte Messungen, Reputation, Ausreißererkennung.',
-              en: 'What stops a provider from measuring itself green? Signed measurements, reputation, outlier detection.'
+              de: 'Der Schutz skaliert mit der Zahl unabhängiger Messpunkte — am Anfang ist sie klein und der Anteil eines Angreifers groß. Ab wie vielen Kreuzungspunkten bewerten wir ein Netz überhaupt?',
+              en: 'The protection scales with the number of independent vantage points — early on that number is small and an attacker\'s share is large. Above how many crossing points do we rate a network at all?'
             }
           },
           {

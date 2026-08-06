@@ -332,7 +332,7 @@ h2 {
   <p class="subtitle">Wo direkte Verbindungen tragen — und wo ein Relay einspringen muss</p>
   <p class="claim">Jede Verbindung ist eine Messung. Millionen Messungen sagen dir, wo du ein Relay brauchst.</p>
   <div class="links"><a href="https://webrtc-qr.le-space.de" target="_blank" rel="noopener noreferrer" class="primary">Demo</a><a href="https://github.com/NiKrause/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer">Quellcode</a><a href="https://www.npmjs.com/package/@le-space/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer">npm</a></div>
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>1 / 9</span></div>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>1 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
@@ -345,7 +345,7 @@ h2 {
     <li><b>Niemand misst das flächendeckend</b><p>Es gibt Speedtests für Bandbreite. Es gibt keine Karte für die Frage, die jede P2P-Anwendung stellen muss: reicht hier direkt, oder brauche ich ein Relay?</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>2 / 9</span></div>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>2 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
@@ -357,7 +357,7 @@ h2 {
     <li><b>Die Messung kostet nichts extra</b><p>Sie fällt bei etwas an, das der Nutzer ohnehin tun will: zwei Geräte verbinden. Kein separater Test, keine eigene App.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>3 / 9</span></div>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>3 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
@@ -378,11 +378,24 @@ h2 {
     </div>
     <div class="col">
       <h3>4 · Nutzen</h3>
-      <ul><li>Karte öffentlich und kostenlos</li><li>Konkrete Empfehlung: hier reicht direkt, dort ein Relay</li><li>Rohdaten über UCAN-Delegation handelbar, Erlösanteil an die Messenden</li></ul>
+      <ul><li>Karte öffentlich und kostenlos</li><li>Konkrete Empfehlung: hier reicht direkt, dort ein Relay</li><li>Rohdaten verschlüsselt beim Nutzer, Zugriff per widerrufbarer UCAN-Delegation</li><li>Abrechnung und Erlösanteil über einen Smart Contract</li></ul>
     </div>
   </div>
-  
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>4 / 9</span></div>
+  <p class="note">Schritt 1 macht der heutige Client bereits — er zeigt die IP-Familien beider Seiten an. Alles ab Schritt 2 ist Entwurf.</p>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>4 / 10</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">WebRTC Public Data Map</p>
+  <h2>Was eine Messung wirklich sagt</h2>
+  <p class="lead">Eine Verbindung liefert vier Befunde. Keiner darf die anderen einfärben.</p>
+  <ul class="bullets">
+    <li><b>Vier Achsen statt einer Ampel</b><p>Ort × Browser × IP-Familie × Kandidatentyp. Baut Chrome kein IPv6 auf, ist das ein Minuspunkt für Chrome — nicht für das WLAN, das IPv4 sauber liefert.</p></li>
+    <li><b>Die Ursachen trennen sich von selbst</b><p>Ein Fehler bei einem Browser über viele Orte gehört dem Browser, einer an einem Ort über viele Browser dem Netz. Nur mit Chrome rot heißt: nicht rot.</p></li>
+    <li><b>Das Netz wird beobachtet, nicht behauptet</b><p>Die Gegenstelle sieht die öffentliche IP und damit Provider und ASN. Wer ein Hotel-WLAN grün messen will, muss darin sitzen — GPS braucht es nirgends.</p></li>
+    <li><b>Erfolg braucht einen Zeugen</b><p>Die Gegenstelle wird zugewiesen, nicht gewählt, und bestätigt unabhängig. Misserfolg zu behaupten wäre billig — nur redet niemand sein eigenes Netz schlecht.</p></li>
+  </ul>
+  <p class="note">Identität nur an der Kasse: Messungen laufen pseudonym, ein Ausweis wie die EUDI-Wallet erst bei Auszahlung und Audit. Wer dort falsch misst, wird nicht gehindert — aber zurechenbar.</p>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>5 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
@@ -391,7 +404,7 @@ h2 {
   <div class="cols">
     <div class="col">
       <h3>Entwickler & Plattformen</h3>
-      <ul><li>Video-, Gaming- und P2P-Anbieter</li><li>Wollen wissen, wo direkt reicht — und wo Relay-Kapazität eingeplant werden muss</li><li>API/SDK-Abo, Abfrage nach Provider und Region</li></ul>
+      <ul><li>Video-, Gaming- und P2P-Anbieter</li><li>Wollen wissen, wo direkt reicht — und wo Relay-Kapazität eingeplant werden muss</li><li>API/SDK-Abo, Abfrage nach Provider und Region</li><li>Zweiter Datensatz ohne Ortsbezug: WebRTC-Kompatibilität nach Browser und Version</li></ul>
     </div>
     <div class="col">
       <h3>Netzbetreiber</h3>
@@ -403,7 +416,7 @@ h2 {
     </div>
   </div>
   <p class="note">Der eigentliche Hebel steht in Spalte eins: Jeder rote Fleck auf der Karte ist eine begründete Empfehlung für einen Relay — und damit ein Verkauf für Spin-Off A. Die Karte misst den Bedarf, den unsere Infrastruktur deckt.</p>
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>5 / 9</span></div>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>6 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
@@ -415,7 +428,7 @@ h2 {
     <li><b>Glaubwürdigkeit beim Datenschutz</b><p>Ein Datenmarkt funktioniert nur, wenn die Nutzer der Sammelstelle trauen. Wir bauen seit Jahren Systeme, die absichtlich wenig wissen.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>6 / 9</span></div>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>7 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
@@ -428,20 +441,20 @@ h2 {
     <li><b>Marktplatz-Pilot</b><span class="badge planned">geplant</span><p>Ein zahlender Erstkunde, Erlösbeteiligung der Nutzer, Anti-Manipulation gegen gefälschte Messungen.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>7 / 9</span></div>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>8 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
   <h2>Offene Fragen</h2>
   <p class="lead">Bewusst auf einer eigenen Folie: an diesen vier Punkten entscheidet sich, ob das Modell trägt.</p>
   <ul class="bullets">
-    <li><b>Datenschutz</b><p>Wie grob muss der Ort sein, damit aus „dieses Netz" nicht „diese Wohnung" wird? DSGVO-Bewertung vor der ersten Messung.</p></li>
+    <li><b>Datenschutz</b><p>Wie grob muss der Ort sein, damit aus „dieses Netz" nicht „diese Wohnung" wird — und wie bleibt ein Ausweis an der Kasse unverkettbar, damit kein Bewegungsprofil entsteht? DSGVO-Bewertung vor der ersten Messung.</p></li>
     <li><b>Rechtliches zur Bewertung</b><p>Öffentliche Netzbewertungen sind zulässig, solange sie belegbar sind und als Messung auftreten, nicht als Urteil. Eine Gebühr darf immer nur die neue Messung bezahlen, nie das Verschwinden eines Eintrags.</p></li>
-    <li><b>Manipulation</b><p>Was hindert einen Anbieter daran, sich grün zu messen? Signierte Messungen, Reputation, Ausreißererkennung.</p></li>
+    <li><b>Der Startpool</b><p>Der Schutz skaliert mit der Zahl unabhängiger Messpunkte — am Anfang ist sie klein und der Anteil eines Angreifers groß. Ab wie vielen Kreuzungspunkten bewerten wir ein Netz überhaupt?</p></li>
     <li><b>Kritische Masse</b><p>Der Datensatz ist erst ab einer gewissen Dichte verkäuflich. Wie kommen die ersten hunderttausend Messungen zustande?</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>8 / 9</span></div>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>9 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
@@ -453,7 +466,7 @@ h2 {
     <div>+49 / 87 21 / 5 06 49 96</div>
   </div>
   <div class="links"><a href="https://webrtc-qr.le-space.de" target="_blank" rel="noopener noreferrer">Demo</a><a href="https://github.com/NiKrause/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer" class="primary">Quellcode</a><a href="https://www.npmjs.com/package/@le-space/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer">npm</a></div>
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>9 / 9</span></div>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>10 / 10</span></div>
 </section>
 </div></div>
 <div class="lang-en"><div class="deck">
@@ -472,7 +485,7 @@ h2 {
   <p class="subtitle">Where direct connections hold — and where a relay has to step in</p>
   <p class="claim">Every connection is a measurement. Millions of measurements tell you where you need a relay.</p>
   <div class="links"><a href="https://webrtc-qr.le-space.de" target="_blank" rel="noopener noreferrer" class="primary">Demo</a><a href="https://github.com/NiKrause/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer">Source</a><a href="https://www.npmjs.com/package/@le-space/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer">npm</a></div>
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>1 / 9</span></div>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>1 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
@@ -485,7 +498,7 @@ h2 {
     <li><b>Nobody measures this at scale</b><p>There are speed tests for bandwidth. There is no map for the question every P2P application has to ask: is direct enough here, or do I need a relay?</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>2 / 9</span></div>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>2 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
@@ -497,7 +510,7 @@ h2 {
     <li><b>The measurement costs nothing extra</b><p>It falls out of something the user wants to do anyway: connect two devices. No separate test, no extra app.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>3 / 9</span></div>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>3 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
@@ -518,11 +531,24 @@ h2 {
     </div>
     <div class="col">
       <h3>4 · Use</h3>
-      <ul><li>Map public and free</li><li>A concrete recommendation: direct is enough here, a relay there</li><li>Raw data tradeable via UCAN delegation, revenue share to those who measured</li></ul>
+      <ul><li>Map public and free</li><li>A concrete recommendation: direct is enough here, a relay there</li><li>Raw data encrypted with the user, access via a revocable UCAN delegation</li><li>Settlement and revenue share through a smart contract</li></ul>
     </div>
   </div>
-  
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>4 / 9</span></div>
+  <p class="note">Step one is what today's client already does — it reports the IP families of both sides. Everything from step two is design, not code.</p>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>4 / 10</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">WebRTC Public Data Map</p>
+  <h2>What a measurement actually says</h2>
+  <p class="lead">One connection yields four findings. None may colour the others.</p>
+  <ul class="bullets">
+    <li><b>Four axes, not one traffic light</b><p>Place × browser × IP family × candidate type. If Chrome fails at IPv6, that is a mark against Chrome — not against the Wi-Fi serving IPv4 fine.</p></li>
+    <li><b>The causes separate on their own</b><p>A fault with one browser across many places belongs to the browser; one in a place across many browsers to the network. A place red only with Chrome is not red.</p></li>
+    <li><b>The network is observed, not claimed</b><p>The far end sees the public IP, and with it provider and ASN. To measure a hotel Wi-Fi green you have to sit in it — no GPS needed anywhere.</p></li>
+    <li><b>Success needs a witness</b><p>The far end is assigned, not chosen, and confirms independently. Claiming failure is cheap — but nobody wants to talk their own network down.</p></li>
+  </ul>
+  <p class="note">Identity only at the till: measurements stay pseudonymous, a credential such as the EUDI wallet appears only at payout and audit. Measuring falsely there is not prevented — but it is attributable.</p>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>5 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
@@ -531,7 +557,7 @@ h2 {
   <div class="cols">
     <div class="col">
       <h3>Developers & platforms</h3>
-      <ul><li>Video, gaming and P2P providers</li><li>Want to know where direct is enough — and where relay capacity has to be budgeted</li><li>API/SDK subscription, queried by provider and region</li></ul>
+      <ul><li>Video, gaming and P2P providers</li><li>Want to know where direct is enough — and where relay capacity has to be budgeted</li><li>API/SDK subscription, queried by provider and region</li><li>A second dataset with no location in it: WebRTC compatibility by browser and version</li></ul>
     </div>
     <div class="col">
       <h3>Network operators</h3>
@@ -543,7 +569,7 @@ h2 {
     </div>
   </div>
   <p class="note">The real lever is in the first column: every red patch on the map is an evidenced recommendation for a relay — and therefore a sale for spin-off A. The map measures the demand our infrastructure covers.</p>
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>5 / 9</span></div>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>6 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
@@ -555,7 +581,7 @@ h2 {
     <li><b>Credibility on privacy</b><p>A data market only works if users trust the collector. We have spent years building systems that deliberately know little.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>6 / 9</span></div>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>7 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
@@ -568,20 +594,20 @@ h2 {
     <li><b>Marketplace pilot</b><span class="badge planned">planned</span><p>One paying first customer, revenue share for users, anti-manipulation against forged measurements.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>7 / 9</span></div>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>8 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
   <h2>Open questions</h2>
   <p class="lead">Deliberately on their own slide: these four points decide whether the model holds.</p>
   <ul class="bullets">
-    <li><b>Privacy</b><p>How coarse must the location be so "this network" never becomes "this flat"? GDPR assessment before the first measurement.</p></li>
+    <li><b>Privacy</b><p>How coarse must the location be so "this network" never becomes "this flat" — and how does a credential at the till stay unlinkable, so no movement profile appears? GDPR assessment before the first measurement.</p></li>
     <li><b>Legal side of rating</b><p>Public network ratings are lawful as long as they are evidenced and presented as a measurement rather than a verdict. A fee may only ever pay for a fresh measurement, never for an entry to disappear.</p></li>
-    <li><b>Manipulation</b><p>What stops a provider from measuring itself green? Signed measurements, reputation, outlier detection.</p></li>
+    <li><b>The starting pool</b><p>The protection scales with the number of independent vantage points — early on that number is small and an attacker's share is large. Above how many crossing points do we rate a network at all?</p></li>
     <li><b>Critical mass</b><p>The dataset only sells above a certain density. Where do the first hundred thousand measurements come from?</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>8 / 9</span></div>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>9 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
@@ -593,7 +619,7 @@ h2 {
     <div>+49 / 87 21 / 5 06 49 96</div>
   </div>
   <div class="links"><a href="https://webrtc-qr.le-space.de" target="_blank" rel="noopener noreferrer">Demo</a><a href="https://github.com/NiKrause/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer" class="primary">Source</a><a href="https://www.npmjs.com/package/@le-space/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer">npm</a></div>
-  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>9 / 9</span></div>
+  <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>10 / 10</span></div>
 </section>
 </div></div>
 <script>

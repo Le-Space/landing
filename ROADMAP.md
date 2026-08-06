@@ -115,9 +115,14 @@ PDF `tools/render-decks.mjs`. Details im README.
 - [ ] Offen bei C: Kassensicherungsverordnung/TSE beim Barverkauf, ZAG-Bewertung
       des Krypto-Wegs (nicht-verwahrend bleiben), DSGVO-Zuschnitt der
       Buchungs-DBs — alles vor dem ersten zahlenden Studio.
-- [ ] Offen bei B: DSGVO-Bewertung der Messdaten und die rechtliche Prüfung des
-      Re-Verifizierungs-Modells (Gebühr nur für die neue Messung, nie für das
-      Entfernen eines Eintrags — so im Deck formuliert).
+- [ ] Offen bei B: DSGVO-Bewertung der Messdaten (Ortsgranularität + unverkettbarer
+      Ausweis an der Kasse), rechtliche Prüfung des Re-Verifizierungs-Modells
+      (Gebühr nur für die neue Messung), und der Startpool — ab wie vielen
+      unabhängigen Kreuzungspunkten wird ein Netz überhaupt bewertet?
+- [ ] Zu B gehört ein Entwurfsdokument im `libp2p-webrtc-qr`-Repo (analog zu
+      Yoga Sucis PLAN.md/LIMITS.md): Zuweisung der Gegenstelle, Schwellwerte,
+      Auszahlungsdeckel, Attributionslogik der Kreuztabelle. Das Deck trägt nur
+      das Prinzip, nicht das Verfahren.
 
 ## M3 — Launch-Politur
 
