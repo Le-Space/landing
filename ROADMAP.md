@@ -101,7 +101,8 @@ PDF `tools/render-decks.mjs`. Details im README.
 
 - [x] Gerüst: Generator, PDF-Rendering, Use-Cases-Sektion, Übersichtsseite
 - [x] **A · OrbitDB Relay** — Storage/Backup/Pinning + Hydration/Dehydration (8 Folien)
-- [x] **B · WebRTC Public Data Map** — Konnektivitätskarte aus QR-Verbindungen (9 Folien)
+- [x] **B · WebRTC Public Data Map** — Karte des Relay-Bedarfs aus QR-Verbindungen;
+      Messung als Matrix (Ort × Browser × IP-Familie), Gegenstelle zugewiesen (10 Folien)
 - [x] **C · Yoga Suci** — P2P-Kursverwaltung für Yogastudios, Erlöse über
       Fiat-Terminal + Fernberatung, Kryptozahlung pro Transaktion und
       Speicher-Provision aus Spin-Off A (9 Folien)
