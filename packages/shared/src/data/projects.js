@@ -308,8 +308,8 @@ export const projects = [
   {
     id: 'orbit-blog',
     name: 'Orbit Blog',
-    layers: ['data', 'sync'],
-    status: 'beta',
+    layers: ['data', 'sync', 'archive'],
+    status: 'prototype',
     featured: false,
     github: 'https://github.com/NiKrause/orbit-blog',
     demo: 'https://blog.le-space.de',

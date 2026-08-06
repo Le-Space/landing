@@ -12,7 +12,7 @@
     "sub": "Every layer works without a central service — and every layer is an open-source building block you can use on its own.",
     "identity": {
       "name": "Identity",
-      "desc": "WebAuthn / Passkeys / DIDs and web3 wallets — your keys, your browser"
+      "desc": "WebAuthn / Passkeys / DIDs and Web3 wallets — your keys, your browser"
     },
     "data": {
       "name": "Data",
