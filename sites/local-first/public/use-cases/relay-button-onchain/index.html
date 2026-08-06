@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="de" style="--accent:var(--ls-red-bright)">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relay Button on-chain — Le-Space Spin-Off E</title>
+<meta name="description" content="Wer heute einen Relay startet, braucht ein Konto mit Guthaben bei einem Anbieter. Ein Prepaid-Vault ersetzt das: Der Nutzer zahlt selbst ein, das Deployment reserviert genau seinen Betrag, und beim Start fällt unsere Gebühr im selben Schritt an.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Relay Button on-chain — Le-Space Spin-Off E">
+<meta property="og:description" content="Wer heute einen Relay startet, braucht ein Konto mit Guthaben bei einem Anbieter. Ein Prepaid-Vault ersetzt das: Der Nutzer zahlt selbst ein, das Deployment reserviert genau seinen Betrag, und beim Start fällt unsere Gebühr im selben Schritt an.">
+<meta property="og:image" content="https://local-first.le-space.de/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+:root {
+  --ls-red: #ff6b5b;
+  --ls-red-bright: #ff8577;
+  --ls-accent: #58c7f3;
+  --ls-accent-2: #a78bfa;
+  --ls-green: #3edc97;
+  --ls-amber: #ffc24b;
+  --ls-bg-0: #0b0e15;
+  --ls-bg-1: #10141f;
+  --ls-bg-2: #141926;
+  --ls-bg-3: #232b3d;
+  --ls-text: #edf1f8;
+  --ls-text-dim: #a8b3c7;
+  --ls-text-faint: #5c677a;
+  --ls-card: rgba(255,255,255,0.04);
+  --ls-card-border: rgba(255,255,255,0.09);
+  --ls-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ls-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  --accent: var(--ls-accent);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--ls-bg-0);
+  color: var(--ls-text);
+  font-family: var(--ls-font);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--ls-accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code {
+  font-family: var(--ls-font-mono);
+  font-size: 0.88em;
+  background: var(--ls-card);
+  border: 1px solid var(--ls-card-border);
+  border-radius: 4px;
+  padding: 0.05em 0.35em;
+}
+strong { color: var(--ls-text); font-weight: 650; }
+
+html[lang='de'] .lang-en, html[lang='en'] .lang-de { display: none; }
+
+.deck { scroll-snap-type: y mandatory; }
+.slide {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 7vh 6vw 9vh;
+  font-size: clamp(14px, 1.15vw, 19px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  overflow: hidden;
+}
+.slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 80% at 78% 8%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 60%);
+  pointer-events: none;
+}
+.slide > * { position: relative; }
+
+.kicker {
+  font-family: var(--ls-font-mono);
+  font-size: 0.82em;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1.1em;
+}
+/*
+ * Solid, deliberately not the gradient-clipped headline the landing page hero
+ * uses. background-clip:text with transparent glyphs is one failed clip away
+ * from painting the raw gradient box across the slide — reported in the wild on
+ * the cover of the WebRTC deck, not reproducible headless, and unacceptable in
+ * a document that gets projected and mailed to strangers. The accent lives in
+ * the kicker and the claim rule instead.
+ */
+h1 {
+  font-size: 3.4em;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.25em;
+  color: var(--ls-text);
+}
+h2 {
+  font-size: 2.2em;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.4em;
+}
+.subtitle { font-size: 1.35em; color: var(--ls-text-dim); margin: 0 0 1.4em; max-width: 24em; }
+.claim {
+  font-size: 1.15em;
+  color: var(--ls-text);
+  border-left: 3px solid var(--accent);
+  padding-left: 0.9em;
+  margin: 0 0 1.8em;
+  max-width: 30em;
+}
+.lead { font-size: 1.12em; color: var(--ls-text-dim); margin: 0 0 1.8em; max-width: 42em; }
+
+.cover-top { display: flex; align-items: center; gap: 0.8em; margin-bottom: 2.4em; }
+.mark { width: 3.4em; height: 3.4em; filter: drop-shadow(0 0 1em rgba(255,107,91,0.45)); }
+.brand { font-size: 1.1em; font-weight: 700; letter-spacing: 0.07em; }
+
+.bullets { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.05em; max-width: 46em; }
+.bullets li { padding-left: 1.15em; position: relative; }
+.bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.42em;
+  height: 0.42em;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.bullets b { display: inline; font-size: 1.06em; font-weight: 650; }
+.bullets p { margin: 0.2em 0 0; color: var(--ls-text-dim); max-width: 40em; }
+
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(13em, 1fr)); gap: 1.1em; }
+.col {
+  background: var(--ls-card);
+  border: 1px solid var(--ls-card-border);
+  border-radius: 14px;
+  padding: 1.2em 1.3em;
+}
+.col h3 {
+  font-size: 1.02em;
+  margin: 0 0 0.7em;
+  color: var(--accent);
+  letter-spacing: 0.01em;
+}
+.col ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.55em; }
+.col li { color: var(--ls-text-dim); font-size: 0.97em; padding-left: 0.9em; position: relative; }
+.col li::before { content: '–'; position: absolute; left: 0; color: var(--ls-text-faint); }
+
+.note {
+  margin: 1.6em 0 0;
+  padding: 0.9em 1.1em;
+  border: 1px solid var(--ls-card-border);
+  border-left: 3px solid var(--ls-amber);
+  border-radius: 10px;
+  background: rgba(255,194,75,0.06);
+  color: var(--ls-text-dim);
+  font-size: 0.97em;
+  max-width: 46em;
+}
+
+.badge {
+  display: inline-block;
+  font-family: var(--ls-font-mono);
+  font-size: 0.68em;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 0.15em 0.6em;
+  border-radius: 999px;
+  border: 1px solid var(--ls-card-border);
+  color: var(--ls-text-dim);
+  vertical-align: 0.18em;
+  margin-left: 0.55em;
+  white-space: nowrap;
+}
+.badge.now { color: var(--ls-green); border-color: color-mix(in srgb, var(--ls-green) 45%, transparent); }
+.badge.next { color: var(--ls-amber); border-color: color-mix(in srgb, var(--ls-amber) 45%, transparent); }
+.badge.planned { color: var(--ls-text-faint); }
+
+.links { display: flex; flex-wrap: wrap; gap: 0.7em; margin-top: 1.6em; }
+.links a {
+  padding: 0.5em 1.1em;
+  border-radius: 8px;
+  border: 1px solid var(--ls-card-border);
+  color: var(--ls-text);
+  font-weight: 600;
+  font-size: 0.95em;
+}
+.links a:hover { text-decoration: none; background: rgba(255,255,255,0.07); }
+.links a.primary { background: var(--ls-red); border-color: var(--ls-red); color: #fff; }
+
+.contact { margin-top: 1.8em; font-size: 1.02em; color: var(--ls-text-dim); }
+.contact div { margin-bottom: 0.2em; }
+
+.foot {
+  position: absolute;
+  left: 6vw;
+  right: 6vw;
+  bottom: 3vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--ls-font-mono);
+  font-size: 0.72em;
+  color: var(--ls-text-faint);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 0.7em;
+}
+
+.chrome {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  display: flex;
+  gap: 6px;
+  font-family: var(--ls-font-mono);
+  font-size: 12px;
+}
+.chrome button, .chrome a {
+  background: rgba(20,25,38,0.85);
+  border: 1px solid var(--ls-card-border);
+  color: var(--ls-text-dim);
+  border-radius: 7px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font: inherit;
+  backdrop-filter: blur(6px);
+}
+.chrome button:hover, .chrome a:hover { color: var(--ls-text); text-decoration: none; }
+.chrome button[aria-pressed='true'] { color: var(--ls-text); border-color: var(--accent); }
+.hint {
+  position: fixed;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  font-family: var(--ls-font-mono);
+  font-size: 11px;
+  color: var(--ls-text-faint);
+  z-index: 10;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.draft-banner {
+  background: rgba(255,194,75,0.12);
+  border-bottom: 1px solid rgba(255,194,75,0.3);
+  color: var(--ls-amber);
+  font-family: var(--ls-font-mono);
+  font-size: 12px;
+  text-align: center;
+  padding: 7px;
+}
+
+/* Overview page */
+.page { max-width: 1120px; margin: 0 auto; padding: 8vh 24px 12vh; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 2.5rem; }
+.card {
+  background: var(--ls-card);
+  border: 1px solid var(--ls-card-border);
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+}
+.card h3 { margin: 0.5rem 0 0.3rem; font-size: 1.25rem; }
+.card p { color: var(--ls-text-dim); margin: 0 0 1.2rem; flex: 1; }
+.card .links { margin-top: auto; }
+
+@media (max-width: 640px) {
+  .slide { padding: 6vh 7vw 11vh; font-size: 15px; }
+  h1 { font-size: 2.5em; }
+  .foot { left: 7vw; right: 7vw; }
+}
+
+@media print {
+  @page { size: 1280px 720px; margin: 0; }
+  html, body { background: var(--ls-bg-0); }
+  .chrome, .hint, .draft-banner { display: none !important; }
+  .deck { scroll-snap-type: none; }
+  .slide {
+    width: 1280px;
+    height: 720px;
+    min-height: 0;
+    padding: 58px 76px 80px;
+    /* Smaller than the 17px a 1280px-wide screen would pick. The page height is
+       fixed, German runs longer than English, and the densest slides overflowed
+       at 16px — this leaves headroom for the copy still to be written.
+       tools/render-decks.mjs fails the build if a slide exceeds the page. */
+    font-size: 15px;
+    border-bottom: none;
+    break-after: page;
+    page-break-after: always;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  /* Without this the last slide emits a trailing blank page. */
+  .slide:last-child { break-after: auto; page-break-after: auto; }
+  .foot { left: 76px; right: 76px; bottom: 34px; }
+}
+</style>
+</head>
+<body>
+<div class="chrome">
+  <button type="button" data-lang="de">DE</button>
+  <button type="button" data-lang="en">EN</button>
+  <button type="button" data-print>PDF</button>
+</div>
+<div class="hint"><span class="lang-de">Pfeiltasten oder scrollen · P für PDF-Druck</span><span class="lang-en">Arrow keys or scroll · P to print as PDF</span></div>
+<div class="lang-de"><div class="deck">
+<section class="slide">
+  <div class="cover-top"><svg class="mark" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Le-Space">
+<line x1="42.7" y1="49.96" x2="58.56" y2="34.94" stroke="#58C7F3" stroke-width="4" stroke-linecap="round"/>
+<line x1="47.43" y1="63.58" x2="62.8" y2="64.98" stroke="#58C7F3" stroke-width="4" stroke-linecap="round" stroke-dasharray="0.1 8"/>
+<line x1="69.85" y1="38.36" x2="72.41" y2="55.37" stroke="#58C7F3" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="0.1 6" opacity="0.65"/>
+<circle cx="30" cy="62" r="15" fill="#FF6B5B"/>
+<circle cx="68" cy="26" r="8" fill="none" stroke="#58C7F3" stroke-width="5"/>
+<circle cx="74" cy="66" r="6.5" fill="none" stroke="#58C7F3" stroke-width="4.5"/>
+<circle cx="17" cy="21" r="2.6" fill="#58C7F3" opacity="0.55"/>
+</svg><span class="brand">Le-Space</span></div>
+  <p class="kicker">Spin-Off E · Prototyp</p>
+  <h1>Relay Button on-chain</h1>
+  <p class="subtitle">Relay-Deployments per Smart Contract — autorisiert, abgerechnet und gedeckelt</p>
+  <p class="claim">Kein Konto, keine Rechnung, kein Vorstrecken: Der Vertrag hält das Guthaben, gibt den Start frei und rechnet beim Verbrauch ab.</p>
+  <div class="links"><a href="https://nikrause.github.io/relay-button/" target="_blank" rel="noopener noreferrer" class="primary">Doku</a><a href="https://github.com/NiKrause/relay-button" target="_blank" rel="noopener noreferrer">Quellcode</a><a href="https://www.npmjs.com/package/@le-space/browser" target="_blank" rel="noopener noreferrer">npm</a></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>1 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>Das Problem</h2>
+  <p class="lead">Der Relay Button startet Infrastruktur auf Knopfdruck. Bezahlt wird sie bisher wie überall sonst — und daran hängt alles Übrige.</p>
+  <ul class="bullets">
+    <li><b>Das Guthaben liegt beim Anbieter</b><p>Ein Konto, eine Aufladung, ein Vertrauensverhältnis. Genau die Abhängigkeit, die der restliche Stack vermeidet.</p></li>
+    <li><b>Wer für andere deployt, streckt vor</b><p>Eine App, die ihren Nutzern den Relay-Button anbietet, zahlt erst und rechnet danach ab — manuell, mit Ausfallrisiko.</p></li>
+    <li><b>Ein Klick kostet Geld — ohne Deckel</b><p>Ein eingebetteter Startknopf ohne Guthabenprüfung ist eine offene Rechnung für jeden, der ihn findet.</p></li>
+    <li><b>Keine Beteiligung an der Nutzung</b><p>Der Baukasten ist Open Source und wird eingesetzt — aber es gibt keinen Weg, an einem gestarteten Node etwas zu verdienen.</p></li>
+  </ul>
+  
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>2 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>Die Lösung: ein Prepaid-Vault</h2>
+  <p class="lead">Ein Vertrag hält das Guthaben und gibt es schrittweise frei — in vier Aufrufen.</p>
+  <ul class="bullets">
+    <li><b>Einzahlen</b><span class="badge now">heute</span><p><code>approve</code> und <code>deposit</code> mit einem ERC-20-Token. Das Guthaben bleibt beim Nutzer — wir halten es nicht.</p></li>
+    <li><b>Reservieren</b><span class="badge now">heute</span><p><code>reserve(intentHash, amount, expiresAt)</code> — gesperrt für genau dieses Deployment, mit Ablaufdatum.</p></li>
+    <li><b>Verbrauchen</b><span class="badge now">heute</span><p><code>consume(intentHash, amount)</code> nach dem Start. Abgerechnet wird, was der Node wirklich gekostet hat.</p></li>
+    <li><b>Zurückholen</b><span class="badge now">heute</span><p>Läuft das Deployment nicht an, gibt <code>refund(intentHash)</code> die Reservierung frei. Niemand muss darum bitten.</p></li>
+  </ul>
+  <p class="note">Kein Entwurf: Der Client liegt als <code>@le-space/browser</code> im Relay-Button-Monorepo — samt Guthaben-Abfragen, für Base, Avalanche und Ethereum.</p>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>3 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>Mehr als bezahlen: autorisieren</h2>
+  <p class="lead">Der eigentliche Gewinn ist nicht die Zahlung, sondern dass der Vertrag entscheidet, ob ein Node überhaupt starten darf.</p>
+  <ul class="bullets">
+    <li><b>Geld ist an eine Absicht gebunden</b><p>Der <code>intentHash</code> verknüpft die Reservierung mit genau einem Deployment. Guthaben lässt sich nicht für etwas anderes ausgeben.</p></li>
+    <li><b>Der Vertrag ist der Schiedsrichter</b><p>Keine Reservierung, kein Start. Die Freigabe hängt nicht mehr an einem Backend, das jemand betreibt und abschalten kann.</p></li>
+    <li><b>Der Deckel ist eingebaut</b><p>Ausgegeben werden kann nur, was eingezahlt wurde. Ein eingebetteter Startknopf kann niemanden mehr überraschen.</p></li>
+    <li><b>Jeder Start hat einen Beleg</b><p>Reservierung und Verbrauch sind Transaktionen. Wer wann was gestartet hat, ist prüfbar, ohne dass jemand Buch führt.</p></li>
+  </ul>
+  
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>4 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>Womit wir verdienen</h2>
+  <p class="lead">Eine Gebühr pro gestartetem Node — eingezogen im selben Schritt, in dem abgerechnet wird.</p>
+  <ul class="bullets">
+    <li><b>Gebühr beim Verbrauch</b><p>Der Vault behält beim <code>consume</code> einen Anteil ein. Kein Inkasso, keine Rechnung, kein Zahlungsausfall.</p></li>
+    <li><b>Skaliert mit Nutzung, nicht mit Vertrieb</b><p>Jeder Node, den irgendjemand irgendwo über den Baukasten startet, trägt bei — ohne dass wir ihn kennen müssen.</p></li>
+    <li><b>Nicht-verwahrend</b><p>Das Guthaben gehört bis zum Verbrauch dem Nutzer. Wir halten keine Kundengelder — dieselbe Linie wie bei den Spin-Offs B und C.</p></li>
+    <li><b>Öffnet den Baukasten für Dritte</b><p>Wer den Relay Button einbettet, muss nichts mehr vorstrecken. Das ist erst der Grund, warum ihn jemand einbettet.</p></li>
+  </ul>
+  
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>5 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>Wer damit startet</h2>
+  <p class="lead">Überall dort, wo jemand Infrastruktur braucht, aber kein Verhältnis zu einem Anbieter aufbauen will.</p>
+  <div class="cols">
+    <div class="col">
+      <h3>App-Hersteller</h3>
+      <ul><li>Betten den Relay Button in ihre App ein</li><li>Nutzer zahlen selbst, die App streckt nichts vor</li><li>Kein Abrechnungssystem nötig</li></ul>
+    </div>
+    <div class="col">
+      <h3>Communities & DAOs</h3>
+      <ul><li>Gemeinsame Kasse für ein gemeinsames Relay</li><li>Sichtbar, wer wie lange finanziert hat</li><li>Läuft weiter, solange jemand nachlegt</li></ul>
+    </div>
+    <div class="col">
+      <h3>Agenturen & Wiederverkäufer</h3>
+      <ul><li>Deployen für Kunden, ohne in Vorleistung zu gehen</li><li>Der Kunde füllt seinen eigenen Vault</li><li>Passt zum Beratungsgeschäft aus Spin-Off D</li></ul>
+    </div>
+  </div>
+  
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>6 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>Stand & nächste Schritte</h2>
+  <p class="lead">Die Client-Seite existiert und ist veröffentlicht. Was fehlt, ist der Vertrag dahinter — und die Gebühr darin.</p>
+  <ul class="bullets">
+    <li><b>Vault-Client veröffentlicht</b><span class="badge now">heute</span><p>Einzahlen, Reservieren, Verbrauchen, Zurückholen plus Guthaben- und Reservierungsabfragen — in <code>@le-space/browser</code>, für drei EVM-Ketten.</p></li>
+    <li><b>Den Vertrag selbst veröffentlichen</b><span class="badge next">in Arbeit</span><p>Quellcode, Deployment-Adressen und ein Audit. Ohne das ist der Client ein Schlüssel ohne Schloss.</p></li>
+    <li><b>Gebührenlogik einbauen</b><span class="badge next">in Arbeit</span><p>Der Anteil pro gestartetem Node gehört in den Vertrag, nicht in eine Rechnung. Höhe und Empfänger konfigurierbar.</p></li>
+    <li><b>An den Lebenszyklus koppeln</b><span class="badge planned">geplant</span><p>Laufzeit verlängern, Node stoppen, Reste zurück — und derselbe Vault für weitere Anbieter neben Aleph.</p></li>
+  </ul>
+  
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>7 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>Offene Fragen</h2>
+  <p class="lead">Vier Punkte, die vor dem ersten echten Guthaben geklärt sein müssen.</p>
+  <ul class="bullets">
+    <li><b>Wer hält das Guthaben</b><p>Nicht-verwahrend zu bleiben ist die ganze Voraussetzung. Der Vertrag muss so gebaut sein, dass wir das Geld eines Nutzers nie bewegen können — auch nicht versehentlich.</p></li>
+    <li><b>Kurs und Kosten laufen auseinander</b><p>Ein Node kostet in Euro, bezahlt wird in Token. Zwischen Reservierung und Verbrauch kann sich das verschieben — Stablecoin oder Puffer?</p></li>
+    <li><b>Gaskosten pro Start</b><p>Reservieren und Verbrauchen sind zwei Transaktionen. Auf einer L2 ist das vernachlässigbar, auf Ethereum nicht — die Kette ist eine Produktentscheidung.</p></li>
+    <li><b>Wer haftet für den Node</b><p>Wenn ein Vertrag statt eines Menschen den Start freigibt: Wer ist Betreiber dessen, was darauf läuft? Das gehört geklärt, bevor es jemand fragt.</p></li>
+  </ul>
+  
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>8 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>Gespräch?</h2>
+  <p class="lead">Gesucht: eine App, die den Relay Button einbetten will, ohne in Vorleistung zu gehen — und jemand, der den Vault-Vertrag mit uns fertigstellt und prüft.</p>
+  <div class="contact">
+    <div><strong>Le Space UG (haftungsbeschränkt)</strong> · Nico Krause</div>
+    <div><a href="mailto:kontakt@le-space.de">kontakt@le-space.de</a> · <a href="https://local-first.le-space.de">local-first.le-space.de</a></div>
+    <div>+49 / 87 21 / 5 06 49 96</div>
+  </div>
+  <div class="links"><a href="https://nikrause.github.io/relay-button/" target="_blank" rel="noopener noreferrer">Doku</a><a href="https://github.com/NiKrause/relay-button" target="_blank" rel="noopener noreferrer" class="primary">Quellcode</a><a href="https://www.npmjs.com/package/@le-space/browser" target="_blank" rel="noopener noreferrer">npm</a></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>9 / 9</span></div>
+</section>
+</div></div>
+<div class="lang-en"><div class="deck">
+<section class="slide">
+  <div class="cover-top"><svg class="mark" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Le-Space">
+<line x1="42.7" y1="49.96" x2="58.56" y2="34.94" stroke="#58C7F3" stroke-width="4" stroke-linecap="round"/>
+<line x1="47.43" y1="63.58" x2="62.8" y2="64.98" stroke="#58C7F3" stroke-width="4" stroke-linecap="round" stroke-dasharray="0.1 8"/>
+<line x1="69.85" y1="38.36" x2="72.41" y2="55.37" stroke="#58C7F3" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="0.1 6" opacity="0.65"/>
+<circle cx="30" cy="62" r="15" fill="#FF6B5B"/>
+<circle cx="68" cy="26" r="8" fill="none" stroke="#58C7F3" stroke-width="5"/>
+<circle cx="74" cy="66" r="6.5" fill="none" stroke="#58C7F3" stroke-width="4.5"/>
+<circle cx="17" cy="21" r="2.6" fill="#58C7F3" opacity="0.55"/>
+</svg><span class="brand">Le-Space</span></div>
+  <p class="kicker">Spin-Off E · prototype</p>
+  <h1>Relay Button on-chain</h1>
+  <p class="subtitle">Relay deployments through a smart contract — authorised, settled and capped</p>
+  <p class="claim">No account, no invoice, no fronting the money: the contract holds the balance, releases the launch and settles on consumption.</p>
+  <div class="links"><a href="https://nikrause.github.io/relay-button/" target="_blank" rel="noopener noreferrer" class="primary">Docs</a><a href="https://github.com/NiKrause/relay-button" target="_blank" rel="noopener noreferrer">Source</a><a href="https://www.npmjs.com/package/@le-space/browser" target="_blank" rel="noopener noreferrer">npm</a></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>1 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>The problem</h2>
+  <p class="lead">The Relay Button launches infrastructure at the press of a button. Paying for it still works like everywhere else — and everything awkward follows from that.</p>
+  <ul class="bullets">
+    <li><b>The balance sits with the provider</b><p>An account, a top-up, a relationship of trust. Exactly the dependency the rest of the stack avoids.</p></li>
+    <li><b>Deploying for others means fronting the money</b><p>An app offering the Relay Button to its users pays first and bills afterwards — manually, and at its own risk.</p></li>
+    <li><b>One click costs money — with no cap</b><p>An embedded launch button with no balance check is an open tab for anyone who finds it.</p></li>
+    <li><b>No share in the usage</b><p>The toolkit is open source and gets used — but there is no path to earning anything from a node that was launched.</p></li>
+  </ul>
+  
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>2 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>The solution: a prepaid vault</h2>
+  <p class="lead">A contract holds the balance and releases it step by step. Four calls cover the whole flow.</p>
+  <ul class="bullets">
+    <li><b>Deposit</b><span class="badge now">today</span><p><code>approve</code> and <code>deposit</code> with an ERC-20 token. The balance stays the user's — we never hold it.</p></li>
+    <li><b>Reserve</b><span class="badge now">today</span><p><code>reserve(intentHash, amount, expiresAt)</code> — locked for this one deployment, with an expiry.</p></li>
+    <li><b>Consume</b><span class="badge now">today</span><p><code>consume(intentHash, amount)</code> after the launch. What settles is what the node actually cost.</p></li>
+    <li><b>Refund</b><span class="badge now">today</span><p>If the deployment never comes up, <code>refund(intentHash)</code> releases the expired reservation. Nobody has to ask for it.</p></li>
+  </ul>
+  <p class="note">These four calls are not a design sketch: the client ships as <code>@le-space/browser</code> in the Relay Button monorepo — including balance reads, on Base, Avalanche and Ethereum.</p>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>3 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>More than paying: authorising</h2>
+  <p class="lead">The real gain is not the payment but that the contract decides whether a node may start at all.</p>
+  <ul class="bullets">
+    <li><b>Money is bound to one intent</b><p>The <code>intentHash</code> ties the reservation to exactly one deployment. The balance cannot be spent on something else.</p></li>
+    <li><b>The contract is the referee</b><p>No reservation, no launch. The go-ahead no longer depends on a backend somebody runs and could switch off.</p></li>
+    <li><b>The cap is built in</b><p>Only what was deposited can be spent. An embedded launch button can no longer surprise anyone.</p></li>
+    <li><b>Every launch has a receipt</b><p>Reservation and consumption are transactions. Who launched what and when is verifiable without anyone keeping books.</p></li>
+  </ul>
+  
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>4 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>How we earn</h2>
+  <p class="lead">A fee per launched node — collected in the same step that settles it.</p>
+  <ul class="bullets">
+    <li><b>A fee on consumption</b><p>The vault keeps a share on <code>consume</code>. No collections, no invoice, no bad debt.</p></li>
+    <li><b>Scales with usage, not with sales</b><p>Every node anyone launches anywhere through the toolkit contributes — without us needing to know about it.</p></li>
+    <li><b>Non-custodial</b><p>Until consumption the balance is the user's. We hold no customer funds — the same line as in spin-offs B and C.</p></li>
+    <li><b>Opens the toolkit to third parties</b><p>Whoever embeds the Relay Button no longer fronts anything. That is what makes embedding it worth doing at all.</p></li>
+  </ul>
+  
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>5 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>Who launches with it</h2>
+  <p class="lead">Wherever somebody needs infrastructure but does not want a relationship with a provider.</p>
+  <div class="cols">
+    <div class="col">
+      <h3>App vendors</h3>
+      <ul><li>Embed the Relay Button in their app</li><li>Users pay for themselves, the app fronts nothing</li><li>No billing system needed</li></ul>
+    </div>
+    <div class="col">
+      <h3>Communities & DAOs</h3>
+      <ul><li>A shared purse for a shared relay</li><li>Visible who funded what, and for how long</li><li>Keeps running as long as somebody tops it up</li></ul>
+    </div>
+    <div class="col">
+      <h3>Agencies & resellers</h3>
+      <ul><li>Deploy for clients without going into advance</li><li>The client fills their own vault</li><li>Fits the consulting business from spin-off D</li></ul>
+    </div>
+  </div>
+  
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>6 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>Status & next steps</h2>
+  <p class="lead">The client side exists and is published. What is missing is the contract behind it — and the fee inside it.</p>
+  <ul class="bullets">
+    <li><b>Vault client published</b><span class="badge now">today</span><p>Deposit, reserve, consume, refund plus balance and reservation reads — in <code>@le-space/browser</code>, for three EVM chains.</p></li>
+    <li><b>Publish the contract itself</b><span class="badge next">in progress</span><p>Source, deployment addresses and an audit. Without those the client is a key without a lock.</p></li>
+    <li><b>Build the fee logic in</b><span class="badge next">in progress</span><p>The share per launched node belongs in the contract, not on an invoice. Rate and recipient configurable.</p></li>
+    <li><b>Couple it to the lifecycle</b><span class="badge planned">planned</span><p>Extend runtime, stop a node, return the remainder — and the same vault for providers beyond Aleph.</p></li>
+  </ul>
+  
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>7 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>Open questions</h2>
+  <p class="lead">Four points to settle before the first real balance goes in.</p>
+  <ul class="bullets">
+    <li><b>Who holds the balance</b><p>Staying non-custodial is the whole precondition. The contract has to be built so we can never move a user's money — not even by accident.</p></li>
+    <li><b>Price and cost drift apart</b><p>A node costs in euros and is paid in tokens. Between reservation and consumption that can move — stablecoin or buffer?</p></li>
+    <li><b>Gas per launch</b><p>Reserving and consuming are two transactions. On an L2 that is negligible, on Ethereum it is not — the chain is a product decision.</p></li>
+    <li><b>Who is liable for the node</b><p>When a contract rather than a person releases the launch: who operates what runs on it? That needs an answer before somebody asks.</p></li>
+  </ul>
+  
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>8 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>Let's talk</h2>
+  <p class="lead">Wanted: an app that wants to embed the Relay Button without fronting the cost — and someone to finish and audit the vault contract with us.</p>
+  <div class="contact">
+    <div><strong>Le Space UG (haftungsbeschränkt)</strong> · Nico Krause</div>
+    <div><a href="mailto:contact@le-space.de">contact@le-space.de</a> · <a href="https://local-first.le-space.de">local-first.le-space.de</a></div>
+    <div>+49 / 87 21 / 5 06 49 96</div>
+  </div>
+  <div class="links"><a href="https://nikrause.github.io/relay-button/" target="_blank" rel="noopener noreferrer">Docs</a><a href="https://github.com/NiKrause/relay-button" target="_blank" rel="noopener noreferrer" class="primary">Source</a><a href="https://www.npmjs.com/package/@le-space/browser" target="_blank" rel="noopener noreferrer">npm</a></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>9 / 9</span></div>
+</section>
+</div></div>
+<script>
+(function () {
+  var root = document.documentElement;
+  var q = new URLSearchParams(location.search);
+  var saved = null;
+  try { saved = localStorage.getItem('ls-locale'); } catch (e) {}
+  var nav = (navigator.language || 'de').toLowerCase().slice(0, 2);
+  var lang = q.get('lang') || saved || (nav === 'en' ? 'en' : 'de');
+  setLang(lang === 'en' ? 'en' : 'de');
+
+  function setLang(l) {
+    root.lang = l;
+    document.querySelectorAll('[data-lang]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.lang === l));
+    });
+    try { localStorage.setItem('ls-locale', l); } catch (e) {}
+    count();
+  }
+
+  document.querySelectorAll('[data-lang]').forEach(function (b) {
+    b.addEventListener('click', function () { setLang(b.dataset.lang); });
+  });
+  var printBtn = document.querySelector('[data-print]');
+  if (printBtn) printBtn.addEventListener('click', function () { window.print(); });
+
+  function slides() {
+    return Array.prototype.filter.call(document.querySelectorAll('.slide'), function (s) {
+      return s.offsetParent !== null;
+    });
+  }
+  function current() {
+    var list = slides();
+    var mid = window.scrollY + window.innerHeight / 2;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].offsetTop <= mid && list[i].offsetTop + list[i].offsetHeight > mid) return i;
+    }
+    return 0;
+  }
+  function go(i) {
+    var list = slides();
+    var t = Math.max(0, Math.min(list.length - 1, i));
+    window.scrollTo({ top: list[t].offsetTop, behavior: 'smooth' });
+  }
+  function count() {
+    var list = slides();
+    list.forEach(function (s, i) {
+      var el = s.querySelector('[data-n]');
+      if (el) el.textContent = (i + 1) + ' / ' + list.length;
+    });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'ArrowDown' || k === 'PageDown' || k === ' ') { e.preventDefault(); go(current() + 1); }
+    else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp') { e.preventDefault(); go(current() - 1); }
+    else if (k === 'Home') { e.preventDefault(); go(0); }
+    else if (k === 'End') { e.preventDefault(); go(slides().length - 1); }
+    else if (k === 'p' || k === 'P') { e.preventDefault(); window.print(); }
+  });
+
+  var hint = document.querySelector('.hint');
+  if (hint) setTimeout(function () { hint.style.opacity = '0'; }, 6000);
+})();
+</script>
+</body>
+</html>

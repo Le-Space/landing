@@ -1293,12 +1293,326 @@ export const decks = [
     ]
   },
 
+  {
+    id: 'relay-button-onchain',
+    letter: 'E',
+    name: 'Relay Button on-chain',
+    status: 'prototype',
+    draft: false,
+    accent: 'var(--ls-red-bright)',
+    subtitle: {
+      de: 'Relay-Deployments per Smart Contract — autorisiert, abgerechnet und gedeckelt',
+      en: 'Relay deployments through a smart contract — authorised, settled and capped'
+    },
+    claim: {
+      de: 'Kein Konto, keine Rechnung, kein Vorstrecken: Der Vertrag hält das Guthaben, gibt den Start frei und rechnet beim Verbrauch ab.',
+      en: 'No account, no invoice, no fronting the money: the contract holds the balance, releases the launch and settles on consumption.'
+    },
+    teaser: {
+      de: 'Wer heute einen Relay startet, braucht ein Konto mit Guthaben bei einem Anbieter. Ein Prepaid-Vault ersetzt das: Der Nutzer zahlt selbst ein, das Deployment reserviert genau seinen Betrag, und beim Start fällt unsere Gebühr im selben Schritt an.',
+      en: 'Launching a relay today needs a funded account with a provider. A prepaid vault replaces it: the user funds it themselves, the deployment reserves exactly its amount, and our fee falls due in the same step as the launch.'
+    },
+    links: {
+      github: 'https://github.com/NiKrause/relay-button',
+      docs: 'https://nikrause.github.io/relay-button/',
+      npm: 'https://www.npmjs.com/package/@le-space/browser'
+    },
+    slides: [
+      {
+        kind: 'title',
+        title: { de: 'Relay Button on-chain', en: 'Relay Button on-chain' }
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Das Problem', en: 'The problem' },
+        lead: {
+          de: 'Der Relay Button startet Infrastruktur auf Knopfdruck. Bezahlt wird sie bisher wie überall sonst — und daran hängt alles Übrige.',
+          en: 'The Relay Button launches infrastructure at the press of a button. Paying for it still works like everywhere else — and everything awkward follows from that.'
+        },
+        bullets: [
+          {
+            t: { de: 'Das Guthaben liegt beim Anbieter', en: 'The balance sits with the provider' },
+            s: {
+              de: 'Ein Konto, eine Aufladung, ein Vertrauensverhältnis. Genau die Abhängigkeit, die der restliche Stack vermeidet.',
+              en: 'An account, a top-up, a relationship of trust. Exactly the dependency the rest of the stack avoids.'
+            }
+          },
+          {
+            t: { de: 'Wer für andere deployt, streckt vor', en: 'Deploying for others means fronting the money' },
+            s: {
+              de: 'Eine App, die ihren Nutzern den Relay-Button anbietet, zahlt erst und rechnet danach ab — manuell, mit Ausfallrisiko.',
+              en: 'An app offering the Relay Button to its users pays first and bills afterwards — manually, and at its own risk.'
+            }
+          },
+          {
+            t: { de: 'Ein Klick kostet Geld — ohne Deckel', en: 'One click costs money — with no cap' },
+            s: {
+              de: 'Ein eingebetteter Startknopf ohne Guthabenprüfung ist eine offene Rechnung für jeden, der ihn findet.',
+              en: 'An embedded launch button with no balance check is an open tab for anyone who finds it.'
+            }
+          },
+          {
+            t: { de: 'Keine Beteiligung an der Nutzung', en: 'No share in the usage' },
+            s: {
+              de: 'Der Baukasten ist Open Source und wird eingesetzt — aber es gibt keinen Weg, an einem gestarteten Node etwas zu verdienen.',
+              en: 'The toolkit is open source and gets used — but there is no path to earning anything from a node that was launched.'
+            }
+          }
+        ]
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Die Lösung: ein Prepaid-Vault', en: 'The solution: a prepaid vault' },
+        lead: {
+          de: 'Ein Vertrag hält das Guthaben und gibt es schrittweise frei — in vier Aufrufen.',
+          en: 'A contract holds the balance and releases it step by step. Four calls cover the whole flow.'
+        },
+        bullets: [
+          {
+            tag: 'now',
+            t: { de: 'Einzahlen', en: 'Deposit' },
+            s: {
+              de: '<code>approve</code> und <code>deposit</code> mit einem ERC-20-Token. Das Guthaben bleibt beim Nutzer — wir halten es nicht.',
+              en: '<code>approve</code> and <code>deposit</code> with an ERC-20 token. The balance stays the user\'s — we never hold it.'
+            }
+          },
+          {
+            tag: 'now',
+            t: { de: 'Reservieren', en: 'Reserve' },
+            s: {
+              de: '<code>reserve(intentHash, amount, expiresAt)</code> — gesperrt für genau dieses Deployment, mit Ablaufdatum.',
+              en: '<code>reserve(intentHash, amount, expiresAt)</code> — locked for this one deployment, with an expiry.'
+            }
+          },
+          {
+            tag: 'now',
+            t: { de: 'Verbrauchen', en: 'Consume' },
+            s: {
+              de: '<code>consume(intentHash, amount)</code> nach dem Start. Abgerechnet wird, was der Node wirklich gekostet hat.',
+              en: '<code>consume(intentHash, amount)</code> after the launch. What settles is what the node actually cost.'
+            }
+          },
+          {
+            tag: 'now',
+            t: { de: 'Zurückholen', en: 'Refund' },
+            s: {
+              de: 'Läuft das Deployment nicht an, gibt <code>refund(intentHash)</code> die Reservierung frei. Niemand muss darum bitten.',
+              en: 'If the deployment never comes up, <code>refund(intentHash)</code> releases the expired reservation. Nobody has to ask for it.'
+            }
+          }
+        ],
+        note: {
+          de: 'Kein Entwurf: Der Client liegt als <code>@le-space/browser</code> im Relay-Button-Monorepo — samt Guthaben-Abfragen, für Base, Avalanche und Ethereum.',
+          en: 'These four calls are not a design sketch: the client ships as <code>@le-space/browser</code> in the Relay Button monorepo — including balance reads, on Base, Avalanche and Ethereum.'
+        }
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Mehr als bezahlen: autorisieren', en: 'More than paying: authorising' },
+        lead: {
+          de: 'Der eigentliche Gewinn ist nicht die Zahlung, sondern dass der Vertrag entscheidet, ob ein Node überhaupt starten darf.',
+          en: 'The real gain is not the payment but that the contract decides whether a node may start at all.'
+        },
+        bullets: [
+          {
+            t: { de: 'Geld ist an eine Absicht gebunden', en: 'Money is bound to one intent' },
+            s: {
+              de: 'Der <code>intentHash</code> verknüpft die Reservierung mit genau einem Deployment. Guthaben lässt sich nicht für etwas anderes ausgeben.',
+              en: 'The <code>intentHash</code> ties the reservation to exactly one deployment. The balance cannot be spent on something else.'
+            }
+          },
+          {
+            t: { de: 'Der Vertrag ist der Schiedsrichter', en: 'The contract is the referee' },
+            s: {
+              de: 'Keine Reservierung, kein Start. Die Freigabe hängt nicht mehr an einem Backend, das jemand betreibt und abschalten kann.',
+              en: 'No reservation, no launch. The go-ahead no longer depends on a backend somebody runs and could switch off.'
+            }
+          },
+          {
+            t: { de: 'Der Deckel ist eingebaut', en: 'The cap is built in' },
+            s: {
+              de: 'Ausgegeben werden kann nur, was eingezahlt wurde. Ein eingebetteter Startknopf kann niemanden mehr überraschen.',
+              en: 'Only what was deposited can be spent. An embedded launch button can no longer surprise anyone.'
+            }
+          },
+          {
+            t: { de: 'Jeder Start hat einen Beleg', en: 'Every launch has a receipt' },
+            s: {
+              de: 'Reservierung und Verbrauch sind Transaktionen. Wer wann was gestartet hat, ist prüfbar, ohne dass jemand Buch führt.',
+              en: 'Reservation and consumption are transactions. Who launched what and when is verifiable without anyone keeping books.'
+            }
+          }
+        ]
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Womit wir verdienen', en: 'How we earn' },
+        lead: {
+          de: 'Eine Gebühr pro gestartetem Node — eingezogen im selben Schritt, in dem abgerechnet wird.',
+          en: 'A fee per launched node — collected in the same step that settles it.'
+        },
+        bullets: [
+          {
+            t: { de: 'Gebühr beim Verbrauch', en: 'A fee on consumption' },
+            s: {
+              de: 'Der Vault behält beim <code>consume</code> einen Anteil ein. Kein Inkasso, keine Rechnung, kein Zahlungsausfall.',
+              en: 'The vault keeps a share on <code>consume</code>. No collections, no invoice, no bad debt.'
+            }
+          },
+          {
+            t: { de: 'Skaliert mit Nutzung, nicht mit Vertrieb', en: 'Scales with usage, not with sales' },
+            s: {
+              de: 'Jeder Node, den irgendjemand irgendwo über den Baukasten startet, trägt bei — ohne dass wir ihn kennen müssen.',
+              en: 'Every node anyone launches anywhere through the toolkit contributes — without us needing to know about it.'
+            }
+          },
+          {
+            t: { de: 'Nicht-verwahrend', en: 'Non-custodial' },
+            s: {
+              de: 'Das Guthaben gehört bis zum Verbrauch dem Nutzer. Wir halten keine Kundengelder — dieselbe Linie wie bei den Spin-Offs B und C.',
+              en: 'Until consumption the balance is the user\'s. We hold no customer funds — the same line as in spin-offs B and C.'
+            }
+          },
+          {
+            t: { de: 'Öffnet den Baukasten für Dritte', en: 'Opens the toolkit to third parties' },
+            s: {
+              de: 'Wer den Relay Button einbettet, muss nichts mehr vorstrecken. Das ist erst der Grund, warum ihn jemand einbettet.',
+              en: 'Whoever embeds the Relay Button no longer fronts anything. That is what makes embedding it worth doing at all.'
+            }
+          }
+        ]
+      },
+      {
+        kind: 'columns',
+        title: { de: 'Wer damit startet', en: 'Who launches with it' },
+        lead: {
+          de: 'Überall dort, wo jemand Infrastruktur braucht, aber kein Verhältnis zu einem Anbieter aufbauen will.',
+          en: 'Wherever somebody needs infrastructure but does not want a relationship with a provider.'
+        },
+        columns: [
+          {
+            h: { de: 'App-Hersteller', en: 'App vendors' },
+            items: [
+              { de: 'Betten den Relay Button in ihre App ein', en: 'Embed the Relay Button in their app' },
+              { de: 'Nutzer zahlen selbst, die App streckt nichts vor', en: 'Users pay for themselves, the app fronts nothing' },
+              { de: 'Kein Abrechnungssystem nötig', en: 'No billing system needed' }
+            ]
+          },
+          {
+            h: { de: 'Communities & DAOs', en: 'Communities & DAOs' },
+            items: [
+              { de: 'Gemeinsame Kasse für ein gemeinsames Relay', en: 'A shared purse for a shared relay' },
+              { de: 'Sichtbar, wer wie lange finanziert hat', en: 'Visible who funded what, and for how long' },
+              { de: 'Läuft weiter, solange jemand nachlegt', en: 'Keeps running as long as somebody tops it up' }
+            ]
+          },
+          {
+            h: { de: 'Agenturen & Wiederverkäufer', en: 'Agencies & resellers' },
+            items: [
+              { de: 'Deployen für Kunden, ohne in Vorleistung zu gehen', en: 'Deploy for clients without going into advance' },
+              { de: 'Der Kunde füllt seinen eigenen Vault', en: 'The client fills their own vault' },
+              { de: 'Passt zum Beratungsgeschäft aus Spin-Off D', en: 'Fits the consulting business from spin-off D' }
+            ]
+          }
+        ]
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Stand & nächste Schritte', en: 'Status & next steps' },
+        lead: {
+          de: 'Die Client-Seite existiert und ist veröffentlicht. Was fehlt, ist der Vertrag dahinter — und die Gebühr darin.',
+          en: 'The client side exists and is published. What is missing is the contract behind it — and the fee inside it.'
+        },
+        bullets: [
+          {
+            tag: 'now',
+            t: { de: 'Vault-Client veröffentlicht', en: 'Vault client published' },
+            s: {
+              de: 'Einzahlen, Reservieren, Verbrauchen, Zurückholen plus Guthaben- und Reservierungsabfragen — in <code>@le-space/browser</code>, für drei EVM-Ketten.',
+              en: 'Deposit, reserve, consume, refund plus balance and reservation reads — in <code>@le-space/browser</code>, for three EVM chains.'
+            }
+          },
+          {
+            tag: 'next',
+            t: { de: 'Den Vertrag selbst veröffentlichen', en: 'Publish the contract itself' },
+            s: {
+              de: 'Quellcode, Deployment-Adressen und ein Audit. Ohne das ist der Client ein Schlüssel ohne Schloss.',
+              en: 'Source, deployment addresses and an audit. Without those the client is a key without a lock.'
+            }
+          },
+          {
+            tag: 'next',
+            t: { de: 'Gebührenlogik einbauen', en: 'Build the fee logic in' },
+            s: {
+              de: 'Der Anteil pro gestartetem Node gehört in den Vertrag, nicht in eine Rechnung. Höhe und Empfänger konfigurierbar.',
+              en: 'The share per launched node belongs in the contract, not on an invoice. Rate and recipient configurable.'
+            }
+          },
+          {
+            tag: 'planned',
+            t: { de: 'An den Lebenszyklus koppeln', en: 'Couple it to the lifecycle' },
+            s: {
+              de: 'Laufzeit verlängern, Node stoppen, Reste zurück — und derselbe Vault für weitere Anbieter neben Aleph.',
+              en: 'Extend runtime, stop a node, return the remainder — and the same vault for providers beyond Aleph.'
+            }
+          }
+        ]
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Offene Fragen', en: 'Open questions' },
+        lead: {
+          de: 'Vier Punkte, die vor dem ersten echten Guthaben geklärt sein müssen.',
+          en: 'Four points to settle before the first real balance goes in.'
+        },
+        bullets: [
+          {
+            t: { de: 'Wer hält das Guthaben', en: 'Who holds the balance' },
+            s: {
+              de: 'Nicht-verwahrend zu bleiben ist die ganze Voraussetzung. Der Vertrag muss so gebaut sein, dass wir das Geld eines Nutzers nie bewegen können — auch nicht versehentlich.',
+              en: 'Staying non-custodial is the whole precondition. The contract has to be built so we can never move a user\'s money — not even by accident.'
+            }
+          },
+          {
+            t: { de: 'Kurs und Kosten laufen auseinander', en: 'Price and cost drift apart' },
+            s: {
+              de: 'Ein Node kostet in Euro, bezahlt wird in Token. Zwischen Reservierung und Verbrauch kann sich das verschieben — Stablecoin oder Puffer?',
+              en: 'A node costs in euros and is paid in tokens. Between reservation and consumption that can move — stablecoin or buffer?'
+            }
+          },
+          {
+            t: { de: 'Gaskosten pro Start', en: 'Gas per launch' },
+            s: {
+              de: 'Reservieren und Verbrauchen sind zwei Transaktionen. Auf einer L2 ist das vernachlässigbar, auf Ethereum nicht — die Kette ist eine Produktentscheidung.',
+              en: 'Reserving and consuming are two transactions. On an L2 that is negligible, on Ethereum it is not — the chain is a product decision.'
+            }
+          },
+          {
+            t: { de: 'Wer haftet für den Node', en: 'Who is liable for the node' },
+            s: {
+              de: 'Wenn ein Vertrag statt eines Menschen den Start freigibt: Wer ist Betreiber dessen, was darauf läuft? Das gehört geklärt, bevor es jemand fragt.',
+              en: 'When a contract rather than a person releases the launch: who operates what runs on it? That needs an answer before somebody asks.'
+            }
+          }
+        ]
+      },
+      {
+        kind: 'closing',
+        title: { de: 'Gespräch?', en: 'Let\'s talk' },
+        lead: {
+          de: 'Gesucht: eine App, die den Relay Button einbetten will, ohne in Vorleistung zu gehen — und jemand, der den Vault-Vertrag mit uns fertigstellt und prüft.',
+          en: 'Wanted: an app that wants to embed the Relay Button without fronting the cost — and someone to finish and audit the vault contract with us.'
+        }
+      }
+    ]
+  },
+
   // ---------------------------------------------------------------------------
-  // E–F: reserved slots. They render as decks so the folder, the URL and the PDF
-  // already exist, but `draft: true` keeps them off the public landing page and
+  // F: reserved slot. It renders as a deck so the folder, the URL and the PDF
+  // already exist, but `draft: true` keeps it off the public landing page and
   // out of the sitemap until the content is written.
   // ---------------------------------------------------------------------------
-  ...['E', 'F'].map((letter) => ({
+  ...['F'].map((letter) => ({
     id: `spin-off-${letter.toLowerCase()}`,
     letter,
     name: `Spin-Off ${letter}`,

@@ -108,8 +108,18 @@ PDF `tools/render-decks.mjs`. Details im README.
       Speicher-Provision aus Spin-Off A (9 Folien)
 - [x] **D · Local-First Consulting** — Beratung/Umsetzung als Spin-Off: Workshop,
       Projekt, Retainer; zieht Infrastruktur aus A nach (9 Folien)
-- [ ] **E · F** — Platzhalter-Decks stehen (`draft: true`), Inhalte fehlen noch
+- [x] **E · Relay Button on-chain** — Relay-Deployments über einen Prepaid-Vault
+      (deposit/reserve/consume/refund, an `intentHash` gebunden), Gebühr pro
+      gestartetem Node (9 Folien)
+- [ ] **F** — Platzhalter-Deck steht (`draft: true`), Inhalt fehlt noch
 - [ ] Decks vertiefen: Zahlen (Marktgröße, Preise), Wettbewerb, Team, Finanzbedarf
+- [ ] Offen bei E: Der Vault-**Client** ist veröffentlicht (`@le-space/browser`,
+      Selektoren für approve/deposit/reserve/consume/refund + Reads, Base/AVAX/ETH),
+      der **Vertrag selbst liegt nicht im Repo**. Vor dem ersten echten Guthaben:
+      Solidity-Quelle + Adressen veröffentlichen, Gebührenlogik einbauen, Audit,
+      Kette festlegen (Gas pro Start), Haftungsfrage für den gestarteten Node.
+      Hinweis: `feat/rootfs-contract-reader` in `aleph-libp2p-relay` ist *kein*
+      Smart Contract — dort meint „contract" eine JSON-Bauvorschrift für Rootfs-Images.
 - [ ] Offen bei D: die „Offene Fragen"-Folie nennt Bus-Faktor und
       Auslastungsfalle — für ein öffentlich verlinktes Deck prüfen, ob das so
       bleiben soll (siehe Notiz im Chat). Außerdem fehlen Preise im Angebotsblatt.
