@@ -618,12 +618,329 @@ export const decks = [
     ]
   },
 
+  {
+    id: 'yogasuci',
+    letter: 'C',
+    name: 'Yoga Suci',
+    status: 'beta',
+    draft: false,
+    accent: 'var(--ls-green)',
+    subtitle: {
+      de: 'Kursverwaltung für Yogastudios — ohne Server, ohne Abo, ohne Konto',
+      en: 'Class management for yoga studios — no server, no subscription, no account'
+    },
+    claim: {
+      de: 'Der Schüler trägt die Daten von Standort zu Standort. Wir verdienen an dem, was um die Buchung herum passiert: Zahlung und Archiv.',
+      en: 'The student carries the data from location to location. We earn on what happens around the booking: payment and archive.'
+    },
+    teaser: {
+      de: 'Die erste vollständige Anwendung auf dem Local-First-Stack: Programm, Karten, Kasse und Check-in laufen direkt zwischen den Geräten eines Studios. Verkauft wird nicht die App, sondern die Zahlungsanbindung und der Archivspeicher darunter.',
+      en: 'The first complete application on the local-first stack: programme, passes, till and check-in run directly between a studio\'s devices. What sells is not the app but the payment integration and the archive storage underneath.'
+    },
+    links: {
+      github: 'https://github.com/Le-Space/yogasuci',
+      demo: 'https://yogasuci.le-space.de',
+      docs: 'https://le-space.github.io/yogasuci/'
+    },
+    slides: [
+      {
+        kind: 'title',
+        title: { de: 'Yoga Suci', en: 'Yoga Suci' }
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Das Problem', en: 'The problem' },
+        lead: {
+          de: 'Ein Studio mit zwei Standorten zahlt heute für Software, die genau das nicht kann, was es braucht.',
+          en: 'A studio with two locations pays for software that cannot do the one thing it needs.'
+        },
+        bullets: [
+          {
+            t: { de: 'Abo pro Standort, Daten beim Anbieter', en: 'Subscription per location, data at the vendor' },
+            s: {
+              de: 'Monatliche Gebühren für jeden Standort und jeden Mitarbeiter — und wenn der Anbieter zumacht oder die Preise verdoppelt, sind Kundenkartei und Kartenguthaben in seiner Hand.',
+              en: 'Monthly fees per location and per staff member — and when the vendor shuts down or doubles its prices, the customer records and pass balances sit in their hands.'
+            }
+          },
+          {
+            t: { de: 'Zehnerkarten enden am Standort', en: 'Passes stop at the location' },
+            s: {
+              de: 'Eine Karte, die überall gilt, verlangt eine ständige Abstimmung zwischen den Kassen. Genau die fällt aus, sobald das WLAN im Studio hakt.',
+              en: 'A pass valid everywhere requires the tills to stay in constant agreement. That is exactly what fails the moment the studio Wi-Fi does.'
+            }
+          },
+          {
+            t: { de: 'Der Empfang ist keine IT-Abteilung', en: 'The front desk is not an IT department' },
+            s: {
+              de: 'Anmeldungen, Passwörter, Rollen, Schulungen: jede Hürde am Tresen kostet den Kurs zwei Minuten und die Aushilfe den Nerv.',
+              en: 'Logins, passwords, roles, training: every hurdle at the desk costs the class two minutes and the temp their patience.'
+            }
+          },
+          {
+            t: { de: 'Belege müssen Jahre halten', en: 'Records have to last years' },
+            s: {
+              de: 'Wer wann welches Geld genommen hat, muss auch nach einem Geräte- oder Anbieterwechsel noch prüfbar sein.',
+              en: 'Who took which money when has to stay verifiable across a change of device — or of vendor.'
+            }
+          }
+        ]
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Die Anwendung', en: 'The application' },
+        lead: {
+          de: 'Yoga Suci ist die erste vollständige Anwendung auf unserem Stack — und der Beweis, dass Local-First nicht nur für Demos reicht.',
+          en: 'Yoga Suci is the first complete application on our stack — and the proof that local-first is not just demo material.'
+        },
+        bullets: [
+          {
+            tag: 'now',
+            t: { de: 'Der Kartenstand wird gerechnet, nicht gespeichert', en: 'The balance is computed, never stored' },
+            s: {
+              de: 'Jede Karte ist ein append-only Log aus signierten <code>issue</code>-, <code>redeem</code>- und <code>void</code>-Ereignissen. Zwei Standorte kommen unabhängig zum selben Ergebnis, ohne miteinander zu reden.',
+              en: 'Every pass is an append-only log of signed <code>issue</code>, <code>redeem</code> and <code>void</code> events. Two locations arrive at the same answer independently, without talking to each other.'
+            }
+          },
+          {
+            tag: 'now',
+            t: { de: 'Der Schüler ist der Sync-Kurier', en: 'The student is the sync courier' },
+            s: {
+              de: 'Sein Telefon trägt den eigenen Ledger von Standort zu Standort. Der Check-in holt vor dem Einlösen die neuesten Stände — Standort B sieht die Einlösung von Standort A, sobald derselbe Mensch auftaucht.',
+              en: 'Their phone carries their own ledger between locations. Check-in pulls the latest heads before redeeming — location B sees location A\'s redemption as soon as the same person shows up.'
+            }
+          },
+          {
+            tag: 'now',
+            t: { de: 'Ein gescannter Code statt eines Servers', en: 'A scanned code instead of a server' },
+            s: {
+              de: 'Die Geräte verbinden sich per QR-Code direkt über WebRTC — dieselbe Technik wie in Spin-Off B. Kein Relay, kein Signaling-Dienst, kein Konto.',
+              en: 'Devices connect directly over WebRTC via QR code — the same technique as spin-off B. No relay, no signaling service, no account.'
+            }
+          },
+          {
+            tag: 'now',
+            t: { de: 'Manipulation wird sichtbar, nicht verhindert', en: 'Tampering is made evident, not prevented' },
+            s: {
+              de: 'Laufende Nummer, Vorgänger-Hash und Gerätesignatur machen jeden zurückgesetzten Ledger beim nächsten Sync zum sichtbaren Fork — mit beiden signierten Ereignissen als Beweis.',
+              en: 'A monotonic sequence, the previous hash and a device signature turn any rolled-back ledger into a visible fork at the next sync — with both signed events as evidence.'
+            }
+          }
+        ]
+      },
+      {
+        kind: 'columns',
+        title: { de: 'Womit wir Geld verdienen', en: 'How we make money' },
+        lead: {
+          de: 'Nicht mit der Software. Die Anwendung ist Open Source und kostenlos — sie bringt die Kunden, an denen drei Erlösströme hängen.',
+          en: 'Not with the software. The application is open source and free — it brings the customers the three revenue streams hang on.'
+        },
+        columns: [
+          {
+            h: { de: 'A · Fiat-Terminal + Beratung', en: 'A · Fiat terminal + consulting' },
+            items: [
+              { de: 'Anbindung des Kartenterminals an die Kasse', en: 'Wiring the card terminal into the till' },
+              { de: 'Einrichtung und Schulung per Fernwartung', en: 'Setup and training done remotely' },
+              { de: 'Einmalpreis pro Standort, danach Wartung', en: 'One-off per location, maintenance after' },
+              { de: 'Skaliert ohne Anreise — das Studio bleibt allein handlungsfähig', en: 'Scales without travel — the studio stays self-sufficient' }
+            ]
+          },
+          {
+            h: { de: 'B · Kryptozahlung pro Transaktion', en: 'B · Crypto payment per transaction' },
+            items: [
+              { de: 'Bitcoin, Ethereum und weitere direkt an der Kasse', en: 'Bitcoin, Ethereum and more, right at the till' },
+              { de: 'Abrechnung als Anteil je Transaktion', en: 'Billed as a share per transaction' },
+              { de: 'Nicht-verwahrend: das Geld fließt an das Studio, nie über uns', en: 'Non-custodial: the money goes to the studio, never through us' },
+              { de: 'Für Retreats und internationale Gäste der einfachere Weg', en: 'The easier route for retreats and international guests' }
+            ]
+          },
+          {
+            h: { de: 'C · Speicher-Provision', en: 'C · Storage commission' },
+            items: [
+              { de: 'Archiv und Backup über Spin-Off A (OrbitDB Relay)', en: 'Archive and backup via spin-off A (OrbitDB Relay)' },
+              { de: 'Aufschlag auf das Speicherkontingent', en: 'Markup on the storage quota' },
+              { de: 'Alternativ Vertreterprovision statt Eigenverkauf', en: 'Or an agent commission instead of reselling' },
+              { de: 'Wiederkehrend, solange die Belege aufbewahrt werden', en: 'Recurring for as long as the records are kept' }
+            ]
+          }
+        ],
+        note: {
+          de: 'Die drei Ströme greifen ineinander: die kostenlose App bringt den Standort, das Terminal bringt den ersten Umsatz, das Archiv den wiederkehrenden.',
+          en: 'The three streams interlock: the free app brings the location, the terminal brings the first revenue, the archive the recurring one.'
+        }
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Wie die Zahlung andockt', en: 'How payment plugs in' },
+        lead: {
+          de: 'Der Platz dafür ist im Datenmodell schon vorgesehen — das ist kein Umbau, sondern ein weiterer Wert im Feld <code>payment.method</code>.',
+          en: 'The data model already reserves the space — this is not a rebuild, just another value in the <code>payment.method</code> field.'
+        },
+        bullets: [
+          {
+            tag: 'now',
+            t: { de: 'Heute: bar, und ehrlich so benannt', en: 'Today: cash, and honestly labelled' },
+            s: {
+              de: '„Bar erhalten" schreibt ein signiertes <code>issue</code>-Ereignis. Die Rechtstexte der App sagen ausdrücklich, dass keine Zahlung über die Software läuft — das bleibt wahr, bis es das nicht mehr ist.',
+              en: '"Cash received" writes a signed <code>issue</code> event. The app\'s legal texts state plainly that no payment runs through the software — that stays true until it no longer is.'
+            }
+          },
+          {
+            tag: 'next',
+            t: { de: 'Terminal: derselbe Beleg, andere Quelle', en: 'Terminal: same record, different source' },
+            s: {
+              de: 'Die Terminal-Quittung wird zur Referenz im selben signierten Ereignis. Kassenbericht und Abgleich pro Standort und Gerät funktionieren unverändert weiter.',
+              en: 'The terminal receipt becomes the reference inside the same signed event. The cash report and per-location reconciliation keep working unchanged.'
+            }
+          },
+          {
+            tag: 'planned',
+            t: { de: 'Krypto: die Kette ist der Beleg', en: 'Crypto: the chain is the receipt' },
+            s: {
+              de: 'Die bestätigte Transaktion wird als Referenz eingetragen. Wir verwahren keine Schlüssel und halten keine Kundengelder — das hält uns aus der Erlaubnispflicht heraus.',
+              en: 'The confirmed transaction is recorded as the reference. We hold no keys and no customer funds — which keeps us out of licensing territory.'
+            }
+          },
+          {
+            tag: 'planned',
+            t: { de: 'Archiv: ein Knopf, kein Projekt', en: 'Archive: a button, not a project' },
+            s: {
+              de: 'Export und Wiederherstellung gibt es bereits lokal. Der Relay aus Spin-Off A macht daraus ein laufendes Backup auf dezentralem Speicher.',
+              en: 'Export and restore already exist locally. The relay from spin-off A turns that into a running backup on decentralized storage.'
+            }
+          }
+        ]
+      },
+      {
+        kind: 'columns',
+        title: { de: 'Der Markt', en: 'The market' },
+        lead: {
+          de: 'Yogastudios sind der Anfang, nicht die Grenze. Dasselbe Muster — Karten, Termine, Kasse, mehrere Standorte — trägt weiter.',
+          en: 'Yoga studios are the start, not the boundary. The same pattern — passes, appointments, till, several locations — carries further.'
+        },
+        columns: [
+          {
+            h: { de: 'Zuerst', en: 'First' },
+            items: [
+              { de: 'Yoga- und Pilatesstudios mit zwei bis fünf Standorten', en: 'Yoga and pilates studios with two to five locations' },
+              { de: 'Retreats und Workshop-Reihen', en: 'Retreats and workshop series' },
+              { de: 'Präventionskurse mit Kassenabrechnung', en: 'Prevention courses billed to health insurers' }
+            ]
+          },
+          {
+            h: { de: 'Danach', en: 'Next' },
+            items: [
+              { de: 'Kampfsport, Kletterhallen, Tanzschulen', en: 'Martial arts, climbing gyms, dance schools' },
+              { de: 'Musik- und Nachhilfeunterricht', en: 'Music and tutoring lessons' },
+              { de: 'Alles mit Zehnerkarte und Anwesenheit', en: 'Anything with a punch card and attendance' }
+            ]
+          },
+          {
+            h: { de: 'Warum sie wechseln', en: 'Why they switch' },
+            items: [
+              { de: 'Kein Abo pro Standort und pro Mitarbeiter', en: 'No subscription per location and per employee' },
+              { de: 'Funktioniert, wenn das WLAN nicht funktioniert', en: 'Works when the Wi-Fi does not' },
+              { de: 'Die Kundenkartei bleibt im Haus', en: 'The customer records stay in the house' }
+            ]
+          }
+        ]
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Stand & nächste Schritte', en: 'Status & next steps' },
+        lead: {
+          de: 'Die Anwendung ist gebaut und getestet. Was fehlt, ist genau das, womit sie Geld verdient.',
+          en: 'The application is built and tested. What is missing is precisely the part that earns.'
+        },
+        bullets: [
+          {
+            tag: 'now',
+            t: { de: 'M1–M5 umgesetzt', en: 'M1–M5 implemented' },
+            s: {
+              de: 'Registry, Programm-Editor, Buchungen, Barverkauf, Check-in mit Kurier-Umlauf, Fork-Alarm, Export und Wiederherstellung, Abgleich und Kassenbericht — mit End-to-End-Tests über drei echte Geräte-Kontexte.',
+              en: 'Registry, programme editor, bookings, cash sales, check-in with the courier roundtrip, fork alarm, export and recovery, reconciliation and cash report — with end-to-end tests across three real device contexts.'
+            }
+          },
+          {
+            tag: 'now',
+            t: { de: 'Handbuch und Demo öffentlich', en: 'Handbook and demo public' },
+            s: {
+              de: 'Anleitungen für Inhaberinnen, Empfang und Schüler auf Deutsch und Englisch, dazu die laufende App unter yogasuci.le-space.de.',
+              en: 'Guides for owners, front desk and students in German and English, plus the running app at yogasuci.le-space.de.'
+            }
+          },
+          {
+            tag: 'next',
+            t: { de: 'Erstes Studio als Pilot', en: 'First studio as a pilot' },
+            s: {
+              de: 'Ein echtes Studio mit zwei Standorten, echtem Geld und echten Aushilfen am Tresen — vor jeder weiteren Funktion.',
+              en: 'A real studio with two locations, real money and real temps at the desk — before any further feature.'
+            }
+          },
+          {
+            tag: 'next',
+            t: { de: 'Terminal-Anbindung', en: 'Terminal integration' },
+            s: {
+              de: 'Ein Anbieter, ein Standort, ein Beleg, der durch den Kassenabgleich läuft. Danach der zweite Anbieter.',
+              en: 'One provider, one location, one receipt that survives reconciliation. The second provider after that.'
+            }
+          }
+        ]
+      },
+      {
+        kind: 'bullets',
+        title: { de: 'Offene Fragen', en: 'Open questions' },
+        lead: {
+          de: 'Vier Punkte, die vor dem ersten zahlenden Studio geklärt sein müssen — keiner davon ist ein Software-Problem.',
+          en: 'Four points to settle before the first paying studio — none of them a software problem.'
+        },
+        bullets: [
+          {
+            t: { de: 'Kassenrecht', en: 'Till regulation' },
+            s: {
+              de: 'Sobald Bargeld elektronisch aufgezeichnet wird, stellt sich in Deutschland die Frage nach Kassensicherungsverordnung, TSE und Belegausgabepflicht. Das gehört geprüft, bevor ein Studio damit abrechnet.',
+              en: 'The moment cash is recorded electronically, German till-security rules, the certified security module and receipt obligations come into play. That needs a legal check before a studio bills with it.'
+            }
+          },
+          {
+            t: { de: 'Zahlungsdienste-Aufsicht', en: 'Payment-services supervision' },
+            s: {
+              de: 'Nicht-verwahrend zu bleiben ist die Voraussetzung dafür, keine Erlaubnis nach ZAG zu brauchen. Beim Krypto-Weg muss das im Entwurf verankert sein, nicht in den AGB.',
+              en: 'Staying non-custodial is what keeps a payment-services licence unnecessary. On the crypto path that has to sit in the design, not in the terms of service.'
+            }
+          },
+          {
+            t: { de: 'Datenschutz durch Voll-Replikation', en: 'Privacy through full replication' },
+            s: {
+              de: 'OrbitDB repliziert ganze Datenbanken und kennt keine Leserechte. Der Zuschnitt der Buchungs-Datenbanken — pro Standort oder pro Schüler — ist eine offene DSGVO-Entscheidung.',
+              en: 'OrbitDB replicates whole databases and has no read permissions. How the booking databases are cut — per location or per student — is an open GDPR decision.'
+            }
+          },
+          {
+            t: { de: 'Preis pro Standort', en: 'Price per location' },
+            s: {
+              de: 'Was ist die Terminal-Einrichtung wert, wenn die Software nichts kostet? Der Pilot muss diese Zahl liefern, nicht die Tabelle.',
+              en: 'What is the terminal setup worth when the software is free? The pilot has to produce that number, not the spreadsheet.'
+            }
+          }
+        ]
+      },
+      {
+        kind: 'closing',
+        title: { de: 'Gespräch?', en: 'Let\'s talk' },
+        lead: {
+          de: 'Gesucht: ein Pilotstudio mit mehreren Standorten, ein Terminal-Anbieter mit offener Schnittstelle — und Partner, die Studios beraten und die Anbindung mitverkaufen wollen.',
+          en: 'Wanted: a pilot studio with several locations, a terminal provider with an open interface — and partners who advise studios and want to sell the integration alongside.'
+        }
+      }
+    ]
+  },
+
   // ---------------------------------------------------------------------------
-  // C–F: reserved slots. They render as decks so the folder, the URL and the PDF
+  // D–F: reserved slots. They render as decks so the folder, the URL and the PDF
   // already exist, but `draft: true` keeps them off the public landing page and
   // out of the sitemap until the content is written.
   // ---------------------------------------------------------------------------
-  ...['C', 'D', 'E', 'F'].map((letter) => ({
+  ...['D', 'E', 'F'].map((letter) => ({
     id: `spin-off-${letter.toLowerCase()}`,
     letter,
     name: `Spin-Off ${letter}`,

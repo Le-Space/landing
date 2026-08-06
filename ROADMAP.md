@@ -102,8 +102,14 @@ PDF `tools/render-decks.mjs`. Details im README.
 - [x] Gerüst: Generator, PDF-Rendering, Use-Cases-Sektion, Übersichtsseite
 - [x] **A · OrbitDB Relay** — Storage/Backup/Pinning + Hydration/Dehydration (8 Folien)
 - [x] **B · WebRTC Public Data Map** — Konnektivitätskarte aus QR-Verbindungen (9 Folien)
-- [ ] **C · D · E · F** — Platzhalter-Decks stehen (`draft: true`), Inhalte fehlen noch
+- [x] **C · Yoga Suci** — P2P-Kursverwaltung für Yogastudios, Erlöse über
+      Fiat-Terminal + Fernberatung, Kryptozahlung pro Transaktion und
+      Speicher-Provision aus Spin-Off A (9 Folien)
+- [ ] **D · E · F** — Platzhalter-Decks stehen (`draft: true`), Inhalte fehlen noch
 - [ ] Decks vertiefen: Zahlen (Marktgröße, Preise), Wettbewerb, Team, Finanzbedarf
+- [ ] Offen bei C: Kassensicherungsverordnung/TSE beim Barverkauf, ZAG-Bewertung
+      des Krypto-Wegs (nicht-verwahrend bleiben), DSGVO-Zuschnitt der
+      Buchungs-DBs — alles vor dem ersten zahlenden Studio.
 - [ ] Offen bei B: DSGVO-Bewertung der Messdaten und die rechtliche Prüfung des
       Re-Verifizierungs-Modells (Gebühr nur für die neue Messung, nie für das
       Entfernen eines Eintrags — so im Deck formuliert).

@@ -293,9 +293,11 @@ h2 {
     height: 720px;
     min-height: 0;
     padding: 58px 76px 80px;
-    /* A touch smaller than the 17px a 1280px-wide screen would pick: the
-       densest slide overflowed the fixed page height by a few pixels. */
-    font-size: 16px;
+    /* Smaller than the 17px a 1280px-wide screen would pick. The page height is
+       fixed, German runs longer than English, and the densest slides overflowed
+       at 16px — this leaves headroom for the copy still to be written.
+       tools/render-decks.mjs fails the build if a slide exceeds the page. */
+    font-size: 15px;
     border-bottom: none;
     break-after: page;
     page-break-after: always;

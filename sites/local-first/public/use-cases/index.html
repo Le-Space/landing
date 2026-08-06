@@ -287,9 +287,11 @@ h2 {
     height: 720px;
     min-height: 0;
     padding: 58px 76px 80px;
-    /* A touch smaller than the 17px a 1280px-wide screen would pick: the
-       densest slide overflowed the fixed page height by a few pixels. */
-    font-size: 16px;
+    /* Smaller than the 17px a 1280px-wide screen would pick. The page height is
+       fixed, German runs longer than English, and the densest slides overflowed
+       at 16px — this leaves headroom for the copy still to be written.
+       tools/render-decks.mjs fails the build if a slide exceeds the page. */
+    font-size: 15px;
     border-bottom: none;
     break-after: page;
     page-break-after: always;
@@ -338,6 +340,15 @@ h2 {
         <a href="./webrtc-qr-map/webrtc-qr-map-pitch-de.pdf">PDF</a>
       </div>
     </article>
+    <article class="card" style="--accent:var(--ls-green)">
+      <p class="kicker">Spin-Off C</p>
+      <h3>Yoga Suci</h3>
+      <p>Die erste vollständige Anwendung auf dem Local-First-Stack: Programm, Karten, Kasse und Check-in laufen direkt zwischen den Geräten eines Studios. Verkauft wird nicht die App, sondern die Zahlungsanbindung und der Archivspeicher darunter.</p>
+      <div class="links">
+        <a class="primary" href="./yogasuci/">Deck öffnen</a>
+        <a href="./yogasuci/yogasuci-pitch-de.pdf">PDF</a>
+      </div>
+    </article>
     </div>
     <p style="margin-top:3rem"><a href="https://local-first.le-space.de">← Zurück zu local-first.le-space.de</a></p>
   </div></div>
@@ -370,6 +381,15 @@ h2 {
       <div class="links">
         <a class="primary" href="./webrtc-qr-map/">Open deck</a>
         <a href="./webrtc-qr-map/webrtc-qr-map-pitch-en.pdf">PDF</a>
+      </div>
+    </article>
+    <article class="card" style="--accent:var(--ls-green)">
+      <p class="kicker">Spin-Off C</p>
+      <h3>Yoga Suci</h3>
+      <p>The first complete application on the local-first stack: programme, passes, till and check-in run directly between a studio's devices. What sells is not the app but the payment integration and the archive storage underneath.</p>
+      <div class="links">
+        <a class="primary" href="./yogasuci/">Open deck</a>
+        <a href="./yogasuci/yogasuci-pitch-en.pdf">PDF</a>
       </div>
     </article>
     </div>

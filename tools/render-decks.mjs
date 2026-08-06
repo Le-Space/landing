@@ -90,6 +90,7 @@ if (!ids.length) {
 const chromium = await loadChromium();
 const { server, port } = await serve();
 const browser = await chromium.launch();
+const failures = [];
 
 for (const id of ids) {
   for (const lang of LOCALES) {
@@ -102,6 +103,28 @@ for (const id of ids) {
     // settle, otherwise both language variants are still visible and the PDF
     // comes out with twice the pages.
     await page.waitForFunction((l) => document.documentElement.lang === l, lang, { timeout: 10_000 });
+
+    // A slide taller than the page is silently cropped by the print stylesheet's
+    // overflow:hidden — the PDF looks fine until someone notices the last bullet
+    // is missing. Measure under print media and refuse to ship instead.
+    await page.emulateMedia({ media: 'print' });
+    const overflow = await page.evaluate(
+      (h) =>
+        Array.from(document.querySelectorAll('.slide'))
+          .filter((s) => s.offsetParent !== null)
+          .map((s, i) => ({ slide: i + 1, over: s.scrollHeight - h }))
+          .filter((x) => x.over > 0),
+      720
+    );
+    await page.emulateMedia({ media: 'screen' });
+    if (overflow.length) {
+      const detail = overflow.map((o) => `slide ${o.slide} by ${o.over}px`).join(', ');
+      console.error(`✗ ${id} (${lang}): content exceeds the page — ${detail}`);
+      failures.push(`${id}/${lang}: ${detail}`);
+      await page.close();
+      continue;
+    }
+
     const out = resolve(outRoot, id, `${id}-pitch-${lang}.pdf`);
     await page.pdf({ path: out, printBackground: true, ...PAGE });
     await page.close();
@@ -112,3 +135,9 @@ for (const id of ids) {
 
 await browser.close();
 server.close();
+
+if (failures.length) {
+  console.error(`\n${failures.length} deck(s) not rendered — shorten the copy or split the slide:`);
+  for (const f of failures) console.error(`  ${f}`);
+  process.exit(1);
+}
