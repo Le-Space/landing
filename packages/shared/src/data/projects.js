@@ -63,6 +63,38 @@ export const projects = [
     }
   },
   {
+    id: 'libp2p-webrtc-qr',
+    name: 'libp2p WebRTC over QR',
+    layers: ['sync'],
+    status: 'beta',
+    featured: true,
+    github: 'https://github.com/NiKrause/libp2p-webrtc-qr',
+    demo: 'https://webrtc-qr.le-space.de',
+    npm: '@le-space/libp2p-webrtc-qr',
+    screenshot: '/media/libp2p-webrtc-qr.png',
+    video: null,
+    note: {
+      en: 'New — released on npm as @le-space/libp2p-webrtc-qr',
+      de: 'Neu — auf npm veröffentlicht als @le-space/libp2p-webrtc-qr'
+    },
+    tagline: {
+      en: `Two browsers connect directly as libp2p peers — no relay, no signaling server. One phone scans the WebRTC handshake off the other screen.
+<ul>
+<li><strong>Signaling as a QR code:</strong> offer and answer travel out-of-band as signed, deflate-compressed payloads instead of through a circuit relay. A text field is the copy/paste fallback.</li>
+<li><strong>Signed, not just scanned:</strong> the SDP carries the DTLS fingerprint, so signing it with the libp2p key binds the WebRTC session to the peer id — the same idea <code>certhash</code> uses in WebRTC-Direct. That is what makes it safe to skip the usual encryption handshake.</li>
+<li><strong>Tampering fails closed:</strong> a modified payload is rejected before any dial happens, and a browser refuses its own offer instead of self-dialing.</li>
+<li><strong>Works without infrastructure:</strong> useful where there is no relay to reach — the same room, the same LAN, an air-gapped network.</li>
+</ul>`,
+      de: `Zwei Browser verbinden sich direkt als libp2p-Peers — ohne Relay, ohne Signaling-Server. Ein Handy scannt den WebRTC-Handshake vom Bildschirm des anderen.
+<ul>
+<li><strong>Signaling als QR-Code:</strong> Offer und Answer laufen out-of-band als signierte, deflate-komprimierte Payloads statt über ein Circuit-Relay. Ein Textfeld dient als Copy/Paste-Fallback.</li>
+<li><strong>Signiert, nicht nur gescannt:</strong> das SDP enthält den DTLS-Fingerprint — wird es mit dem libp2p-Schlüssel signiert, ist die WebRTC-Session an die Peer-ID gebunden. Dasselbe Prinzip wie <code>certhash</code> bei WebRTC-Direct, und genau deshalb darf der übliche Verschlüsselungs-Handshake entfallen.</li>
+<li><strong>Manipulation scheitert sicher:</strong> eine veränderte Payload wird vor jedem Verbindungsversuch abgelehnt, und ein Browser verweigert sein eigenes Offer statt sich selbst zu dialen.</li>
+<li><strong>Funktioniert ohne Infrastruktur:</strong> nützlich, wo kein Relay erreichbar ist — derselbe Raum, dasselbe LAN, ein abgeschottetes Netz.</li>
+</ul>`
+    }
+  },
+  {
     id: 'simple-todo',
     name: 'Simple Todo',
     layers: ['identity', 'data', 'sync'],
@@ -151,60 +183,11 @@ export const projects = [
     }
   },
   {
-    id: 'libp2p-webrtc-qr',
-    name: 'libp2p WebRTC over QR',
-    layers: ['sync'],
-    status: 'beta',
-    featured: false,
-    github: 'https://github.com/NiKrause/libp2p-webrtc-qr',
-    demo: 'https://webrtc-qr.le-space.de',
-    npm: '@le-space/libp2p-webrtc-qr',
-    screenshot: '/media/libp2p-webrtc-qr.png',
-    video: null,
-    note: {
-      en: 'New — released on npm as @le-space/libp2p-webrtc-qr',
-      de: 'Neu — auf npm veröffentlicht als @le-space/libp2p-webrtc-qr'
-    },
-    tagline: {
-      en: `Two browsers connect directly as libp2p peers — no relay, no signaling server. One phone scans the WebRTC handshake off the other screen.
-<ul>
-<li><strong>Signaling as a QR code:</strong> offer and answer travel out-of-band as signed, deflate-compressed payloads instead of through a circuit relay. A text field is the copy/paste fallback.</li>
-<li><strong>Signed, not just scanned:</strong> the SDP carries the DTLS fingerprint, so signing it with the libp2p key binds the WebRTC session to the peer id — the same idea <code>certhash</code> uses in WebRTC-Direct. That is what makes it safe to skip the usual encryption handshake.</li>
-<li><strong>Tampering fails closed:</strong> a modified payload is rejected before any dial happens, and a browser refuses its own offer instead of self-dialing.</li>
-<li><strong>Works without infrastructure:</strong> useful where there is no relay to reach — the same room, the same LAN, an air-gapped network.</li>
-</ul>`,
-      de: `Zwei Browser verbinden sich direkt als libp2p-Peers — ohne Relay, ohne Signaling-Server. Ein Handy scannt den WebRTC-Handshake vom Bildschirm des anderen.
-<ul>
-<li><strong>Signaling als QR-Code:</strong> Offer und Answer laufen out-of-band als signierte, deflate-komprimierte Payloads statt über ein Circuit-Relay. Ein Textfeld dient als Copy/Paste-Fallback.</li>
-<li><strong>Signiert, nicht nur gescannt:</strong> das SDP enthält den DTLS-Fingerprint — wird es mit dem libp2p-Schlüssel signiert, ist die WebRTC-Session an die Peer-ID gebunden. Dasselbe Prinzip wie <code>certhash</code> bei WebRTC-Direct, und genau deshalb darf der übliche Verschlüsselungs-Handshake entfallen.</li>
-<li><strong>Manipulation scheitert sicher:</strong> eine veränderte Payload wird vor jedem Verbindungsversuch abgelehnt, und ein Browser verweigert sein eigenes Offer statt sich selbst zu dialen.</li>
-<li><strong>Funktioniert ohne Infrastruktur:</strong> nützlich, wo kein Relay erreichbar ist — derselbe Raum, dasselbe LAN, ein abgeschottetes Netz.</li>
-</ul>`
-    }
-  },
-  {
-    id: 'ucan-store',
-    name: 'UCAN Store',
-    layers: ['identity', 'archive'],
-    status: 'in-development',
-    featured: true,
-    github: 'https://github.com/NomadKids/ucan-store',
-    demo: 'https://ucan.nicokrause.com',
-    npm: null,
-    screenshot: '/media/ucan-store.png',
-    video: null,
-    note: { en: 'Storacha upload-service fork — UCAN 1.0 upgrade planned', de: 'Storacha-Upload-Service-Fork — Upgrade auf UCAN 1.0 geplant' },
-    tagline: {
-      en: 'Browser-based storage with WebAuthn/Passkey DIDs and UCAN delegations — upload to Filecoin (planned) without accounts or passwords.',
-      de: 'Browser basierter Storage mit WebAuthn/Passkey-DIDs und UCAN-Delegationen — Upload nach Filecoin (geplant) ohne Accounts oder Passwörter.'
-    }
-  },
-  {
     id: 'orbitdb-relay',
     name: 'OrbitDB Relay',
     layers: ['infra', 'data'],
     status: 'beta',
-    featured: false,
+    featured: true,
     github: 'https://github.com/NiKrause/orbitdb-relay',
     demo: null,
     docs: 'https://nikrause.github.io/orbitdb-relay/',
@@ -214,6 +197,23 @@ export const projects = [
     tagline: {
       en: 'Relay and pinning service keeping OrbitDB databases available while peers are offline.',
       de: 'Relay- und Pinning-Service, der OrbitDB-Datenbanken verfügbar hält, während Peers offline sind.'
+    }
+  },
+  {
+    id: 'ucan-store',
+    name: 'UCAN Store',
+    layers: ['identity', 'archive'],
+    status: 'in-development',
+    featured: false,
+    github: 'https://github.com/NomadKids/ucan-store',
+    demo: 'https://ucan.nicokrause.com',
+    npm: null,
+    screenshot: '/media/ucan-store.png',
+    video: null,
+    note: { en: 'Storacha upload-service fork — UCAN 1.0 upgrade planned', de: 'Storacha-Upload-Service-Fork — Upgrade auf UCAN 1.0 geplant' },
+    tagline: {
+      en: 'Browser-based storage with WebAuthn/Passkey DIDs and UCAN delegations — upload to Filecoin (planned) without accounts or passwords.',
+      de: 'Browser basierter Storage mit WebAuthn/Passkey-DIDs und UCAN-Delegationen — Upload nach Filecoin (geplant) ohne Accounts oder Passwörter.'
     }
   },
   {
