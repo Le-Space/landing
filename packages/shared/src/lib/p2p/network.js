@@ -37,7 +37,41 @@ export const FALLBACK_BOOTSTRAP = [
   '/dns4/pill-execute-neither-suspect.2n6.me/tcp/443/tls/ws/p2p/12D3KooWSc3Sqr3Q7RGJAFBz5i7WTTC5kzunnm2tvXVcSwTEtUTP'
 ];
 
-const isBrowserDialable = (a) => /\/wss?(\/|$)|\/tls\/ws(\/|$)/.test(a);
+// Only the encrypted forms. The `s` used to be optional (`wss?`), which let a
+// bare `/ws` through — and a plain ws:// dial from an https:// page is active
+// mixed content the browser blocks. Nothing announced one while it was wrong,
+// so it never showed; the first self-hosted relay on a port without TLS would
+// have found it.
+const isBrowserDialable = (a) => /\/wss(\/|$)|\/tls\/ws(\/|$)/.test(a);
+
+/**
+ * True when dialing this multiaddr would open an insecure WebSocket from a page
+ * the browser serves over HTTPS — which Chrome blocks as mixed content.
+ *
+ * Secure means the address carries `/tls/` (covering `/tls/ws` and the AutoTLS
+ * `/tls/sni/<host>/ws` form) or `/wss`. On an http:// origin — local dev —
+ * mixed content does not apply, so plain `/ws` stays dialable there.
+ *
+ * The bootstrap filter above is not enough on its own: it only sees the list we
+ * hand in. Peers found over pubsub and identify announce their own addresses,
+ * internal `/ws` ports included, and those reach the dialer without passing it.
+ * libp2p used to filter this inside the websockets transport and removed it in
+ * favour of exactly this hook (libp2p/js-libp2p#2838, #2983).
+ *
+ * @param {{ toString: () => string }} multiaddr
+ * @param {string} [pageProtocol]
+ */
+export function isInsecureWebSocketDial(
+  multiaddr,
+  pageProtocol = typeof location === 'undefined' ? '' : location.protocol
+) {
+  if (pageProtocol !== 'https:') return false;
+
+  const address = String(multiaddr).toLowerCase();
+  if (!/\/wss?(\/|$)/.test(address)) return false;
+
+  return !address.includes('/tls/') && !/\/wss(\/|$)/.test(address);
+}
 
 /** Resolve current Aleph relay bootstrap multiaddrs (browser-dialable only). */
 export async function resolveAlephBootstrap() {
@@ -86,7 +120,9 @@ export function createP2PNetwork(opts = {}) {
         ],
         connectionEncrypters: [noise()],
         streamMuxers: [yamux()],
-        connectionGater: { denyDialMultiaddr: () => false },
+        // Everything was allowed here, which left the door open for the dials
+        // the bootstrap filter never sees. See isInsecureWebSocketDial.
+        connectionGater: { denyDialMultiaddr: (ma) => isInsecureWebSocketDial(ma) },
         peerDiscovery: [
           bootstrap({ list }),
           pubsubPeerDiscovery({ interval: 5000, topics, listenOnly: false })
