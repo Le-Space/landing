@@ -200,6 +200,38 @@ export const projects = [
     }
   },
   {
+    id: 'yogasuci',
+    name: 'Yogasūcī (योगसूची)',
+    layers: ['identity', 'data', 'sync'],
+    status: 'in-development',
+    featured: false,
+    github: 'https://github.com/Le-Space/yogasuci',
+    demo: 'https://yogasuci.le-space.de',
+    npm: null,
+    screenshot: '/media/yogasuci.png',
+    video: null,
+    note: {
+      en: 'Showcase for OrbitDB and WebRTC over QR — a real application, not a demo',
+      de: 'Showcase für OrbitDB und WebRTC über QR — eine echte Anwendung, keine Demo'
+    },
+    tagline: {
+      en: `Class booking for yoga studios with more than one location, built to show what the stack does when an application actually depends on it.
+<ul>
+<li><strong>No relay at all:</strong> devices meet by scanning a QR code or opening an invite link — <a href="https://github.com/NiKrause/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer">libp2p-webrtc-qr</a> as the only transport, which makes it the working proof that the free path is enough.</li>
+<li><strong>No account, no password:</strong> a passkey is the identity, and a second device is approved by the first.</li>
+<li><strong>Passes are an append-only log:</strong> the balance is folded from the events and never stored, so two counters in different places can sell and redeem without asking anyone for permission.</li>
+<li><strong>Where it stops being comfortable is written down:</strong> the handbook has a chapter on what the app cannot do, and the repository documents the limits it ran into rather than the features it hoped for.</li>
+</ul>`,
+      de: `Kursbuchung für Yogastudios mit mehreren Standorten — gebaut, um zu zeigen, was der Stack leistet, wenn eine Anwendung tatsächlich davon abhängt.
+<ul>
+<li><strong>Ganz ohne Relay:</strong> Geräte finden sich per gescanntem QR-Code oder Einladungslink — <a href="https://github.com/NiKrause/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer">libp2p-webrtc-qr</a> als einziger Transport, und damit der laufende Beweis, dass der kostenlose Weg genügt.</li>
+<li><strong>Kein Konto, kein Passwort:</strong> Ein Passkey ist die Identität, ein zweites Gerät wird vom ersten freigegeben.</li>
+<li><strong>Karten sind ein Append-only-Log:</strong> Das Guthaben wird aus den Ereignissen gefaltet und nie gespeichert — zwei Theken an verschiedenen Orten können verkaufen und entwerten, ohne jemanden um Erlaubnis zu fragen.</li>
+<li><strong>Wo es unbequem wird, steht geschrieben:</strong> Das Handbuch hat ein Kapitel darüber, was die App nicht kann, und das Repository dokumentiert die Grenzen, an die sie gestoßen ist, statt der Funktionen, die man sich erhofft hatte.</li>
+</ul>`
+    }
+  },
+  {
     id: 'ucan-store',
     name: 'UCAN Store',
     layers: ['identity', 'archive'],
