@@ -42,7 +42,7 @@ export const projects = [
     shotHost: 'simple-todo.le-space.de',
     video: null,
     tagline: {
-      en: `Deploy libp2p relay infrastructure on demand — the toolchain at the core of the local-first stack.
+      en: `Deploy libp2p relay nodes on demand — the toolchain at the core of the local-first stack.
 <ul>
 <li><strong>One click, one relay:</strong> deploys a libp2p/OrbitDB relay (signaling, bootstrap, IPFS pinning) — run it for a meeting, a project or years, then stop it.</li>
 <li><strong>Full automation:</strong> build qcow2 RootFS images, publish to IPFS, manage VM lifecycle &amp; retention via CLI and GitHub Actions.</li>
@@ -51,7 +51,7 @@ export const projects = [
 <li><strong>New — remote browser replication:</strong> CI spins up a real browser on a fresh VM in another network and verifies true cross-network P2P replication end-to-end — replacing services like testingbot.com for local-first P2P apps.</li>
 <li><strong>Runs on <a href="https://aleph.cloud" target="_blank" rel="noopener noreferrer">Aleph Cloud</a>:</strong> decentralized compute, VMs without a cloud account; further providers — decentralized and centralized — planned.</li>
 </ul>`,
-      de: `Libp2p-Relay-Infrastruktur auf Knopfdruck — die Toolchain im Zentrum des Local-First-Stacks.
+      de: `Libp2p-Relay-Nodes auf Knopfdruck — die Toolchain im Zentrum des Local-First-Stacks.
 <ul>
 <li><strong>Ein Klick, ein Relay:</strong> deployt einen libp2p/OrbitDB-Relay (Signaling, Bootstrap, IPFS-Pinning) — läuft für ein Meeting, ein Projekt oder Jahre, danach wird er gestoppt.</li>
 <li><strong>Volle Automatisierung:</strong> qcow2-RootFS-Images bauen, auf IPFS publizieren, VM-Lifecycle &amp; Retention per CLI und GitHub Actions.</li>
