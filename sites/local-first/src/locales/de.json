@@ -33,8 +33,8 @@
     }
   },
   "projects": {
-    "title": "Projekte",
-    "sub": "Demos und Prototypen statt Folien — jedes Projekt ist ein Baustein des Stacks mit Demo, Quellcode und Paketen.",
+    "title": "Bausteine",
+    "sub": "Showcases, Prototypen, Komponenten und Bibliotheken — keine Folien. Jedes ist Open Source, die meisten mit Live-Demo, viele als npm-Paket.",
     "demo": "Live-Demo",
     "docs": "Doku",
     "source": "Quellcode",
