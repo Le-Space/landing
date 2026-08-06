@@ -326,16 +326,16 @@ export const decks = [
     draft: false,
     accent: 'var(--ls-accent)',
     subtitle: {
-      de: 'Die Karte der Netze, die Peer-to-Peer wirklich zulassen',
-      en: 'The map of networks that really allow peer-to-peer'
+      de: 'Wo direkte Verbindungen tragen — und wo ein Relay einspringen muss',
+      en: 'Where direct connections hold — and where a relay has to step in'
     },
     claim: {
-      de: 'Jede Verbindung ist eine Messung. Millionen Messungen sind eine Karte.',
-      en: 'Every connection is a measurement. Millions of measurements are a map.'
+      de: 'Jede Verbindung ist eine Messung. Millionen Messungen sagen dir, wo du ein Relay brauchst.',
+      en: 'Every connection is a measurement. Millions of measurements tell you where you need a relay.'
     },
     teaser: {
-      de: 'Nutzer verbinden Geräte per QR-Code direkt miteinander — und erzeugen dabei nebenbei den Datensatz, der zeigt, welches WLAN, welcher Mobilfunkanbieter und welcher Browser Peer-to-Peer erlaubt. Rot, orange, grün, weltweit.',
-      en: 'Users connect devices directly via QR code — and in passing produce the dataset showing which Wi-Fi, which carrier and which browser allows peer-to-peer. Red, amber, green, worldwide.'
+      de: 'Nutzer verbinden Geräte per QR-Code direkt miteinander — und erzeugen dabei nebenbei die Karte, die zeigt, in welchem WLAN und welchem Mobilfunknetz WebRTC trägt und wo es hakt. Genau dort verkauft sich ein Relay.',
+      en: 'Users connect devices directly via QR code — and in passing produce the map showing in which Wi-Fi and which mobile network WebRTC holds up and where it struggles. That is exactly where a relay sells itself.'
     },
     links: {
       github: 'https://github.com/NiKrause/libp2p-webrtc-qr',
@@ -351,15 +351,15 @@ export const decks = [
         kind: 'bullets',
         title: { de: 'Das Problem', en: 'The problem' },
         lead: {
-          de: 'Peer-to-Peer im Browser funktioniert — oder eben nicht. Vorher weiß es niemand, hinterher weiß niemand, warum.',
-          en: 'Peer-to-peer in the browser works — or it does not. Nobody knows beforehand, and afterwards nobody knows why.'
+          de: 'Direkte Verbindungen sind schneller, billiger und privater als jeder Umweg — nur weiß vorher niemand, wo sie tragen.',
+          en: 'Direct connections are faster, cheaper and more private than any detour — but nobody knows in advance where they hold up.'
         },
         bullets: [
           {
-            t: { de: 'Netze blockieren unterschiedlich', en: 'Networks block differently' },
+            t: { de: 'Jedes Netz kann etwas anderes', en: 'Every network is capable of something else' },
             s: {
-              de: 'Hotel- und Konferenz-WLANs sperren UDP, Firmen-Firewalls lassen nur 443 durch, Mobilfunk hängt hinter Carrier-Grade-NAT.',
-              en: 'Hotel and conference Wi-Fi blocks UDP, corporate firewalls only allow 443, mobile networks sit behind carrier-grade NAT.'
+              de: 'Das eine WLAN lässt alles durch, das nächste nur Port 443; im Mobilfunk entscheidet das Carrier-Grade-NAT. Dieselbe App ist an einem Ort direkt verbunden und am anderen auf einen Umweg angewiesen.',
+              en: 'One Wi-Fi lets everything through, the next only port 443; on mobile the carrier-grade NAT decides. The same app is directly connected in one place and needs a detour in the next.'
             }
           },
           {
@@ -379,8 +379,8 @@ export const decks = [
           {
             t: { de: 'Niemand misst das flächendeckend', en: 'Nobody measures this at scale' },
             s: {
-              de: 'Es gibt Speedtests für Bandbreite. Es gibt keine Karte für „lässt dieses Netz direkte Verbindungen zu".',
-              en: 'There are speed tests for bandwidth. There is no map for "does this network allow direct connections".'
+              de: 'Es gibt Speedtests für Bandbreite. Es gibt keine Karte für die Frage, die jede P2P-Anwendung stellen muss: reicht hier direkt, oder brauche ich ein Relay?',
+              en: 'There are speed tests for bandwidth. There is no map for the question every P2P application has to ask: is direct enough here, or do I need a relay?'
             }
           }
         ]
@@ -444,16 +444,16 @@ export const decks = [
             h: { de: '3 · Aggregieren', en: '3 · Aggregate' },
             items: [
               { de: 'Zusammenfassung je Netz, Zelle und Provider', en: 'Summary per network, cell and provider' },
-              { de: 'Ampel: grün / orange / rot mit Konfidenz', en: 'Traffic light: green / amber / red with confidence' },
+              { de: 'Drei Stufen: direkt tragfähig · wechselhaft · Relay nötig', en: 'Three levels: direct works · mixed · relay needed' },
               { de: 'Erst ab genügend unabhängigen Messungen', en: 'Only above enough independent measurements' }
             ]
           },
           {
-            h: { de: '4 · Handeln', en: '4 · Trade' },
+            h: { de: '4 · Nutzen', en: '4 · Use' },
             items: [
               { de: 'Karte öffentlich und kostenlos', en: 'Map public and free' },
-              { de: 'Rohdaten über UCAN-Delegation verkaufbar', en: 'Raw data sellable via UCAN delegation' },
-              { de: 'Erlösanteil an die messenden Nutzer', en: 'Revenue share to the users who measured' }
+              { de: 'Konkrete Empfehlung: hier reicht direkt, dort ein Relay', en: 'A concrete recommendation: direct is enough here, a relay there' },
+              { de: 'Rohdaten über UCAN-Delegation handelbar, Erlösanteil an die Messenden', en: 'Raw data tradeable via UCAN delegation, revenue share to those who measured' }
             ]
           }
         ]
@@ -462,15 +462,15 @@ export const decks = [
         kind: 'columns',
         title: { de: 'Wer dafür zahlt', en: 'Who pays for it' },
         lead: {
-          de: 'Die Karte ist das Schaufenster. Verkauft werden Genauigkeit, Historie und Zuschnitt.',
-          en: 'The map is the shop window. What sells is accuracy, history and scope.'
+          de: 'Die Karte ist kostenlos und das Schaufenster. Verkauft werden die Antworten, die daraus folgen — und die Infrastruktur, die sie empfiehlt.',
+          en: 'The map is free, and it is the shop window. What sells are the answers that follow from it — and the infrastructure it recommends.'
         },
         columns: [
           {
             h: { de: 'Entwickler & Plattformen', en: 'Developers & platforms' },
             items: [
               { de: 'Video-, Gaming- und P2P-Anbieter', en: 'Video, gaming and P2P providers' },
-              { de: 'Wollen wissen, wo TURN nötig ist — und wo nicht', en: 'Want to know where TURN is needed — and where not' },
+              { de: 'Wollen wissen, wo direkt reicht — und wo Relay-Kapazität eingeplant werden muss', en: 'Want to know where direct is enough — and where relay capacity has to be budgeted' },
               { de: 'API/SDK-Abo, Abfrage nach Provider und Region', en: 'API/SDK subscription, queried by provider and region' }
             ]
           },
@@ -478,8 +478,8 @@ export const decks = [
             h: { de: 'Netzbetreiber', en: 'Network operators' },
             items: [
               { de: 'Hotels, Kommunen, Campus, Coworking, ISPs', en: 'Hotels, municipalities, campuses, coworking, ISPs' },
-              { de: 'Report über das eigene Netz und die Nachbarschaft', en: 'A report on their own network and the neighbourhood' },
-              { de: 'Bezahlte Re-Verifizierung nach dem Fix, mit Siegel „P2P-ready"', en: 'Paid re-verification after the fix, with a "P2P-ready" seal' }
+              { de: 'Report über das eigene Netz: was hakt, und woran es liegt', en: 'A report on their own network: what struggles, and why' },
+              { de: 'Nachmessung nach dem Fix, mit Beleg „hier trägt direkt"', en: 'A re-measurement after the fix, evidencing "direct works here"' }
             ]
           },
           {
@@ -492,8 +492,8 @@ export const decks = [
           }
         ],
         note: {
-          de: 'Der Eintrag in die Karte selbst ist immer kostenlos und wird nie gegen Geld entfernt — bezahlt wird ausschließlich die erneute Messung. Alles andere wäre erpressbar und rechtlich angreifbar.',
-          en: 'Being listed on the map is always free and is never removed for money — the only thing paid for is a fresh measurement. Anything else would be extortionate and legally indefensible.'
+          de: 'Der eigentliche Hebel steht in Spalte eins: Jeder rote Fleck auf der Karte ist eine begründete Empfehlung für einen Relay — und damit ein Verkauf für Spin-Off A. Die Karte misst den Bedarf, den unsere Infrastruktur deckt.',
+          en: 'The real lever is in the first column: every red patch on the map is an evidenced recommendation for a relay — and therefore a sale for spin-off A. The map measures the demand our infrastructure covers.'
         }
       },
       {
@@ -512,10 +512,10 @@ export const decks = [
             }
           },
           {
-            t: { de: 'Die Infrastruktur steht', en: 'The infrastructure is in place' },
+            t: { de: 'Die Antwort haben wir auch schon', en: 'We already have the answer too' },
             s: {
-              de: 'Relay, Pinning und Archiv aus Spin-Off A; Identität und Delegationen aus dem bestehenden Passkey/UCAN-Stack.',
-              en: 'Relay, pinning and archive from spin-off A; identity and delegations from the existing passkey/UCAN stack.'
+              de: 'Wo die Karte „Relay nötig" sagt, steht der Relay aus Spin-Off A auf Knopfdruck bereit. Kein anderer Messdienst kann den Bedarf, den er misst, im selben Atemzug decken.',
+              en: 'Where the map says "relay needed", the relay from spin-off A is one click away. No other measurement service can cover the demand it measures in the same breath.'
             }
           },
           {
@@ -553,10 +553,10 @@ export const decks = [
           },
           {
             tag: 'next',
-            t: { de: 'Erste Karte', en: 'First map' },
+            t: { de: 'Erste Karte mit Empfehlung', en: 'First map with a recommendation' },
             s: {
-              de: 'Aggregation und eine öffentliche Karte mit den Messungen aus unseren eigenen Tests und Konferenzen.',
-              en: 'Aggregation and a public map from the measurements of our own tests and conferences.'
+              de: 'Aggregation, öffentliche Karte und die daraus abgeleitete Aussage pro Ort: reicht direkt, oder Relay einplanen? Beginnend mit unseren eigenen Tests und Konferenzen.',
+              en: 'Aggregation, a public map and the conclusion it produces per place: is direct enough, or budget a relay? Starting with our own tests and conferences.'
             }
           },
           {
@@ -587,8 +587,8 @@ export const decks = [
           {
             t: { de: 'Rechtliches zur Bewertung', en: 'Legal side of rating' },
             s: {
-              de: 'Öffentliche Netzbewertungen sind zulässig, wenn sie belegbar sind. Die Gebühr darf nie für das Entfernen eines Eintrags erhoben werden, nur für die neue Messung.',
-              en: 'Public network ratings are lawful when they are evidenced. The fee must never buy removal of an entry, only a fresh measurement.'
+              de: 'Öffentliche Netzbewertungen sind zulässig, solange sie belegbar sind und als Messung auftreten, nicht als Urteil. Eine Gebühr darf immer nur die neue Messung bezahlen, nie das Verschwinden eines Eintrags.',
+              en: 'Public network ratings are lawful as long as they are evidenced and presented as a measurement rather than a verdict. A fee may only ever pay for a fresh measurement, never for an entry to disappear.'
             }
           },
           {

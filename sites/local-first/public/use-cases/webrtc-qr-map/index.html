@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WebRTC Public Data Map — Le-Space Spin-Off B</title>
-<meta name="description" content="Nutzer verbinden Geräte per QR-Code direkt miteinander — und erzeugen dabei nebenbei den Datensatz, der zeigt, welches WLAN, welcher Mobilfunkanbieter und welcher Browser Peer-to-Peer erlaubt. Rot, orange, grün, weltweit.">
+<meta name="description" content="Nutzer verbinden Geräte per QR-Code direkt miteinander — und erzeugen dabei nebenbei die Karte, die zeigt, in welchem WLAN und welchem Mobilfunknetz WebRTC trägt und wo es hakt. Genau dort verkauft sich ein Relay.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="WebRTC Public Data Map — Le-Space Spin-Off B">
-<meta property="og:description" content="Nutzer verbinden Geräte per QR-Code direkt miteinander — und erzeugen dabei nebenbei den Datensatz, der zeigt, welches WLAN, welcher Mobilfunkanbieter und welcher Browser Peer-to-Peer erlaubt. Rot, orange, grün, weltweit.">
+<meta property="og:description" content="Nutzer verbinden Geräte per QR-Code direkt miteinander — und erzeugen dabei nebenbei die Karte, die zeigt, in welchem WLAN und welchem Mobilfunknetz WebRTC trägt und wo es hakt. Genau dort verkauft sich ein Relay.">
 <meta property="og:image" content="https://local-first.le-space.de/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -329,20 +329,20 @@ h2 {
 </svg><span class="brand">Le-Space</span></div>
   <p class="kicker">Spin-Off B · Konzept</p>
   <h1>WebRTC Public Data Map</h1>
-  <p class="subtitle">Die Karte der Netze, die Peer-to-Peer wirklich zulassen</p>
-  <p class="claim">Jede Verbindung ist eine Messung. Millionen Messungen sind eine Karte.</p>
+  <p class="subtitle">Wo direkte Verbindungen tragen — und wo ein Relay einspringen muss</p>
+  <p class="claim">Jede Verbindung ist eine Messung. Millionen Messungen sagen dir, wo du ein Relay brauchst.</p>
   <div class="links"><a href="https://webrtc-qr.le-space.de" target="_blank" rel="noopener noreferrer" class="primary">Demo</a><a href="https://github.com/NiKrause/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer">Quellcode</a><a href="https://www.npmjs.com/package/@le-space/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer">npm</a></div>
   <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>1 / 9</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
   <h2>Das Problem</h2>
-  <p class="lead">Peer-to-Peer im Browser funktioniert — oder eben nicht. Vorher weiß es niemand, hinterher weiß niemand, warum.</p>
+  <p class="lead">Direkte Verbindungen sind schneller, billiger und privater als jeder Umweg — nur weiß vorher niemand, wo sie tragen.</p>
   <ul class="bullets">
-    <li><b>Netze blockieren unterschiedlich</b><p>Hotel- und Konferenz-WLANs sperren UDP, Firmen-Firewalls lassen nur 443 durch, Mobilfunk hängt hinter Carrier-Grade-NAT.</p></li>
+    <li><b>Jedes Netz kann etwas anderes</b><p>Das eine WLAN lässt alles durch, das nächste nur Port 443; im Mobilfunk entscheidet das Carrier-Grade-NAT. Dieselbe App ist an einem Ort direkt verbunden und am anderen auf einen Umweg angewiesen.</p></li>
     <li><b>Browser sind nicht gleich</b><p>Chromium, Firefox und WebKit unterscheiden sich in WebRTC-Details; auf iOS gilt ohnehin, was Safari erlaubt.</p></li>
     <li><b>IPv6 rettet — manchmal</b><p>Ohne TURN-Server scheitern Peers hinter restriktiven NATs auf IPv4, während dieselbe Verbindung über IPv6 zuverlässig steht.</p></li>
-    <li><b>Niemand misst das flächendeckend</b><p>Es gibt Speedtests für Bandbreite. Es gibt keine Karte für „lässt dieses Netz direkte Verbindungen zu".</p></li>
+    <li><b>Niemand misst das flächendeckend</b><p>Es gibt Speedtests für Bandbreite. Es gibt keine Karte für die Frage, die jede P2P-Anwendung stellen muss: reicht hier direkt, oder brauche ich ein Relay?</p></li>
   </ul>
   
   <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>2 / 9</span></div>
@@ -374,11 +374,11 @@ h2 {
     </div>
     <div class="col">
       <h3>3 · Aggregieren</h3>
-      <ul><li>Zusammenfassung je Netz, Zelle und Provider</li><li>Ampel: grün / orange / rot mit Konfidenz</li><li>Erst ab genügend unabhängigen Messungen</li></ul>
+      <ul><li>Zusammenfassung je Netz, Zelle und Provider</li><li>Drei Stufen: direkt tragfähig · wechselhaft · Relay nötig</li><li>Erst ab genügend unabhängigen Messungen</li></ul>
     </div>
     <div class="col">
-      <h3>4 · Handeln</h3>
-      <ul><li>Karte öffentlich und kostenlos</li><li>Rohdaten über UCAN-Delegation verkaufbar</li><li>Erlösanteil an die messenden Nutzer</li></ul>
+      <h3>4 · Nutzen</h3>
+      <ul><li>Karte öffentlich und kostenlos</li><li>Konkrete Empfehlung: hier reicht direkt, dort ein Relay</li><li>Rohdaten über UCAN-Delegation handelbar, Erlösanteil an die Messenden</li></ul>
     </div>
   </div>
   
@@ -387,22 +387,22 @@ h2 {
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
   <h2>Wer dafür zahlt</h2>
-  <p class="lead">Die Karte ist das Schaufenster. Verkauft werden Genauigkeit, Historie und Zuschnitt.</p>
+  <p class="lead">Die Karte ist kostenlos und das Schaufenster. Verkauft werden die Antworten, die daraus folgen — und die Infrastruktur, die sie empfiehlt.</p>
   <div class="cols">
     <div class="col">
       <h3>Entwickler & Plattformen</h3>
-      <ul><li>Video-, Gaming- und P2P-Anbieter</li><li>Wollen wissen, wo TURN nötig ist — und wo nicht</li><li>API/SDK-Abo, Abfrage nach Provider und Region</li></ul>
+      <ul><li>Video-, Gaming- und P2P-Anbieter</li><li>Wollen wissen, wo direkt reicht — und wo Relay-Kapazität eingeplant werden muss</li><li>API/SDK-Abo, Abfrage nach Provider und Region</li></ul>
     </div>
     <div class="col">
       <h3>Netzbetreiber</h3>
-      <ul><li>Hotels, Kommunen, Campus, Coworking, ISPs</li><li>Report über das eigene Netz und die Nachbarschaft</li><li>Bezahlte Re-Verifizierung nach dem Fix, mit Siegel „P2P-ready"</li></ul>
+      <ul><li>Hotels, Kommunen, Campus, Coworking, ISPs</li><li>Report über das eigene Netz: was hakt, und woran es liegt</li><li>Nachmessung nach dem Fix, mit Beleg „hier trägt direkt"</li></ul>
     </div>
     <div class="col">
       <h3>Forschung & Regulierung</h3>
       <ul><li>Netzneutralität ist ohne Messdaten nicht prüfbar</li><li>Universitäten, NGOs, Aufsichtsbehörden</li><li>Datensatz-Lizenz, offene Auszüge für die Öffentlichkeit</li></ul>
     </div>
   </div>
-  <p class="note">Der Eintrag in die Karte selbst ist immer kostenlos und wird nie gegen Geld entfernt — bezahlt wird ausschließlich die erneute Messung. Alles andere wäre erpressbar und rechtlich angreifbar.</p>
+  <p class="note">Der eigentliche Hebel steht in Spalte eins: Jeder rote Fleck auf der Karte ist eine begründete Empfehlung für einen Relay — und damit ein Verkauf für Spin-Off A. Die Karte misst den Bedarf, den unsere Infrastruktur deckt.</p>
   <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>5 / 9</span></div>
 </section>
 <section class="slide">
@@ -411,7 +411,7 @@ h2 {
   <p class="lead">Der Datensatz entsteht als Nebenprodukt von Technik, die wir ohnehin bauen und betreiben.</p>
   <ul class="bullets">
     <li><b>Das Messgerät gehört uns</b><p><code>@le-space/libp2p-webrtc-qr</code> ist veröffentlicht, in Beta und läuft als Demo — inklusive signierter Payloads und Copy/Paste-Fallback.</p></li>
-    <li><b>Die Infrastruktur steht</b><p>Relay, Pinning und Archiv aus Spin-Off A; Identität und Delegationen aus dem bestehenden Passkey/UCAN-Stack.</p></li>
+    <li><b>Die Antwort haben wir auch schon</b><p>Wo die Karte „Relay nötig" sagt, steht der Relay aus Spin-Off A auf Knopfdruck bereit. Kein anderer Messdienst kann den Bedarf, den er misst, im selben Atemzug decken.</p></li>
     <li><b>Glaubwürdigkeit beim Datenschutz</b><p>Ein Datenmarkt funktioniert nur, wenn die Nutzer der Sammelstelle trauen. Wir bauen seit Jahren Systeme, die absichtlich wenig wissen.</p></li>
   </ul>
   
@@ -424,7 +424,7 @@ h2 {
   <ul class="bullets">
     <li><b>Client in Beta</b><span class="badge now">heute</span><p>QR- und Link-Verbindung zwischen Browsern, signierte SDPs, Dateiübertragung via Helia, Live-Demo online.</p></li>
     <li><b>Messschema & Opt-in</b><span class="badge next">in Arbeit</span><p>Festlegen, welche Felder erhoben werden, und eine Zustimmung, die man in einem Satz versteht.</p></li>
-    <li><b>Erste Karte</b><span class="badge next">in Arbeit</span><p>Aggregation und eine öffentliche Karte mit den Messungen aus unseren eigenen Tests und Konferenzen.</p></li>
+    <li><b>Erste Karte mit Empfehlung</b><span class="badge next">in Arbeit</span><p>Aggregation, öffentliche Karte und die daraus abgeleitete Aussage pro Ort: reicht direkt, oder Relay einplanen? Beginnend mit unseren eigenen Tests und Konferenzen.</p></li>
     <li><b>Marktplatz-Pilot</b><span class="badge planned">geplant</span><p>Ein zahlender Erstkunde, Erlösbeteiligung der Nutzer, Anti-Manipulation gegen gefälschte Messungen.</p></li>
   </ul>
   
@@ -436,7 +436,7 @@ h2 {
   <p class="lead">Bewusst auf einer eigenen Folie: an diesen vier Punkten entscheidet sich, ob das Modell trägt.</p>
   <ul class="bullets">
     <li><b>Datenschutz</b><p>Wie grob muss der Ort sein, damit aus „dieses Netz" nicht „diese Wohnung" wird? DSGVO-Bewertung vor der ersten Messung.</p></li>
-    <li><b>Rechtliches zur Bewertung</b><p>Öffentliche Netzbewertungen sind zulässig, wenn sie belegbar sind. Die Gebühr darf nie für das Entfernen eines Eintrags erhoben werden, nur für die neue Messung.</p></li>
+    <li><b>Rechtliches zur Bewertung</b><p>Öffentliche Netzbewertungen sind zulässig, solange sie belegbar sind und als Messung auftreten, nicht als Urteil. Eine Gebühr darf immer nur die neue Messung bezahlen, nie das Verschwinden eines Eintrags.</p></li>
     <li><b>Manipulation</b><p>Was hindert einen Anbieter daran, sich grün zu messen? Signierte Messungen, Reputation, Ausreißererkennung.</p></li>
     <li><b>Kritische Masse</b><p>Der Datensatz ist erst ab einer gewissen Dichte verkäuflich. Wie kommen die ersten hunderttausend Messungen zustande?</p></li>
   </ul>
@@ -469,20 +469,20 @@ h2 {
 </svg><span class="brand">Le-Space</span></div>
   <p class="kicker">Spin-Off B · concept</p>
   <h1>WebRTC Public Data Map</h1>
-  <p class="subtitle">The map of networks that really allow peer-to-peer</p>
-  <p class="claim">Every connection is a measurement. Millions of measurements are a map.</p>
+  <p class="subtitle">Where direct connections hold — and where a relay has to step in</p>
+  <p class="claim">Every connection is a measurement. Millions of measurements tell you where you need a relay.</p>
   <div class="links"><a href="https://webrtc-qr.le-space.de" target="_blank" rel="noopener noreferrer" class="primary">Demo</a><a href="https://github.com/NiKrause/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer">Source</a><a href="https://www.npmjs.com/package/@le-space/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer">npm</a></div>
   <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>1 / 9</span></div>
 </section>
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
   <h2>The problem</h2>
-  <p class="lead">Peer-to-peer in the browser works — or it does not. Nobody knows beforehand, and afterwards nobody knows why.</p>
+  <p class="lead">Direct connections are faster, cheaper and more private than any detour — but nobody knows in advance where they hold up.</p>
   <ul class="bullets">
-    <li><b>Networks block differently</b><p>Hotel and conference Wi-Fi blocks UDP, corporate firewalls only allow 443, mobile networks sit behind carrier-grade NAT.</p></li>
+    <li><b>Every network is capable of something else</b><p>One Wi-Fi lets everything through, the next only port 443; on mobile the carrier-grade NAT decides. The same app is directly connected in one place and needs a detour in the next.</p></li>
     <li><b>Browsers are not equal</b><p>Chromium, Firefox and WebKit differ in WebRTC details; on iOS whatever Safari allows is the whole story.</p></li>
     <li><b>IPv6 saves the day — sometimes</b><p>Without a TURN server, peers behind restrictive NATs fail over IPv4, while the same connection over IPv6 is reliable.</p></li>
-    <li><b>Nobody measures this at scale</b><p>There are speed tests for bandwidth. There is no map for "does this network allow direct connections".</p></li>
+    <li><b>Nobody measures this at scale</b><p>There are speed tests for bandwidth. There is no map for the question every P2P application has to ask: is direct enough here, or do I need a relay?</p></li>
   </ul>
   
   <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>2 / 9</span></div>
@@ -514,11 +514,11 @@ h2 {
     </div>
     <div class="col">
       <h3>3 · Aggregate</h3>
-      <ul><li>Summary per network, cell and provider</li><li>Traffic light: green / amber / red with confidence</li><li>Only above enough independent measurements</li></ul>
+      <ul><li>Summary per network, cell and provider</li><li>Three levels: direct works · mixed · relay needed</li><li>Only above enough independent measurements</li></ul>
     </div>
     <div class="col">
-      <h3>4 · Trade</h3>
-      <ul><li>Map public and free</li><li>Raw data sellable via UCAN delegation</li><li>Revenue share to the users who measured</li></ul>
+      <h3>4 · Use</h3>
+      <ul><li>Map public and free</li><li>A concrete recommendation: direct is enough here, a relay there</li><li>Raw data tradeable via UCAN delegation, revenue share to those who measured</li></ul>
     </div>
   </div>
   
@@ -527,22 +527,22 @@ h2 {
 <section class="slide">
   <p class="kicker">WebRTC Public Data Map</p>
   <h2>Who pays for it</h2>
-  <p class="lead">The map is the shop window. What sells is accuracy, history and scope.</p>
+  <p class="lead">The map is free, and it is the shop window. What sells are the answers that follow from it — and the infrastructure it recommends.</p>
   <div class="cols">
     <div class="col">
       <h3>Developers & platforms</h3>
-      <ul><li>Video, gaming and P2P providers</li><li>Want to know where TURN is needed — and where not</li><li>API/SDK subscription, queried by provider and region</li></ul>
+      <ul><li>Video, gaming and P2P providers</li><li>Want to know where direct is enough — and where relay capacity has to be budgeted</li><li>API/SDK subscription, queried by provider and region</li></ul>
     </div>
     <div class="col">
       <h3>Network operators</h3>
-      <ul><li>Hotels, municipalities, campuses, coworking, ISPs</li><li>A report on their own network and the neighbourhood</li><li>Paid re-verification after the fix, with a "P2P-ready" seal</li></ul>
+      <ul><li>Hotels, municipalities, campuses, coworking, ISPs</li><li>A report on their own network: what struggles, and why</li><li>A re-measurement after the fix, evidencing "direct works here"</li></ul>
     </div>
     <div class="col">
       <h3>Research & regulation</h3>
       <ul><li>Net neutrality is unverifiable without measurements</li><li>Universities, NGOs, regulators</li><li>Dataset licence, open extracts for the public</li></ul>
     </div>
   </div>
-  <p class="note">Being listed on the map is always free and is never removed for money — the only thing paid for is a fresh measurement. Anything else would be extortionate and legally indefensible.</p>
+  <p class="note">The real lever is in the first column: every red patch on the map is an evidenced recommendation for a relay — and therefore a sale for spin-off A. The map measures the demand our infrastructure covers.</p>
   <div class="foot"><span>Le-Space · WebRTC Public Data Map</span><span data-n>5 / 9</span></div>
 </section>
 <section class="slide">
@@ -551,7 +551,7 @@ h2 {
   <p class="lead">The dataset is a by-product of technology we build and operate anyway.</p>
   <ul class="bullets">
     <li><b>We own the instrument</b><p><code>@le-space/libp2p-webrtc-qr</code> is published, in beta and running as a demo — including signed payloads and a copy/paste fallback.</p></li>
-    <li><b>The infrastructure is in place</b><p>Relay, pinning and archive from spin-off A; identity and delegations from the existing passkey/UCAN stack.</p></li>
+    <li><b>We already have the answer too</b><p>Where the map says "relay needed", the relay from spin-off A is one click away. No other measurement service can cover the demand it measures in the same breath.</p></li>
     <li><b>Credibility on privacy</b><p>A data market only works if users trust the collector. We have spent years building systems that deliberately know little.</p></li>
   </ul>
   
@@ -564,7 +564,7 @@ h2 {
   <ul class="bullets">
     <li><b>Client in beta</b><span class="badge now">today</span><p>QR and link connections between browsers, signed SDPs, file transfer via Helia, live demo online.</p></li>
     <li><b>Measurement schema & opt-in</b><span class="badge next">in progress</span><p>Define which fields are collected, and a consent dialog you can understand in one sentence.</p></li>
-    <li><b>First map</b><span class="badge next">in progress</span><p>Aggregation and a public map from the measurements of our own tests and conferences.</p></li>
+    <li><b>First map with a recommendation</b><span class="badge next">in progress</span><p>Aggregation, a public map and the conclusion it produces per place: is direct enough, or budget a relay? Starting with our own tests and conferences.</p></li>
     <li><b>Marketplace pilot</b><span class="badge planned">planned</span><p>One paying first customer, revenue share for users, anti-manipulation against forged measurements.</p></li>
   </ul>
   
@@ -576,7 +576,7 @@ h2 {
   <p class="lead">Deliberately on their own slide: these four points decide whether the model holds.</p>
   <ul class="bullets">
     <li><b>Privacy</b><p>How coarse must the location be so "this network" never becomes "this flat"? GDPR assessment before the first measurement.</p></li>
-    <li><b>Legal side of rating</b><p>Public network ratings are lawful when they are evidenced. The fee must never buy removal of an entry, only a fresh measurement.</p></li>
+    <li><b>Legal side of rating</b><p>Public network ratings are lawful as long as they are evidenced and presented as a measurement rather than a verdict. A fee may only ever pay for a fresh measurement, never for an entry to disappear.</p></li>
     <li><b>Manipulation</b><p>What stops a provider from measuring itself green? Signed measurements, reputation, outlier detection.</p></li>
     <li><b>Critical mass</b><p>The dataset only sells above a certain density. Where do the first hundred thousand measurements come from?</p></li>
   </ul>
