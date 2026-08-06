@@ -8,19 +8,19 @@
     "cta_github": "GitHub"
   },
   "stack": {
-    "title": "The Local-First Stack",
+    "title": "The five layers",
     "sub": "Every layer works without a central service — and every layer is an open-source building block you can use on its own.",
     "identity": {
       "name": "Identity",
-      "desc": "WebAuthn / Passkeys / DIDs — your keys, your browser, no extensions"
+      "desc": "WebAuthn / Passkeys / DIDs and web3 wallets — your keys, your browser"
     },
     "data": {
       "name": "Data",
-      "desc": "OrbitDB — your data on your device, replicated peer-to-peer"
+      "desc": "OrbitDB — CRDT-based, so concurrent edits merge instead of colliding; your data stays on your device"
     },
     "sync": {
       "name": "Sync",
-      "desc": "libp2p — direct browser-to-browser connections across NATs"
+      "desc": "libp2p — direct browser-to-browser connections across NATs, through relay nodes or free and out of band with a scanned code or an invite link"
     },
     "infra": {
       "name": "Infrastructure",
@@ -28,7 +28,7 @@
     },
     "archive": {
       "name": "Archive",
-      "desc": "Storacha / Filecoin — durable backups that outlive devices"
+      "desc": "Filecoin / Aleph IPFS — decentralised storage for backups that outlive devices"
     }
   },
   "projects": {
