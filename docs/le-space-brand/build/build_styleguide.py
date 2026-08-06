@@ -383,7 +383,7 @@ layers = [
     ("Daten",         "OrbitDB", AMBER),
     ("Sync",          "libp2p", CYAN),
     ("Infrastruktur", "Relay Button / On-Demand", VIOLET),
-    ("Archiv",        "Storacha / Filecoin", CORAL),
+    ("Archiv",        "Filecoin / Aleph IPFS", CORAL),
 ]
 for name, tech, col in layers:
     panel(MARGIN, y-40, W-2*MARGIN, 40)
