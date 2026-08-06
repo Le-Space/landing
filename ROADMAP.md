@@ -117,9 +117,10 @@ PDF `tools/render-decks.mjs`. Details im README.
       des Krypto-Wegs (nicht-verwahrend bleiben), DSGVO-Zuschnitt der
       Buchungs-DBs — alles vor dem ersten zahlenden Studio.
 - [ ] Offen bei B: DSGVO-Bewertung der Messdaten (Ortsgranularität + unverkettbarer
-      Ausweis an der Kasse), rechtliche Prüfung des Re-Verifizierungs-Modells
-      (Gebühr nur für die neue Messung), und der Startpool — ab wie vielen
-      unabhängigen Kreuzungspunkten wird ein Netz überhaupt bewertet?
+      Ausweis an der Kasse), der Startpool (ab wie vielen unabhängigen
+      Kreuzungspunkten wird bewertet?) und das Auftragsmodell — Daten sind frei,
+      bezahlt wird per Krypto-Budget eine beauftragte Messkampagne. Zu klären:
+      Verwahrung des Budgets (nicht-verwahrend halten!) und Auszahlungslogik.
 - [ ] Zu B gehört ein Entwurfsdokument im `libp2p-webrtc-qr`-Repo (analog zu
       Yoga Sucis PLAN.md/LIMITS.md): Zuweisung der Gegenstelle, Schwellwerte,
       Auszahlungsdeckel, Attributionslogik der Kreuztabelle. Das Deck trägt nur

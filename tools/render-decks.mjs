@@ -107,14 +107,19 @@ for (const id of ids) {
     // A slide taller than the page is silently cropped by the print stylesheet's
     // overflow:hidden — the PDF looks fine until someone notices the last bullet
     // is missing. Measure under print media and refuse to ship instead.
+    //
+    // The tolerance is for sub-pixel rounding, not for slack: element heights are
+    // fractional (19.05 + 36.30 + …) and scrollHeight rounds the sum up, so a
+    // slide that fits exactly can report 721. A genuinely cropped line costs
+    // ~23px at this font size, so 2px cannot hide one.
     await page.emulateMedia({ media: 'print' });
     const overflow = await page.evaluate(
-      (h) =>
+      ({ h, tolerance }) =>
         Array.from(document.querySelectorAll('.slide'))
           .filter((s) => s.offsetParent !== null)
           .map((s, i) => ({ slide: i + 1, over: s.scrollHeight - h }))
-          .filter((x) => x.over > 0),
-      720
+          .filter((x) => x.over > tolerance),
+      { h: 720, tolerance: 2 }
     );
     await page.emulateMedia({ media: 'screen' });
     if (overflow.length) {

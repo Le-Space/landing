@@ -451,10 +451,10 @@ export const decks = [
           {
             h: { de: '4 · Nutzen', en: '4 · Use' },
             items: [
-              { de: 'Karte öffentlich und kostenlos', en: 'Map public and free' },
+              { de: 'Karte und Rohdaten für alle kostenlos', en: 'Map and raw data free for everyone' },
               { de: 'Konkrete Empfehlung: hier reicht direkt, dort ein Relay', en: 'A concrete recommendation: direct is enough here, a relay there' },
-              { de: 'Rohdaten verschlüsselt beim Nutzer, Zugriff per widerrufbarer UCAN-Delegation', en: 'Raw data encrypted with the user, access via a revocable UCAN delegation' },
-              { de: 'Abrechnung und Erlösanteil über einen Smart Contract', en: 'Settlement and revenue share through a smart contract' }
+              { de: 'Jeder kann eine Nachmessung beauftragen und mit Budget hinterlegen', en: 'Anyone can commission a re-measurement and fund it with a budget' },
+              { de: 'Das Budget geht an die messenden Geräte, ein Anteil an uns', en: 'The budget goes to the devices that measure, a share to us' }
             ]
           }
         ],
@@ -507,26 +507,25 @@ export const decks = [
       },
       {
         kind: 'columns',
-        title: { de: 'Wer dafür zahlt', en: 'Who pays for it' },
+        title: { de: 'Wer die Messungen bezahlt', en: 'Who pays for the measurements' },
         lead: {
-          de: 'Die Karte ist kostenlos und das Schaufenster. Verkauft werden die Antworten, die daraus folgen — und die Infrastruktur, die sie empfiehlt.',
-          en: 'The map is free, and it is the shop window. What sells are the answers that follow from it — and the infrastructure it recommends.'
+          de: 'Die Daten sind für alle kostenlos. Bezahlt wird nicht der Zugriff, sondern der Auftrag: wer eine Antwort für ein bestimmtes Netz braucht, hinterlegt ein Budget.',
+          en: 'The data is free for everyone. What is paid for is not access but the commission: whoever needs an answer for a particular network puts up a budget.'
         },
         columns: [
           {
-            h: { de: 'Entwickler & Plattformen', en: 'Developers & platforms' },
+            h: { de: 'Plattformen & Apps', en: 'Platforms & apps' },
             items: [
-              { de: 'Video-, Gaming- und P2P-Anbieter', en: 'Video, gaming and P2P providers' },
-              { de: 'Wollen wissen, wo direkt reicht — und wo Relay-Kapazität eingeplant werden muss', en: 'Want to know where direct is enough — and where relay capacity has to be budgeted' },
-              { de: 'API/SDK-Abo, Abfrage nach Provider und Region', en: 'API/SDK subscription, queried by provider and region' },
-              { de: 'Zweiter Datensatz ohne Ortsbezug: WebRTC-Kompatibilität nach Browser und Version', en: 'A second dataset with no location in it: WebRTC compatibility by browser and version' }
+              { de: 'Spiele, Messenger, Video- und P2P-Anbieter', en: 'Games, messengers, video and P2P providers' },
+              { de: '„Warum hängen unsere Nutzer bei Provider X?“ — Kampagne für Netz, Region oder Browser', en: '“Why do our users stall at provider X?” — a campaign per network, region or browser' },
+              { de: 'Antwort: wo direkt reicht und wo Relay-Kapazität eingeplant werden muss', en: 'The answer: where direct is enough and where relay capacity must be budgeted' }
             ]
           },
           {
-            h: { de: 'Netzbetreiber', en: 'Network operators' },
+            h: { de: 'Netzbetreiber — vom Mobilfunk bis zum Café', en: 'Operators — from carriers to cafés' },
             items: [
-              { de: 'Hotels, Kommunen, Campus, Coworking, ISPs', en: 'Hotels, municipalities, campuses, coworking, ISPs' },
-              { de: 'Report über das eigene Netz: was hakt, und woran es liegt', en: 'A report on their own network: what struggles, and why' },
+              { de: 'Mobilfunk, ISPs, Hotels, Kommunen, Coworking, Cafés', en: 'Carriers, ISPs, hotels, municipalities, coworking, cafés' },
+              { de: 'Wollen wissen, ob das eigene Netz Direktverbindungen trägt', en: 'Want to know whether their own network carries direct connections' },
               { de: 'Nachmessung nach dem Fix, mit Beleg „hier trägt direkt"', en: 'A re-measurement after the fix, evidencing "direct works here"' }
             ]
           },
@@ -535,13 +534,13 @@ export const decks = [
             items: [
               { de: 'Netzneutralität ist ohne Messdaten nicht prüfbar', en: 'Net neutrality is unverifiable without measurements' },
               { de: 'Universitäten, NGOs, Aufsichtsbehörden', en: 'Universities, NGOs, regulators' },
-              { de: 'Datensatz-Lizenz, offene Auszüge für die Öffentlichkeit', en: 'Dataset licence, open extracts for the public' }
+              { de: 'Beauftragen gezielte Kampagnen — die Daten selbst sind ohnehin offen', en: 'Commission targeted campaigns — the data itself is open anyway' }
             ]
           }
         ],
         note: {
-          de: 'Der eigentliche Hebel steht in Spalte eins: Jeder rote Fleck auf der Karte ist eine begründete Empfehlung für einen Relay — und damit ein Verkauf für Spin-Off A. Die Karte misst den Bedarf, den unsere Infrastruktur deckt.',
-          en: 'The real lever is in the first column: every red patch on the map is an evidenced recommendation for a relay — and therefore a sale for spin-off A. The map measures the demand our infrastructure covers.'
+          de: 'Der Hebel bleibt derselbe: Wo die Karte „Relay nötig“ sagt, verkauft sich ein Relay aus Spin-Off A. Am Auftrag verdienen wir einmal, am Relay dauerhaft.',
+          en: 'The lever is unchanged: where the map says “relay needed”, a relay from spin-off A sells itself. The commission earns once, the relay keeps earning.'
         }
       },
       {
@@ -567,10 +566,10 @@ export const decks = [
             }
           },
           {
-            t: { de: 'Glaubwürdigkeit beim Datenschutz', en: 'Credibility on privacy' },
+            t: { de: 'Kein Datenhandel, kein Interessenkonflikt', en: 'No data trade, no conflict of interest' },
             s: {
-              de: 'Ein Datenmarkt funktioniert nur, wenn die Nutzer der Sammelstelle trauen. Wir bauen seit Jahren Systeme, die absichtlich wenig wissen.',
-              en: 'A data market only works if users trust the collector. We have spent years building systems that deliberately know little.'
+              de: 'Wir verkaufen die Daten nicht — sie sind offen. Damit gibt es keinen Anreiz, Messungen zu schönen, und keinen Grund, mehr zu sammeln als nötig.',
+              en: 'We do not sell the data — it is open. So there is no incentive to flatter a measurement, and no reason to collect more than necessary.'
             }
           }
         ]
@@ -609,10 +608,10 @@ export const decks = [
           },
           {
             tag: 'planned',
-            t: { de: 'Marktplatz-Pilot', en: 'Marketplace pilot' },
+            t: { de: 'Erster bezahlter Auftrag', en: 'First paid commission' },
             s: {
-              de: 'Ein zahlender Erstkunde, Erlösbeteiligung der Nutzer, Anti-Manipulation gegen gefälschte Messungen.',
-              en: 'One paying first customer, revenue share for users, anti-manipulation against forged measurements.'
+              de: 'Ein hinterlegtes Budget, eine ausgeführte Kampagne, Auszahlung an die messenden Geräte — der ganze Kreislauf einmal komplett.',
+              en: 'One funded budget, one executed campaign, payout to the measuring devices — the whole loop once, end to end.'
             }
           }
         ]
@@ -647,10 +646,10 @@ export const decks = [
             }
           },
           {
-            t: { de: 'Kritische Masse', en: 'Critical mass' },
+            t: { de: 'Henne und Ei', en: 'Chicken and egg' },
             s: {
-              de: 'Der Datensatz ist erst ab einer gewissen Dichte verkäuflich. Wie kommen die ersten hunderttausend Messungen zustande?',
-              en: 'The dataset only sells above a certain density. Where do the first hundred thousand measurements come from?'
+              de: 'Aufträge kommen erst, wenn die Karte für den eigenen Fall etwas hergibt — und die Karte wächst erst durch Messungen. Wie kommen die ersten hunderttausend zustande?',
+              en: 'Commissions only come once the map says something about your own case — and the map only grows through measurements. Where do the first hundred thousand come from?'
             }
           }
         ]
