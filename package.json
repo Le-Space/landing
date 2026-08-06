@@ -6,7 +6,9 @@
   "scripts": {
     "dev:local-first": "pnpm --filter @le-space/site-local-first dev",
     "dev:le-space": "pnpm --filter @le-space/site-le-space dev",
-    "build": "pnpm -r build",
+    "build": "pnpm decks && pnpm -r build",
+    "decks": "node tools/build-decks.mjs",
+    "decks:pdf": "node tools/build-decks.mjs && node tools/render-decks.mjs",
     "build:local-first": "pnpm --filter @le-space/site-local-first build",
     "build:le-space": "pnpm --filter @le-space/site-le-space build",
     "preview:local-first": "pnpm --filter @le-space/site-local-first preview",

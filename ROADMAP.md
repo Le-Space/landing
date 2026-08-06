@@ -92,6 +92,22 @@ Lebendes Dokument. Status + offene Punkte. Details zur Gesamtstrategie in `STRAT
   Live-Widget, Multi-Device-Recovery). Datengetrieben wie `projects.js`
   (z. B. `packages/shared/src/data/roadmap.js`), damit Proposals und Website synchron bleiben.
 
+## Use-Cases / Spin-Off-Pitch-Decks
+
+Sechs identifizierte Spin-Off-Projekte bekommen je ein Pitch-Deck (HTML + PDF),
+verlinkt über den „Use-Cases"-Button auf local-first.le-space.de. Quelle:
+`packages/shared/src/data/use-cases.js`, Generator `tools/build-decks.mjs`,
+PDF `tools/render-decks.mjs`. Details im README.
+
+- [x] Gerüst: Generator, PDF-Rendering, Use-Cases-Sektion, Übersichtsseite
+- [x] **A · OrbitDB Relay** — Storage/Backup/Pinning + Hydration/Dehydration (8 Folien)
+- [x] **B · WebRTC Public Data Map** — Konnektivitätskarte aus QR-Verbindungen (9 Folien)
+- [ ] **C · D · E · F** — Platzhalter-Decks stehen (`draft: true`), Inhalte fehlen noch
+- [ ] Decks vertiefen: Zahlen (Marktgröße, Preise), Wettbewerb, Team, Finanzbedarf
+- [ ] Offen bei B: DSGVO-Bewertung der Messdaten und die rechtliche Prüfung des
+      Re-Verifizierungs-Modells (Gebühr nur für die neue Messung, nie für das
+      Entfernen eines Eintrags — so im Deck formuliert).
+
 ## M3 — Launch-Politur
 
 - [ ] Lighthouse-Check (Performance/A11y/SEO).

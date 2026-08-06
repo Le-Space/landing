@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le-Space — Use-Cases</title>
+<meta name="description" content="Pitch-Decks zu den Spin-Off-Projekten aus dem Local-First-Stack. Jedes Deck gibt es als Seite und als PDF.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<style>
+:root {
+  --ls-red: #ff6b5b;
+  --ls-red-bright: #ff8577;
+  --ls-accent: #58c7f3;
+  --ls-accent-2: #a78bfa;
+  --ls-green: #3edc97;
+  --ls-amber: #ffc24b;
+  --ls-bg-0: #0b0e15;
+  --ls-bg-1: #10141f;
+  --ls-bg-2: #141926;
+  --ls-bg-3: #232b3d;
+  --ls-text: #edf1f8;
+  --ls-text-dim: #a8b3c7;
+  --ls-text-faint: #5c677a;
+  --ls-card: rgba(255,255,255,0.04);
+  --ls-card-border: rgba(255,255,255,0.09);
+  --ls-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ls-font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  --accent: var(--ls-accent);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--ls-bg-0);
+  color: var(--ls-text);
+  font-family: var(--ls-font);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--ls-accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code {
+  font-family: var(--ls-font-mono);
+  font-size: 0.88em;
+  background: var(--ls-card);
+  border: 1px solid var(--ls-card-border);
+  border-radius: 4px;
+  padding: 0.05em 0.35em;
+}
+strong { color: var(--ls-text); font-weight: 650; }
+
+html[lang='de'] .lang-en, html[lang='en'] .lang-de { display: none; }
+
+.deck { scroll-snap-type: y mandatory; }
+.slide {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 7vh 6vw 9vh;
+  font-size: clamp(14px, 1.15vw, 19px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  overflow: hidden;
+}
+.slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 80% at 78% 8%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 60%);
+  pointer-events: none;
+}
+.slide > * { position: relative; }
+
+.kicker {
+  font-family: var(--ls-font-mono);
+  font-size: 0.82em;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 1.1em;
+}
+h1 {
+  font-size: 3.4em;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.25em;
+  background: linear-gradient(115deg, var(--ls-text) 30%, var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+h2 {
+  font-size: 2.2em;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.4em;
+}
+.subtitle { font-size: 1.35em; color: var(--ls-text-dim); margin: 0 0 1.4em; max-width: 24em; }
+.claim {
+  font-size: 1.15em;
+  color: var(--ls-text);
+  border-left: 3px solid var(--accent);
+  padding-left: 0.9em;
+  margin: 0 0 1.8em;
+  max-width: 30em;
+}
+.lead { font-size: 1.12em; color: var(--ls-text-dim); margin: 0 0 1.8em; max-width: 42em; }
+
+.cover-top { display: flex; align-items: center; gap: 0.8em; margin-bottom: 2.4em; }
+.mark { width: 3.4em; height: 3.4em; filter: drop-shadow(0 0 1em rgba(255,107,91,0.45)); }
+.brand { font-size: 1.1em; font-weight: 700; letter-spacing: 0.07em; }
+
+.bullets { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.05em; max-width: 46em; }
+.bullets li { padding-left: 1.15em; position: relative; }
+.bullets li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 0.42em;
+  height: 0.42em;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.bullets b { display: inline; font-size: 1.06em; font-weight: 650; }
+.bullets p { margin: 0.2em 0 0; color: var(--ls-text-dim); max-width: 40em; }
+
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(13em, 1fr)); gap: 1.1em; }
+.col {
+  background: var(--ls-card);
+  border: 1px solid var(--ls-card-border);
+  border-radius: 14px;
+  padding: 1.2em 1.3em;
+}
+.col h3 {
+  font-size: 1.02em;
+  margin: 0 0 0.7em;
+  color: var(--accent);
+  letter-spacing: 0.01em;
+}
+.col ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.55em; }
+.col li { color: var(--ls-text-dim); font-size: 0.97em; padding-left: 0.9em; position: relative; }
+.col li::before { content: '–'; position: absolute; left: 0; color: var(--ls-text-faint); }
+
+.note {
+  margin: 1.6em 0 0;
+  padding: 0.9em 1.1em;
+  border: 1px solid var(--ls-card-border);
+  border-left: 3px solid var(--ls-amber);
+  border-radius: 10px;
+  background: rgba(255,194,75,0.06);
+  color: var(--ls-text-dim);
+  font-size: 0.97em;
+  max-width: 46em;
+}
+
+.badge {
+  display: inline-block;
+  font-family: var(--ls-font-mono);
+  font-size: 0.68em;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 0.15em 0.6em;
+  border-radius: 999px;
+  border: 1px solid var(--ls-card-border);
+  color: var(--ls-text-dim);
+  vertical-align: 0.18em;
+  margin-left: 0.55em;
+  white-space: nowrap;
+}
+.badge.now { color: var(--ls-green); border-color: color-mix(in srgb, var(--ls-green) 45%, transparent); }
+.badge.next { color: var(--ls-amber); border-color: color-mix(in srgb, var(--ls-amber) 45%, transparent); }
+.badge.planned { color: var(--ls-text-faint); }
+
+.links { display: flex; flex-wrap: wrap; gap: 0.7em; margin-top: 1.6em; }
+.links a {
+  padding: 0.5em 1.1em;
+  border-radius: 8px;
+  border: 1px solid var(--ls-card-border);
+  color: var(--ls-text);
+  font-weight: 600;
+  font-size: 0.95em;
+}
+.links a:hover { text-decoration: none; background: rgba(255,255,255,0.07); }
+.links a.primary { background: var(--ls-red); border-color: var(--ls-red); color: #fff; }
+
+.contact { margin-top: 1.8em; font-size: 1.02em; color: var(--ls-text-dim); }
+.contact div { margin-bottom: 0.2em; }
+
+.foot {
+  position: absolute;
+  left: 6vw;
+  right: 6vw;
+  bottom: 3vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--ls-font-mono);
+  font-size: 0.72em;
+  color: var(--ls-text-faint);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 0.7em;
+}
+
+.chrome {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  display: flex;
+  gap: 6px;
+  font-family: var(--ls-font-mono);
+  font-size: 12px;
+}
+.chrome button, .chrome a {
+  background: rgba(20,25,38,0.85);
+  border: 1px solid var(--ls-card-border);
+  color: var(--ls-text-dim);
+  border-radius: 7px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font: inherit;
+  backdrop-filter: blur(6px);
+}
+.chrome button:hover, .chrome a:hover { color: var(--ls-text); text-decoration: none; }
+.chrome button[aria-pressed='true'] { color: var(--ls-text); border-color: var(--accent); }
+.hint {
+  position: fixed;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  font-family: var(--ls-font-mono);
+  font-size: 11px;
+  color: var(--ls-text-faint);
+  z-index: 10;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+
+.draft-banner {
+  background: rgba(255,194,75,0.12);
+  border-bottom: 1px solid rgba(255,194,75,0.3);
+  color: var(--ls-amber);
+  font-family: var(--ls-font-mono);
+  font-size: 12px;
+  text-align: center;
+  padding: 7px;
+}
+
+/* Overview page */
+.page { max-width: 1120px; margin: 0 auto; padding: 8vh 24px 12vh; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 2.5rem; }
+.card {
+  background: var(--ls-card);
+  border: 1px solid var(--ls-card-border);
+  border-radius: 14px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+}
+.card h3 { margin: 0.5rem 0 0.3rem; font-size: 1.25rem; }
+.card p { color: var(--ls-text-dim); margin: 0 0 1.2rem; flex: 1; }
+.card .links { margin-top: auto; }
+
+@media (max-width: 640px) {
+  .slide { padding: 6vh 7vw 11vh; font-size: 15px; }
+  h1 { font-size: 2.5em; }
+  .foot { left: 7vw; right: 7vw; }
+}
+
+@media print {
+  @page { size: 1280px 720px; margin: 0; }
+  html, body { background: var(--ls-bg-0); }
+  .chrome, .hint, .draft-banner { display: none !important; }
+  .deck { scroll-snap-type: none; }
+  .slide {
+    width: 1280px;
+    height: 720px;
+    min-height: 0;
+    padding: 58px 76px 80px;
+    /* A touch smaller than the 17px a 1280px-wide screen would pick: the
+       densest slide overflowed the fixed page height by a few pixels. */
+    font-size: 16px;
+    border-bottom: none;
+    break-after: page;
+    page-break-after: always;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  /* Without this the last slide emits a trailing blank page. */
+  .slide:last-child { break-after: auto; page-break-after: auto; }
+  .foot { left: 76px; right: 76px; bottom: 34px; }
+}
+</style>
+</head>
+<body>
+<div class="chrome">
+  <button type="button" data-lang="de">DE</button>
+  <button type="button" data-lang="en">EN</button>
+</div>
+<div class="lang-de"><div class="page">
+    <div class="cover-top"><svg class="mark" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Le-Space">
+<line x1="42.7" y1="49.96" x2="58.56" y2="34.94" stroke="#58C7F3" stroke-width="4" stroke-linecap="round"/>
+<line x1="47.43" y1="63.58" x2="62.8" y2="64.98" stroke="#58C7F3" stroke-width="4" stroke-linecap="round" stroke-dasharray="0.1 8"/>
+<line x1="69.85" y1="38.36" x2="72.41" y2="55.37" stroke="#58C7F3" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="0.1 6" opacity="0.65"/>
+<circle cx="30" cy="62" r="15" fill="#FF6B5B"/>
+<circle cx="68" cy="26" r="8" fill="none" stroke="#58C7F3" stroke-width="5"/>
+<circle cx="74" cy="66" r="6.5" fill="none" stroke="#58C7F3" stroke-width="4.5"/>
+<circle cx="17" cy="21" r="2.6" fill="#58C7F3" opacity="0.55"/>
+</svg><span class="brand">Le-Space</span></div>
+    <h2>Use-Cases</h2>
+    <p class="lead">Pitch-Decks zu den Spin-Off-Projekten aus dem Local-First-Stack. Jedes Deck gibt es als Seite und als PDF.</p>
+    <div class="cards">
+    <article class="card" style="--accent:var(--ls-accent-2)">
+      <p class="kicker">Spin-Off A</p>
+      <h3>OrbitDB Relay</h3>
+      <p>Der Knoten, der OrbitDB-Datenbanken erreichbar hält, sie auf dezentralem Speicher archiviert und eine komplette Kollaborationsumgebung — Daten, Identitäten, Berechtigungen — wiederherstellen kann.</p>
+      <div class="links">
+        <a class="primary" href="./orbitdb-relay/">Deck öffnen</a>
+        <a href="./orbitdb-relay/orbitdb-relay-pitch-de.pdf">PDF</a>
+      </div>
+    </article>
+    <article class="card" style="--accent:var(--ls-accent)">
+      <p class="kicker">Spin-Off B</p>
+      <h3>WebRTC Public Data Map</h3>
+      <p>Nutzer verbinden Geräte per QR-Code direkt miteinander — und erzeugen dabei nebenbei den Datensatz, der zeigt, welches WLAN, welcher Mobilfunkanbieter und welcher Browser Peer-to-Peer erlaubt. Rot, orange, grün, weltweit.</p>
+      <div class="links">
+        <a class="primary" href="./webrtc-qr-map/">Deck öffnen</a>
+        <a href="./webrtc-qr-map/webrtc-qr-map-pitch-de.pdf">PDF</a>
+      </div>
+    </article>
+    </div>
+    <p style="margin-top:3rem"><a href="https://local-first.le-space.de">← Zurück zu local-first.le-space.de</a></p>
+  </div></div>
+<div class="lang-en"><div class="page">
+    <div class="cover-top"><svg class="mark" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Le-Space">
+<line x1="42.7" y1="49.96" x2="58.56" y2="34.94" stroke="#58C7F3" stroke-width="4" stroke-linecap="round"/>
+<line x1="47.43" y1="63.58" x2="62.8" y2="64.98" stroke="#58C7F3" stroke-width="4" stroke-linecap="round" stroke-dasharray="0.1 8"/>
+<line x1="69.85" y1="38.36" x2="72.41" y2="55.37" stroke="#58C7F3" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="0.1 6" opacity="0.65"/>
+<circle cx="30" cy="62" r="15" fill="#FF6B5B"/>
+<circle cx="68" cy="26" r="8" fill="none" stroke="#58C7F3" stroke-width="5"/>
+<circle cx="74" cy="66" r="6.5" fill="none" stroke="#58C7F3" stroke-width="4.5"/>
+<circle cx="17" cy="21" r="2.6" fill="#58C7F3" opacity="0.55"/>
+</svg><span class="brand">Le-Space</span></div>
+    <h2>Use cases</h2>
+    <p class="lead">Pitch decks for the spin-off projects growing out of the local-first stack. Every deck comes as a page and as a PDF.</p>
+    <div class="cards">
+    <article class="card" style="--accent:var(--ls-accent-2)">
+      <p class="kicker">Spin-Off A</p>
+      <h3>OrbitDB Relay</h3>
+      <p>The node that keeps OrbitDB databases reachable, archives them on decentralized storage and can restore an entire collaboration environment — data, identities, permissions.</p>
+      <div class="links">
+        <a class="primary" href="./orbitdb-relay/">Open deck</a>
+        <a href="./orbitdb-relay/orbitdb-relay-pitch-en.pdf">PDF</a>
+      </div>
+    </article>
+    <article class="card" style="--accent:var(--ls-accent)">
+      <p class="kicker">Spin-Off B</p>
+      <h3>WebRTC Public Data Map</h3>
+      <p>Users connect devices directly via QR code — and in passing produce the dataset showing which Wi-Fi, which carrier and which browser allows peer-to-peer. Red, amber, green, worldwide.</p>
+      <div class="links">
+        <a class="primary" href="./webrtc-qr-map/">Open deck</a>
+        <a href="./webrtc-qr-map/webrtc-qr-map-pitch-en.pdf">PDF</a>
+      </div>
+    </article>
+    </div>
+    <p style="margin-top:3rem"><a href="https://local-first.le-space.de">← Back to local-first.le-space.de</a></p>
+  </div></div>
+<script>
+(function () {
+  var root = document.documentElement;
+  var q = new URLSearchParams(location.search);
+  var saved = null;
+  try { saved = localStorage.getItem('ls-locale'); } catch (e) {}
+  var nav = (navigator.language || 'de').toLowerCase().slice(0, 2);
+  var lang = q.get('lang') || saved || (nav === 'en' ? 'en' : 'de');
+  setLang(lang === 'en' ? 'en' : 'de');
+
+  function setLang(l) {
+    root.lang = l;
+    document.querySelectorAll('[data-lang]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.lang === l));
+    });
+    try { localStorage.setItem('ls-locale', l); } catch (e) {}
+    count();
+  }
+
+  document.querySelectorAll('[data-lang]').forEach(function (b) {
+    b.addEventListener('click', function () { setLang(b.dataset.lang); });
+  });
+  var printBtn = document.querySelector('[data-print]');
+  if (printBtn) printBtn.addEventListener('click', function () { window.print(); });
+
+  function slides() {
+    return Array.prototype.filter.call(document.querySelectorAll('.slide'), function (s) {
+      return s.offsetParent !== null;
+    });
+  }
+  function current() {
+    var list = slides();
+    var mid = window.scrollY + window.innerHeight / 2;
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].offsetTop <= mid && list[i].offsetTop + list[i].offsetHeight > mid) return i;
+    }
+    return 0;
+  }
+  function go(i) {
+    var list = slides();
+    var t = Math.max(0, Math.min(list.length - 1, i));
+    window.scrollTo({ top: list[t].offsetTop, behavior: 'smooth' });
+  }
+  function count() {
+    var list = slides();
+    list.forEach(function (s, i) {
+      var el = s.querySelector('[data-n]');
+      if (el) el.textContent = (i + 1) + ' / ' + list.length;
+    });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    var k = e.key;
+    if (k === 'ArrowRight' || k === 'ArrowDown' || k === 'PageDown' || k === ' ') { e.preventDefault(); go(current() + 1); }
+    else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp') { e.preventDefault(); go(current() - 1); }
+    else if (k === 'Home') { e.preventDefault(); go(0); }
+    else if (k === 'End') { e.preventDefault(); go(slides().length - 1); }
+    else if (k === 'p' || k === 'P') { e.preventDefault(); window.print(); }
+  });
+
+  var hint = document.querySelector('.hint');
+  if (hint) setTimeout(function () { hint.style.opacity = '0'; }, 6000);
+})();
+</script>
+</body>
+</html>

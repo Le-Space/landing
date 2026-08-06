@@ -28,6 +28,44 @@ pnpm dev:le-space
 pnpm build             # builds both sites to sites/*/dist
 ```
 
+## Pitch decks (Use-Cases)
+
+One deck per spin-off project, generated from
+`packages/shared/src/data/use-cases.js` — the same file the "Use-Cases" section
+of the portfolio page renders from, so page and deck cannot drift apart.
+
+```bash
+pnpm decks       # data → sites/local-first/public/use-cases/<id>/index.html
+pnpm decks:pdf   # the same, plus <id>-pitch-de.pdf / -en.pdf (needs playwright)
+```
+
+`pnpm build` runs `pnpm decks` first, so a deck is never built from stale data.
+The generated HTML and the PDFs are committed: the deck is the deliverable and
+gets mailed around, and CI has no playwright step.
+
+| | |
+|---|---|
+| Deck page | `https://local-first.le-space.de/use-cases/<id>/` |
+| Overview | `https://local-first.le-space.de/use-cases/` |
+| PDF | `…/use-cases/<id>/<id>-pitch-de.pdf` (and `-en.pdf`) |
+
+Each deck is one self-contained file: inlined CSS, both languages embedded
+(`?lang=de` / `?lang=en`, DE/EN buttons top right), arrow-key navigation, and a
+print stylesheet that puts one slide on one 1280×720 page. It works from a USB
+stick and over IPFS alike.
+
+Adding a spin-off means adding an entry to `use-cases.js` — slide kinds are
+`title`, `bullets`, `columns`, `closing`; bullets may carry a `now` / `next` /
+`planned` badge so a roadmap does not read as a shipped feature. Entries marked
+`draft: true` still generate a deck (folder, URL, PDF) but stay off the landing
+page and out of the sitemap. Slots C–F are reserved that way.
+
+If a slide overflows its page, the print check is:
+
+```bash
+node tools/render-decks.mjs <id>   # then look at the PDF
+```
+
 ## Deployment
 
 `.github/workflows/deploy.yml` — matrix over both sites:
