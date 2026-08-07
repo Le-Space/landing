@@ -172,7 +172,8 @@ export const projects = [
       }
     ],
     npm: null,
-    screenshot: '/media/simple-todo.png',
+    // The card renders demos[].shot; this pointed at a file that never existed.
+    screenshot: null,
     video: null,
     tagline: {
       en: 'Tutorial for local-first P2P PWAs: WebAuthn/Passkey identity, OrbitDB data, browser-to-browser sync. No server, no accounts, no passwords.',
@@ -224,7 +225,7 @@ export const projects = [
     demo: null,
     docs: 'https://nikrause.github.io/orbitdb-relay/',
     npm: 'orbitdb-relay',
-    screenshot: null,
+    screenshot: '/media/orbitdb-relay.webp',
     video: null,
     tagline: {
       en: 'Relay and pinning service keeping OrbitDB databases available while peers are offline.',

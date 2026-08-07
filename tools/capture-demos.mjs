@@ -74,7 +74,18 @@ const CHAPTERS = [
   // cross-language chat. `minPeers` makes the script wait for it rather than
   // trust a fixed timeout.
   { id: 'uc-chat', out: 'uc-chat-peers', url: 'https://connect.nicokrause.com', plain: true, minPeers: 2, clip: 'full', y: 0 },
-  { id: 'uc-relay', out: 'uc-chat-relay', url: 'https://connect.nicokrause.com', plain: true, minPeers: 2, openRelay: true, clip: 'full', y: 0 }
+  { id: 'uc-relay', out: 'uc-chat-relay', url: 'https://connect.nicokrause.com', plain: true, minPeers: 2, openRelay: true, clip: 'full', y: 0 },
+
+  // --- plain pages, nothing to wait for -------------------------------------
+  // These two cards showed the placeholder because no file ever existed for
+  // them; both have a reachable page, so there is nothing to invent.
+  // The blog boots a libp2p node behind a "Loading…" overlay; a fixed wait
+  // caught it mid-initialisation, so wait for the overlay to actually go.
+  // BLOCKED: blog.le-space.de currently hangs on its loading overlay because the
+  // default blog address is wrong, so any shot taken here would advertise a
+  // broken app. Re-enable once that is fixed — the target is otherwise ready.
+  // { id: 'orbit-blog', out: 'orbit-blog', url: 'https://blog.le-space.de', plain: true, readyWhenGone: /Loading Peer-to-Peer/i, readyTimeout: 150_000, clip: 'full', y: 0 },
+  { id: 'orbitdb-relay', out: 'orbitdb-relay', url: 'https://nikrause.github.io/orbitdb-relay/', plain: true, clip: 'full', y: 0 }
 ];
 
 /**
@@ -140,6 +151,25 @@ async function waitForPeers(page, min, timeoutMs = 90_000) {
   }
   console.log(`   warning: only saw fewer than ${min} peers before the timeout`);
   return 0;
+}
+
+/**
+ * Poll until a loading marker is gone. Currently unused — the one target that
+ * needed it (orbit-blog) is disabled above. Better than a longer fixed wait: it
+ * neither cuts the shot short nor pads every run with dead time.
+ */
+async function waitUntilGone(page, pattern, timeoutMs = 60_000) {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    const present = await page.evaluate(
+      (src) => new RegExp(src, 'i').test(document.body.innerText),
+      pattern.source
+    );
+    if (!present) return true;
+    await page.waitForTimeout(2000);
+  }
+  console.log('   warning: loading marker never disappeared; shooting anyway');
+  return false;
 }
 
 async function addTodos(page, todos) {
