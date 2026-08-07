@@ -45,7 +45,8 @@
   },
   "footer": {
     "imprint": "Impressum",
-    "privacy": "Datenschutz"
+    "privacy": "Datenschutz",
+    "talks": "Konferenzen & Vorträge"
   },
   "theme": {
     "toLight": "Zum hellen Modus wechseln",

@@ -45,7 +45,8 @@
   },
   "footer": {
     "imprint": "Imprint",
-    "privacy": "Privacy"
+    "privacy": "Privacy",
+    "talks": "Conferences & talks"
   },
   "theme": {
     "toLight": "Switch to light mode",
