@@ -139,6 +139,30 @@ Generator `tools/build-decks.mjs`, PDF `tools/render-decks.mjs`. Details im READ
       Auszahlungsdeckel, Attributionslogik der Kreuztabelle. Das Deck trägt nur
       das Prinzip, nicht das Verfahren.
 
+## News, Social & Konferenzen
+
+- [ ] **News-/Signale-Bereich.** Die Seite zeigt heute nur Dauerhaftes (Bausteine, Use-Cases,
+  FAQ) — nichts, woran man sieht, dass hier gerade gearbeitet wird. Idee: X-Posts als Ticker
+  von rechts nach links durchlaufen lassen und von dort auf die Medium-Artikel verweisen.
+  - Offen zu klären, bevor gebaut wird:
+    - **X-Einbindung.** Kein offizielles kostenloses Widget mehr; die API kostet. Entweder
+      Posts von Hand in eine Datei pflegen (wie `projects.js`) oder ein Drittanbieter-Embed —
+      Letzteres wäre ein Tracker auf einer Seite, die mit „keine Tracking-Cookies" wirbt.
+      Diesen Widerspruch vorher entscheiden, nicht nachträglich.
+    - **Laufband ja/nein.** Bewegte Marquees sind schlecht lesbar und ein
+      Barrierefreiheits-Problem; wenn, dann pausierbar und mit `prefers-reduced-motion` aus.
+    - Medium hat einen RSS-Feed — der ist die verlässlichere Quelle als X.
+
+- [ ] **Conferences & Talks.** Bisher nur im Lebenslauf, nicht auf der Seite. Bestand:
+  FOSDEM 2026 (Vortrag), Blockchain Life 2025, TUM Blockchain Conference 2025, LabWeek 2025,
+  Devcon 7 & LabWeek 2024, Devconnect & LabWeek 2023.
+  - **Der FOSDEM-Vortrag ist aufgezeichnet und öffentlich** —
+    „Local-First Peer-to-Peer apps with js-libp2p, IPFS and OrbitDB", 01.02.2026, K.3.201:
+    <https://video.fosdem.org/2026/k3201/8PD9LQ-local-first-peer-to-peer-with-orbit-db.mp4>
+    (Seite: <https://fosdem.org/2026/schedule/event/8PD9LQ-local-first-peer-to-peer-with-orbit-db/>).
+    Das Video ist der eigentliche Wert; eine reine Namensliste besuchter Konferenzen ist schwach.
+  - Vorschläge zur Umsetzung siehe Chat-Protokoll (Weltkarte, Kartenraster, Zeitleiste).
+
 ## M3 — Launch-Politur
 
 - [ ] Lighthouse-Check (Performance/A11y/SEO).
