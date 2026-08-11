@@ -414,6 +414,7 @@
   .status-stable { color: var(--ls-green); border-color: var(--ls-green); }
   .status-beta { color: var(--ls-amber); border-color: var(--ls-amber); }
   .status-in-development { color: var(--ls-accent); border-color: var(--ls-accent); }
+  .status-showcase { color: var(--ls-red-bright); border-color: var(--ls-red-bright); }
   .status-prototype { color: var(--ls-text-dim); }
   .status-tutorial { color: var(--ls-accent-2); border-color: var(--ls-accent-2); }
 

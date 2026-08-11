@@ -7,11 +7,31 @@
  */
 
 export const LAYERS = {
-  identity: { id: 'identity', color: 'var(--ls-green)', label: { en: 'Identity', de: 'Identität' } },
-  data: { id: 'data', color: 'var(--ls-amber)', label: { en: 'Data', de: 'Daten' } },
-  sync: { id: 'sync', color: 'var(--ls-accent)', label: { en: 'Sync', de: 'Sync' } },
-  infra: { id: 'infra', color: 'var(--ls-accent-2)', label: { en: 'Infrastructure', de: 'Infrastruktur' } },
-  archive: { id: 'archive', color: 'var(--ls-red-bright)', label: { en: 'Archive', de: 'Archiv' } }
+  identity: {
+    id: "identity",
+    color: "var(--ls-green)",
+    label: { en: "Identity", de: "Identität" },
+  },
+  data: {
+    id: "data",
+    color: "var(--ls-amber)",
+    label: { en: "Data", de: "Daten" },
+  },
+  sync: {
+    id: "sync",
+    color: "var(--ls-accent)",
+    label: { en: "Sync", de: "Sync" },
+  },
+  infra: {
+    id: "infra",
+    color: "var(--ls-accent-2)",
+    label: { en: "Infrastructure", de: "Infrastruktur" },
+  },
+  archive: {
+    id: "archive",
+    color: "var(--ls-red-bright)",
+    label: { en: "Archive", de: "Archiv" },
+  },
 };
 
 /**
@@ -19,28 +39,31 @@ export const LAYERS = {
  * German page said "beta" and "prototype" too.
  */
 export const STATUS = {
-  stable: { en: 'stable', de: 'stabil' },
-  beta: { en: 'beta', de: 'beta' },
-  'in-development': { en: 'in development', de: 'in Entwicklung' },
-  prototype: { en: 'prototype', de: 'Prototyp' },
-  tutorial: { en: 'tutorial', de: 'Tutorial' }
+  stable: { en: "stable", de: "stabil" },
+  beta: { en: "beta", de: "beta" },
+  "in-development": { en: "in development", de: "in Entwicklung" },
+  // A finished application built on the stack, shown as proof rather than as a
+  // toy — distinct from a demo, and not a maturity level.
+  showcase: { en: "showcase", de: "Showcase" },
+  prototype: { en: "prototype", de: "Prototyp" },
+  tutorial: { en: "tutorial", de: "Tutorial" },
 };
 
 export const projects = [
   {
-    id: 'yogasuci',
-    name: 'Yogasūcī (योगसूची)',
-    layers: ['identity', 'data', 'sync'],
-    status: 'in-development',
+    id: "yogasuci",
+    name: "Yogasūcī (योगसूची)",
+    layers: ["identity", "data", "sync"],
+    status: "showcase",
     featured: true,
-    github: 'https://github.com/Le-Space/yogasuci',
-    demo: 'https://yogasuci.le-space.de',
+    github: "https://github.com/Le-Space/yogasuci",
+    demo: "https://yogasuci.le-space.de",
     npm: null,
-    screenshot: '/media/yogasuci.png',
+    screenshot: "/media/yogasuci.png",
     video: null,
     note: {
-      en: 'Showcase for OrbitDB and WebRTC over QR — a real application, not a demo',
-      de: 'Showcase für OrbitDB und WebRTC über QR — eine echte Anwendung, keine Demo'
+      en: "Showcase for OrbitDB and WebRTC over QR — a real application, not a demo",
+      de: "Showcase für OrbitDB und WebRTC über QR — eine echte Anwendung, keine Demo",
     },
     tagline: {
       en: `Class booking for yoga studios with more than one location, built to show what the stack does when an application actually depends on it.
@@ -56,22 +79,22 @@ export const projects = [
 <li><strong>Kein Konto, kein Passwort:</strong> Ein Passkey ist die Identität, ein zweites Gerät wird vom ersten freigegeben.</li>
 <li><strong>Karten sind ein Append-only-Log:</strong> Das Guthaben wird aus den Ereignissen gefaltet und nie gespeichert — zwei Theken an verschiedenen Orten können verkaufen und entwerten, ohne jemanden um Erlaubnis zu fragen.</li>
 <li><strong>Wo es unbequem wird, steht geschrieben:</strong> Das Handbuch hat ein Kapitel darüber, was die App nicht kann, und das Repository dokumentiert die Grenzen, an die sie gestoßen ist, statt der Funktionen, die man sich erhofft hatte.</li>
-</ul>`
-    }
+</ul>`,
+    },
   },
   {
-    id: 'relay-button',
-    name: 'Relay Button',
-    layers: ['infra'],
-    status: 'beta',
+    id: "relay-button",
+    name: "Relay Button",
+    layers: ["infra"],
+    status: "beta",
     featured: true,
-    github: 'https://github.com/NiKrause/relay-button',
+    github: "https://github.com/NiKrause/relay-button",
     demo: null,
-    docs: 'https://nikrause.github.io/relay-button/',
-    npm: '@le-space/core',
-    screenshot: '/media/relay-button.webp',
+    docs: "https://nikrause.github.io/relay-button/",
+    npm: "@le-space/core",
+    screenshot: "/media/relay-button.webp",
     // The shot is the Relay Button panel embedded in Simple Todo, not the docs site.
-    shotHost: 'simple-todo.le-space.de',
+    shotHost: "simple-todo.le-space.de",
     video: null,
     tagline: {
       en: `Deploy libp2p relay nodes on demand — the toolchain at the core of the local-first stack.
@@ -91,23 +114,23 @@ export const projects = [
 <li><strong>Bootstrap-Discovery:</strong> Relays registrieren sich selbst; Apps finden sie automatisch.</li>
 <li><strong>Neu — Remote-Browser-Replication:</strong> Die CI startet einen echten Browser auf einer frischen VM in einem anderen Netz und verifiziert echte Cross-Network-P2P-Replikation Ende-zu-Ende — ersetzt Dienste wie testingbot.com für Local-First-P2P-Apps.</li>
 <li><strong>Läuft auf <a href="https://aleph.cloud" target="_blank" rel="noopener noreferrer">Aleph Cloud</a>:</strong> dezentrales Compute, VMs ohne Cloud-Account; weitere Anbieter — dezentrale wie zentrale — geplant.</li>
-</ul>`
-    }
+</ul>`,
+    },
   },
   {
-    id: 'libp2p-webrtc-qr',
-    name: 'libp2p WebRTC over QR',
-    layers: ['sync'],
-    status: 'beta',
+    id: "libp2p-webrtc-qr",
+    name: "libp2p WebRTC over QR",
+    layers: ["sync"],
+    status: "beta",
     featured: true,
-    github: 'https://github.com/NiKrause/libp2p-webrtc-qr',
-    demo: 'https://webrtc-qr.le-space.de',
-    npm: '@le-space/libp2p-webrtc-qr',
-    screenshot: '/media/libp2p-webrtc-qr.png',
+    github: "https://github.com/NiKrause/libp2p-webrtc-qr",
+    demo: "https://webrtc-qr.le-space.de",
+    npm: "@le-space/libp2p-webrtc-qr",
+    screenshot: "/media/libp2p-webrtc-qr.png",
     video: null,
     note: {
-      en: 'New — released on npm as @le-space/libp2p-webrtc-qr',
-      de: 'Neu — auf npm veröffentlicht als @le-space/libp2p-webrtc-qr'
+      en: "New — released on npm as @le-space/libp2p-webrtc-qr",
+      de: "Neu — auf npm veröffentlicht als @le-space/libp2p-webrtc-qr",
     },
     tagline: {
       en: `Two browsers connect directly as libp2p peers — no relay, no signaling server. One phone scans the WebRTC handshake off the other screen.
@@ -123,169 +146,173 @@ export const projects = [
 <li><strong>Signiert, nicht nur gescannt:</strong> das SDP enthält den DTLS-Fingerprint — wird es mit dem libp2p-Schlüssel signiert, ist die WebRTC-Session an die Peer-ID gebunden. Dasselbe Prinzip wie <code>certhash</code> bei WebRTC-Direct, und genau deshalb darf der übliche Verschlüsselungs-Handshake entfallen.</li>
 <li><strong>Manipulation scheitert sicher:</strong> eine veränderte Payload wird vor jedem Verbindungsversuch abgelehnt, und ein Browser verweigert sein eigenes Offer statt sich selbst zu dialen.</li>
 <li><strong>Funktioniert ohne Infrastruktur:</strong> nützlich, wo kein Relay erreichbar ist — derselbe Raum, dasselbe LAN, ein abgeschottetes Netz.</li>
-</ul>`
-    }
+</ul>`,
+    },
   },
   {
-    id: 'simple-todo',
-    name: 'Simple Todo',
-    layers: ['identity', 'data', 'sync'],
-    status: 'tutorial',
+    id: "simple-todo",
+    name: "Simple Todo",
+    layers: ["identity", "data", "sync"],
+    status: "tutorial",
     featured: true,
-    github: 'https://github.com/NiKrause/simple-todo',
+    github: "https://github.com/NiKrause/simple-todo",
     demos: [
       {
-        url: 'https://simple-todo.le-space.de',
-        label: 'simple-todo',
-        shot: '/media/simple-todo-main.webp',
+        url: "https://simple-todo.le-space.de",
+        label: "simple-todo",
+        shot: "/media/simple-todo-main.webp",
         desc: {
           en: 'chapter "main" — every visitor automatically joins the same shared todo list; just open the URL.',
-          de: 'Kapitel „main" — alle Besucher teilen automatisch dieselbe gemeinsame Todo-Liste; URL öffnen genügt.'
-        }
+          de: 'Kapitel „main" — alle Besucher teilen automatisch dieselbe gemeinsame Todo-Liste; URL öffnen genügt.',
+        },
       },
       {
-        url: 'https://collab01.le-space.de',
-        label: 'collab01',
-        shot: '/media/simple-todo-collab01.webp',
+        url: "https://collab01.le-space.de",
+        label: "collab01",
+        shot: "/media/simple-todo-collab01.webp",
         desc: {
           en: 'chapter "collab01" — create your own lists and share them with chosen peers via their OrbitDB address.',
-          de: 'Kapitel „collab01" — eigene Listen erstellen und gezielt per OrbitDB-Adresse mit anderen Peers teilen.'
-        }
+          de: 'Kapitel „collab01" — eigene Listen erstellen und gezielt per OrbitDB-Adresse mit anderen Peers teilen.',
+        },
       },
       {
-        url: 'https://passkey01.le-space.de',
-        label: 'passkey01',
-        shot: '/media/simple-todo-passkey01.webp',
+        url: "https://passkey01.le-space.de",
+        label: "passkey01",
+        shot: "/media/simple-todo-passkey01.webp",
         desc: {
           en: 'chapter "passkey01" — sign in with a passkey instead of a throwaway key. Your WebAuthn DID signs every entry and is shown as its author.',
-          de: 'Kapitel „passkey01" — Anmeldung per Passkey statt Wegwerf-Schlüssel. Die WebAuthn-DID signiert jeden Eintrag und wird als Autor angezeigt.'
-        }
+          de: 'Kapitel „passkey01" — Anmeldung per Passkey statt Wegwerf-Schlüssel. Die WebAuthn-DID signiert jeden Eintrag und wird als Autor angezeigt.',
+        },
       },
       {
-        url: 'https://acl01.le-space.de',
-        label: 'acl01',
-        shot: '/media/simple-todo-acl01.webp',
+        url: "https://acl01.le-space.de",
+        label: "acl01",
+        shot: "/media/simple-todo-acl01.webp",
         desc: {
           en: 'chapter "acl01" — private, owner-only lists with per-DID write permissions. Grant or revoke access at runtime, without the list address changing.',
-          de: 'Kapitel „acl01" — private Listen nur für den Owner, mit Schreibrechten pro DID. Rechte zur Laufzeit vergeben oder entziehen, ohne dass sich die Listen-Adresse ändert.'
-        }
-      }
+          de: 'Kapitel „acl01" — private Listen nur für den Owner, mit Schreibrechten pro DID. Rechte zur Laufzeit vergeben oder entziehen, ohne dass sich die Listen-Adresse ändert.',
+        },
+      },
     ],
     npm: null,
     // The card renders demos[].shot; this pointed at a file that never existed.
     screenshot: null,
     video: null,
     tagline: {
-      en: 'Tutorial for local-first P2P PWAs: WebAuthn/Passkey identity, OrbitDB data, browser-to-browser sync. No server, no accounts, no passwords.',
-      de: 'Tutorial für local-first P2P-PWAs: WebAuthn/Passkey-Identität, OrbitDB-Daten, Browser-zu-Browser-Sync. Kein Server, keine Accounts, keine Passwörter.'
-    }
+      en: "Tutorial for local-first P2P PWAs: WebAuthn/Passkey identity, OrbitDB data, browser-to-browser sync. No server, no accounts, no passwords.",
+      de: "Tutorial für local-first P2P-PWAs: WebAuthn/Passkey-Identität, OrbitDB-Daten, Browser-zu-Browser-Sync. Kein Server, keine Accounts, keine Passwörter.",
+    },
   },
   {
-    id: 'uc-chat',
-    name: 'Universal Connectivity',
-    layers: ['sync'],
-    status: 'stable',
+    id: "uc-chat",
+    name: "Universal Connectivity",
+    layers: ["sync"],
+    status: "stable",
     featured: true,
-    github: 'https://github.com/NiKrause/universal-connectivity',
+    github: "https://github.com/NiKrause/universal-connectivity",
     demos: [
       {
-        url: 'https://connect.nicokrause.com',
-        label: 'chat',
-        shot: '/media/uc-chat-peers.webp',
+        url: "https://connect.nicokrause.com",
+        label: "chat",
+        shot: "/media/uc-chat-peers.webp",
         desc: {
-          en: 'the public room with the peers currently connected — discovery takes about half a minute after you open it.',
-          de: 'der öffentliche Raum mit den gerade verbundenen Peers — die Discovery braucht nach dem Öffnen etwa eine halbe Minute.'
-        }
+          en: "the public room with the peers currently connected — discovery takes about half a minute after you open it.",
+          de: "der öffentliche Raum mit den gerade verbundenen Peers — die Discovery braucht nach dem Öffnen etwa eine halbe Minute.",
+        },
       },
       {
-        url: 'https://connect.nicokrause.com',
-        label: 'relay button',
-        shot: '/media/uc-chat-relay.webp',
+        url: "https://connect.nicokrause.com",
+        label: "relay button",
+        shot: "/media/uc-chat-relay.webp",
         desc: {
-          en: 'the embedded Relay Button: pick a tier and deploy your own relay without leaving the chat.',
-          de: 'der eingebettete Relay-Button: Tier wählen und einen eigenen Relay deployen, ohne den Chat zu verlassen.'
-        }
-      }
+          en: "the embedded Relay Button: pick a tier and deploy your own relay without leaving the chat.",
+          de: "der eingebettete Relay-Button: Tier wählen und einen eigenen Relay deployen, ohne den Chat zu verlassen.",
+        },
+      },
     ],
     npm: null,
     screenshot: null,
     video: null,
     tagline: {
       en: 'Our fork of the <a href="https://github.com/libp2p/universal-connectivity" target="_blank" rel="noopener noreferrer">official libp2p project</a> with the Relay Button built in: the cross-language showcase — chat between Go, Rust, TypeScript and Nim peers in the browser — extended so anyone can deploy their own relay on demand.',
-      de: 'Unser Fork des <a href="https://github.com/libp2p/universal-connectivity" target="_blank" rel="noopener noreferrer">offiziellen libp2p-Projekts</a> mit eingebautem Relay-Button: der Cross-Language-Showcase — Chat zwischen Go-, Rust-, TypeScript- und Nim-Peers im Browser — erweitert, sodass jeder auf Knopfdruck einen eigenen Relay deployen kann.'
-    }
+      de: 'Unser Fork des <a href="https://github.com/libp2p/universal-connectivity" target="_blank" rel="noopener noreferrer">offiziellen libp2p-Projekts</a> mit eingebautem Relay-Button: der Cross-Language-Showcase — Chat zwischen Go-, Rust-, TypeScript- und Nim-Peers im Browser — erweitert, sodass jeder auf Knopfdruck einen eigenen Relay deployen kann.',
+    },
   },
   {
-    id: 'orbitdb-relay',
-    name: 'OrbitDB Relay',
-    layers: ['infra', 'data'],
-    status: 'beta',
+    id: "orbitdb-relay",
+    name: "OrbitDB Relay",
+    layers: ["infra", "data"],
+    status: "beta",
     featured: true,
-    github: 'https://github.com/NiKrause/orbitdb-relay',
+    github: "https://github.com/NiKrause/orbitdb-relay",
     demo: null,
-    docs: 'https://nikrause.github.io/orbitdb-relay/',
-    npm: 'orbitdb-relay',
-    screenshot: '/media/orbitdb-relay.webp',
+    docs: "https://nikrause.github.io/orbitdb-relay/",
+    npm: "orbitdb-relay",
+    screenshot: "/media/orbitdb-relay.webp",
     video: null,
     tagline: {
-      en: 'Relay and pinning service keeping OrbitDB databases available while peers are offline.',
-      de: 'Relay- und Pinning-Service, der OrbitDB-Datenbanken verfügbar hält, während Peers offline sind.'
-    }
+      en: "Relay and pinning service keeping OrbitDB databases available while peers are offline.",
+      de: "Relay- und Pinning-Service, der OrbitDB-Datenbanken verfügbar hält, während Peers offline sind.",
+    },
   },
   {
-    id: 'ucan-store',
-    name: 'UCAN Store',
-    layers: ['identity', 'archive'],
-    status: 'in-development',
+    id: "ucan-store",
+    name: "UCAN Store",
+    layers: ["identity", "archive"],
+    status: "in-development",
     featured: false,
-    github: 'https://github.com/NomadKids/ucan-store',
-    demo: 'https://ucan.nicokrause.com',
+    github: "https://github.com/NomadKids/ucan-store",
+    demo: "https://ucan.nicokrause.com",
     npm: null,
-    screenshot: '/media/ucan-store.png',
+    screenshot: "/media/ucan-store.png",
     video: null,
-    note: { en: 'Storacha upload-service fork — UCAN 1.0 upgrade planned', de: 'Storacha-Upload-Service-Fork — Upgrade auf UCAN 1.0 geplant' },
+    note: {
+      en: "Storacha upload-service fork — UCAN 1.0 upgrade planned",
+      de: "Storacha-Upload-Service-Fork — Upgrade auf UCAN 1.0 geplant",
+    },
     tagline: {
-      en: 'Browser-based storage with WebAuthn/Passkey DIDs and UCAN delegations — upload to Filecoin (planned) without accounts or passwords.',
-      de: 'Browser basierter Storage mit WebAuthn/Passkey-DIDs und UCAN-Delegationen — Upload nach Filecoin (geplant) ohne Accounts oder Passwörter.'
-    }
+      en: "Browser-based storage with WebAuthn/Passkey DIDs and UCAN delegations — upload to Filecoin (planned) without accounts or passwords.",
+      de: "Browser basierter Storage mit WebAuthn/Passkey-DIDs und UCAN-Delegationen — Upload nach Filecoin (geplant) ohne Accounts oder Passwörter.",
+    },
   },
   {
-    id: 'webauthn-did',
-    name: 'OrbitDB WebAuthn DID',
-    layers: ['identity'],
-    status: 'beta',
+    id: "webauthn-did",
+    name: "OrbitDB WebAuthn DID",
+    layers: ["identity"],
+    status: "beta",
     featured: true,
-    github: 'https://github.com/Le-Space/orbitdb-identity-provider-webauthn-did',
+    github:
+      "https://github.com/Le-Space/orbitdb-identity-provider-webauthn-did",
     demos: [
       {
-        url: 'https://le-space.github.io/orbitdb-identity-provider-webauthn-did/webauthn-todo-demo/',
-        label: 'webauthn-did',
-        shot: '/media/webauthn-did-identity.webp',
+        url: "https://le-space.github.io/orbitdb-identity-provider-webauthn-did/webauthn-todo-demo/",
+        label: "webauthn-did",
+        shot: "/media/webauthn-did-identity.webp",
         desc: {
-          en: 'a passkey becomes your OrbitDB identity — the DID is derived from the credential, no keystore involved.',
-          de: 'ein Passkey wird zur OrbitDB-Identität — die DID leitet sich aus dem Credential ab, ganz ohne Keystore.'
-        }
+          en: "a passkey becomes your OrbitDB identity — the DID is derived from the credential, no keystore involved.",
+          de: "ein Passkey wird zur OrbitDB-Identität — die DID leitet sich aus dem Credential ab, ganz ohne Keystore.",
+        },
       },
       {
-        url: 'https://le-space.github.io/orbitdb-identity-provider-webauthn-did/ed25519-encrypted-keystore-demo/',
-        label: 'encrypted-keystore',
-        shot: '/media/webauthn-did-keystore.webp',
+        url: "https://le-space.github.io/orbitdb-identity-provider-webauthn-did/ed25519-encrypted-keystore-demo/",
+        label: "encrypted-keystore",
+        shot: "/media/webauthn-did-keystore.webp",
         desc: {
-          en: 'an Ed25519 keystore encrypted at rest, unlocked once per session by WebAuthn — the pragmatic default.',
-          de: 'ein Ed25519-Keystore, at rest verschlüsselt und einmal pro Session per WebAuthn entsperrt — der pragmatische Default.'
-        }
+          en: "an Ed25519 keystore encrypted at rest, unlocked once per session by WebAuthn — the pragmatic default.",
+          de: "ein Ed25519-Keystore, at rest verschlüsselt und einmal pro Session per WebAuthn entsperrt — der pragmatische Default.",
+        },
       },
       {
-        url: 'https://le-space.github.io/orbitdb-identity-provider-webauthn-did/webauthn-varsig-demo/',
-        label: 'varsig',
-        shot: '/media/webauthn-did-varsig.webp',
+        url: "https://le-space.github.io/orbitdb-identity-provider-webauthn-did/webauthn-varsig-demo/",
+        label: "varsig",
+        shot: "/media/webauthn-did-varsig.webp",
         desc: {
-          en: 'no keystore at all — the authenticator signs every entry itself, one passkey prompt per write.',
-          de: 'gar kein Keystore — der Authenticator signiert jeden Eintrag selbst, ein Passkey-Prompt pro Schreibvorgang.'
-        }
-      }
+          en: "no keystore at all — the authenticator signs every entry itself, one passkey prompt per write.",
+          de: "gar kein Keystore — der Authenticator signiert jeden Eintrag selbst, ein Passkey-Prompt pro Schreibvorgang.",
+        },
+      },
     ],
-    npm: '@le-space/orbitdb-identity-provider-webauthn-did',
+    npm: "@le-space/orbitdb-identity-provider-webauthn-did",
     screenshot: null,
     video: null,
     tagline: {
@@ -302,72 +329,75 @@ export const projects = [
 <li><strong>WebAuthn-verschlüsselter Keystore:</strong> derselbe Schlüssel, per AES-GCM at rest verschlüsselt und erst nach einem WebAuthn-Unlock (PRF, largeBlob oder hmac-secret) in den Speicher geholt. Ein Prompt pro Session, Schreibvorgänge bleiben schnell; sicher at rest, im Speicher solange der Tab offen ist. Der pragmatische Default — <a href="https://le-space.github.io/orbitdb-identity-provider-webauthn-did/ed25519-encrypted-keystore-demo/" target="_blank" rel="noopener noreferrer">Demo</a>.</li>
 <li><strong>Hardwaregestützte Schlüssel (Varsig):</strong> gar kein OrbitDB-Keystore. Der Schlüssel entsteht im Authenticator — Secure Enclave, TPM, Security Key — und verlässt ihn nie. Ein Passkey-Prompt pro Schreibvorgang, dafür bleibt im Browser nichts zu stehlen — <a href="https://le-space.github.io/orbitdb-identity-provider-webauthn-did/webauthn-varsig-demo/" target="_blank" rel="noopener noreferrer">Demo</a>.</li>
 <li><strong>Wozu Varsig:</strong> ein Authenticator liefert nie eine schlichte Signatur über deine Payload — er signiert seine eigene Struktur aus authenticatorData + clientDataJSON-Hash. Dazu kommt, dass das Verfahren variiert: die Plattform-Authenticator von Apple, Android und Windows signieren mit ES256 (P-256), während EdDSA/Ed25519 (COSE <code>-8</code>) zwar im Standard steht und auf einigen Security Keys funktioniert — eine Passkey-DID kann also weder die eine noch die andere Kurve voraussetzen. Varsig ist der selbstbeschreibende Envelope, der Struktur und Verfahren gemeinsam transportiert, sodass die Assertion als OrbitDB-Oplog-Signatur und über <code>toUcantoSigner()</code> auch als UCAN-Delegation-Signatur verifizierbar ist. Ohne Varsig kann ein Hardware-Schlüssel für beides nicht der Signierer sein — ganz gleich, welche Kurve er verwendet.</li>
-</ul>`
-    }
+</ul>`,
+    },
   },
   {
-    id: 'p2pass',
-    name: 'p2pass',
-    layers: ['identity', 'sync'],
-    status: 'prototype',
+    id: "p2pass",
+    name: "p2pass",
+    layers: ["identity", "sync"],
+    status: "prototype",
     featured: false,
-    github: 'https://github.com/asabya/p2pass',
+    github: "https://github.com/asabya/p2pass",
     demo: null,
-    npm: 'p2pass',
+    npm: "p2pass",
     screenshot: null,
     video: null,
     tagline: {
-      en: 'Peer-to-peer distribution of passkey credentials — recover your identity when a device is lost.',
-      de: 'Peer-to-Peer-Verteilung von Passkey-Credentials — Identitäts-Wiederherstellung bei Geräteverlust.'
-    }
+      en: "Peer-to-peer distribution of passkey credentials — recover your identity when a device is lost.",
+      de: "Peer-to-Peer-Verteilung von Passkey-Credentials — Identitäts-Wiederherstellung bei Geräteverlust.",
+    },
   },
   {
-    id: 'akash-deploy-pwa',
-    name: 'Akash Deploy PWA',
-    layers: ['infra'],
-    status: 'prototype',
+    id: "akash-deploy-pwa",
+    name: "Akash Deploy PWA",
+    layers: ["infra"],
+    status: "prototype",
     featured: false,
-    github: 'https://github.com/NiKrause/akash-deploy-pwa',
+    github: "https://github.com/NiKrause/akash-deploy-pwa",
     demo: null,
     npm: null,
     screenshot: null,
     video: null,
-    note: { en: 'Consolidation with Relay Button planned', de: 'Konsolidierung mit Relay Button geplant' },
+    note: {
+      en: "Consolidation with Relay Button planned",
+      de: "Konsolidierung mit Relay Button geplant",
+    },
     tagline: {
-      en: 'Relay-Button-style deployments on Akash Network — a second decentralized compute target.',
-      de: 'Relay-Button-artige Deployments auf dem Akash Network — zweites dezentrales Compute-Target.'
-    }
+      en: "Relay-Button-style deployments on Akash Network — a second decentralized compute target.",
+      de: "Relay-Button-artige Deployments auf dem Akash Network — zweites dezentrales Compute-Target.",
+    },
   },
   {
-    id: 'orbit-blog',
-    name: 'Orbit Blog',
-    layers: ['data', 'sync', 'archive'],
-    status: 'prototype',
+    id: "orbit-blog",
+    name: "Orbit Blog",
+    layers: ["data", "sync", "archive"],
+    status: "prototype",
     featured: false,
-    github: 'https://github.com/NiKrause/orbit-blog',
-    demo: 'https://blog.le-space.de',
+    github: "https://github.com/NiKrause/orbit-blog",
+    demo: "https://blog.le-space.de",
     npm: null,
     screenshot: null,
     video: null,
     tagline: {
-      en: 'Decentralized blogging that replicates between browsers — publish without a hosting provider.',
-      de: 'Dezentrales Bloggen mit Replikation zwischen Browsern — publizieren ohne Hosting-Anbieter.'
-    }
+      en: "Decentralized blogging that replicates between browsers — publish without a hosting provider.",
+      de: "Dezentrales Bloggen mit Replikation zwischen Browsern — publizieren ohne Hosting-Anbieter.",
+    },
   },
   {
-    id: 'orbitdb-storacha-bridge',
-    name: 'OrbitDB ⇄ Storacha Bridge',
-    layers: ['archive'],
-    status: 'beta',
+    id: "orbitdb-storacha-bridge",
+    name: "OrbitDB ⇄ Storacha Bridge",
+    layers: ["archive"],
+    status: "beta",
     featured: false,
-    github: 'https://github.com/NiKrause/orbitdb-storacha-bridge',
+    github: "https://github.com/NiKrause/orbitdb-storacha-bridge",
     demo: null,
-    npm: 'orbitdb-storacha-bridge',
+    npm: "orbitdb-storacha-bridge",
     screenshot: null,
     video: null,
     tagline: {
-      en: 'Backup and restore local-first data to Filecoin/Storacha with full hash and identity preservation.',
-      de: 'Backup und Restore von Local-First-Daten nach Filecoin/Storacha — mit vollständiger Hash- und Identitätserhaltung.'
-    }
-  }
+      en: "Backup and restore local-first data to Filecoin/Storacha with full hash and identity preservation.",
+      de: "Backup und Restore von Local-First-Daten nach Filecoin/Storacha — mit vollständiger Hash- und Identitätserhaltung.",
+    },
+  },
 ];

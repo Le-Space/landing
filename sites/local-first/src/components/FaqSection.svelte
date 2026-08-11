@@ -1,6 +1,12 @@
 <script>
   import { t, locale } from '@le-space/landing-shared/i18n';
   import { faq } from '@le-space/landing-shared/faq';
+  import DiagramEncryption from '@le-space/landing-shared/components/DiagramEncryption.svelte';
+  import DiagramAccess from '@le-space/landing-shared/components/DiagramAccess.svelte';
+
+  // A couple of answers are about what crosses which boundary, which prose is
+  // bad at. Those carry a `diagram` key; everything else stays text.
+  const DIAGRAMS = { encryption: DiagramEncryption, access: DiagramAccess };
 
   let open = $state(null);
 
@@ -32,6 +38,10 @@
                makes aria-controls above point at an element that exists. -->
           <div class="answer" id="faq-{item.id}" hidden={open !== item.id}>
             {@html item.a[$locale] || item.a.en}
+            {#if item.diagram && DIAGRAMS[item.diagram]}
+              {@const Diagram = DIAGRAMS[item.diagram]}
+              <Diagram />
+            {/if}
           </div>
         </div>
       {/each}
