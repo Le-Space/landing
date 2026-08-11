@@ -311,14 +311,31 @@ export const projects = [
     layers: ['identity', 'sync'],
     status: 'prototype',
     featured: false,
-    github: 'https://github.com/asabya/p2pass',
-    demo: null,
+    github: 'https://github.com/Le-Space/p2pass',
+    demo: 'https://asabya.github.io/p2pass/',
+    docs: 'https://asabya.github.io/p2pass/guide/',
     npm: 'p2pass',
     screenshot: null,
     video: null,
+    note: {
+      en: 'developed with @asabya — upstream at github.com/asabya/p2pass',
+      de: 'entwickelt mit @asabya — Upstream unter github.com/asabya/p2pass'
+    },
     tagline: {
-      en: 'Peer-to-peer distribution of passkey credentials — recover your identity when a device is lost.',
-      de: 'Peer-to-Peer-Verteilung von Passkey-Credentials — Identitäts-Wiederherstellung bei Geräteverlust.'
+      en: `A drop-in component that gives an app a passkey identity across several devices, built on our <a href="https://github.com/Le-Space/orbitdb-identity-provider-webauthn-did" target="_blank" rel="noopener noreferrer">WebAuthn identity provider</a>. Nothing about a credential ever leaves the device it was created on:
+<ul>
+<li><strong>Every device brings its own passkey</strong> and its own OrbitDB identity. Linking device two means device one granting it write access by name in an <code>OrbitDBAccessController</code> — no wildcards, no shared secret, no credential copied across.</li>
+<li><strong>Pairing runs over libp2p</strong>, not over a server: device two dials device one on a dedicated protocol, a human approves the request, and only then does the registry address come back.</li>
+<li><strong>Recovery without a second device:</strong> the passkey's PRF output derives an IPNS key that resolves a manifest pointing at the Ed25519 archive — encrypted, on IPFS. Clear your browser storage and the same identity comes back from a public gateway, with nothing to log into.</li>
+<li><strong>Where it is not finished is written down:</strong> the pairing request is not yet signed, and the roadmap out of that — along with the move to libp2p 3, Helia 7 and OrbitDB 4 — is <a href="https://github.com/Le-Space/p2pass/issues" target="_blank" rel="noopener noreferrer">tracked in the open</a>.</li>
+</ul>`,
+      de: `Eine Komponente zum Einsetzen, die einer Anwendung eine Passkey-Identität über mehrere Geräte hinweg gibt — auf Basis unseres <a href="https://github.com/Le-Space/orbitdb-identity-provider-webauthn-did" target="_blank" rel="noopener noreferrer">WebAuthn-Identity-Providers</a>. Kein Credential verlässt je das Gerät, auf dem es entstanden ist:
+<ul>
+<li><strong>Jedes Gerät bringt seinen eigenen Passkey</strong> und seine eigene OrbitDB-Identität mit. Ein zweites Gerät zu verbinden heißt, dass das erste ihm namentlich Schreibrechte in einem <code>OrbitDBAccessController</code> erteilt — keine Wildcards, kein geteiltes Geheimnis, kein kopiertes Credential.</li>
+<li><strong>Das Pairing läuft über libp2p</strong>, nicht über einen Server: Gerät zwei wählt Gerät eins über ein eigenes Protokoll an, ein Mensch bestätigt die Anfrage, und erst danach kommt die Registry-Adresse zurück.</li>
+<li><strong>Wiederherstellung ohne zweites Gerät:</strong> Aus dem PRF-Output des Passkeys entsteht ein IPNS-Schlüssel, der ein Manifest auflöst, das auf das Ed25519-Archiv zeigt — verschlüsselt, auf IPFS. Browser-Speicher gelöscht, und dieselbe Identität kommt über ein öffentliches Gateway zurück, ganz ohne Anmeldung.</li>
+<li><strong>Wo es noch nicht fertig ist, steht geschrieben:</strong> Die Pairing-Anfrage ist noch nicht signiert, und der Weg dort heraus — zusammen mit dem Umstieg auf libp2p 3, Helia 7 und OrbitDB 4 — wird <a href="https://github.com/Le-Space/p2pass/issues" target="_blank" rel="noopener noreferrer">offen nachgehalten</a>.</li>
+</ul>`
     }
   },
   {
