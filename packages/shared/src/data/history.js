@@ -126,9 +126,9 @@ export const history = [
     },
     title: { en: 'Proof without a middleman', de: 'Nachweis ohne Mittelsmann' },
     body: {
-      en: `<p><strong><a href="https://web.archive.org/web/20240104/https://www.doichain.org/" target="_blank" rel="noopener noreferrer">Doichain</a></strong>, a fork of Namecoin: unforgeable records of email double opt-in, written to a blockchain instead of held by a service provider. Prototype in 2018, a non-profit to carry it, workshops with the eco association.</p>
+      en: `<p><strong><a href="https://web.archive.org/web/20240104205044/https://www.doichain.org/en/" target="_blank" rel="noopener noreferrer">Doichain</a></strong>, a fork of Namecoin: unforgeable records of email double opt-in, written to a blockchain instead of held by a service provider. Prototype in 2018, a non-profit to carry it, workshops with the eco association.</p>
 <p><strong>Early in 2025 the project was no longer carried on.</strong> The link goes to the archived site — the domain is no longer under our influence and control.</p>`,
-      de: `<p><strong><a href="https://web.archive.org/web/20240104/https://www.doichain.org/" target="_blank" rel="noopener noreferrer">Doichain</a></strong>, ein Fork von Namecoin: fälschungssichere Nachweise über das Double-Opt-In im E-Mail-Marketing, dokumentiert in einer Blockchain statt bei einem Dienstleister. Prototyp 2018, ein Non-Profit als Träger, Workshops mit dem eco-Verband.</p>
+      de: `<p><strong><a href="https://web.archive.org/web/20240104205044/https://www.doichain.org/de/" target="_blank" rel="noopener noreferrer">Doichain</a></strong>, ein Fork von Namecoin: fälschungssichere Nachweise über das Double-Opt-In im E-Mail-Marketing, dokumentiert in einer Blockchain statt bei einem Dienstleister. Prototyp 2018, ein Non-Profit als Träger, Workshops mit dem eco-Verband.</p>
 <p><strong>Anfang 2025 wurde das Projekt nicht mehr weitergeführt.</strong> Der Verweis führt ins Archiv — die Domain liegt nicht mehr in unserem Einfluss- und Kontrollbereich.</p>`
     }
   },
