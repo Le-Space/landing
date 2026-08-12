@@ -92,15 +92,20 @@ function serve() {
   return new Promise((ok) => server.listen(0, '127.0.0.1', () => ok({ server, port: server.address().port })));
 }
 
-const ORGANIZATION = {
+const ORGANIZATION_DESCRIPTION = {
+  en: 'The local-first peer-to-peer stack. No servers. No accounts. No passwords.',
+  de: 'Der Local-First Peer-to-Peer Stack. Keine Server. Keine Accounts. Keine Passwörter.'
+};
+
+const organization = (lang) => ({
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Le-Space',
   url: 'https://le-space.de',
   logo: 'https://le-space.de/android-chrome-512x512.png',
-  description: 'The local-first peer-to-peer stack. No servers. No accounts. No passwords.',
+  description: ORGANIZATION_DESCRIPTION[lang] ?? ORGANIZATION_DESCRIPTION.en,
   sameAs: ['https://github.com/Le-Space', 'https://github.com/NiKrause']
-};
+});
 
 /** Strip the trusted inline HTML from FAQ answers — schema.org wants text. */
 const toText = (html) =>
@@ -113,19 +118,33 @@ const toText = (html) =>
     .replace(/\s+/g, ' ')
     .trim();
 
-async function buildJsonLd() {
-  if (site !== 'local-first') return [ORGANIZATION];
+/**
+ * Built per language, not once: structured data has to match the visible text
+ * of the page carrying it, and /de/ shows German answers. Emitting the English
+ * copy there is a mismatch search engines are entitled to distrust — and it
+ * silently cost the German page its FAQ rich results.
+ *
+ * @param {'en'|'de'} lang
+ */
+async function buildJsonLd(lang) {
+  const org = organization(lang);
+  if (site !== 'local-first') return [org];
 
   const { faq } = await import(resolve(root, 'packages/shared/src/data/faq.js'));
   const { projects } = await import(resolve(root, 'packages/shared/src/data/projects.js'));
 
+  // Falling back to English keeps a half-translated entry indexable rather than
+  // emitting `undefined`; today every entry carries both.
+  const pick = (field) => field?.[lang] ?? field?.en ?? '';
+
   const faqPage = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    inLanguage: lang,
     mainEntity: faq.map((entry) => ({
       '@type': 'Question',
-      name: entry.q.en,
-      acceptedAnswer: { '@type': 'Answer', text: toText(entry.a.en) }
+      name: pick(entry.q),
+      acceptedAnswer: { '@type': 'Answer', text: toText(pick(entry.a)) }
     }))
   };
 
@@ -133,46 +152,20 @@ async function buildJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'SoftwareSourceCode',
     name: p.name,
-    description: toText(p.tagline.en),
+    description: toText(pick(p.tagline)),
+    inLanguage: lang,
     codeRepository: p.github,
     ...(p.demo || p.demos?.[0]?.url ? { url: p.demo ?? p.demos[0].url } : {}),
     programmingLanguage: 'JavaScript',
     author: { '@type': 'Organization', name: 'Le-Space' }
   }));
 
-  return [ORGANIZATION, faqPage, ...software];
+  return [org, faqPage, ...software];
 }
 
-// Per-language head. Crawlers get one URL per language; without distinct titles
-// and descriptions both would compete for the same queries in the wrong language.
-const META = {
-  'local-first': {
-    en: {
-      title: 'Le-Space — The Local-First Peer-to-Peer Stack',
-      description:
-        'Software you can keep: local-first peer-to-peer applications with no servers, no accounts, no passwords. The Le-Space open-source stack.',
-      ogDescription: 'No servers. No accounts. No passwords. The open-source local-first stack.'
-    },
-    de: {
-      title: 'Le-Space — Der Local-First Peer-to-Peer Stack',
-      description:
-        'Software, die dir bleibt: local-first Peer-to-Peer-Anwendungen ohne Server, ohne Accounts, ohne Passwörter. Der Open-Source-Stack von Le-Space.',
-      ogDescription: 'Keine Server. Keine Accounts. Keine Passwörter. Der Open-Source-Local-First-Stack.'
-    }
-  },
-  'le-space': {
-    en: {
-      title: 'Le-Space — The Local-First Peer-to-Peer Stack',
-      description: 'Le-Space — the local-first peer-to-peer stack. No servers. No accounts. No passwords.',
-      ogDescription: 'The local-first peer-to-peer stack. No servers. No accounts. No passwords.'
-    },
-    de: {
-      title: 'Le-Space — Der Local-First Peer-to-Peer Stack',
-      description: 'Le-Space — der Local-First Peer-to-Peer Stack. Keine Server. Keine Accounts. Keine Passwörter.',
-      ogDescription: 'Der Local-First Peer-to-Peer Stack. Keine Server. Keine Accounts. Keine Passwörter.'
-    }
-  }
-};
+// Shared with LanguageSwitcher, which re-applies the same strings when the
+// language is switched client-side. See packages/shared/src/data/site-meta.js.
+const { SITE_META: META } = await import(resolve(root, 'packages/shared/src/data/site-meta.js'));
 
 const LOCALES = ['en', 'de'];
 const localePath = (code) => (code === 'en' ? '/' : `/${code}/`);
@@ -181,7 +174,6 @@ const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g
 const chromium = await loadChromium();
 const { server, port } = await serve();
 const browser = await chromium.launch();
-const jsonLd = await buildJsonLd();
 const template = await readFile(resolve(dist, 'index.html'), 'utf8');
 
 // Idempotency markers: re-running over the same dist must not stack up a second
@@ -206,6 +198,7 @@ for (const lang of LOCALES) {
   await page.close();
 
   const meta = META[site][lang];
+  const jsonLd = await buildJsonLd(lang);
   let html = template;
 
   html = html.replace(new RegExp(`\\s*${START}[\\s\\S]*?${END}`), '');

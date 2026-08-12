@@ -11,7 +11,7 @@
 </script>
 
 <ParticlesBackground />
-<LanguageSwitcher />
+<LanguageSwitcher site="local-first" />
 
 <main>
   <Hero />

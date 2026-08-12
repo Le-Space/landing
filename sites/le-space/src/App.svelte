@@ -18,7 +18,7 @@
 </script>
 
 <ParticlesBackground density={130} />
-<LanguageSwitcher />
+<LanguageSwitcher site="le-space" />
 
 <main>
   <div class="center">

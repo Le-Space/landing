@@ -3,17 +3,77 @@
    * Fixed top-right language switcher with real SVG flags (DE / EN).
    * SVG instead of emoji flags so it renders consistently on every OS.
    *
-   * These are links, not buttons: each language has its own URL (`/` and
-   * `/de/`), so switching has to navigate. It also gives crawlers a followable
-   * path to the other language version, which a click handler never would.
+   * These stay real links: each language has its own URL (`/` and `/de/`), which
+   * is what gives crawlers a followable path to the other version and makes
+   * cmd-click open it in a new tab. A plain click, however, is handled here
+   * instead of navigating — a reload would drop the reader at the top of the
+   * page with every FAQ entry closed again, which is a poor trade for a page
+   * whose whole content is already in memory.
    */
-  import { locale, localePath } from '../i18n.js';
+  import { tick } from 'svelte';
+  import { locale, localePath, localeFromPath } from '../i18n.js';
+  import { SITE_META } from '../data/site-meta.js';
+  import { captureReadingAnchor, restoreReadingAnchor } from '../reading-position.js';
   import ThemeToggle from './ThemeToggle.svelte';
+
+  let { site = 'local-first' } = $props();
 
   const langs = [
     { code: 'de', label: 'Deutsch' },
     { code: 'en', label: 'English' }
   ];
+
+  /**
+   * The head was baked per language by tools/postbuild.mjs; switching in place
+   * has to redo that much of it, or the tab title stays in the old language.
+   */
+  function applyDocumentMeta(code) {
+    document.documentElement.lang = code;
+
+    const meta = SITE_META[site]?.[code];
+    if (!meta) return;
+    document.title = meta.title;
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute('content', meta.description);
+    document
+      .querySelector('meta[property="og:locale"]')
+      ?.setAttribute('content', code === 'de' ? 'de_DE' : 'en_US');
+    document
+      .querySelector('link[rel="canonical"]')
+      ?.setAttribute('href', new URL(localePath(code), location.origin).href);
+  }
+
+  async function apply(code) {
+    const anchor = captureReadingAnchor();
+    locale.set(code);
+    applyDocumentMeta(code);
+    // The anchor can only be put back once the translated text has been laid
+    // out, which is exactly one tick away.
+    await tick();
+    restoreReadingAnchor(anchor);
+  }
+
+  function switchTo(event, code) {
+    // Anything but a plain left click keeps its browser meaning — new tab,
+    // new window, "copy link address".
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) {
+      return;
+    }
+    event.preventDefault();
+    if ($locale === code) return;
+
+    history.pushState({ lsLocale: code }, '', localePath(code) + location.hash);
+    apply(code);
+  }
+
+  // Back and forward have to carry the language with them; without this the URL
+  // says /de/ while the page is still English.
+  $effect(() => {
+    const onPop = () => apply(localeFromPath());
+    addEventListener('popstate', onPop);
+    return () => removeEventListener('popstate', onPop);
+  });
 </script>
 
 <div class="lang-switcher" role="group" aria-label="Sprache / Language">
@@ -23,6 +83,7 @@
       class:active={$locale === l.code}
       href={localePath(l.code)}
       hreflang={l.code}
+      onclick={(e) => switchTo(e, l.code)}
       aria-current={$locale === l.code ? 'true' : undefined}
       aria-label={l.label}
       title={l.label}
