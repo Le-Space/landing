@@ -11,6 +11,9 @@
     "./build-info": "./src/build-info.js",
     "./projects": "./src/data/projects.js",
     "./faq": "./src/data/faq.js",
+    "./history": "./src/data/history.js",
+    "./talks": "./src/data/talks.js",
+    "./site-meta": "./src/data/site-meta.js",
     "./components/*": "./src/components/*",
     "./icons/*": "./src/icons/*",
     "./lib/*": "./src/lib/*"

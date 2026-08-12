@@ -1,5 +1,5 @@
 <script>
-  import { t } from '@le-space/landing-shared/i18n';
+  import { t, locale, localePath } from '@le-space/landing-shared/i18n';
   import { siteConfig } from '@le-space/landing-shared/site-config';
   import { buildStamp } from '@le-space/landing-shared/build-info';
   import ParticlesBackground from '@le-space/landing-shared/components/ParticlesBackground.svelte';
@@ -34,6 +34,10 @@
         </a>
       {/each}
     </nav>
+
+    <!-- Quieter than the product links: the history is worth reading, but it is
+         not what someone arriving here came for. -->
+    <a class="history-link" href={localePath($locale, '/history/')}>{$t('history.link')}</a>
 
     <div class="socials">
       <SocialIcons />
@@ -117,6 +121,19 @@
   .product .desc {
     color: var(--ls-text-dim);
     font-size: 0.88rem;
+  }
+
+  .history-link {
+    margin-top: 20px;
+    font-size: 0.88rem;
+    color: var(--ls-text-faint);
+    border-bottom: 1px dotted var(--ls-card-border);
+  }
+
+  .history-link:hover {
+    text-decoration: none;
+    color: var(--ls-text);
+    border-bottom-color: var(--ls-accent);
   }
 
   .socials {

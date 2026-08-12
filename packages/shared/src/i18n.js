@@ -25,9 +25,24 @@ export function localeFromPath(pathname = typeof location !== 'undefined' ? loca
   return LOCALES.includes(first) && first !== DEFAULT_LOCALE ? first : DEFAULT_LOCALE;
 }
 
-/** URL path for a locale, preserving nothing else — these sites are one page. */
-export function localePath(code) {
-  return code === DEFAULT_LOCALE ? '/' : `/${code}/`;
+/**
+ * Strip the locale prefix, leaving the page: `/de/history/` → `/history/`.
+ * Used to look up per-page metadata and to keep the language switcher on the
+ * page the reader is actually on.
+ */
+export function pagePath(pathname = typeof location !== 'undefined' ? location.pathname : '/') {
+  const segments = pathname.split('/').filter(Boolean);
+  if (LOCALES.includes(segments[0]) && segments[0] !== DEFAULT_LOCALE) segments.shift();
+  return segments.length ? `/${segments.join('/')}/` : '/';
+}
+
+/**
+ * URL for a locale, staying on the current page. Switching language on
+ * `/de/history/` has to land on `/history/`, not back on the front page.
+ */
+export function localePath(code, pathname) {
+  const page = pagePath(pathname);
+  return code === DEFAULT_LOCALE ? page : `/${code}${page}`;
 }
 
 export function initI18n(dicts, initial) {

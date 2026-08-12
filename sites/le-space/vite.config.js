@@ -1,7 +1,11 @@
 import { defineConfig } from 'vite';
 import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
+
+const here = dirname(fileURLToPath(import.meta.url));
 
 // Build stamp for the footer. GITHUB_SHA is set in CI, where the checkout is a
 // detached HEAD that `git rev-parse` would still answer correctly — but reading
@@ -40,6 +44,15 @@ export default defineConfig({
     exclude: ['@le-space/landing-shared']
   },
   build: {
-    target: 'es2022'
+    target: 'es2022',
+    rollupOptions: {
+      // One entry per page. Vite mirrors the directory layout into dist, so
+      // history/index.html becomes /history/ — tools/postbuild.mjs then renders
+      // each of these once per language.
+      input: {
+        main: resolve(here, 'index.html'),
+        history: resolve(here, 'history/index.html')
+      }
+    }
   }
 });

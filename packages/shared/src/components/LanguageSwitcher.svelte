@@ -11,8 +11,8 @@
    * whose whole content is already in memory.
    */
   import { tick } from 'svelte';
-  import { locale, localePath, localeFromPath } from '../i18n.js';
-  import { SITE_META } from '../data/site-meta.js';
+  import { locale, localePath, localeFromPath, pagePath } from '../i18n.js';
+  import { metaFor } from '../data/site-meta.js';
   import { captureReadingAnchor, restoreReadingAnchor } from '../reading-position.js';
   import ThemeToggle from './ThemeToggle.svelte';
 
@@ -30,7 +30,7 @@
   function applyDocumentMeta(code) {
     document.documentElement.lang = code;
 
-    const meta = SITE_META[site]?.[code];
+    const meta = metaFor(site, pagePath(), code);
     if (!meta) return;
     document.title = meta.title;
     document
