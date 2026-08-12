@@ -179,6 +179,14 @@ export const history = [
   {
     year: '2025',
     image: null,
+    video: {
+      id: 'CtKYDoA6A7I',
+      poster: '/history/2025-hackathon-video.webp',
+      title: {
+        en: 'Universal Connectivity Extension Protocol — hackathon submission',
+        de: 'Universal Connectivity Extension Protocol — Hackathon-Beitrag'
+      }
+    },
     era: {
       en: 'Passkeys begin replacing passwords for everyone, not just early adopters.',
       de: 'Passkeys lösen Passwörter im Massenmarkt ab, nicht mehr nur bei Frühnutzern.'
@@ -187,10 +195,12 @@ export const history = [
     body: {
       en: `<p>Le Space won the <a href="https://github.com/libp2p/universal-connectivity-workshop/discussions/12" target="_blank" rel="noopener noreferrer">Universal Connectivity Hackathon</a> run by the libp2p project, in December 2025.</p>
 <p>The entry has two halves. One made a <a href="https://github.com/NiKrause/js-libp2p-examples/tree/uc-extensions-service/examples/js-libp2p-example-yjs-libp2p" target="_blank" rel="noopener noreferrer">peer-to-peer spreadsheet</a> speak Universal Connectivity, so it could talk to the UC chat. The other taught <a href="https://github.com/Le-Space/universal-connectivity/commit/5d8272c" target="_blank" rel="noopener noreferrer">the chat itself</a> to discover and install what another peer offers.</p>
-<p>Between them sits the <a href="https://github.com/NiKrause/js-libp2p-examples/blob/uc-extensions-service/examples/js-libp2p-example-yjs-libp2p/UC-EXTENSION-PROTOCOL.md" target="_blank" rel="noopener noreferrer"><strong>Universal Connectivity Extension Protocol</strong></a>: applications announce their capabilities as extensions and find each other’s over libp2p, with no central registry. An app stops being a silo and becomes something other apps can use.</p>`,
+<p>Between them sits the <a href="https://github.com/NiKrause/js-libp2p-examples/blob/uc-extensions-service/examples/js-libp2p-example-yjs-libp2p/UC-EXTENSION-PROTOCOL.md" target="_blank" rel="noopener noreferrer"><strong>Universal Connectivity Extension Protocol</strong></a>: applications announce their capabilities as extensions and find each other’s over libp2p, with no central registry. An app stops being a silo and becomes something other apps can use.</p>
+<p>Both halves run: <a href="https://bafybeickgnhfz6p6pupwg26b64os5tfklvaben6m4ypmxcwaid6iapseyq.ipfs.dweb.link/" target="_blank" rel="noopener noreferrer">the spreadsheet</a> and <a href="https://bafybeiasqhynvpbdojrttbunfnhb4qbggtbg427ne3rwphe5y3jhvr5pj4.ipfs.dweb.link/" target="_blank" rel="noopener noreferrer">the chat</a>, rebuilt from the hackathon commits and pinned on IPFS.</p>`,
       de: `<p>Le Space gewann im Dezember 2025 den <a href="https://github.com/libp2p/universal-connectivity-workshop/discussions/12" target="_blank" rel="noopener noreferrer">Universal Connectivity Hackathon</a> des libp2p-Projekts.</p>
 <p>Der Beitrag hat zwei Hälften. Die eine brachte einer <a href="https://github.com/NiKrause/js-libp2p-examples/tree/uc-extensions-service/examples/js-libp2p-example-yjs-libp2p" target="_blank" rel="noopener noreferrer">Peer-to-Peer-Tabellenkalkulation</a> Universal Connectivity bei, damit sie mit dem UC-Chat sprechen kann. Die andere brachte <a href="https://github.com/Le-Space/universal-connectivity/commit/5d8272c" target="_blank" rel="noopener noreferrer">dem Chat selbst</a> bei, das Angebot eines anderen Peers zu erkennen und zu installieren.</p>
-<p>Dazwischen steht das <a href="https://github.com/NiKrause/js-libp2p-examples/blob/uc-extensions-service/examples/js-libp2p-example-yjs-libp2p/UC-EXTENSION-PROTOCOL.md" target="_blank" rel="noopener noreferrer"><strong>Universal Connectivity Extension Protocol</strong></a>: Anwendungen melden ihre Fähigkeiten als Erweiterungen an und finden die der anderen über libp2p, ohne zentrale Registrierung. Eine Anwendung hört damit auf, ein Silo zu sein.</p>`
+<p>Dazwischen steht das <a href="https://github.com/NiKrause/js-libp2p-examples/blob/uc-extensions-service/examples/js-libp2p-example-yjs-libp2p/UC-EXTENSION-PROTOCOL.md" target="_blank" rel="noopener noreferrer"><strong>Universal Connectivity Extension Protocol</strong></a>: Anwendungen melden ihre Fähigkeiten als Erweiterungen an und finden die der anderen über libp2p, ohne zentrale Registrierung. Eine Anwendung hört damit auf, ein Silo zu sein.</p>
+<p>Beide Hälften laufen: <a href="https://bafybeickgnhfz6p6pupwg26b64os5tfklvaben6m4ypmxcwaid6iapseyq.ipfs.dweb.link/" target="_blank" rel="noopener noreferrer">die Tabellenkalkulation</a> und <a href="https://bafybeiasqhynvpbdojrttbunfnhb4qbggtbg427ne3rwphe5y3jhvr5pj4.ipfs.dweb.link/" target="_blank" rel="noopener noreferrer">der Chat</a>, neu gebaut aus den Hackathon-Commits und auf IPFS gepinnt.</p>`
     }
   },
   {

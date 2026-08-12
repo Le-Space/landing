@@ -22,6 +22,8 @@
   let showImprint = $state(false);
   let showPrivacy = $state(false);
   let active = $state(history[0].year);
+  /** Which station's video the reader has chosen to load, if any. */
+  let playing = $state(null);
 
   const pick = (field) => field[$locale] || field.en;
 </script>
@@ -75,7 +77,29 @@
         <div class="marker" aria-hidden="true">{station.year}</div>
 
         <div class="shots" class:pair={shots.length > 1}>
-          {#if shots.length}
+          {#if station.video}
+            <!-- Click to load. Embedding YouTube outright would pull Google's
+                 scripts into a page whose whole claim is that it carries no
+                 trackers; the poster is served from here, and nothing reaches
+                 YouTube until the reader asks for it. -->
+            <figure class="shot video">
+              {#if playing === station.year}
+                <iframe
+                  src="https://www.youtube-nocookie.com/embed/{station.video.id}?autoplay=1"
+                  title={pick(station.video.title)}
+                  allow="accelerometer; autoplay; encrypted-media; picture-in-picture"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen
+                ></iframe>
+              {:else}
+                <button class="play-wrap" onclick={() => (playing = station.year)}>
+                  <img src={station.video.poster} alt={pick(station.video.title)} loading="lazy" />
+                  <span class="play" aria-hidden="true">▶</span>
+                  <span class="play-note">{$t('history.playNote')}</span>
+                </button>
+              {/if}
+            </figure>
+          {:else if shots.length}
             {#each shots as shot (shot.src)}
               <figure class="shot">
                 <img src={shot.src} alt={pick(shot.alt)} loading="lazy" />
@@ -226,6 +250,55 @@
     border-radius: var(--ls-radius);
     overflow: hidden;
     background: var(--ls-bg-2);
+  }
+
+  .shot.video {
+    position: relative;
+  }
+
+  .shot.video iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .play-wrap {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.6rem;
+    color: #fff;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
+    transition: transform 0.2s ease;
+  }
+
+  .play-wrap:hover .play {
+    transform: scale(1.12);
+  }
+
+  .play-note {
+    position: absolute;
+    left: 10px;
+    bottom: 8px;
+    font-size: 0.7rem;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 4px;
+    padding: 2px 7px;
   }
 
   .shot img {

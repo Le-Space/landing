@@ -12,6 +12,7 @@ export const dictionaries = {
       title: 'Sixteen years of Le Space',
       lead: 'From Leipzig’s first coworking space to a stack that runs without servers.',
       years: 'Years',
+      playNote: 'Click to play — loads from YouTube',
       illustrations:
         'The early years were not photographed, only remembered. The pictures are illustrations.'
     }
@@ -24,6 +25,7 @@ export const dictionaries = {
       title: 'Sechzehn Jahre Le Space',
       lead: 'Vom ersten Coworking Space Leipzigs zu einem Stack, der ohne Server auskommt.',
       years: 'Jahre',
+      playNote: 'Klicken zum Abspielen — lädt von YouTube',
       illustrations:
         'Die frühen Jahre wurden nicht fotografiert, sondern erinnert. Die Bilder sind Illustrationen.'
     }
