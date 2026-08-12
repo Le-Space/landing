@@ -17,7 +17,7 @@
  */
 export const history = [
   {
-    year: '2010',
+    year: '2009',
     image: {
       src: '/history/2010-coworking-leipzig.webp',
       alt: {
@@ -31,12 +31,14 @@ export const history = [
     },
     title: { en: 'A room in Leipzig', de: 'Ein Raum in Leipzig' },
     body: {
-      en: `<p>Le Space opened <strong>Leipzig’s first coworking space</strong>: 112 square metres in the Tapetenwerk, room for ten to fifteen people, a shared breakfast on Friday mornings before work started.</p>
-<p>The space lasted a year, until May 2011. The community that formed there still exists.</p>
-<p>Software followed almost immediately — an application to run the space, written the same year.</p>`,
-      de: `<p>Le Space eröffnete den <strong>ersten Coworking Space Leipzigs</strong>: 112 Quadratmeter im Tapetenwerk, Platz für zehn bis fünfzehn Menschen, freitags gemeinsames Frühstück vor der Arbeit.</p>
-<p>Der Raum bestand ein Jahr, bis Mai 2011. Die Community, die sich dort bildete, gibt es bis heute.</p>
-<p>Software folgte fast sofort — eine eigene Anwendung zur Verwaltung des Space, im selben Jahr geschrieben.</p>`
+      en: `<p>Le Space opened <strong>Leipzig’s first coworking space</strong>, in the Tapetenwerk: a shared breakfast on Friday mornings before work started, and room for freelancers, founders, employees and students alike.</p>
+<p>The beta project ran from May 2009 to June 2011. <strong>The community and its spirit are still there</strong>, kept alive by people who were part of it from the beginning.</p>
+<p>One lesson from those years has outlasted the room: <strong>being able to have lunch together — a canteen, somewhere to sit down — is a foundation a living community is built on</strong>, not a perk.</p>
+<p>Software followed almost immediately, an application to run the space.</p>`,
+      de: `<p>Le Space eröffnete den <strong>ersten Coworking Space Leipzigs</strong>, im Tapetenwerk: freitags gemeinsames Frühstück vor der Arbeit, und Platz für Freiberufler, Gründerinnen, Angestellte und Studenten gleichermaßen.</p>
+<p>Das Beta-Projekt lief von Mai 2009 bis Juni 2011. <strong>Die Community und ihr Geist bestehen bis heute</strong> — getragen von Menschen, die von Anfang an dabei waren.</p>
+<p>Eine Erkenntnis aus dieser Zeit hat den Raum überdauert: <strong>Die Möglichkeit, gemeinsam Mittag zu essen — eine Kantine, ein Ort zum Hinsetzen — ist ein Grundbaustein lebendiger Community</strong>, keine Annehmlichkeit nebenbei.</p>
+<p>Software folgte fast sofort, eine eigene Anwendung zur Verwaltung des Space.</p>`
     }
   },
   {
@@ -52,11 +54,11 @@ export const history = [
       en: 'Desktop clients were moving into the browser across the enterprise world.',
       de: 'In der Unternehmenswelt wanderten Desktop-Anwendungen reihenweise in den Browser.'
     },
-    title: { en: 'Two years in finance', de: 'Zwei Jahre Finanzbranche' },
+    title: { en: 'Work in finance', de: 'Arbeit in der Finanzbranche' },
     body: {
-      en: `<p>After the space closed, two years for <strong>Fondskonzept / Maklerservicecenter in Munich</strong>: porting a Java client application for brokers to a Google Web Toolkit version — a regulated industry, a large existing application, and a deadline that belonged to someone else.</p>
+      en: `<p>Work for <strong>Fondskonzept / Maklerservicecenter in Munich</strong>: porting a <strong>Java Swing client application</strong> for brokers to a Google Web Toolkit version — a regulated industry and a large existing application.</p>
 <p>The WebRTC work started after that.</p>`,
-      de: `<p>Nach dem Ende des Space folgten zwei Jahre für <strong>Fondskonzept / Maklerservicecenter in München</strong>: die Portierung einer Java-Client-Anwendung für Makler auf eine Google-Web-Toolkit-Variante — regulierte Branche, große bestehende Anwendung, und ein Termin, der jemand anderem gehörte.</p>
+      de: `<p>Arbeit für <strong>Fondskonzept / Maklerservicecenter in München</strong>: die Portierung einer <strong>Java-Swing-Client-Anwendung</strong> für Makler auf eine Google-Web-Toolkit-Variante — regulierte Branche, große bestehende Anwendung.</p>
 <p>Erst danach begann die Arbeit mit WebRTC.</p>`
     }
   },
@@ -76,9 +78,9 @@ export const history = [
     title: { en: 'Remote.Yoga', de: 'Remote.Yoga' },
     body: {
       en: `<p>A startup for yoga studios and their students, from 2012 — and the first attempt at something that turns up again much later: <strong>making WebRTC video and audio usable for a yoga class, one teacher to many students.</strong></p>
-<p>Parts of it were built in Goa in 2013 and 2014.</p>`,
+<p>Parts of it were built in Goa, India, in 2013 and 2014 — as one of the first true digital nomads in the country.</p>`,
       de: `<p>Ein Startup für Yogastudios und ihre Schüler, ab 2012 — und der erste Anlauf zu etwas, das sehr viel später wiederkehrt: <strong>WebRTC-Video und -Audio für eine Yogastunde nutzbar machen, ein Lehrer zu vielen Schülern.</strong></p>
-<p>Teile davon entstanden 2013 und 2014 in Goa.</p>`
+<p>Teile davon entstanden 2013 und 2014 in Goa, Indien — als einer der ersten echten digitalen Nomaden im Land.</p>`
     }
   },
   {
@@ -112,15 +114,15 @@ export const history = [
       }
     },
     era: {
-      en: 'The ICO boom: nearly every project financed itself by selling tokens.',
-      de: 'Der ICO-Boom: Praktisch jedes Projekt finanzierte sich über den Verkauf von Token.'
+      en: 'The ICO boom: an idea, a whitepaper, and a token to go with it.',
+      de: 'Der ICO-Boom: eine Idee, ein Whitepaper, und ein Token dazu.'
     },
     title: { en: 'Proof without a middleman', de: 'Nachweis ohne Mittelsmann' },
     body: {
-      en: `<p><strong>Doichain</strong>, a fork of Namecoin: unforgeable records of email double opt-in, written to a blockchain instead of held by a service provider. Prototype in 2018, a non-profit to carry it, workshops with the eco association.</p>
-<p>The project was <strong>deliberately sunset in 2023</strong>.</p>`,
-      de: `<p><strong>Doichain</strong>, ein Fork von Namecoin: fälschungssichere Nachweise über das Double-Opt-In im E-Mail-Marketing, dokumentiert in einer Blockchain statt bei einem Dienstleister. Prototyp 2018, ein Non-Profit als Träger, Workshops mit dem eco-Verband.</p>
-<p>Das Projekt wurde <strong>2023 bewusst ausgelaufen</strong>.</p>`
+      en: `<p><strong><a href="https://web.archive.org/web/20240104/https://www.doichain.org/" target="_blank" rel="noopener noreferrer">Doichain</a></strong>, a fork of Namecoin: unforgeable records of email double opt-in, written to a blockchain instead of held by a service provider. Prototype in 2018, a non-profit to carry it, workshops with the eco association.</p>
+<p>The project was <strong>deliberately sunset in 2025</strong>. The link goes to the archived site — the current domain is no longer ours.</p>`,
+      de: `<p><strong><a href="https://web.archive.org/web/20240104/https://www.doichain.org/" target="_blank" rel="noopener noreferrer">Doichain</a></strong>, ein Fork von Namecoin: fälschungssichere Nachweise über das Double-Opt-In im E-Mail-Marketing, dokumentiert in einer Blockchain statt bei einem Dienstleister. Prototyp 2018, ein Non-Profit als Träger, Workshops mit dem eco-Verband.</p>
+<p>Das Projekt wurde <strong>2025 bewusst ausgelaufen</strong>. Der Verweis führt ins Archiv — die heutige Domain gehört nicht mehr zu uns.</p>`
     }
   },
   {
@@ -142,6 +144,36 @@ export const history = [
 <p>The answer turned up the same year — OrbitDB, libp2p and IPFS. Since then there has been a continuous run of local-first peer-to-peer web apps: task lists, a blog, an address book, class booking for yoga studios.</p>`,
       de: `<p>Le Space stellte die Frage neu, mit zwei Bedingungen: <strong>Peer-to-Peer ohne Blockchain, und ohne Tokenverkauf als Geschäftsmodell.</strong></p>
 <p>Die Antwort fand sich im selben Jahr — OrbitDB, libp2p und IPFS. Seitdem entsteht laufend Neues: local-first Peer-to-Peer als Web-Apps, von Aufgabenlisten über einen Blog und ein Adressbuch bis zur Kursbuchung für Yogastudios.</p>`
+    }
+  },
+  {
+    year: '2023',
+    images: [
+      {
+        src: '/history/2023-labweek.webp',
+        alt: {
+          en: 'Illustration: developers around laptops at a conference week.',
+          de: 'Illustration: Entwicklerinnen und Entwickler mit Laptops während einer Konferenzwoche.'
+        }
+      },
+      {
+        src: '/history/2023-vienna.webp',
+        alt: {
+          en: 'Illustration: a workplace in Vienna, a web application on screen.',
+          de: 'Illustration: ein Arbeitsplatz in Wien, eine Webanwendung auf dem Bildschirm.'
+        }
+      }
+    ],
+    era: {
+      en: 'IPFS and libp2p had grown past the crypto crowd into a research community of their own.',
+      de: 'IPFS und libp2p waren der Kryptoszene entwachsen und zu einer eigenen Forschungsgemeinde geworden.'
+    },
+    title: { en: 'Two rooms', de: 'Zwei Räume' },
+    body: {
+      en: `<p><strong>LabWeek</strong> brought the first direct contact with developers from Protocol Labs — the people behind IPFS and libp2p. That contact is why Le Space is embedded in this community today rather than merely using its software.</p>
+<p>In parallel, a <strong>SvelteKit project for a pharmaceutical company in Vienna</strong>: another regulated industry, and the framework that carries the local-first prototypes.</p>`,
+      de: `<p>Die <strong>LabWeek</strong> brachte den ersten direkten Kontakt zu Entwicklern von Protocol Labs — den Leuten hinter IPFS und libp2p. Auf diesen Kontakt geht zurück, dass Le Space heute in dieser Community steckt und ihre Software nicht bloß benutzt.</p>
+<p>Parallel dazu ein <strong>SvelteKit-Auftrag für ein Unternehmen der Pharmabranche in Wien</strong>: erneut eine regulierte Branche, und zugleich das Framework, auf dem die local-first-Prototypen laufen.</p>`
     }
   },
   {

@@ -13,7 +13,7 @@ export const dictionaries = {
       lead: 'From Leipzig’s first coworking space to a stack that runs without servers.',
       years: 'Years',
       illustrations:
-        'The images are illustrations, not photographs — no usable pictures exist for the early years.'
+        'The early years were not photographed, only remembered. The pictures are illustrations.'
     }
   },
   de: {
@@ -25,7 +25,7 @@ export const dictionaries = {
       lead: 'Vom ersten Coworking Space Leipzigs zu einem Stack, der ohne Server auskommt.',
       years: 'Jahre',
       illustrations:
-        'Die Bilder sind Illustrationen, keine Fotografien — für die frühen Jahre existieren keine brauchbaren Aufnahmen.'
+        'Die frühen Jahre wurden nicht fotografiert, sondern erinnert. Die Bilder sind Illustrationen.'
     }
   }
 };

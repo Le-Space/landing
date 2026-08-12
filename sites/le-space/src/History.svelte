@@ -67,16 +67,26 @@
 
   <ol class="stations">
     {#each history as station (station.year)}
+      <!-- A station can carry two pictures when one year holds two threads;
+           they then share the row rather than stacking, so the timeline keeps
+           one visual block per year. -->
+      {@const shots = station.image ? [station.image] : (station.images ?? [])}
       <li class="station" id="year-{station.year}">
         <div class="marker" aria-hidden="true">{station.year}</div>
 
-        <figure class="shot" class:empty={!station.image}>
-          {#if station.image}
-            <img src={station.image.src} alt={pick(station.image.alt)} loading="lazy" />
+        <div class="shots" class:pair={shots.length > 1}>
+          {#if shots.length}
+            {#each shots as shot (shot.src)}
+              <figure class="shot">
+                <img src={shot.src} alt={pick(shot.alt)} loading="lazy" />
+              </figure>
+            {/each}
           {:else}
-            <div class="placeholder">{station.year}</div>
+            <figure class="shot">
+              <div class="placeholder">{station.year}</div>
+            </figure>
           {/if}
-        </figure>
+        </div>
 
         <div class="text">
           <p class="era">{pick(station.era)}</p>
@@ -197,9 +207,20 @@
     padding-top: 2px;
   }
 
-  .shot {
+  .shots {
     grid-column: 2;
-    margin: 0 0 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .shots.pair {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .shot {
+    margin: 0;
     aspect-ratio: 16 / 9;
     border: 1px solid var(--ls-card-border);
     border-radius: var(--ls-radius);
@@ -304,9 +325,14 @@
       gap: 6px;
     }
 
-    .shot,
+    .shots,
     .text {
       grid-column: 1;
+    }
+
+    /* Two pictures side by side are unreadable at phone width. */
+    .shots.pair {
+      grid-template-columns: 1fr;
     }
 
     .stations {
