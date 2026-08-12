@@ -13,6 +13,10 @@
   let openTalk = $state(null);
 
   const email = $derived($locale === 'de' ? siteConfig.email.contact : siteConfig.email.contactEn);
+
+  /** The year is rendered next to the city, so a name carrying one repeats it. */
+  const shortName = (entry) => entry.name.replace(/\s+(19|20)\d{2}$/, '');
+  const year = (entry) => entry.date.slice(0, 4);
 </script>
 
 <footer class="footer">
@@ -30,15 +34,23 @@
       <div class="talks">
         <span class="dim small">{$t('footer.talks', 'Conferences & talks')}</span>
         <span class="talk-list">
+          <!-- The separator sits inside the entry so a wrap can never start a
+               line with a stray "·" — visible on a phone, where six entries
+               take five rows. -->
           {#each talks as entry, i (entry.id)}
-            <button
-              class="talk"
-              class:has-video={!!entry.talk}
-              onclick={() => (openTalk = entry)}
-              title={`${entry.city} · ${entry.when[$locale] || entry.when.en}`}
-            >
-              {entry.name}{#if entry.talk}<span class="play" aria-hidden="true">▶</span>{/if}
-            </button>{#if i < talks.length - 1}<span class="sep" aria-hidden="true">·</span>{/if}
+            <span class="entry">
+              <button
+                class="talk"
+                class:has-video={!!entry.talk}
+                onclick={() => (openTalk = entry)}
+                title={entry.when[$locale] || entry.when.en}
+              >
+                {shortName(entry)}{#if entry.talk}<span class="play" aria-hidden="true">▶</span
+                  >{/if}<span class="place"
+                  >{entry.city[$locale] || entry.city.en} {year(entry)}</span
+                >
+              </button>{#if i < talks.length - 1}<span class="sep" aria-hidden="true">·</span>{/if}
+            </span>
           {/each}
         </span>
       </div>
@@ -133,6 +145,17 @@
     align-items: baseline;
     gap: 4px 6px;
     font-size: 0.78rem;
+    /* With the place and year appended the six entries need ~1240px and the
+       footer column offers ~1070px, so this wraps on any screen. Capping the
+       line well below the available width splits it evenly instead of leaving
+       a single orphaned conference on the second row. */
+    max-width: 640px;
+  }
+
+  /* Each entry now carries a place and a year; the line may wrap between
+     entries, never inside one. */
+  .entry {
+    white-space: nowrap;
   }
 
   .talk {
@@ -143,6 +166,18 @@
     color: var(--ls-text-dim);
     cursor: pointer;
     border-bottom: 1px dotted transparent;
+  }
+
+  /* Quieter than the conference name so the line still scans as a list of
+     names, with the place as an aside rather than a second column. */
+  .place {
+    margin-left: 5px;
+    color: var(--ls-text-faint);
+  }
+
+  .talk:hover .place,
+  .talk:focus-visible .place {
+    color: var(--ls-text-dim);
   }
 
   .talk:hover,
@@ -169,6 +204,8 @@
 
   .sep {
     color: var(--ls-text-faint);
+    /* Inside the entry now, so the flex gap no longer separates it. */
+    margin-left: 6px;
   }
 
   .build {

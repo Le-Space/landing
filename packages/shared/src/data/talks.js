@@ -5,13 +5,16 @@
  * recorded and the recording is served as a plain file from video.fosdem.org,
  * so it can be embedded with a native <video> element — no third-party player,
  * no tracker on a page that advertises exactly that.
+ *
+ * `city` is localized because the footer shows it now: Brussels/Brüssel and
+ * Munich/München read as sloppy the other way round on a bilingual page.
  */
 export const talks = [
   {
     id: "fosdem-2026",
     name: "FOSDEM 2026",
     role: "talk",
-    city: "Brussels",
+    city: { en: "Brussels", de: "Brüssel" },
     country: { en: "Belgium", de: "Belgien" },
     date: "2026-02-01",
     when: { en: "February 2026", de: "Februar 2026" },
@@ -37,7 +40,7 @@ export const talks = [
     id: "blockchain-life-2025",
     name: "Blockchain Life 2025",
     role: "attended",
-    city: "Moscow",
+    city: { en: "Moscow", de: "Moskau" },
     country: { en: "Russia", de: "Russland" },
     date: "2025-10-01",
     when: { en: "October 2025", de: "Oktober 2025" },
@@ -51,7 +54,7 @@ export const talks = [
     id: "tum-blockchain-2025",
     name: "TUM Blockchain Conference",
     role: "attended",
-    city: "Munich",
+    city: { en: "Munich", de: "München" },
     country: { en: "Germany", de: "Deutschland" },
     date: "2025-09-01",
     when: { en: "2025", de: "2025" },
@@ -65,7 +68,7 @@ export const talks = [
     id: "labweek-2025",
     name: "LabWeek",
     role: "attended",
-    city: "Brussels",
+    city: { en: "Brussels", de: "Brüssel" },
     country: { en: "Belgium", de: "Belgien" },
     date: "2025-02-01",
     when: { en: "2025", de: "2025" },
@@ -79,7 +82,7 @@ export const talks = [
     id: "devcon-7-2024",
     name: "Devcon 7 & LabWeek",
     role: "attended",
-    city: "Bangkok",
+    city: { en: "Bangkok", de: "Bangkok" },
     country: { en: "Thailand", de: "Thailand" },
     date: "2024-11-01",
     when: { en: "November 2024", de: "November 2024" },
@@ -93,7 +96,7 @@ export const talks = [
     id: "devconnect-2023",
     name: "Devconnect & LabWeek",
     role: "attended",
-    city: "Istanbul",
+    city: { en: "Istanbul", de: "Istanbul" },
     country: { en: "Turkey", de: "Türkei" },
     date: "2023-11-01",
     when: { en: "November 2023", de: "November 2023" },
