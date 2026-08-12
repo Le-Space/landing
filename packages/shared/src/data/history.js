@@ -74,7 +74,7 @@ export const history = [
     }
   },
   {
-    year: '2012',
+    year: '2013',
     image: {
       src: '/history/2013-goa.webp',
       alt: {
@@ -175,9 +175,9 @@ export const history = [
     },
     title: { en: 'Two rooms', de: 'Zwei Räume' },
     body: {
-      en: `<p><strong>LabWeek</strong> brought the first direct contact with developers from Protocol Labs — the people behind IPFS and libp2p. That contact is why Le Space is embedded in this community today rather than merely using its software.</p>
+      en: `<p><strong>LabWeek in Istanbul</strong> brought the first direct contact with developers from Protocol Labs — the people behind IPFS and libp2p. That contact is why Le Space is embedded in this community today rather than merely using its software.</p>
 <p>In parallel, a <strong>SvelteKit project for a pharmaceutical company in Vienna</strong>: another regulated industry, and the framework that carries the local-first prototypes.</p>`,
-      de: `<p>Die <strong>LabWeek</strong> brachte den ersten direkten Kontakt zu Entwicklern von Protocol Labs — den Leuten hinter IPFS und libp2p. Auf diesen Kontakt geht zurück, dass Le Space heute in dieser Community steckt und ihre Software nicht bloß benutzt.</p>
+      de: `<p>Die <strong>LabWeek in Istanbul</strong> brachte den ersten direkten Kontakt zu Entwicklern von Protocol Labs — den Leuten hinter IPFS und libp2p. Auf diesen Kontakt geht zurück, dass Le Space heute in dieser Community steckt und ihre Software nicht bloß benutzt.</p>
 <p>Parallel dazu ein <strong>SvelteKit-Auftrag für ein Unternehmen der Pharmabranche in Wien</strong>: erneut eine regulierte Branche, und zugleich das Framework, auf dem die local-first-Prototypen laufen.</p>`
     }
   },

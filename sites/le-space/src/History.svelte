@@ -26,6 +26,32 @@
   let playing = $state(null);
 
   const pick = (field) => field[$locale] || field.en;
+
+  /**
+   * The rail stays put while reading, so it has to say where the reader is —
+   * a sticky bar that only reacts to clicks points at the wrong year the
+   * moment someone scrolls past it.
+   */
+  $effect(() => {
+    const stations = document.querySelectorAll('.station');
+    if (!stations.length) return;
+
+    const seen = new Map();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) seen.set(e.target.id, e);
+        // The topmost station still intersecting wins; falling back to the last
+        // one keeps the final year lit at the bottom of the page.
+        const visible = [...seen.values()]
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible.length) active = visible[0].target.id.replace('year-', '');
+      },
+      { rootMargin: '-88px 0px -55% 0px' }
+    );
+    stations.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  });
 </script>
 
 <ParticlesBackground density={90} />
@@ -181,13 +207,27 @@
     color: var(--ls-text-faint);
   }
 
+  /* Sticky: on a page this long the years are navigation, and navigation that
+     scrolls away is decoration. The backdrop keeps text from showing through. */
   .rail {
+    position: sticky;
+    top: 0;
+    z-index: 5;
     display: flex;
     flex-wrap: wrap;
     gap: 6px 10px;
-    padding: 10px 0 34px;
+    padding: 12px 0;
     border-bottom: 1px solid var(--ls-card-border);
     margin-bottom: 44px;
+    background: color-mix(in srgb, var(--ls-bg-0) 88%, transparent);
+    backdrop-filter: blur(8px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rail {
+      backdrop-filter: none;
+      background: var(--ls-bg-0);
+    }
   }
 
   .year {
@@ -221,7 +261,7 @@
     display: grid;
     grid-template-columns: 88px 1fr;
     gap: 8px 28px;
-    scroll-margin-top: 80px;
+    scroll-margin-top: 84px;
   }
 
   .marker {
