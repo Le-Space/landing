@@ -89,8 +89,10 @@ export const history = [
     title: { en: 'Remote.Yoga', de: 'Remote.Yoga' },
     body: {
       en: `<p>A startup for yoga studios and their students, from 2012 — and the first attempt at something that turns up again much later: <strong>making WebRTC video and audio usable for a yoga class, one teacher to many students.</strong></p>
+<p>It ran with pilot studios: <strong>DayaYoga in Bern</strong> and <strong>YogaVidya in Bayreuth</strong>.</p>
 <p>Parts of it were built in Goa, India, in 2013 and 2014 — as one of the first true digital nomads in the country.</p>`,
       de: `<p>Ein Startup für Yogastudios und ihre Schüler, ab 2012 — und der erste Anlauf zu etwas, das sehr viel später wiederkehrt: <strong>WebRTC-Video und -Audio für eine Yogastunde nutzbar machen, ein Lehrer zu vielen Schülern.</strong></p>
+<p>Erprobt wurde es mit Pilotstudios: <strong>DayaYoga in Bern</strong> und <strong>YogaVidya in Bayreuth</strong>.</p>
 <p>Teile davon entstanden 2013 und 2014 in Goa, Indien — als einer der ersten echten digitalen Nomaden im Land.</p>`
     }
   },
@@ -125,9 +127,9 @@ export const history = [
     title: { en: 'Proof without a middleman', de: 'Nachweis ohne Mittelsmann' },
     body: {
       en: `<p><strong><a href="https://web.archive.org/web/20240104/https://www.doichain.org/" target="_blank" rel="noopener noreferrer">Doichain</a></strong>, a fork of Namecoin: unforgeable records of email double opt-in, written to a blockchain instead of held by a service provider. Prototype in 2018, a non-profit to carry it, workshops with the eco association.</p>
-<p><strong>Early in 2025 the project was no longer carried on.</strong> The link goes to the archived site — the domain is no longer ours.</p>`,
+<p><strong>Early in 2025 the project was no longer carried on.</strong> The link goes to the archived site — the domain is no longer under our influence and control.</p>`,
       de: `<p><strong><a href="https://web.archive.org/web/20240104/https://www.doichain.org/" target="_blank" rel="noopener noreferrer">Doichain</a></strong>, ein Fork von Namecoin: fälschungssichere Nachweise über das Double-Opt-In im E-Mail-Marketing, dokumentiert in einer Blockchain statt bei einem Dienstleister. Prototyp 2018, ein Non-Profit als Träger, Workshops mit dem eco-Verband.</p>
-<p><strong>Anfang 2025 wurde das Projekt nicht mehr weitergeführt.</strong> Der Verweis führt ins Archiv — die Domain gehört nicht mehr zu uns.</p>`
+<p><strong>Anfang 2025 wurde das Projekt nicht mehr weitergeführt.</strong> Der Verweis führt ins Archiv — die Domain liegt nicht mehr in unserem Einfluss- und Kontrollbereich.</p>`
     }
   },
   {
