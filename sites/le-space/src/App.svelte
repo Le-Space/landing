@@ -35,8 +35,9 @@
       {/each}
     </nav>
 
-    <!-- Quieter than the product links: the history is worth reading, but it is
-         not what someone arriving here came for. -->
+    <!-- Deliberately not a second card. Two cards of equal weight would put
+         sixteen years of history on a par with the whole stack, and this page
+         has one job: route people to the product. -->
     <a class="history-link" href={localePath($locale, '/history/')}>{$t('history.link')}</a>
 
     <div class="socials">
@@ -124,7 +125,7 @@
   }
 
   .history-link {
-    margin-top: 20px;
+    margin-top: 18px;
     font-size: 0.88rem;
     color: var(--ls-text-faint);
     border-bottom: 1px dotted var(--ls-card-border);
