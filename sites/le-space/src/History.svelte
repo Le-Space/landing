@@ -45,6 +45,9 @@
         'Vom ersten Coworking Space Leipzigs zu einem Stack, der ohne Server auskommt.'
       )}
     </p>
+    <!-- Said once, plainly. A reader who works out on their own that the
+         pictures are generated stops trusting the text too. -->
+    <p class="note">{$t('history.illustrations')}</p>
   </div>
 
   <!-- The rail is navigation on wide screens and a plain heading list on
@@ -136,6 +139,12 @@
     color: var(--ls-text-dim);
     font-size: 1.05rem;
     margin: 0;
+  }
+
+  .note {
+    margin: 12px 0 0;
+    font-size: 0.82rem;
+    color: var(--ls-text-faint);
   }
 
   .rail {

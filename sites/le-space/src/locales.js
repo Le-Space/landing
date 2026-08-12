@@ -11,7 +11,9 @@ export const dictionaries = {
       link: 'Our history',
       title: 'Sixteen years of Le Space',
       lead: 'From Leipzig’s first coworking space to a stack that runs without servers.',
-      years: 'Years'
+      years: 'Years',
+      illustrations:
+        'The images are illustrations, not photographs — no usable pictures exist for the early years.'
     }
   },
   de: {
@@ -21,7 +23,9 @@ export const dictionaries = {
       link: 'Unsere Geschichte',
       title: 'Sechzehn Jahre Le Space',
       lead: 'Vom ersten Coworking Space Leipzigs zu einem Stack, der ohne Server auskommt.',
-      years: 'Jahre'
+      years: 'Jahre',
+      illustrations:
+        'Die Bilder sind Illustrationen, keine Fotografien — für die frühen Jahre existieren keine brauchbaren Aufnahmen.'
     }
   }
 };

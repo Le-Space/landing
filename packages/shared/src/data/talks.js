@@ -86,7 +86,7 @@ export const talks = [
     country: { en: "Thailand", de: "Thailand" },
     date: "2024-11-01",
     when: { en: "November 2024", de: "November 2024" },
-    url: "https://devcon.org/",
+    url: "https://devcon.org/en/past-events/",
     desc: {
       en: "The Ethereum Foundation’s developer conference, alongside LabWeek in the same week.",
       de: "Die Entwicklerkonferenz der Ethereum Foundation, zeitgleich mit der LabWeek.",

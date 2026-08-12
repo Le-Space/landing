@@ -36,7 +36,7 @@
         <div>
           <h3>{talk.name}</h3>
           <p class="where">
-            {talk.city}, {t(talk.country)} · {t(talk.when)}
+            {t(talk.city)}, {t(talk.country)} · {t(talk.when)}
             {#if talk.role === 'talk'}
               <span class="badge">{$locale === 'de' ? 'Vortrag' : 'Talk'}</span>
             {/if}
