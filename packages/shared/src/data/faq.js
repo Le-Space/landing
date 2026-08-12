@@ -53,6 +53,27 @@ export const faq = [
     },
   },
   {
+    // Deliberately the third entry: the two above define the term, this one is
+    // the on-ramp for readers who want the modest version first — it runs on
+    // your machine, and sync is a switch you turn on. The storage paragraph is
+    // not a disclaimer bolted on; persistence and reachability really are two
+    // independent settings, and readers who conflate them are surprised by a
+    // reload later.
+    id: "offline-only",
+    q: {
+      en: "Can I run it completely offline, without anyone else's servers?",
+      de: "Kann ich das komplett offline nutzen, ohne fremde Server?",
+    },
+    a: {
+      en: `<p>Yes. On first start, the consent screen carries a checkbox: <strong>“Connect to the public libp2p relay network”</strong>. Clear it and the browser opens no outbound connection at all — no bootstrap, no relay. Nothing announces you, nobody can find you, and no foreign node pins your data.</p>
+<p>You can still connect, just deliberately instead of automatically: by <strong>QR code</strong> directly between two devices, or by starting <a href="#project-relay-button">your own relay</a> that only your devices trust.</p>
+<p>Independently of that, there is the question of <strong>where the data lives</strong>: that is decided by the storage type in the IPFS/OrbitDB configuration. LevelDB or IndexedDB writes it to your device's disk; memory storage keeps it in RAM only. The <a href="#project-simple-todo">Simple Todo demo</a> currently runs on memory storage, so a reload starts over.</p>`,
+      de: `<p>Ja. Beim ersten Start steht auf dem Consent-Screen eine Checkbox: <strong>„Mit dem öffentlichen libp2p-Relay-Netz verbinden“</strong>. Nimmst du das Häkchen raus, baut der Browser gar keine Verbindung nach außen auf — kein Bootstrap, kein Relay. Nichts kündigt dich an, niemand kann dich finden, und kein fremder Knoten pinnt deine Daten.</p>
+<p>Verbinden kannst du dich trotzdem, nur bewusst statt automatisch: per <strong>QR-Code</strong> direkt zwischen zwei Geräten, oder indem du dir <a href="#project-relay-button">einen eigenen Relay startest</a>, dem nur deine Geräte vertrauen.</p>
+<p>Davon unabhängig ist die Frage, <strong>wo die Daten liegen</strong>: Das bestimmt der Storage-Typ in der IPFS/OrbitDB-Konfiguration. LevelDB bzw. IndexedDB schreibt sie auf die Platte deines Geräts, Memory-Storage hält sie nur im Arbeitsspeicher. Die <a href="#project-simple-todo">Simple-Todo-Demo</a> läuft derzeit mit Memory-Storage, ein Reload beginnt also von vorn.</p>`,
+    },
+  },
+  {
     id: "encryption",
     // Rendered below the answer by FaqSection; see components/Diagram*.svelte
     diagram: "encryption",
@@ -134,10 +155,10 @@ export const faq = [
     a: {
       en: `<p>Every OrbitDB database has an <a href="https://github.com/orbitdb/orbitdb/blob/main/docs/ACCESS_CONTROLLERS.md" target="_blank" rel="noopener noreferrer"><strong>access controller</strong></a>: a list of cryptographic identities that are allowed to write. Writes are signed; every peer verifies signatures independently — no server decides.</p>
 <p>With our <a href="https://github.com/Le-Space/orbitdb-identity-provider-webauthn-did" target="_blank" rel="noopener noreferrer">WebAuthn identity provider</a>, that identity is your passkey (Face ID, Touch ID, security key) — no account, no password. Reading is governed by replication and, if enabled, payload encryption.</p>
-<p><strong>See it work:</strong> the <a href="https://acl01.le-space.de" target="_blank" rel="noopener noreferrer">acl01 tutorial chapter</a> creates an owner-only list, shares it by address and grants a second DID write access at runtime — the address never changes. For token-based delegation instead of a list, there is <a href="https://github.com/Le-Space/orbitdb-access-controller-delegated-todo" target="_blank" rel="noopener noreferrer">orbitdb-access-controller-delegated-todo</a>.</p>`,
+<p><strong>See it work:</strong> the <a href="https://acl01.le-space.de" target="_blank" rel="noopener noreferrer">acl01 tutorial chapter</a> creates an owner-only list, shares it by address and grants a second DID write access at runtime — the address never changes.</p>`,
       de: `<p>Jede OrbitDB-Datenbank hat einen <a href="https://github.com/orbitdb/orbitdb/blob/main/docs/ACCESS_CONTROLLERS.md" target="_blank" rel="noopener noreferrer"><strong>Access Controller</strong></a>: eine Liste kryptografischer Identitäten, die schreiben dürfen. Schreibzugriffe sind signiert; jeder Peer prüft die Signaturen selbst — kein Server entscheidet.</p>
 <p>Mit unserem <a href="https://github.com/Le-Space/orbitdb-identity-provider-webauthn-did" target="_blank" rel="noopener noreferrer">WebAuthn-Identity-Provider</a> ist diese Identität dein Passkey (Face ID, Touch ID, Security Key) — kein Account, kein Passwort. Lesen regelt die Replikation und, falls aktiviert, die Payload-Verschlüsselung.</p>
-<p><strong>Zum Ausprobieren:</strong> Das <a href="https://acl01.le-space.de" target="_blank" rel="noopener noreferrer">Tutorial-Kapitel acl01</a> legt eine Liste an, die nur dem Owner gehört, teilt sie per Adresse und vergibt zur Laufzeit Schreibrecht an eine zweite DID — die Adresse bleibt dabei gleich. Für Delegation per Token statt per Liste gibt es <a href="https://github.com/Le-Space/orbitdb-access-controller-delegated-todo" target="_blank" rel="noopener noreferrer">orbitdb-access-controller-delegated-todo</a>.</p>`,
+<p><strong>Zum Ausprobieren:</strong> Das <a href="https://acl01.le-space.de" target="_blank" rel="noopener noreferrer">Tutorial-Kapitel acl01</a> legt eine Liste an, die nur dem Owner gehört, teilt sie per Adresse und vergibt zur Laufzeit Schreibrecht an eine zweite DID — die Adresse bleibt dabei gleich.</p>`,
     },
   },
   {

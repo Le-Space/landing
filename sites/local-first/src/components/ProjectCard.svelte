@@ -107,7 +107,9 @@
   });
 </script>
 
-<article class="card" class:dimmed>
+<!-- Addressable so prose elsewhere can point at a specific card (the FAQ links
+     here rather than sending the reader off-site). -->
+<article id="project-{project.id}" class="card" class:dimmed>
   <!-- The screenshots use the same palette as this page, so without a frame it
        is unclear where the card stops and the pictured app begins. The browser
        chrome says "this is a different site" and shows which one. -->
@@ -238,6 +240,8 @@
     display: flex;
     flex-direction: column;
     transition: all 0.3s ease;
+    /* Jumping to #project-… must not park the card under the fixed nav. */
+    scroll-margin-top: 90px;
   }
 
   .card:hover {
