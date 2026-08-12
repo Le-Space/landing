@@ -19,7 +19,10 @@
   const year = (entry) => entry.date.slice(0, 4);
 </script>
 
-<footer class="footer">
+<!-- The hero's "Contact" button targets this: the address, the legal details
+     and the social icons all live here, so the whole footer is the destination
+     rather than the mail link alone. -->
+<footer id="contact" class="footer">
   <div class="ls-container inner">
     <div class="left">
       <strong>Le-Space</strong>
@@ -73,6 +76,9 @@
 
 <style>
   .footer {
+    /* Jumping to #contact should not tuck the top edge under the fixed
+       language pill. */
+    scroll-margin-top: 80px;
     border-top: 1px solid var(--ls-card-border);
     padding: 40px 0;
     position: relative;

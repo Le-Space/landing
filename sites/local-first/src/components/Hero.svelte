@@ -16,7 +16,9 @@
     <div class="ctas">
       <a class="btn primary" href="#projects">{$t('hero.cta_projects')}</a>
       <a class="btn" href="#faq">{$t('hero.cta_faq')}</a>
-      <a class="btn" href="https://github.com/le-space" target="_blank" rel="noopener noreferrer">{$t('hero.cta_github')}</a>
+      <!-- Was a GitHub link, which the footer icons and every project card
+           already offer. A way to reach a person did not exist above the fold. -->
+      <a class="btn" href="#contact">{$t('hero.cta_contact', 'Kontakt')}</a>
     </div>
   </div>
   <NetworkViz live />
