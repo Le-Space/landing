@@ -43,13 +43,22 @@ export const history = [
   },
   {
     year: '2011',
-    image: {
-      src: '/history/2011-karakorum.webp',
-      alt: {
-        en: 'Illustration: working on a laptop in a wide, empty landscape.',
-        de: 'Illustration: Arbeit am Laptop in einer weiten, leeren Landschaft.'
+    images: [
+      {
+        src: '/history/2011-karakorum.webp',
+        alt: {
+          en: 'Illustration: working on a laptop in the wide mountain landscape of the Karakoram.',
+          de: 'Illustration: Arbeit am Laptop in der weiten Berglandschaft des Karakorum.'
+        }
+      },
+      {
+        src: '/history/2012-loft38.webp',
+        alt: {
+          en: 'Illustration: a desk with two screens at Loft 38 in Portixol, the sea outside the window.',
+          de: 'Illustration: ein Schreibtisch mit zwei Bildschirmen im Loft 38 in Portixol, davor das Meer.'
+        }
       }
-    },
+    ],
     era: {
       en: 'Desktop clients were moving into the browser across the enterprise world.',
       de: 'In der Unternehmenswelt wanderten Desktop-Anwendungen reihenweise in den Browser.'
@@ -57,8 +66,10 @@ export const history = [
     title: { en: 'Work in finance', de: 'Arbeit in der Finanzbranche' },
     body: {
       en: `<p>Work for <strong>Fondskonzept / Maklerservicecenter in Munich</strong>: porting a <strong>Java Swing client application</strong> for brokers to a Google Web Toolkit version — a regulated industry and a large existing application.</p>
+<p>In between, a journey through the <strong>Karakoram in Pakistan</strong> in October and November 2011. The work itself carried on from <strong>Loft 38 in Portixol, Palma de Mallorca</strong>, in 2012.</p>
 <p>The WebRTC work started after that.</p>`,
       de: `<p>Arbeit für <strong>Fondskonzept / Maklerservicecenter in München</strong>: die Portierung einer <strong>Java-Swing-Client-Anwendung</strong> für Makler auf eine Google-Web-Toolkit-Variante — regulierte Branche, große bestehende Anwendung.</p>
+<p>Dazwischen eine Reise durch den <strong>Karakorum in Pakistan</strong>, Oktober und November 2011. Gearbeitet wurde 2012 weiter aus dem <strong>Loft 38 in Portixol, Palma de Mallorca</strong>.</p>
 <p>Erst danach begann die Arbeit mit WebRTC.</p>`
     }
   },
@@ -85,13 +96,7 @@ export const history = [
   },
   {
     year: '2016',
-    image: {
-      src: '/history/2012-loft38.webp',
-      alt: {
-        en: 'Illustration: a desk with two screens in a bright room, the sea outside the window.',
-        de: 'Illustration: ein Schreibtisch mit zwei Bildschirmen in einem hellen Raum, davor das Meer.'
-      }
-    },
+    image: null,
     era: {
       en: 'WebRTC had reached the major browsers, but was years away from being a standard.',
       de: 'WebRTC war in den großen Browsern angekommen, von einem Standard aber noch Jahre entfernt.'
@@ -114,15 +119,15 @@ export const history = [
       }
     },
     era: {
-      en: 'The ICO boom: an idea, a whitepaper, and a token to go with it.',
-      de: 'Der ICO-Boom: eine Idee, ein Whitepaper, und ein Token dazu.'
+      en: 'The ICO boom: an idea, a whitepaper, and a coin to go with it.',
+      de: 'Der ICO-Boom: eine Idee, ein Whitepaper, und ein Coin dazu.'
     },
     title: { en: 'Proof without a middleman', de: 'Nachweis ohne Mittelsmann' },
     body: {
       en: `<p><strong><a href="https://web.archive.org/web/20240104/https://www.doichain.org/" target="_blank" rel="noopener noreferrer">Doichain</a></strong>, a fork of Namecoin: unforgeable records of email double opt-in, written to a blockchain instead of held by a service provider. Prototype in 2018, a non-profit to carry it, workshops with the eco association.</p>
-<p>The project was <strong>deliberately sunset in 2025</strong>. The link goes to the archived site — the current domain is no longer ours.</p>`,
+<p><strong>Early in 2025 the project was no longer carried on.</strong> The link goes to the archived site — the domain is no longer ours.</p>`,
       de: `<p><strong><a href="https://web.archive.org/web/20240104/https://www.doichain.org/" target="_blank" rel="noopener noreferrer">Doichain</a></strong>, ein Fork von Namecoin: fälschungssichere Nachweise über das Double-Opt-In im E-Mail-Marketing, dokumentiert in einer Blockchain statt bei einem Dienstleister. Prototyp 2018, ein Non-Profit als Träger, Workshops mit dem eco-Verband.</p>
-<p>Das Projekt wurde <strong>2025 bewusst ausgelaufen</strong>. Der Verweis führt ins Archiv — die heutige Domain gehört nicht mehr zu uns.</p>`
+<p><strong>Anfang 2025 wurde das Projekt nicht mehr weitergeführt.</strong> Der Verweis führt ins Archiv — die Domain gehört nicht mehr zu uns.</p>`
     }
   },
   {
