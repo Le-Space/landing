@@ -1,15 +1,19 @@
 <script>
   import { t } from '@le-space/landing-shared/i18n';
+  import { siteConfig } from '@le-space/landing-shared/site-config';
   import LeSpaceLogo from '@le-space/landing-shared/components/LeSpaceLogo.svelte';
   import NetworkViz from '@le-space/landing-shared/components/NetworkViz.svelte';
 </script>
 
 <section class="hero">
   <div class="ls-container">
-    <div class="top">
+    <!-- The mark is the way back to the company site. It reads as a logo, so
+         people try clicking it; leaving it inert makes the two sites feel
+         unrelated. -->
+    <a class="top" href={siteConfig.urls.home} aria-label="Le-Space">
       <LeSpaceLogo size={64} />
       <span class="brand">Le-Space</span>
-    </div>
+    </a>
     <p class="kicker">{$t('hero.kicker')}</p>
     <h1>{$t('hero.title')}</h1>
     <p class="subtitle">{$t('hero.subtitle')}</p>
@@ -40,6 +44,14 @@
     align-items: center;
     gap: 16px;
     margin-bottom: 40px;
+    width: fit-content;
+    color: var(--ls-text);
+    transition: opacity 0.2s ease;
+  }
+
+  .top:hover {
+    text-decoration: none;
+    opacity: 0.82;
   }
 
   .brand {
