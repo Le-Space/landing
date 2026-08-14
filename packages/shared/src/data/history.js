@@ -89,10 +89,10 @@ export const history = [
     title: { en: 'Remote.Yoga', de: 'Remote.Yoga' },
     body: {
       en: `<p>A startup for yoga studios and their students, founded in 2012 — and the first attempt at something that turns up again much later: <strong>making WebRTC video and audio usable for a yoga class, one teacher to many students.</strong></p>
-<p>It ran with pilot studios: <strong>DayaYoga in Bern</strong> and <strong>YogaVidya in Bayreuth</strong>.</p>
+<p>It ran with pilot studios: <strong>DayaYoga in Bern, Switzerland</strong> and <strong>YogaVidya in Bayreuth, Germany</strong>.</p>
 <p>From 2013 parts of it were built in Goa, India, and on into 2014 — as one of the first true digital nomads in the country.</p>`,
       de: `<p>Ein Startup für Yogastudios und ihre Schüler, 2012 gegründet — und der erste Anlauf zu etwas, das sehr viel später wiederkehrt: <strong>WebRTC-Video und -Audio für eine Yogastunde nutzbar machen, ein Lehrer zu vielen Schülern.</strong></p>
-<p>Erprobt wurde es mit Pilotstudios: <strong>DayaYoga in Bern</strong> und <strong>YogaVidya in Bayreuth</strong>.</p>
+<p>Erprobt wurde es mit Pilotstudios: <strong>DayaYoga in Bern, Schweiz</strong> und <strong>YogaVidya in Bayreuth, Deutschland</strong>.</p>
 <p>Ab 2013 entstanden Teile davon in Goa, Indien, bis ins Jahr 2014 — als einer der ersten echten digitalen Nomaden im Land.</p>`
     }
   },
