@@ -120,7 +120,7 @@
               {:else}
                 <button class="play-wrap" onclick={() => (playing = station.year)}>
                   <img src={station.video.poster} alt={pick(station.video.title)} loading="lazy" />
-                  <span class="play" aria-hidden="true">▶</span>
+                  <span class="play" aria-hidden="true"></span>
                   <span class="play-note">{$t('history.playNote')}</span>
                 </button>
               {/if}
@@ -320,10 +320,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2.6rem;
+    font-size: 1.8rem;
     color: #fff;
-    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.6);
     transition: transform 0.2s ease;
+  }
+
+  /* A bare glyph disappears on a light poster; the disc carries it on any
+     image. */
+  .play::before {
+    content: '';
+    position: absolute;
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+  }
+
+  .play::after {
+    content: '▶';
+    position: relative;
+    left: 3px;
   }
 
   .play-wrap:hover .play {

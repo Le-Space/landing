@@ -57,6 +57,17 @@
           {/each}
         </span>
       </div>
+
+      <!-- Its own line rather than squeezed into the conferences list: a won
+           hackathon is not an appearance, and the label above says so. -->
+      <div class="award">
+        <span class="dim small">{$t('footer.award', 'Hackathon')}</span>
+        <a
+          href="https://github.com/libp2p/universal-connectivity-workshop/discussions/12"
+          target="_blank"
+          rel="noopener noreferrer"
+        >{$t('footer.awardText', '1. Platz — libp2p Universal Connectivity, Dezember 2025')}</a>
+      </div>
     </div>
     <div class="right">
       <SocialIcons />
@@ -136,6 +147,18 @@
     gap: 16px;
     align-items: center;
     font-size: 0.85rem;
+  }
+
+  .award {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 0.78rem;
+  }
+
+  .award a {
+    color: var(--ls-amber);
   }
 
   .talks {

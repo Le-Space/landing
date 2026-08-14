@@ -7,6 +7,8 @@
 
   let showVideo = $state(false);
   let imgFailed = $state(false);
+  /** Set once the reader asks for the video; only then is YouTube contacted. */
+  let playing = $state(false);
 
   // Chapter slideshow: demos that ship a screenshot are cross-faded in the
   // media box. Hovering (or long-pressing) a chapter link pins its frame, so
@@ -140,6 +142,26 @@
         {/each}
       </div>
       <span class="shot-label" class:pinned={pinned !== null}>{shots[shown].label}</span>
+    {:else if project.youtube}
+      <!-- Click to load. A YouTube iframe on page load would pull Google's
+           scripts into a page whose headline claim is that it carries none;
+           the poster is served from here, and nothing reaches YouTube until
+           the reader presses play. -->
+      {#if playing}
+        <iframe
+          class="yt"
+          src="https://www.youtube-nocookie.com/embed/{project.youtube.id}?autoplay=1"
+          title={project.name}
+          allow="accelerometer; autoplay; encrypted-media; picture-in-picture"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      {:else}
+        <button class="yt-poster" onclick={() => (playing = true)} aria-label="{project.name} Video">
+          <img src={project.youtube.poster} alt="{project.name} video" loading="lazy" />
+          <span class="yt-play" aria-hidden="true"></span>
+        </button>
+      {/if}
     {:else if project.video && showVideo}
       <!-- svelte-ignore a11y_media_has_caption -->
       <video src={project.video} autoplay loop muted playsinline></video>
@@ -226,7 +248,13 @@
       {#if project.docs}
         <a class="link docs" href={project.docs} target="_blank" rel="noopener noreferrer">{$t('projects.docs')}</a>
       {/if}
-      <a class="link" href={project.github} target="_blank" rel="noopener noreferrer">{$t('projects.source')}</a>
+      {#if project.sources}
+        {#each project.sources as src (src.url)}
+          <a class="link" href={src.url} target="_blank" rel="noopener noreferrer">{src.label}</a>
+        {/each}
+      {:else}
+        <a class="link" href={project.github} target="_blank" rel="noopener noreferrer">{$t('projects.source')}</a>
+      {/if}
     </footer>
   </div>
 </article>
@@ -419,6 +447,66 @@
   .status-beta { color: var(--ls-amber); border-color: var(--ls-amber); }
   .status-in-development { color: var(--ls-accent); border-color: var(--ls-accent); }
   .status-showcase { color: var(--ls-red-bright); border-color: var(--ls-red-bright); }
+  .yt,
+  .yt-poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    border: 0;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .yt-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .yt-play {
+    position: absolute;
+    inset: 0;
+    /* .media img carries z-index 1, so without this the poster paints over
+       the button and it vanishes. */
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #fff;
+    transition: transform 0.2s ease;
+  }
+
+  /* A bare glyph disappears on a light poster; the disc carries it on any
+     image. */
+  .yt-play::before {
+    content: '';
+    position: absolute;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+  }
+
+  .yt-play::after {
+    content: '▶';
+    position: relative;
+    left: 2px;
+  }
+
+  .yt-poster:hover .yt-play {
+    transform: scale(1.12);
+  }
+
+  .status-hackathon {
+    color: var(--ls-amber);
+    border-color: var(--ls-amber);
+  }
+
   .status-prototype { color: var(--ls-text-dim); }
   .status-tutorial { color: var(--ls-accent-2); border-color: var(--ls-accent-2); }
 

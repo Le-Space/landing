@@ -46,6 +46,9 @@ export const STATUS = {
   // toy — distinct from a demo, and not a maturity level.
   showcase: { en: "showcase", de: "Showcase" },
   prototype: { en: "prototype", de: "Prototyp" },
+  // Built in a few days for a competition and judged there — not a maturity
+  // level either, and not a showcase: the point is where it comes from.
+  hackathon: { en: "hackathon", de: "Hackathon" },
   tutorial: { en: "tutorial", de: "Tutorial" },
 };
 
@@ -201,6 +204,43 @@ export const projects = [
     tagline: {
       en: "Tutorial for local-first P2P PWAs: WebAuthn/Passkey identity, OrbitDB data, browser-to-browser sync. No server, no accounts, no passwords.",
       de: "Tutorial für local-first P2P-PWAs: WebAuthn/Passkey-Identität, OrbitDB-Daten, Browser-zu-Browser-Sync. Kein Server, keine Accounts, keine Passwörter.",
+    },
+  },
+  {
+    id: "uc-spreadsheet",
+    name: "P2P Spreadsheet + UCEP",
+    layers: ["data", "sync"],
+    status: "hackathon",
+    featured: false,
+    // Two repositories, two branches: the sheet and the chat side were built
+    // separately and only make sense together, so both are linked.
+    github: "https://github.com/NiKrause/js-libp2p-examples/tree/uc-extensions-service/examples/js-libp2p-example-yjs-libp2p",
+    sources: [
+      {
+        label: "js-libp2p-examples",
+        url: "https://github.com/NiKrause/js-libp2p-examples/tree/uc-extensions-service/examples/js-libp2p-example-yjs-libp2p",
+      },
+      {
+        label: "universal-connectivity",
+        url: "https://github.com/Le-Space/universal-connectivity/commit/5d8272c",
+      },
+    ],
+    docs: "https://github.com/NiKrause/js-libp2p-examples/blob/uc-extensions-service/examples/js-libp2p-example-yjs-libp2p/UC-EXTENSION-PROTOCOL.md",
+    demos: [
+      { label: "Spreadsheet", url: "https://bafybeief54jgh6g6ixpcwylq4q4gfsyu4v757qwksz6u7gst2ewcem27su.ipfs.dweb.link/" },
+      { label: "UC Chat", url: "https://bafybeiby64c4j4x3qeilcup4wzob7x6ldaibgcquxd55uazskq3ll36zrm.ipfs.dweb.link/" },
+    ],
+    npm: null,
+    screenshot: null,
+    youtube: { id: "CtKYDoA6A7I", poster: "/media/uc-spreadsheet.webp" },
+    video: null,
+    note: {
+      en: "First place, libp2p Universal Connectivity Hackathon, December 2025",
+      de: "Erster Platz, libp2p Universal Connectivity Hackathon, Dezember 2025",
+    },
+    tagline: {
+      en: "A peer-to-peer spreadsheet on a Yjs CRDT that offers its capabilities to other apps. The <strong>Universal Connectivity Extension Protocol</strong> lets libp2p applications announce what they can do and discover each other's extensions directly — no central registry. Built in a week for the hackathon run by the <a href=\"https://github.com/libp2p/universal-connectivity-workshop/discussions/12\" target=\"_blank\" rel=\"noopener noreferrer\">libp2p project itself</a>, and judged first of five entries.",
+      de: "Eine Peer-to-Peer-Tabellenkalkulation auf einem Yjs-CRDT, die ihre Fähigkeiten anderen Anwendungen anbietet. Das <strong>Universal Connectivity Extension Protocol</strong> lässt libp2p-Anwendungen ankündigen, was sie können, und die Erweiterungen der anderen direkt finden — ohne zentrale Registrierung. In einer Woche entstanden, beim Hackathon des <a href=\"https://github.com/libp2p/universal-connectivity-workshop/discussions/12\" target=\"_blank\" rel=\"noopener noreferrer\">libp2p-Projekts selbst</a>, erster von fünf Beiträgen.",
     },
   },
   {

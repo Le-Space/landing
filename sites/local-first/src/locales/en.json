@@ -46,7 +46,9 @@
   "footer": {
     "imprint": "Imprint",
     "privacy": "Privacy",
-    "talks": "Conferences & talks"
+    "talks": "Conferences & talks",
+    "award": "Hackathon",
+    "awardText": "First place — libp2p Universal Connectivity, December 2025"
   },
   "theme": {
     "toLight": "Switch to light mode",
