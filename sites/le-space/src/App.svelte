@@ -35,11 +35,6 @@
       {/each}
     </nav>
 
-    <!-- Deliberately not a second card. Two cards of equal weight would put
-         sixteen years of history on a par with the whole stack, and this page
-         has one job: route people to the product. -->
-    <a class="history-link" href={localePath($locale, '/history/')}>{$t('history.link')}</a>
-
     <div class="socials">
       <SocialIcons />
     </div>
@@ -47,6 +42,9 @@
 
   <footer>
     <a href="mailto:{siteConfig.email.contact}">{siteConfig.email.contact}</a>
+    <!-- Quiet on purpose: the history is there for whoever looks for it, not
+         something to meet on the way to the product. -->
+    <a class="legal" href={localePath($locale, '/history/')}>{$t('history.link')}</a>
     <button class="legal" onclick={() => (showImprint = true)}>Impressum</button>
     <button class="legal" onclick={() => (showPrivacy = true)}>Datenschutz</button>
     <!-- This site has its own footer instead of the shared Footer component,
@@ -124,19 +122,6 @@
     font-size: 0.88rem;
   }
 
-  .history-link {
-    margin-top: 18px;
-    font-size: 0.88rem;
-    color: var(--ls-text-faint);
-    border-bottom: 1px dotted var(--ls-card-border);
-  }
-
-  .history-link:hover {
-    text-decoration: none;
-    color: var(--ls-text);
-    border-bottom-color: var(--ls-accent);
-  }
-
   .socials {
     margin-top: 32px;
   }
@@ -172,5 +157,6 @@
 
   .legal:hover {
     color: var(--ls-text);
+    text-decoration: none;
   }
 </style>
