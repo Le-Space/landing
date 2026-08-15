@@ -45,22 +45,74 @@ export function localePath(code, pathname) {
   return code === DEFAULT_LOCALE ? page : `/${code}${page}`;
 }
 
+/**
+ * Detect the visitor's preferred language from the browser: German for a German
+ * browser, English for everyone else. English is the fallback rather than
+ * German because it is the language more visitors can read, and because `/` is
+ * the English URL — an unrecognised language then needs no redirect at all.
+ */
+export function detectLocale() {
+  const langs =
+    typeof navigator !== 'undefined'
+      ? navigator.languages?.length
+        ? navigator.languages
+        : [navigator.language]
+      : [];
+
+  for (const l of langs) {
+    if (typeof l !== 'string') continue;
+    const lang = l.toLowerCase();
+    if (lang.startsWith('de')) return 'de';
+    if (lang.startsWith('en')) return 'en';
+  }
+  return DEFAULT_LOCALE;
+}
+
+/**
+ * Send a first-time visitor to the language their browser asks for.
+ *
+ * Deliberately client-side only, and deliberately not a server redirect: the
+ * language lives in the URL so that each version is indexed as itself
+ * (docs/seo-plan.md). Crawlers do not run this, so `/` stays canonically
+ * English and `/de/` German no matter who fetches them.
+ *
+ * Three guards, so it only ever fires when it should:
+ *  - only on a path without a locale prefix, so a link to `/de/history/` and a
+ *    deliberate `/` are both left alone in the sense that only the bare
+ *    English path can be upgraded
+ *  - never against a stored choice: clicking EN has to stick, otherwise a
+ *    German browser bounces the reader back on every visit
+ *  - `location.replace`, so the back button does not land on the page that
+ *    immediately redirects again
+ *
+ * @returns {boolean} true when a redirect was started — the caller should stop.
+ */
+export function redirectToPreferredLocale() {
+  if (typeof location === 'undefined') return false;
+  // Already on a localized URL: the visitor asked for that language.
+  if (localeFromPath() !== DEFAULT_LOCALE) return false;
+
+  let saved = null;
+  try {
+    saved = localStorage.getItem('ls-locale');
+  } catch {
+    /* private browsing can throw on read */
+  }
+  if (saved) return false;
+
+  const preferred = detectLocale();
+  if (preferred === DEFAULT_LOCALE) return false;
+
+  location.replace(`/${preferred}${pagePath()}${location.search}${location.hash}`);
+  return true;
+}
+
 export function initI18n(dicts, initial) {
   Object.assign(dictionaries, dicts);
   const saved = typeof localStorage !== 'undefined' ? localStorage.getItem('ls-locale') : null;
-  // Auto-detect from browser language preferences (in order): first match of
-  // de → de or en → en wins; any other language falls back to de.
-  // A saved choice (via the switcher) always wins over detection.
-  const browserLangs = typeof navigator !== 'undefined'
-    ? (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language])
-    : [];
-  let detected = 'de';
-  for (const l of browserLangs) {
-    if (typeof l !== 'string') continue;
-    const lang = l.toLowerCase();
-    if (lang.startsWith('de')) { detected = 'de'; break; }
-    if (lang.startsWith('en')) { detected = 'en'; break; }
-  }
+  // One detection for both callers: this and redirectToPreferredLocale must not
+  // disagree about what the browser asked for.
+  const detected = detectLocale();
   // `initial` is the URL's language and must win: a visitor who follows a link
   // to /de/ gets German even if they once clicked the EN flag on this device.
   locale.set(initial || saved || detected);
