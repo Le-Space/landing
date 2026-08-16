@@ -103,7 +103,27 @@
         <div class="marker" aria-hidden="true">{station.year}</div>
 
         <div class="shots" class:pair={shots.length > 1}>
-          {#if station.video}
+          {#if station.video?.sources}
+            <!-- FOSDEM serves the recording as a plain file, so it plays in a
+                 native element: no third-party player, and with preload="none"
+                 nothing is fetched from video.fosdem.org until the reader
+                 presses play. The poster is served from here. -->
+            <figure class="shot video">
+              <video
+                controls
+                preload="none"
+                poster={station.video.poster}
+                title={pick(station.video.title)}
+              >
+                {#each station.video.sources as source (source.src)}
+                  <source src={source.src} type={source.type} />
+                {/each}
+                {#if station.video.captions}
+                  <track kind="captions" src={station.video.captions} srclang="en" default />
+                {/if}
+              </video>
+            </figure>
+          {:else if station.video}
             <!-- Click to load. Embedding YouTube outright would pull Google's
                  scripts into a page whose whole claim is that it carries no
                  trackers; the poster is served from here, and nothing reaches
@@ -120,7 +140,7 @@
               {:else}
                 <button class="play-wrap" onclick={() => (playing = station.year)}>
                   <img src={station.video.poster} alt={pick(station.video.title)} loading="lazy" />
-                  <span class="play" aria-hidden="true"></span>
+                  <span class="play" aria-hidden="true">▶</span>
                   <span class="play-note">{$t('history.playNote')}</span>
                 </button>
               {/if}
@@ -296,11 +316,13 @@
     position: relative;
   }
 
-  .shot.video iframe {
+  .shot.video iframe,
+  .shot.video video {
     width: 100%;
     height: 100%;
     border: 0;
     display: block;
+    background: #000;
   }
 
   .play-wrap {

@@ -213,6 +213,33 @@ export const history = [
   {
     year: '2026',
     image: null,
+    // Not YouTube: FOSDEM serves the recording as a plain file, so it plays in
+    // a native element — no third-party player on a page whose whole claim is
+    // that it carries no trackers.
+    //
+    // Poster and captions are served from here, not from video.fosdem.org. The
+    // poster is obvious; the captions are less so — a <track default> is
+    // fetched eagerly, so leaving it remote would have called out to FOSDEM on
+    // page load, before anyone pressed play. With both local, `preload="none"`
+    // means the first request to fosdem.org happens when playback starts.
+    video: {
+      poster: '/history/2026-fosdem.webp',
+      captions: '/history/2026-fosdem.vtt',
+      sources: [
+        {
+          src: 'https://video.fosdem.org/2026/k3201/8PD9LQ-local-first-peer-to-peer-with-orbit-db.av1.webm',
+          type: 'video/webm'
+        },
+        {
+          src: 'https://video.fosdem.org/2026/k3201/8PD9LQ-local-first-peer-to-peer-with-orbit-db.mp4',
+          type: 'video/mp4'
+        }
+      ],
+      title: {
+        en: 'FOSDEM 2026 — Local-First Peer-to-Peer apps with js-libp2p, IPFS and OrbitDB',
+        de: 'FOSDEM 2026 — Local-First Peer-to-Peer-Apps mit js-libp2p, IPFS und OrbitDB'
+      }
+    },
     era: {
       en: 'Local-first turns from a niche term into a movement.',
       de: 'Local-first wird vom Nischenbegriff zur Bewegung.'

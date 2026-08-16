@@ -1,0 +1,320 @@
+WEBVTT
+
+00:00.000 --> 00:15.200
+Hello everybody, I'm Nico, I am talking today about logifers pit to pier applications with
+
+00:15.200 --> 00:21.440
+orbit db. We have the people who have been here already today have been hearing a lot
+
+00:21.520 --> 00:32.560
+about YGS and other CRDTs which are great. And orbit db is another CRDT distributed database
+
+00:33.520 --> 00:43.920
+which is relying on IPFS. Can I ask if anybody have heard before orbit db? Okay, thank you.
+
+00:44.000 --> 00:56.560
+And maybe some people louder. Okay, orbit db if anybody has heard orbit db before,
+
+00:56.560 --> 01:04.160
+it's actually already 10 years old and the last years where I know orbit db since 2022,
+
+01:04.160 --> 01:11.040
+when I was evaluating it, I'm not from orbit db, not from IPFS. I was just interested
+
+01:11.040 --> 01:18.160
+in developing pit to pier applications like the idea of having web applications which
+
+01:18.160 --> 01:24.480
+completely work without any servers. How is it working? Is it working? If so, how?
+
+01:25.120 --> 01:32.720
+And I discovered orbit db in 2022 with a workshop and at the time the
+
+01:32.720 --> 01:41.840
+possibilities were still limited. You had a centralized signaling server where the
+
+01:41.840 --> 01:48.000
+apps, the web applications could communicate only between the browsers and never between
+
+01:49.120 --> 01:56.560
+between server nodes and it was a limitation. So, but anyhow, this concept, this tutorial,
+
+01:56.560 --> 02:04.480
+what I was trying was very exciting. So, I kept on prototyping with this pattern and wrote a
+
+02:04.480 --> 02:12.480
+block and at the end of it was really great. I discovered, oh, orbit db, this thing is
+
+02:12.480 --> 02:22.480
+this database is inconsistent, the CRDT somehow database is crashing, right? And I thought it's
+
+02:22.480 --> 02:31.280
+my fault. So, one year later, I tried again another prototype and at the time it was 2023 at the end
+
+02:32.640 --> 02:43.120
+of the year. At the end of 2023, repeat the peer got upgraded and they made it possible
+
+02:43.120 --> 02:51.200
+that Jay has a little bit to peer nodes which are running in browsers or mobile applications
+
+02:51.200 --> 02:57.680
+that they can now also communicate with each other with web RTC and also communicate with
+
+02:57.680 --> 03:07.200
+loop peer-to-peer nodes which are in running on server nodes. So, this was actually exciting for me.
+
+03:08.000 --> 03:18.000
+Naturally, IPFS builds on loop peer-to-peer and orbit db builds on top of IPFS. IPFS, I don't know,
+
+03:18.000 --> 03:24.480
+I cannot go too deep into everything Jay is loop-to-peer on IPFS and all of it because it's a big
+
+03:24.480 --> 03:32.880
+topic but it was never so easy to go into it as now. This is what I can say. IPFS is
+
+03:32.880 --> 03:39.360
+called interplanetary file system content addressed your store files in your browser,
+
+03:40.240 --> 03:48.960
+in your browser running a peer IPFS node which another browser can directly get the file from.
+
+03:48.960 --> 03:56.160
+This is actually amazing and orbit db and this is what is the local first part when you work
+
+03:56.160 --> 04:02.000
+with orbit db, right? You have an IPFS node running in your browser. This is why it's also working
+
+04:02.000 --> 04:07.520
+offline and it can sync between devices. So, you have your data in your browser, you have it
+
+04:08.320 --> 04:19.280
+in your mobile and the syncs. This is what IPFS does and as I said, loop peer has many different
+
+04:19.280 --> 04:25.760
+transports, web RTC, web socket, web transports with all kinds of different programming language
+
+04:25.840 --> 04:32.720
+which makes it very compatible with a lot of things. Lip peer-to-peer is not my topic today,
+
+04:32.720 --> 04:42.320
+I'm going further. orbit db is my topic today. What is how is orbit db working? Usually,
+
+04:42.320 --> 04:50.800
+you have the choice of storing your data only in the memory or in level db or index db.
+
+04:51.680 --> 04:59.360
+I connect to this speaker which was speaking before me. It is also important and we should,
+
+04:59.360 --> 05:05.520
+in my opinion, we should find a solution to all of these standard questions no matter which CRDT we
+
+05:05.520 --> 05:13.600
+are using. When a user comes to my app, he doesn't know this is a local first app or anything.
+
+05:13.600 --> 05:22.960
+He doesn't care in fact. Also, how can we make sure the question arises? Can we just store
+
+05:22.960 --> 05:31.680
+any data on his phone or can we not do it? gdb are questions. We should at least tell him or
+
+05:31.680 --> 05:38.880
+give him the choice. You can now store your data, keep it on your device or just keep it in
+
+05:38.880 --> 05:46.240
+memory as you like. I keep it on by default or you can switch on and switch off the network.
+
+05:47.840 --> 06:01.520
+What about the whole decentralization? If you run a simple orbit db app in your browser,
+
+06:01.520 --> 06:11.440
+then you would start with a relay or a signaling node somewhere in the internet. This is comparable
+
+06:11.440 --> 06:19.440
+with a server in the sense you were talking before, but you could, any time have more nodes.
+
+06:20.160 --> 06:35.040
+And this node also can run a orbit db and you can implement it that way that these nodes
+
+06:35.040 --> 06:43.840
+are kind of pinning in IPFS we call it pinning when we mean caching or archiving these data
+
+06:43.840 --> 06:52.480
+based entries. So whenever an orbit db node launches, it would connect to the relay nodes
+
+06:52.480 --> 06:57.520
+and would sync with the relay nodes which needs to be synced. At some point probably it needs
+
+06:57.520 --> 07:03.200
+some kind of consensus because we don't want to sync with the whole network. I haven't been
+
+07:03.200 --> 07:08.160
+implementing anything of this. If anybody wants to implement something like this, please talk to me
+
+07:08.240 --> 07:17.680
+because this is still open. I go forward. orbit db has also access controller. What we can do
+
+07:18.320 --> 07:29.280
+is we can tell for each peer that a certain d id or identity is allowed to write to my
+
+07:29.280 --> 07:34.080
+database or we can just say everybody can write, which is a bit dangerous, but for demo reasons
+
+07:34.720 --> 07:43.840
+is a cool thing to do. Then we had people talking about access controller and certain
+
+07:43.840 --> 07:55.840
+access controller frameworks. I'm right now evaluating and also implementing ucans, which is in my opinion
+
+07:56.240 --> 08:05.040
+I don't know many others I have to admit, but I know the ucans for now is good for peer to peer.
+
+08:05.040 --> 08:14.720
+So I can delegate capabilities between the peers where one peer could be a file, a file back
+
+08:14.720 --> 08:25.680
+up system or anything like this. For example, I can show you later maybe, show you later about ucans.
+
+08:29.040 --> 08:39.440
+The next, when you talk about permissions and ucans access controller, you need to talk about
+
+08:39.440 --> 08:46.640
+identity. The application, the web application, which I'm building, don't have any accounts,
+
+08:46.640 --> 08:55.600
+they don't have any password. Then in the past, we had the situation that we needed some
+
+08:55.600 --> 09:03.120
+seed phrase and some onboarding for the keys is very difficult. We could have an Ethereum
+
+09:03.280 --> 09:11.920
+provider with a Meta mask, things like that, or maybe you could use everything as possible.
+
+09:13.680 --> 09:25.120
+And last year, I found web out n and pass keys are also working great for web applications
+
+09:25.120 --> 09:34.960
+and then the question arises, where are living the keys? Because if the keys, the key store
+
+09:34.960 --> 09:43.840
+is living in the browser memory, or when we start the note, then it's probably could be dangerous
+
+09:45.840 --> 09:53.520
+keys could be stolen by malicious browser extensions. There might be on mobile devices
+
+09:53.520 --> 10:04.720
+because there are no browser extensions, but in browsers is not so cool. This was the point where
+
+10:04.720 --> 10:20.640
+I got a bit insecure, can we build applications like that? Luckily, I found out that other people
+
+10:20.960 --> 10:29.760
+were talking today already, have already a solution for that because they also want to sign
+
+10:29.760 --> 10:37.760
+U-cans and delegations with pass keys. Usually web authentication API is not made to sign
+
+10:37.760 --> 10:44.640
+arbitrary messages. It's only made for authentication, actually they didn't want it to do this.
+
+10:44.640 --> 10:52.240
+But even the key is hardware secured in your mobile phone, in the secure element, or in my
+
+10:52.240 --> 11:00.640
+laptop, each laptop has this secure element, is living hardware secure in your hardware device,
+
+11:00.640 --> 11:13.200
+or you have a U-B key in the key on that one. The question is how can we sign an OBDB lock
+
+11:14.080 --> 11:24.160
+an entry for the database? This was stored by Alice, so Bob knows this was Alice,
+
+11:24.160 --> 11:39.840
+who was editing my to-do list. This can be done. This can be done by varsic envelopes.
+
+11:40.800 --> 11:51.040
+So what you do is you take the a couple of bytes and inline it inside of the challenge,
+
+11:51.040 --> 12:00.400
+which is signed by web authentication API. There is a specification for it, which is done by chain
+
+12:00.480 --> 12:08.880
+agnostic, chain agnostic. If you want to know about it, you can look it up,
+
+12:08.880 --> 12:17.360
+varsic envelopes, and you can't, but also works for anything else. All right. How much them?
+
+12:18.800 --> 12:28.800
+Questions? If there are questions, you can ask questions, otherwise I have maybe a little demo.
+
+12:29.760 --> 12:46.080
+Questions or demo? Okay. I have a video made with you anything. This is about U-Cans with
+
+12:46.080 --> 12:56.800
+Pas-Ki. So we have, I'm creating a credential in my browser, and I take the DID, which is generated,
+
+12:57.440 --> 13:04.720
+and I have on my command line a storacha account, which is storing decentralized storage.
+
+13:06.880 --> 13:13.760
+And I get the U-Cans, which is the delegation, and I import it into my browser.
+
+13:15.840 --> 13:24.560
+So import it, and at some point, and I'm finished with this,
+
+13:25.520 --> 13:37.520
+it should be possible to see the contents of my decentralized space, right? And just my browser,
+
+13:37.520 --> 13:46.960
+authentic verifies this delegation, signs it, and sends it to the, has certain capabilities
+
+13:47.920 --> 14:00.000
+about reading, listing, and uploading, and yeah, let's see if it works. And so you can see
+
+14:00.000 --> 14:11.280
+there are several files in my space, and I just uploaded the, the proof into the browser.
+
+14:11.280 --> 14:22.320
+But it goes, sorry? This is just, this is a demo, U-Cans. It's online, I can give you the U-U-L,
+
+14:22.320 --> 14:31.200
+but maybe you can find it in my GitHub later. So I go forward. So you have, I upload data.
+
+14:31.200 --> 14:39.360
+There's no server here, I connect directly to the, to the backend, to the, to the cloud,
+
+14:39.440 --> 14:48.720
+which stores the decentralized data. And what I can do further, I can have another browser
+
+14:48.720 --> 15:00.080
+for a mobile device and can delegate the capabilities, what I delegated to this browser to another
+
+15:00.160 --> 15:08.960
+browser or to another person. So, and naturally, each of these capabilities have certain,
+
+15:11.920 --> 15:19.680
+are only valid for a certain time, and can also be revoked, and things like this, right?
+
+15:20.080 --> 15:29.680
+Um, I think that is, this is now the presentation for the second browser, create another
+
+15:29.680 --> 15:37.360
+DID, I make the pass key, I, I have no password anything, I just use pass key, and then I make the
+
+15:37.440 --> 15:49.920
+delegation in the other browser. And, uh, yeah, then I copy the, the delegation to the first browser.
+
+15:49.920 --> 15:57.440
+Naturally, this takes very long in this demo. It is possible to make this all peer to peer,
+
+15:57.440 --> 16:04.800
+that nobody sees anything about this, uh, transport of the proof. You can transport the proof
+
+16:04.880 --> 16:11.600
+from one device to another, not otherwise, just by sending it via a little peer to peer
+
+16:11.600 --> 16:20.480
+stream to the other browser or to your mobile device, right? So, now, this is, finish. Okay.
+
+16:21.840 --> 16:24.320
+Thank you. Thank you very much.
+
