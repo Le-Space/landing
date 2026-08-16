@@ -196,6 +196,15 @@ export const projects = [
           de: 'Kapitel „acl01" — private Listen nur für den Owner, mit Schreibrechten pro DID. Rechte zur Laufzeit vergeben oder entziehen, ohne dass sich die Listen-Adresse ändert.',
         },
       },
+      {
+        url: "https://qr01.le-space.de",
+        label: "qr01",
+        shot: "/media/simple-todo-qr01.webp",
+        desc: {
+          en: 'chapter "qr01" — hand a list to another device by scanning a code. No relay, no bootstrap list, no internet: the two devices meet directly and the data stays in the browser\'s own storage.',
+          de: 'Kapitel „qr01" — eine Liste per gescanntem Code an ein anderes Gerät übergeben. Kein Relay, keine Bootstrap-Liste, kein Internet: Die beiden Geräte finden sich direkt, und die Daten bleiben im Speicher des Browsers.',
+        },
+      },
     ],
     npm: null,
     // The card renders demos[].shot; this pointed at a file that never existed.

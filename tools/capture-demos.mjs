@@ -60,6 +60,7 @@ const CHAPTERS = [
   { id: 'passkey01', out: 'simple-todo-passkey01', url: 'https://passkey01.le-space.de', todos: TODOS, passkey: true, y: 15 },
   // "Create a private list" + "Open a shared list by address"
   { id: 'acl01', out: 'simple-todo-acl01', url: 'https://acl01.le-space.de', todos: TODOS, y: 175 },
+  { id: 'qr01', out: 'simple-todo-qr01', url: 'https://qr01.le-space.de', todos: TODOS, y: 175 },
 
   // --- OrbitDB WebAuthn DID demos ------------------------------------------
   // No consent gate here; the theme comes from Carbon's `theme` attribute, and
