@@ -54,7 +54,7 @@
   });
 </script>
 
-<ParticlesBackground density={90} />
+<ParticlesBackground density={90} comets />
 <LanguageSwitcher site="le-space" />
 
 <main>
