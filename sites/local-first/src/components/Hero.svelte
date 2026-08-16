@@ -14,6 +14,15 @@
       <LeSpaceLogo size={64} />
       <span class="brand">Le-Space</span>
     </a>
+    <!-- Announces one thing, above everything else, and can be removed later
+         without leaving a gap. Green because that is already the colour of a
+         working demo on the project cards. -->
+    <a class="whatsnew" href="https://qr01.le-space.de">
+      <span class="tag">{$t('hero.badge_new')}</span>
+      <span class="what">{$t('hero.badge_text')}</span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+
     <p class="kicker">{$t('hero.kicker')}</p>
     <h1>{$t('hero.title')}</h1>
     <p class="subtitle">{$t('hero.subtitle')}</p>
@@ -58,6 +67,46 @@
     font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: 0.06em;
+  }
+
+  .whatsnew {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    margin-bottom: 18px;
+    padding: 5px 14px 5px 6px;
+    border: 1px solid color-mix(in srgb, var(--ls-green) 45%, transparent);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--ls-green) 10%, transparent);
+    color: var(--ls-text-dim);
+    font-size: 0.85rem;
+    width: fit-content;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .whatsnew:hover {
+    text-decoration: none;
+    border-color: var(--ls-green);
+    background: color-mix(in srgb, var(--ls-green) 16%, transparent);
+  }
+
+  .whatsnew .tag {
+    background: var(--ls-green);
+    color: var(--ls-bg-0);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    padding: 2px 9px;
+    border-radius: 999px;
+  }
+
+  .whatsnew .arrow {
+    color: var(--ls-green);
+  }
+
+  .whatsnew:hover .what {
+    color: var(--ls-text);
   }
 
   .kicker {

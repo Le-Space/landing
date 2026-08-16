@@ -1,6 +1,8 @@
 {
   "hero": {
     "kicker": "Data and software you own.",
+    "badge_new": "New",
+    "badge_text": "Simple Todo in environments without internet or electricity",
     "title": "The Local-First Peer-to-Peer Stack",
     "subtitle": "No servers. No accounts. No passwords. Your data lives on your device and travels directly to the people you share it with. Networks run with always-on peers or entirely without them — add one whenever a group wants more reach, and when none is reachable, devices connect directly by scanning a code. Neither mode is the fallback.",
     "cta_projects": "Explore the stack",
