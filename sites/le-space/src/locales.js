@@ -7,6 +7,7 @@ export const dictionaries = {
   en: {
     tagline: 'The Local-First Peer-to-Peer Stack',
     explore: 'Explore our work',
+    footer: { imprint: 'Imprint', privacy: 'Privacy' },
     history: {
       link: 'Our history',
       title: 'Sixteen years of Le Space',
@@ -20,6 +21,7 @@ export const dictionaries = {
   de: {
     tagline: 'Der Local-First Peer-to-Peer Stack',
     explore: 'Unsere Arbeit entdecken',
+    footer: { imprint: 'Impressum', privacy: 'Datenschutz' },
     history: {
       link: 'Unsere Geschichte',
       title: 'Sechzehn Jahre Le Space',

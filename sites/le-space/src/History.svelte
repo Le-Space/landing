@@ -170,8 +170,8 @@
   <footer>
     <a href="/">le-space.de</a>
     <a href={siteConfig.urls.localFirst}>local-first.le-space.de</a>
-    <button class="legal" onclick={() => (showImprint = true)}>Impressum</button>
-    <button class="legal" onclick={() => (showPrivacy = true)}>Datenschutz</button>
+    <button class="legal" onclick={() => (showImprint = true)}>{$t('footer.imprint')}</button>
+    <button class="legal" onclick={() => (showPrivacy = true)}>{$t('footer.privacy')}</button>
     <span class="build" title="Version · commit · build date">{buildStamp}</span>
   </footer>
 </main>

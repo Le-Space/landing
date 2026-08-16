@@ -8,6 +8,10 @@
   import SocialIcons from '@le-space/landing-shared/components/SocialIcons.svelte';
   import LegalModals from '@le-space/landing-shared/components/LegalModals.svelte';
 
+  // The English page had the German address; the shared Footer on the other
+  // site has always picked by locale.
+  const email = $derived($locale === 'de' ? siteConfig.email.contact : siteConfig.email.contactEn);
+
   let showImprint = $state(false);
   let showPrivacy = $state(false);
 
@@ -41,12 +45,12 @@
   </div>
 
   <footer>
-    <a href="mailto:{siteConfig.email.contact}">{siteConfig.email.contact}</a>
+    <a href="mailto:{email}">{email}</a>
     <!-- Quiet on purpose: the history is there for whoever looks for it, not
          something to meet on the way to the product. -->
     <a class="legal" href={localePath($locale, '/history/')}>{$t('history.link')}</a>
-    <button class="legal" onclick={() => (showImprint = true)}>Impressum</button>
-    <button class="legal" onclick={() => (showPrivacy = true)}>Datenschutz</button>
+    <button class="legal" onclick={() => (showImprint = true)}>{$t('footer.imprint')}</button>
+    <button class="legal" onclick={() => (showPrivacy = true)}>{$t('footer.privacy')}</button>
     <!-- This site has its own footer instead of the shared Footer component,
          so the build stamp has to be repeated here. -->
     <span class="build" title="Version · commit · build date">{buildStamp}</span>
