@@ -71,13 +71,17 @@
 
   .whatsnew {
     display: inline-flex;
-    align-items: center;
+    /* The sentence is long enough to wrap; the tag then stays on the first
+       line with the text rather than floating beside a two-line block. */
+    align-items: flex-start;
     gap: 10px;
     align-self: flex-start;
+    max-width: 640px;
     margin-bottom: 18px;
-    padding: 5px 14px 5px 6px;
+    padding: 7px 16px 7px 7px;
+    line-height: 1.45;
     border: 1px solid color-mix(in srgb, var(--ls-green) 45%, transparent);
-    border-radius: 999px;
+    border-radius: 16px;
     background: color-mix(in srgb, var(--ls-green) 10%, transparent);
     color: var(--ls-text-dim);
     font-size: 0.85rem;
@@ -92,6 +96,7 @@
   }
 
   .whatsnew .tag {
+    flex: none;
     background: var(--ls-green);
     color: var(--ls-bg-0);
     font-weight: 700;
@@ -102,6 +107,7 @@
   }
 
   .whatsnew .arrow {
+    flex: none;
     color: var(--ls-green);
   }
 
