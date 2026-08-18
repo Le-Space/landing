@@ -176,6 +176,9 @@ export const faq = [
   },
   {
     id: "mesh-without-relays",
+    // The strategy picture belongs here: this is the answer where readers ask
+    // what reach actually costs. See components/DiagramReach.svelte
+    diagram: "reach",
     q: {
       en: "Can devices form a mesh with no relay at all?",
       de: "Geht ein Mesh auch ganz ohne Relay?",

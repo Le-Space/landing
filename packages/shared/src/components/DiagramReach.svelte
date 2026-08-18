@@ -21,7 +21,6 @@
           how: 'QR-Code · eigener Hotspot',
           eval: 'BLE, NFC in Evaluierung',
           third: 'keine Dritten',
-          sells: '—',
           note: 'kein Internet, keine Infrastruktur'
         },
         {
@@ -29,20 +28,17 @@
           how: 'SDP-Link · oder ein Relay',
           eval: 'Relay = bequem, aber sichtbar',
           third: 'ein Relaybetreiber',
-          sells: 'Relay Button',
-          note: 'Hosting auf Aleph, Akash — auch als Aggregator'
+          note: 'Hosting z. B. auf Aleph oder Akash'
         },
         {
           head: 'Es soll bleiben',
           how: 'Replikation · Pinning',
           eval: 'jemand muss die Daten halten',
           third: 'ein Speicheranbieter',
-          sells: 'OrbitDB Relay',
-          note: 'Filecoin und andere — auch als Aggregator'
+          note: 'Filecoin und andere Anbieter'
         }
       ],
       thirdLabel: 'Wer sieht mit',
-      sellsLabel: 'Le Space verkauft',
       free: 'kostenlos und vollständig privat',
       alt: 'Drei Stufen: im selben Raum ohne Dritte, außerhalb über SDP-Link oder Relay, und dauerhaft über Speicheranbieter. Mit jeder Stufe wächst die Reichweite und die Zahl der Beteiligten.'
     },
@@ -54,7 +50,6 @@
           how: 'QR code · your own hotspot',
           eval: 'BLE, NFC under evaluation',
           third: 'nobody',
-          sells: '—',
           note: 'no internet, no infrastructure'
         },
         {
@@ -62,20 +57,17 @@
           how: 'SDP link · or a relay',
           eval: 'a relay is easy, and visible',
           third: 'one relay operator',
-          sells: 'Relay Button',
-          note: 'hosting on Aleph, Akash — or as an aggregator'
+          note: 'hosting on Aleph, Akash and others'
         },
         {
           head: 'It should persist',
           how: 'replication · pinning',
           eval: 'someone has to hold the data',
           third: 'a storage provider',
-          sells: 'OrbitDB Relay',
-          note: 'Filecoin and others — or as an aggregator'
+          note: 'Filecoin and other providers'
         }
       ],
       thirdLabel: 'Who can see',
-      sellsLabel: 'Le Space sells',
       free: 'free, and private all the way',
       alt: 'Three rungs: same room with no third party, elsewhere over an SDP link or a relay, and persistence through a storage provider. Each rung adds reach and adds participants.'
     }
@@ -87,10 +79,10 @@
 </script>
 
 <figure class="wrap">
-  <svg viewBox="0 0 860 372" role="img" aria-label={t.alt}>
+  <svg viewBox="0 0 860 314" role="img" aria-label={t.alt}>
     {#each t.cols as col, i (col.head)}
       <g>
-        <rect x={X[i]} y="16" width={W} height="270" rx="10" class={i === 0 ? 'box free' : 'box'} />
+        <rect x={X[i]} y="16" width={W} height="212" rx="10" class={i === 0 ? 'box free' : 'box'} />
 
         <text x={X[i] + 18} y="46" class="head">{col.head}</text>
         <text x={X[i] + 18} y="70" class="how">{col.how}</text>
@@ -101,12 +93,9 @@
         <text x={X[i] + 18} y="136" class="label">{t.thirdLabel}</text>
         <text x={X[i] + 18} y="158" class={i === 0 ? 'value ok-fill' : 'value warn-fill'}>{col.third}</text>
 
-        <text x={X[i] + 18} y="192" class="label">{t.sellsLabel}</text>
-        <text x={X[i] + 18} y="216" class={i === 0 ? 'value dim' : 'value accent-fill'}>{col.sells}</text>
-
-        <text x={X[i] + 18} y="248" class="sub">{col.note}</text>
+        <text x={X[i] + 18} y="190" class="sub">{col.note}</text>
         {#if i === 0}
-          <text x={X[i] + 18} y="270" class="sub ok-fill">{t.free}</text>
+          <text x={X[i] + 18} y="212" class="sub ok-fill">{t.free}</text>
         {/if}
       </g>
       {#if i < 2}
@@ -120,8 +109,8 @@
       </marker>
     </defs>
 
-    <path d="M16 322 H844" class="axis-line" />
-    <text x="430" y="348" class="axis mid">{t.axis}</text>
+    <path d="M16 264 H844" class="axis-line" />
+    <text x="430" y="290" class="axis mid">{t.axis}</text>
   </svg>
 </figure>
 
@@ -195,20 +184,12 @@
     fill: var(--ls-text-dim);
   }
 
-  .dim {
-    fill: var(--ls-text-faint);
-  }
-
   .ok-fill {
     fill: var(--ls-green);
   }
 
   .warn-fill {
     fill: var(--ls-amber);
-  }
-
-  .accent-fill {
-    fill: var(--ls-accent);
   }
 
   .axis {
