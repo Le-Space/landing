@@ -283,6 +283,11 @@ h2 {
   .foot { left: 7vw; right: 7vw; }
 }
 
+.figure {
+  width: min(1000px, 100%);
+  margin: 8px 0 0;
+}
+
 @media print {
   @page { size: 1280px 720px; margin: 0; }
   html, body { background: var(--ls-bg-0); }
@@ -333,7 +338,82 @@ h2 {
   <p class="subtitle">Relay-Deployments per Smart Contract — autorisiert, abgerechnet und gedeckelt</p>
   <p class="claim">Kein Konto, keine Rechnung, kein Vorstrecken: Der Vertrag hält das Guthaben, gibt den Start frei und rechnet beim Verbrauch ab.</p>
   <div class="links"><a href="https://nikrause.github.io/relay-button/" target="_blank" rel="noopener noreferrer" class="primary">Doku</a><a href="https://github.com/NiKrause/relay-button" target="_blank" rel="noopener noreferrer">Quellcode</a><a href="https://www.npmjs.com/package/@le-space/browser" target="_blank" rel="noopener noreferrer">npm</a></div>
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>1 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>1 / 10</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>Auf welcher Stufe wir hier sind</h2>
+  <p class="lead">Local-First fängt bei null an — im selben Raum, ohne Internet, ohne uns. Jede Stufe darüber kauft Reichweite und bezahlt sie mit einem Dritten, der mitsehen kann.</p>
+  <figure class="figure"><svg id="reach-relay-button-onchain-de" class="reach-ladder" viewBox="0 0 860 372" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Drei Stufen: im selben Raum ohne Dritte, außerhalb über SDP-Link oder Relay, und dauerhaft über Speicheranbieter. Mit jeder Stufe wächst die Reichweite und die Zahl der Beteiligten.">
+  <style>
+    .reach-ladder { width: 100%; height: auto; display: block; }
+    .reach-ladder text { font-family: var(--ls-font); }
+    #reach-relay-button-onchain-de .box { fill: none; stroke: var(--ls-card-border); stroke-width: 1.5; }
+    #reach-relay-button-onchain-de .box.free { stroke: var(--ls-green); }
+    #reach-relay-button-onchain-de .rule, #reach-relay-button-onchain-de .axis-line { stroke: var(--ls-card-border); stroke-width: 1; }
+    #reach-relay-button-onchain-de .arrow { fill: none; stroke: var(--ls-text-faint); stroke-width: 1.5; }
+    #reach-relay-button-onchain-de .tip { fill: var(--ls-text-faint); }
+    #reach-relay-button-onchain-de .head { font-size: 14px; font-weight: 700; fill: var(--ls-text); }
+    #reach-relay-button-onchain-de .how { font-size: 12px; fill: var(--ls-text); }
+    #reach-relay-button-onchain-de .label { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; fill: var(--ls-text-faint); }
+    #reach-relay-button-onchain-de .value { font-size: 13px; font-weight: 600; fill: var(--ls-text); }
+    #reach-relay-button-onchain-de .sub { font-size: 11px; fill: var(--ls-text-dim); }
+    #reach-relay-button-onchain-de .dim { fill: var(--ls-text-faint); }
+    #reach-relay-button-onchain-de .ok-fill { fill: var(--ls-green); }
+    #reach-relay-button-onchain-de .warn-fill { fill: var(--ls-amber); }
+    #reach-relay-button-onchain-de .accent-fill { fill: var(--ls-accent); }
+    #reach-relay-button-onchain-de .axis { font-size: 11px; fill: var(--ls-text-faint); }
+    #reach-relay-button-onchain-de .mid { text-anchor: middle; }
+  </style>
+  <defs>
+    <marker id="reach-relay-button-onchain-de-tip" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" class="tip" />
+    </marker>
+  </defs>
+  <g>
+    <rect x="16" y="16" width="260" height="270" rx="10" class="box free" />
+    <text x="34" y="46" class="head">Im selben Raum</text>
+    <text x="34" y="70" class="how">QR-Code · eigener Hotspot</text>
+    <text x="34" y="90" class="sub">BLE, NFC in Evaluierung</text>
+    <line x1="34" y1="112" x2="258" y2="112" class="rule" />
+    <text x="34" y="136" class="label">Wer sieht mit</text>
+    <text x="34" y="158" class="value ok-fill">keine Dritten</text>
+    <text x="34" y="192" class="label">Le Space verkauft</text>
+    <text x="34" y="216" class="value dim">—</text>
+    <text x="34" y="248" class="sub">kein Internet, keine Infrastruktur</text>
+    <text x="34" y="270" class="sub ok-fill">kostenlos und vollständig privat</text>
+  </g>
+  <path d="M282 150 H294" class="arrow" marker-end="url(#reach-relay-button-onchain-de-tip)" />
+  <g>
+    <rect x="300" y="16" width="260" height="270" rx="10" class="box" />
+    <text x="318" y="46" class="head">Nicht im selben Raum</text>
+    <text x="318" y="70" class="how">SDP-Link · oder ein Relay</text>
+    <text x="318" y="90" class="sub">Relay = bequem, aber sichtbar</text>
+    <line x1="318" y1="112" x2="542" y2="112" class="rule" />
+    <text x="318" y="136" class="label">Wer sieht mit</text>
+    <text x="318" y="158" class="value warn-fill">ein Relaybetreiber</text>
+    <text x="318" y="192" class="label">Le Space verkauft</text>
+    <text x="318" y="216" class="value accent-fill">Relay Button</text>
+    <text x="318" y="248" class="sub">Hosting auf Aleph, Akash — auch als Aggregator</text>
+  </g>
+  <path d="M566 150 H578" class="arrow" marker-end="url(#reach-relay-button-onchain-de-tip)" />
+  <g>
+    <rect x="584" y="16" width="260" height="270" rx="10" class="box" />
+    <text x="602" y="46" class="head">Es soll bleiben</text>
+    <text x="602" y="70" class="how">Replikation · Pinning</text>
+    <text x="602" y="90" class="sub">jemand muss die Daten halten</text>
+    <line x1="602" y1="112" x2="826" y2="112" class="rule" />
+    <text x="602" y="136" class="label">Wer sieht mit</text>
+    <text x="602" y="158" class="value warn-fill">ein Speicheranbieter</text>
+    <text x="602" y="192" class="label">Le Space verkauft</text>
+    <text x="602" y="216" class="value accent-fill">OrbitDB Relay</text>
+    <text x="602" y="248" class="sub">Filecoin und andere — auch als Aggregator</text>
+  </g>
+  <path d="M16 322 H844" class="axis-line" />
+  <text x="430" y="348" class="axis mid">mehr Reichweite  →  mehr Dritte im Spiel</text>
+</svg></figure>
+  <p class="note">Die zweite Stufe. Verkauft wird nur, was Reichweite hinzufügt — die erste Stufe bleibt kostenlos und kommt ohne uns aus. Deshalb ist das hier keine Schranke, sondern eine Bequemlichkeit, für die jemand freiwillig zahlt.</p>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>2 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">Relay Button on-chain</p>
@@ -346,7 +426,7 @@ h2 {
     <li><b>Keine Beteiligung an der Nutzung</b><p>Der Baukasten ist Open Source und wird eingesetzt — aber es gibt keinen Weg, an einem gestarteten Node etwas zu verdienen.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>2 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>3 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">Relay Button on-chain</p>
@@ -359,7 +439,7 @@ h2 {
     <li><b>Zurückholen</b><span class="badge now">heute</span><p>Läuft das Deployment nicht an, gibt <code>refund(intentHash)</code> die Reservierung frei. Niemand muss darum bitten.</p></li>
   </ul>
   <p class="note">Kein Entwurf: Der Client liegt als <code>@le-space/browser</code> im Relay-Button-Monorepo — samt Guthaben-Abfragen, für Base, Avalanche und Ethereum.</p>
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>3 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>4 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">Relay Button on-chain</p>
@@ -372,7 +452,7 @@ h2 {
     <li><b>Jeder Start hat einen Beleg</b><p>Reservierung und Verbrauch sind Transaktionen. Wer wann was gestartet hat, ist prüfbar, ohne dass jemand Buch führt.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>4 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>5 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">Relay Button on-chain</p>
@@ -385,7 +465,7 @@ h2 {
     <li><b>Öffnet den Baukasten für Dritte</b><p>Wer den Relay Button einbettet, muss nichts mehr vorstrecken. Das ist erst der Grund, warum ihn jemand einbettet.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>5 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>6 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">Relay Button on-chain</p>
@@ -406,7 +486,7 @@ h2 {
     </div>
   </div>
   
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>6 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>7 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">Relay Button on-chain</p>
@@ -419,7 +499,7 @@ h2 {
     <li><b>An den Lebenszyklus koppeln</b><span class="badge planned">geplant</span><p>Laufzeit verlängern, Node stoppen, Reste zurück — und derselbe Vault für weitere Anbieter neben Aleph.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>7 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>8 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">Relay Button on-chain</p>
@@ -432,7 +512,7 @@ h2 {
     <li><b>Wer haftet für den Node</b><p>Wenn ein Vertrag statt eines Menschen den Start freigibt: Wer ist Betreiber dessen, was darauf läuft? Das gehört geklärt, bevor es jemand fragt.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>8 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>9 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">Relay Button on-chain</p>
@@ -444,7 +524,7 @@ h2 {
     <div>+49 / 87 21 / 5 06 49 96</div>
   </div>
   <div class="links"><a href="https://nikrause.github.io/relay-button/" target="_blank" rel="noopener noreferrer">Doku</a><a href="https://github.com/NiKrause/relay-button" target="_blank" rel="noopener noreferrer" class="primary">Quellcode</a><a href="https://www.npmjs.com/package/@le-space/browser" target="_blank" rel="noopener noreferrer">npm</a></div>
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>9 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>10 / 10</span></div>
 </section>
 </div></div>
 <div class="lang-en"><div class="deck">
@@ -463,7 +543,82 @@ h2 {
   <p class="subtitle">Relay deployments through a smart contract — authorised, settled and capped</p>
   <p class="claim">No account, no invoice, no fronting the money: the contract holds the balance, releases the launch and settles on consumption.</p>
   <div class="links"><a href="https://nikrause.github.io/relay-button/" target="_blank" rel="noopener noreferrer" class="primary">Docs</a><a href="https://github.com/NiKrause/relay-button" target="_blank" rel="noopener noreferrer">Source</a><a href="https://www.npmjs.com/package/@le-space/browser" target="_blank" rel="noopener noreferrer">npm</a></div>
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>1 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>1 / 10</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">Relay Button on-chain</p>
+  <h2>Which rung this is</h2>
+  <p class="lead">Local-first starts at zero — same room, no internet, nobody in between. Every rung above that buys reach and pays for it with a third party who can see.</p>
+  <figure class="figure"><svg id="reach-relay-button-onchain-en" class="reach-ladder" viewBox="0 0 860 372" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three rungs: same room with no third party, elsewhere over an SDP link or a relay, and persistence through a storage provider. Each rung adds reach and adds participants.">
+  <style>
+    .reach-ladder { width: 100%; height: auto; display: block; }
+    .reach-ladder text { font-family: var(--ls-font); }
+    #reach-relay-button-onchain-en .box { fill: none; stroke: var(--ls-card-border); stroke-width: 1.5; }
+    #reach-relay-button-onchain-en .box.free { stroke: var(--ls-green); }
+    #reach-relay-button-onchain-en .rule, #reach-relay-button-onchain-en .axis-line { stroke: var(--ls-card-border); stroke-width: 1; }
+    #reach-relay-button-onchain-en .arrow { fill: none; stroke: var(--ls-text-faint); stroke-width: 1.5; }
+    #reach-relay-button-onchain-en .tip { fill: var(--ls-text-faint); }
+    #reach-relay-button-onchain-en .head { font-size: 14px; font-weight: 700; fill: var(--ls-text); }
+    #reach-relay-button-onchain-en .how { font-size: 12px; fill: var(--ls-text); }
+    #reach-relay-button-onchain-en .label { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; fill: var(--ls-text-faint); }
+    #reach-relay-button-onchain-en .value { font-size: 13px; font-weight: 600; fill: var(--ls-text); }
+    #reach-relay-button-onchain-en .sub { font-size: 11px; fill: var(--ls-text-dim); }
+    #reach-relay-button-onchain-en .dim { fill: var(--ls-text-faint); }
+    #reach-relay-button-onchain-en .ok-fill { fill: var(--ls-green); }
+    #reach-relay-button-onchain-en .warn-fill { fill: var(--ls-amber); }
+    #reach-relay-button-onchain-en .accent-fill { fill: var(--ls-accent); }
+    #reach-relay-button-onchain-en .axis { font-size: 11px; fill: var(--ls-text-faint); }
+    #reach-relay-button-onchain-en .mid { text-anchor: middle; }
+  </style>
+  <defs>
+    <marker id="reach-relay-button-onchain-en-tip" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" class="tip" />
+    </marker>
+  </defs>
+  <g>
+    <rect x="16" y="16" width="260" height="270" rx="10" class="box free" />
+    <text x="34" y="46" class="head">Same room</text>
+    <text x="34" y="70" class="how">QR code · your own hotspot</text>
+    <text x="34" y="90" class="sub">BLE, NFC under evaluation</text>
+    <line x1="34" y1="112" x2="258" y2="112" class="rule" />
+    <text x="34" y="136" class="label">Who can see</text>
+    <text x="34" y="158" class="value ok-fill">nobody</text>
+    <text x="34" y="192" class="label">Le Space sells</text>
+    <text x="34" y="216" class="value dim">—</text>
+    <text x="34" y="248" class="sub">no internet, no infrastructure</text>
+    <text x="34" y="270" class="sub ok-fill">free, and private all the way</text>
+  </g>
+  <path d="M282 150 H294" class="arrow" marker-end="url(#reach-relay-button-onchain-en-tip)" />
+  <g>
+    <rect x="300" y="16" width="260" height="270" rx="10" class="box" />
+    <text x="318" y="46" class="head">Not the same room</text>
+    <text x="318" y="70" class="how">SDP link · or a relay</text>
+    <text x="318" y="90" class="sub">a relay is easy, and visible</text>
+    <line x1="318" y1="112" x2="542" y2="112" class="rule" />
+    <text x="318" y="136" class="label">Who can see</text>
+    <text x="318" y="158" class="value warn-fill">one relay operator</text>
+    <text x="318" y="192" class="label">Le Space sells</text>
+    <text x="318" y="216" class="value accent-fill">Relay Button</text>
+    <text x="318" y="248" class="sub">hosting on Aleph, Akash — or as an aggregator</text>
+  </g>
+  <path d="M566 150 H578" class="arrow" marker-end="url(#reach-relay-button-onchain-en-tip)" />
+  <g>
+    <rect x="584" y="16" width="260" height="270" rx="10" class="box" />
+    <text x="602" y="46" class="head">It should persist</text>
+    <text x="602" y="70" class="how">replication · pinning</text>
+    <text x="602" y="90" class="sub">someone has to hold the data</text>
+    <line x1="602" y1="112" x2="826" y2="112" class="rule" />
+    <text x="602" y="136" class="label">Who can see</text>
+    <text x="602" y="158" class="value warn-fill">a storage provider</text>
+    <text x="602" y="192" class="label">Le Space sells</text>
+    <text x="602" y="216" class="value accent-fill">OrbitDB Relay</text>
+    <text x="602" y="248" class="sub">Filecoin and others — or as an aggregator</text>
+  </g>
+  <path d="M16 322 H844" class="axis-line" />
+  <text x="430" y="348" class="axis mid">more reach  →  more third parties</text>
+</svg></figure>
+  <p class="note">The second rung. What we sell is only ever what adds reach — the first rung stays free and works without us. That is what makes this a convenience somebody pays for voluntarily rather than a gate.</p>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>2 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">Relay Button on-chain</p>
@@ -476,7 +631,7 @@ h2 {
     <li><b>No share in the usage</b><p>The toolkit is open source and gets used — but there is no path to earning anything from a node that was launched.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>2 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>3 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">Relay Button on-chain</p>
@@ -489,7 +644,7 @@ h2 {
     <li><b>Refund</b><span class="badge now">today</span><p>If the deployment never comes up, <code>refund(intentHash)</code> releases the expired reservation. Nobody has to ask for it.</p></li>
   </ul>
   <p class="note">These four calls are not a design sketch: the client ships as <code>@le-space/browser</code> in the Relay Button monorepo — including balance reads, on Base, Avalanche and Ethereum.</p>
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>3 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>4 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">Relay Button on-chain</p>
@@ -502,7 +657,7 @@ h2 {
     <li><b>Every launch has a receipt</b><p>Reservation and consumption are transactions. Who launched what and when is verifiable without anyone keeping books.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>4 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>5 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">Relay Button on-chain</p>
@@ -515,7 +670,7 @@ h2 {
     <li><b>Opens the toolkit to third parties</b><p>Whoever embeds the Relay Button no longer fronts anything. That is what makes embedding it worth doing at all.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>5 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>6 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">Relay Button on-chain</p>
@@ -536,7 +691,7 @@ h2 {
     </div>
   </div>
   
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>6 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>7 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">Relay Button on-chain</p>
@@ -549,7 +704,7 @@ h2 {
     <li><b>Couple it to the lifecycle</b><span class="badge planned">planned</span><p>Extend runtime, stop a node, return the remainder — and the same vault for providers beyond Aleph.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>7 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>8 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">Relay Button on-chain</p>
@@ -562,7 +717,7 @@ h2 {
     <li><b>Who is liable for the node</b><p>When a contract rather than a person releases the launch: who operates what runs on it? That needs an answer before somebody asks.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>8 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>9 / 10</span></div>
 </section>
 <section class="slide">
   <p class="kicker">Relay Button on-chain</p>
@@ -574,7 +729,7 @@ h2 {
     <div>+49 / 87 21 / 5 06 49 96</div>
   </div>
   <div class="links"><a href="https://nikrause.github.io/relay-button/" target="_blank" rel="noopener noreferrer">Docs</a><a href="https://github.com/NiKrause/relay-button" target="_blank" rel="noopener noreferrer" class="primary">Source</a><a href="https://www.npmjs.com/package/@le-space/browser" target="_blank" rel="noopener noreferrer">npm</a></div>
-  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>9 / 9</span></div>
+  <div class="foot"><span>Le-Space · Relay Button on-chain</span><span data-n>10 / 10</span></div>
 </section>
 </div></div>
 <script>

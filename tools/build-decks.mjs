@@ -33,6 +33,8 @@ const { decks, DECK_TAGS, DECK_STATUS } = await import(
   resolve(root, 'packages/shared/src/data/use-cases.js')
 );
 const { siteConfig } = await import(resolve(root, 'packages/shared/src/site-config.js'));
+// Shared with the FAQ, which renders the same picture without the sells row.
+const { reachSvg } = await import(resolve(root, 'packages/shared/src/diagrams/reach-svg.js'));
 
 const LOCALES = ['de', 'en'];
 const DEFAULT_LOCALE = 'de';
@@ -369,6 +371,11 @@ h2 {
   .foot { left: 7vw; right: 7vw; }
 }
 
+.figure {
+  width: min(1000px, 100%);
+  margin: 8px 0 0;
+}
+
 @media print {
   @page { size: 1280px 720px; margin: 0; }
   html, body { background: var(--ls-bg-0); }
@@ -486,6 +493,11 @@ function renderLinks(deck, lang, { primary = null } = {}) {
   return items.length ? `<div class="links">${items.join('')}</div>` : '';
 }
 
+/** Diagrams a slide can ask for by name. */
+const FIGURES = {
+  reach: (lang, id) => reachSvg(lang, { sells: true, id: `reach-${id}` })
+};
+
 function renderSlide(deck, slide, lang, i, total) {
   // The number is rendered here rather than left to the script, so it is right
   // in the printed PDF and in the prerendered HTML even with JS disabled.
@@ -523,6 +535,18 @@ function renderSlide(deck, slide, lang, i, total) {
   const head = `<p class="kicker">${esc(deck.name)}</p>
   <h2>${pick(slide.title, lang)}</h2>
   ${slide.lead ? `<p class="lead">${pick(slide.lead, lang)}</p>` : ''}`;
+
+  if (slide.kind === 'figure') {
+    // Both languages live in one document, so the id has to be unique per
+    // language or the second copy's arrowheads point at the first one's marker.
+    const svg = FIGURES[slide.figure]?.(lang, `${deck.id}-${lang}`) ?? '';
+    return `<section class="slide">
+  ${head}
+  <figure class="figure">${svg}</figure>
+  ${slide.note ? `<p class="note">${pick(slide.note, lang)}</p>` : ''}
+  ${foot}
+</section>`;
+  }
 
   if (slide.kind === 'columns') {
     const cols = (slide.columns ?? [])

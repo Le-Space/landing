@@ -283,6 +283,11 @@ h2 {
   .foot { left: 7vw; right: 7vw; }
 }
 
+.figure {
+  width: min(1000px, 100%);
+  margin: 8px 0 0;
+}
+
 @media print {
   @page { size: 1280px 720px; margin: 0; }
   html, body { background: var(--ls-bg-0); }
@@ -333,7 +338,82 @@ h2 {
   <p class="subtitle">Backup, Pinning und Wiederherstellung für Local-First-Daten</p>
   <p class="claim">Die Daten gehören dir — wir sorgen dafür, dass sie nicht verschwinden.</p>
   <div class="links"><a href="https://nikrause.github.io/orbitdb-relay/" target="_blank" rel="noopener noreferrer" class="primary">Doku</a><a href="https://github.com/NiKrause/orbitdb-relay" target="_blank" rel="noopener noreferrer">Quellcode</a><a href="https://www.npmjs.com/package/orbitdb-relay" target="_blank" rel="noopener noreferrer">npm</a></div>
-  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>1 / 8</span></div>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>1 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">OrbitDB Relay</p>
+  <h2>Auf welcher Stufe wir hier sind</h2>
+  <p class="lead">Local-First fängt bei null an — im selben Raum, ohne Internet, ohne uns. Jede Stufe darüber kauft Reichweite und bezahlt sie mit einem Dritten, der mitsehen kann.</p>
+  <figure class="figure"><svg id="reach-orbitdb-relay-de" class="reach-ladder" viewBox="0 0 860 372" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Drei Stufen: im selben Raum ohne Dritte, außerhalb über SDP-Link oder Relay, und dauerhaft über Speicheranbieter. Mit jeder Stufe wächst die Reichweite und die Zahl der Beteiligten.">
+  <style>
+    .reach-ladder { width: 100%; height: auto; display: block; }
+    .reach-ladder text { font-family: var(--ls-font); }
+    #reach-orbitdb-relay-de .box { fill: none; stroke: var(--ls-card-border); stroke-width: 1.5; }
+    #reach-orbitdb-relay-de .box.free { stroke: var(--ls-green); }
+    #reach-orbitdb-relay-de .rule, #reach-orbitdb-relay-de .axis-line { stroke: var(--ls-card-border); stroke-width: 1; }
+    #reach-orbitdb-relay-de .arrow { fill: none; stroke: var(--ls-text-faint); stroke-width: 1.5; }
+    #reach-orbitdb-relay-de .tip { fill: var(--ls-text-faint); }
+    #reach-orbitdb-relay-de .head { font-size: 14px; font-weight: 700; fill: var(--ls-text); }
+    #reach-orbitdb-relay-de .how { font-size: 12px; fill: var(--ls-text); }
+    #reach-orbitdb-relay-de .label { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; fill: var(--ls-text-faint); }
+    #reach-orbitdb-relay-de .value { font-size: 13px; font-weight: 600; fill: var(--ls-text); }
+    #reach-orbitdb-relay-de .sub { font-size: 11px; fill: var(--ls-text-dim); }
+    #reach-orbitdb-relay-de .dim { fill: var(--ls-text-faint); }
+    #reach-orbitdb-relay-de .ok-fill { fill: var(--ls-green); }
+    #reach-orbitdb-relay-de .warn-fill { fill: var(--ls-amber); }
+    #reach-orbitdb-relay-de .accent-fill { fill: var(--ls-accent); }
+    #reach-orbitdb-relay-de .axis { font-size: 11px; fill: var(--ls-text-faint); }
+    #reach-orbitdb-relay-de .mid { text-anchor: middle; }
+  </style>
+  <defs>
+    <marker id="reach-orbitdb-relay-de-tip" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" class="tip" />
+    </marker>
+  </defs>
+  <g>
+    <rect x="16" y="16" width="260" height="270" rx="10" class="box free" />
+    <text x="34" y="46" class="head">Im selben Raum</text>
+    <text x="34" y="70" class="how">QR-Code · eigener Hotspot</text>
+    <text x="34" y="90" class="sub">BLE, NFC in Evaluierung</text>
+    <line x1="34" y1="112" x2="258" y2="112" class="rule" />
+    <text x="34" y="136" class="label">Wer sieht mit</text>
+    <text x="34" y="158" class="value ok-fill">keine Dritten</text>
+    <text x="34" y="192" class="label">Le Space verkauft</text>
+    <text x="34" y="216" class="value dim">—</text>
+    <text x="34" y="248" class="sub">kein Internet, keine Infrastruktur</text>
+    <text x="34" y="270" class="sub ok-fill">kostenlos und vollständig privat</text>
+  </g>
+  <path d="M282 150 H294" class="arrow" marker-end="url(#reach-orbitdb-relay-de-tip)" />
+  <g>
+    <rect x="300" y="16" width="260" height="270" rx="10" class="box" />
+    <text x="318" y="46" class="head">Nicht im selben Raum</text>
+    <text x="318" y="70" class="how">SDP-Link · oder ein Relay</text>
+    <text x="318" y="90" class="sub">Relay = bequem, aber sichtbar</text>
+    <line x1="318" y1="112" x2="542" y2="112" class="rule" />
+    <text x="318" y="136" class="label">Wer sieht mit</text>
+    <text x="318" y="158" class="value warn-fill">ein Relaybetreiber</text>
+    <text x="318" y="192" class="label">Le Space verkauft</text>
+    <text x="318" y="216" class="value accent-fill">Relay Button</text>
+    <text x="318" y="248" class="sub">Hosting auf Aleph, Akash — auch als Aggregator</text>
+  </g>
+  <path d="M566 150 H578" class="arrow" marker-end="url(#reach-orbitdb-relay-de-tip)" />
+  <g>
+    <rect x="584" y="16" width="260" height="270" rx="10" class="box" />
+    <text x="602" y="46" class="head">Es soll bleiben</text>
+    <text x="602" y="70" class="how">Replikation · Pinning</text>
+    <text x="602" y="90" class="sub">jemand muss die Daten halten</text>
+    <line x1="602" y1="112" x2="826" y2="112" class="rule" />
+    <text x="602" y="136" class="label">Wer sieht mit</text>
+    <text x="602" y="158" class="value warn-fill">ein Speicheranbieter</text>
+    <text x="602" y="192" class="label">Le Space verkauft</text>
+    <text x="602" y="216" class="value accent-fill">OrbitDB Relay</text>
+    <text x="602" y="248" class="sub">Filecoin und andere — auch als Aggregator</text>
+  </g>
+  <path d="M16 322 H844" class="axis-line" />
+  <text x="430" y="348" class="axis mid">mehr Reichweite  →  mehr Dritte im Spiel</text>
+</svg></figure>
+  <p class="note">Die dritte Stufe. Verkauft wird nur, was Reichweite oder Dauer hinzufügt — die erste Stufe bleibt kostenlos und kommt ohne uns aus. Deshalb ist das hier keine Schranke, sondern eine Bequemlichkeit, für die jemand freiwillig zahlt.</p>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>2 / 9</span></div>
 </section>
 <section class="slide">
   <p class="kicker">OrbitDB Relay</p>
@@ -346,7 +426,7 @@ h2 {
     <li><b>Berechtigungen verschwinden mit</b><p>UCAN-Delegationen und Access-Control-Listen sind selbst Daten. Gehen sie verloren, bricht die Zusammenarbeit — auch wenn die Inhalte noch existieren.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>2 / 8</span></div>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>3 / 9</span></div>
 </section>
 <section class="slide">
   <p class="kicker">OrbitDB Relay</p>
@@ -359,7 +439,7 @@ h2 {
     <li><b>Wiederherstellen</b><span class="badge planned">geplant</span><p>Hydration: ein neues Gerät weist per UCAN-Delegation nach, dass es darf — und bekommt Oplog, Blöcke, Datenbankadressen und Berechtigungen zurück.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>3 / 8</span></div>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>4 / 9</span></div>
 </section>
 <section class="slide">
   <p class="kicker">OrbitDB Relay</p>
@@ -384,7 +464,7 @@ h2 {
     </div>
   </div>
   <p class="note">Der Relay sieht öffentliche Schlüssel, nie private. Wiederherstellung heißt nie „jemand anderes kann in deinem Namen schreiben".</p>
-  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>4 / 8</span></div>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>5 / 9</span></div>
 </section>
 <section class="slide">
   <p class="kicker">OrbitDB Relay</p>
@@ -405,7 +485,7 @@ h2 {
     </div>
   </div>
   
-  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>5 / 8</span></div>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>6 / 9</span></div>
 </section>
 <section class="slide">
   <p class="kicker">OrbitDB Relay</p>
@@ -418,7 +498,7 @@ h2 {
     <li><b>White-Label / SLA</b><p>App-Hersteller und Firmen kaufen Pinning, Aufbewahrungsfristen und Support unter eigenem Namen ein.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>6 / 8</span></div>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>7 / 9</span></div>
 </section>
 <section class="slide">
   <p class="kicker">OrbitDB Relay</p>
@@ -431,7 +511,7 @@ h2 {
     <li><b>Verschlüsselte Archive</b><span class="badge planned">geplant</span><p>Payload-Verschlüsselung, damit auch der Betreiber des Relays die Inhalte nicht lesen kann.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>7 / 8</span></div>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>8 / 9</span></div>
 </section>
 <section class="slide">
   <p class="kicker">OrbitDB Relay</p>
@@ -443,7 +523,7 @@ h2 {
     <div>+49 / 87 21 / 5 06 49 96</div>
   </div>
   <div class="links"><a href="https://nikrause.github.io/orbitdb-relay/" target="_blank" rel="noopener noreferrer">Doku</a><a href="https://github.com/NiKrause/orbitdb-relay" target="_blank" rel="noopener noreferrer" class="primary">Quellcode</a><a href="https://www.npmjs.com/package/orbitdb-relay" target="_blank" rel="noopener noreferrer">npm</a></div>
-  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>8 / 8</span></div>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>9 / 9</span></div>
 </section>
 </div></div>
 <div class="lang-en"><div class="deck">
@@ -462,7 +542,82 @@ h2 {
   <p class="subtitle">Backup, pinning and recovery for local-first data</p>
   <p class="claim">The data is yours — we make sure it does not disappear.</p>
   <div class="links"><a href="https://nikrause.github.io/orbitdb-relay/" target="_blank" rel="noopener noreferrer" class="primary">Docs</a><a href="https://github.com/NiKrause/orbitdb-relay" target="_blank" rel="noopener noreferrer">Source</a><a href="https://www.npmjs.com/package/orbitdb-relay" target="_blank" rel="noopener noreferrer">npm</a></div>
-  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>1 / 8</span></div>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>1 / 9</span></div>
+</section>
+<section class="slide">
+  <p class="kicker">OrbitDB Relay</p>
+  <h2>Which rung this is</h2>
+  <p class="lead">Local-first starts at zero — same room, no internet, nobody in between. Every rung above that buys reach and pays for it with a third party who can see.</p>
+  <figure class="figure"><svg id="reach-orbitdb-relay-en" class="reach-ladder" viewBox="0 0 860 372" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three rungs: same room with no third party, elsewhere over an SDP link or a relay, and persistence through a storage provider. Each rung adds reach and adds participants.">
+  <style>
+    .reach-ladder { width: 100%; height: auto; display: block; }
+    .reach-ladder text { font-family: var(--ls-font); }
+    #reach-orbitdb-relay-en .box { fill: none; stroke: var(--ls-card-border); stroke-width: 1.5; }
+    #reach-orbitdb-relay-en .box.free { stroke: var(--ls-green); }
+    #reach-orbitdb-relay-en .rule, #reach-orbitdb-relay-en .axis-line { stroke: var(--ls-card-border); stroke-width: 1; }
+    #reach-orbitdb-relay-en .arrow { fill: none; stroke: var(--ls-text-faint); stroke-width: 1.5; }
+    #reach-orbitdb-relay-en .tip { fill: var(--ls-text-faint); }
+    #reach-orbitdb-relay-en .head { font-size: 14px; font-weight: 700; fill: var(--ls-text); }
+    #reach-orbitdb-relay-en .how { font-size: 12px; fill: var(--ls-text); }
+    #reach-orbitdb-relay-en .label { font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; fill: var(--ls-text-faint); }
+    #reach-orbitdb-relay-en .value { font-size: 13px; font-weight: 600; fill: var(--ls-text); }
+    #reach-orbitdb-relay-en .sub { font-size: 11px; fill: var(--ls-text-dim); }
+    #reach-orbitdb-relay-en .dim { fill: var(--ls-text-faint); }
+    #reach-orbitdb-relay-en .ok-fill { fill: var(--ls-green); }
+    #reach-orbitdb-relay-en .warn-fill { fill: var(--ls-amber); }
+    #reach-orbitdb-relay-en .accent-fill { fill: var(--ls-accent); }
+    #reach-orbitdb-relay-en .axis { font-size: 11px; fill: var(--ls-text-faint); }
+    #reach-orbitdb-relay-en .mid { text-anchor: middle; }
+  </style>
+  <defs>
+    <marker id="reach-orbitdb-relay-en-tip" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L8 4 L0 8 z" class="tip" />
+    </marker>
+  </defs>
+  <g>
+    <rect x="16" y="16" width="260" height="270" rx="10" class="box free" />
+    <text x="34" y="46" class="head">Same room</text>
+    <text x="34" y="70" class="how">QR code · your own hotspot</text>
+    <text x="34" y="90" class="sub">BLE, NFC under evaluation</text>
+    <line x1="34" y1="112" x2="258" y2="112" class="rule" />
+    <text x="34" y="136" class="label">Who can see</text>
+    <text x="34" y="158" class="value ok-fill">nobody</text>
+    <text x="34" y="192" class="label">Le Space sells</text>
+    <text x="34" y="216" class="value dim">—</text>
+    <text x="34" y="248" class="sub">no internet, no infrastructure</text>
+    <text x="34" y="270" class="sub ok-fill">free, and private all the way</text>
+  </g>
+  <path d="M282 150 H294" class="arrow" marker-end="url(#reach-orbitdb-relay-en-tip)" />
+  <g>
+    <rect x="300" y="16" width="260" height="270" rx="10" class="box" />
+    <text x="318" y="46" class="head">Not the same room</text>
+    <text x="318" y="70" class="how">SDP link · or a relay</text>
+    <text x="318" y="90" class="sub">a relay is easy, and visible</text>
+    <line x1="318" y1="112" x2="542" y2="112" class="rule" />
+    <text x="318" y="136" class="label">Who can see</text>
+    <text x="318" y="158" class="value warn-fill">one relay operator</text>
+    <text x="318" y="192" class="label">Le Space sells</text>
+    <text x="318" y="216" class="value accent-fill">Relay Button</text>
+    <text x="318" y="248" class="sub">hosting on Aleph, Akash — or as an aggregator</text>
+  </g>
+  <path d="M566 150 H578" class="arrow" marker-end="url(#reach-orbitdb-relay-en-tip)" />
+  <g>
+    <rect x="584" y="16" width="260" height="270" rx="10" class="box" />
+    <text x="602" y="46" class="head">It should persist</text>
+    <text x="602" y="70" class="how">replication · pinning</text>
+    <text x="602" y="90" class="sub">someone has to hold the data</text>
+    <line x1="602" y1="112" x2="826" y2="112" class="rule" />
+    <text x="602" y="136" class="label">Who can see</text>
+    <text x="602" y="158" class="value warn-fill">a storage provider</text>
+    <text x="602" y="192" class="label">Le Space sells</text>
+    <text x="602" y="216" class="value accent-fill">OrbitDB Relay</text>
+    <text x="602" y="248" class="sub">Filecoin and others — or as an aggregator</text>
+  </g>
+  <path d="M16 322 H844" class="axis-line" />
+  <text x="430" y="348" class="axis mid">more reach  →  more third parties</text>
+</svg></figure>
+  <p class="note">The third rung. What we sell is only ever what adds reach or persistence — the first rung stays free and works without us. That is what makes this a convenience somebody pays for voluntarily rather than a gate.</p>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>2 / 9</span></div>
 </section>
 <section class="slide">
   <p class="kicker">OrbitDB Relay</p>
@@ -475,7 +630,7 @@ h2 {
     <li><b>Permissions vanish with it</b><p>UCAN delegations and access-control lists are data themselves. Lose them and collaboration breaks, even if the content still exists.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>2 / 8</span></div>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>3 / 9</span></div>
 </section>
 <section class="slide">
   <p class="kicker">OrbitDB Relay</p>
@@ -488,7 +643,7 @@ h2 {
     <li><b>Restore</b><span class="badge planned">planned</span><p>Hydration: a new device proves its right via a UCAN delegation — and gets back the oplog, the blocks, the database addresses and the permissions.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>3 / 8</span></div>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>4 / 9</span></div>
 </section>
 <section class="slide">
   <p class="kicker">OrbitDB Relay</p>
@@ -513,7 +668,7 @@ h2 {
     </div>
   </div>
   <p class="note">The relay sees public keys, never private ones. Recovery never means "somebody else can now write as you".</p>
-  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>4 / 8</span></div>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>5 / 9</span></div>
 </section>
 <section class="slide">
   <p class="kicker">OrbitDB Relay</p>
@@ -534,7 +689,7 @@ h2 {
     </div>
   </div>
   
-  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>5 / 8</span></div>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>6 / 9</span></div>
 </section>
 <section class="slide">
   <p class="kicker">OrbitDB Relay</p>
@@ -547,7 +702,7 @@ h2 {
     <li><b>White label / SLA</b><p>App vendors and companies buy pinning, retention windows and support under their own brand.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>6 / 8</span></div>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>7 / 9</span></div>
 </section>
 <section class="slide">
   <p class="kicker">OrbitDB Relay</p>
@@ -560,7 +715,7 @@ h2 {
     <li><b>Encrypted archives</b><span class="badge planned">planned</span><p>Payload encryption, so even the operator of the relay cannot read the content.</p></li>
   </ul>
   
-  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>7 / 8</span></div>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>8 / 9</span></div>
 </section>
 <section class="slide">
   <p class="kicker">OrbitDB Relay</p>
@@ -572,7 +727,7 @@ h2 {
     <div>+49 / 87 21 / 5 06 49 96</div>
   </div>
   <div class="links"><a href="https://nikrause.github.io/orbitdb-relay/" target="_blank" rel="noopener noreferrer">Docs</a><a href="https://github.com/NiKrause/orbitdb-relay" target="_blank" rel="noopener noreferrer" class="primary">Source</a><a href="https://www.npmjs.com/package/orbitdb-relay" target="_blank" rel="noopener noreferrer">npm</a></div>
-  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>8 / 8</span></div>
+  <div class="foot"><span>Le-Space · OrbitDB Relay</span><span data-n>9 / 9</span></div>
 </section>
 </div></div>
 <script>

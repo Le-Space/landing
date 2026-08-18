@@ -68,6 +68,21 @@ export const decks = [
         title: { de: 'OrbitDB Relay', en: 'OrbitDB Relay' }
       },
       {
+        // The strategy picture, before the problem: an investor who does not
+        // see which rung this product sits on reads the rest as a feature list.
+        kind: 'figure',
+        figure: 'reach',
+        title: { de: 'Auf welcher Stufe wir hier sind', en: 'Which rung this is' },
+        lead: {
+          de: 'Local-First fängt bei null an — im selben Raum, ohne Internet, ohne uns. Jede Stufe darüber kauft Reichweite und bezahlt sie mit einem Dritten, der mitsehen kann.',
+          en: 'Local-first starts at zero — same room, no internet, nobody in between. Every rung above that buys reach and pays for it with a third party who can see.'
+        },
+        note: {
+          de: 'Die dritte Stufe. Verkauft wird nur, was Reichweite oder Dauer hinzufügt — die erste Stufe bleibt kostenlos und kommt ohne uns aus. Deshalb ist das hier keine Schranke, sondern eine Bequemlichkeit, für die jemand freiwillig zahlt.',
+          en: 'The third rung. What we sell is only ever what adds reach or persistence — the first rung stays free and works without us. That is what makes this a convenience somebody pays for voluntarily rather than a gate.'
+        }
+      },
+      {
         kind: 'bullets',
         title: { de: 'Das Problem', en: 'The problem' },
         lead: {
@@ -1321,6 +1336,21 @@ export const decks = [
       {
         kind: 'title',
         title: { de: 'Relay Button on-chain', en: 'Relay Button on-chain' }
+      },
+      {
+        // The strategy picture, before the problem: an investor who does not
+        // see which rung this product sits on reads the rest as a feature list.
+        kind: 'figure',
+        figure: 'reach',
+        title: { de: 'Auf welcher Stufe wir hier sind', en: 'Which rung this is' },
+        lead: {
+          de: 'Local-First fängt bei null an — im selben Raum, ohne Internet, ohne uns. Jede Stufe darüber kauft Reichweite und bezahlt sie mit einem Dritten, der mitsehen kann.',
+          en: 'Local-first starts at zero — same room, no internet, nobody in between. Every rung above that buys reach and pays for it with a third party who can see.'
+        },
+        note: {
+          de: 'Die zweite Stufe. Verkauft wird nur, was Reichweite hinzufügt — die erste Stufe bleibt kostenlos und kommt ohne uns aus. Deshalb ist das hier keine Schranke, sondern eine Bequemlichkeit, für die jemand freiwillig zahlt.',
+          en: 'The second rung. What we sell is only ever what adds reach — the first rung stays free and works without us. That is what makes this a convenience somebody pays for voluntarily rather than a gate.'
+        }
       },
       {
         kind: 'bullets',
