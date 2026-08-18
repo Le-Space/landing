@@ -3,11 +3,10 @@
   import { faq } from '@le-space/landing-shared/faq';
   import DiagramEncryption from '@le-space/landing-shared/components/DiagramEncryption.svelte';
   import DiagramAccess from '@le-space/landing-shared/components/DiagramAccess.svelte';
-  import DiagramReach from '@le-space/landing-shared/components/DiagramReach.svelte';
 
   // A couple of answers are about what crosses which boundary, which prose is
   // bad at. Those carry a `diagram` key; everything else stays text.
-  const DIAGRAMS = { encryption: DiagramEncryption, access: DiagramAccess, reach: DiagramReach };
+  const DIAGRAMS = { encryption: DiagramEncryption, access: DiagramAccess };
 
   let open = $state(null);
 
