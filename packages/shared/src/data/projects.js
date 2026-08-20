@@ -235,9 +235,14 @@ export const projects = [
       },
     ],
     docs: "https://github.com/NiKrause/js-libp2p-examples/blob/uc-extensions-service/examples/js-libp2p-example-yjs-libp2p/UC-EXTENSION-PROTOCOL.md",
+    // Redeployed to Aleph IPFS in August 2026. The previous builds still load
+    // from the gateway but no longer work: both resolved their relay through a
+    // bootstrap peer that has since vanished from the DHT, so neither could
+    // reach the network or find the other. These builds discover relays from
+    // the Aleph bootstrap channel instead.
     demos: [
-      { label: "Spreadsheet", url: "https://bafybeief54jgh6g6ixpcwylq4q4gfsyu4v757qwksz6u7gst2ewcem27su.ipfs.dweb.link/" },
-      { label: "UC Chat", url: "https://bafybeiby64c4j4x3qeilcup4wzob7x6ldaibgcquxd55uazskq3ll36zrm.ipfs.dweb.link/" },
+      { label: "Spreadsheet", url: "https://bafybeic7xyp56cijkcytlrvrftoomrff6mcdtlympph7n2ktakqfr7zo7q.ipfs.aleph.sh/" },
+      { label: "UC Chat", url: "https://bafybeihhfm63pwp4gxsl4l35hv7b6gksijd7fxwcszaaevnepehsx233qy.ipfs.aleph.sh/" },
     ],
     npm: null,
     screenshot: null,
