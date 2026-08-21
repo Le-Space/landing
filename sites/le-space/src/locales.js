@@ -6,6 +6,7 @@
 export const dictionaries = {
   en: {
     tagline: 'The Local-First Peer-to-Peer Stack',
+    news_label: 'News',
     explore: 'Explore our work',
     footer: { imprint: 'Imprint', privacy: 'Privacy' },
     history: {
@@ -20,6 +21,7 @@ export const dictionaries = {
   },
   de: {
     tagline: 'Der Local-First Peer-to-Peer Stack',
+    news_label: 'Neuigkeiten',
     explore: 'Unsere Arbeit entdecken',
     footer: { imprint: 'Impressum', privacy: 'Datenschutz' },
     history: {

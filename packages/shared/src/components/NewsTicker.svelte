@@ -24,7 +24,14 @@
   import { locale } from '../i18n.js';
   import { news, formatNewsDate } from '../data/news.js';
 
-  let { dwell = 7000, label = 'News' } = $props();
+  /**
+   * `align` because the two sites lay out differently: local-first stacks the
+   * hero to the left, le-space.de centres everything. A component that decided
+   * this for itself would be right on one of them.
+   */
+  let { dwell = 7000, label = 'News', align = 'start' } = $props();
+
+  const alignment = $derived(align === 'center' ? 'center' : 'flex-start');
 
   let index = $state(0);
   let paused = $state(false);
@@ -83,7 +90,7 @@
 
 {#if still}
   <!-- No motion asked for, so none: both lines, plainly. -->
-  <ul class="stack" aria-label={label}>
+  <ul class="stack" aria-label={label} style:align-self={alignment}>
     {#each news as item (item.id)}
       <li>
         <a class="whatsnew" href={item.href}>
@@ -100,6 +107,7 @@
     class="board"
     role="region"
     aria-label={label}
+    style:align-self={alignment}
     style:height={height ? `${height}px` : null}
     onmouseenter={() => { paused = true; }}
     onmouseleave={() => { paused = false; }}
@@ -123,7 +131,6 @@
 <style>
   .board {
     overflow: hidden;
-    align-self: flex-start;
     margin-bottom: 18px;
     /* Until the first measurement lands there is no height to clip to, and a
        zero-height board would flash empty. One line is close enough for the
@@ -154,7 +161,7 @@
     padding: 0;
     display: grid;
     gap: 8px;
-    align-self: flex-start;
+    justify-items: center;
   }
 
   .whatsnew {
@@ -172,6 +179,10 @@
     color: var(--ls-text-dim);
     font-size: 0.85rem;
     width: fit-content;
+    /* The box may be centred on the page; the sentence inside it is still a
+       sentence. Inherited centring leaves the last line floating under the
+       others, which reads as a poster rather than as a line of news. */
+    text-align: left;
     transition: border-color 0.2s ease, background 0.2s ease;
   }
 
