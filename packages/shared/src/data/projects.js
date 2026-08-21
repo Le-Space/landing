@@ -121,6 +121,40 @@ export const projects = [
     },
   },
   {
+    id: "ablage",
+    name: "ablage",
+    layers: ["data", "sync"],
+    status: "beta",
+    featured: true,
+    github: "https://github.com/Le-Space/ablage",
+    demo: "https://ablage.le-space.de",
+    npm: null,
+    screenshot: "/media/ablage.webp",
+    video: null,
+    note: {
+      en: "A folder shared between two devices — the stack applied to the plainest thing people want from it",
+      de: "Ein Ordner zwischen zwei Geräten — der Stack angewandt auf das Schlichteste, was man von ihm will",
+    },
+    tagline: {
+      en: `A folder on this device that stays the same as a folder on another one — files added, changed and deleted — with no account and nothing in the middle.
+<ul>
+<li><strong>Paired by a code, then peers:</strong> two devices scan a QR code off each other's screen once, over <a href="https://github.com/NiKrause/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer">libp2p-webrtc-qr</a>. After that the bytes travel directly and no server ever holds them.</li>
+<li><strong>The index is a CRDT, the bytes are not:</strong> Yjs carries a map of paths and content addresses; the files themselves move over bitswap. Putting file content in a CRDT is the mistake this is built to avoid.</li>
+<li><strong>Both copies survive a conflict:</strong> two devices that changed the same file keep both, Dropbox's way — and the rescued name comes from the content address, so two devices that diverged to the same bytes converge on one entry rather than two.</li>
+<li><strong>A real folder on Chromium:</strong> pick a directory and it syncs that, noticing edits made outside the app. Elsewhere it uses the browser's private storage, which every engine has.</li>
+<li><strong>Opens without a network:</strong> installable, and the folder is there when the internet is not.</li>
+</ul>`,
+      de: `Ein Ordner auf diesem Gerät, der derselbe bleibt wie ein Ordner auf einem anderen — hinzugefügte, geänderte und gelöschte Dateien — ohne Konto und ohne irgendetwas dazwischen.
+<ul>
+<li><strong>Einmal per Code gekoppelt, danach Peers:</strong> Zwei Geräte scannen einmal einen QR-Code vom Bildschirm des anderen, über <a href="https://github.com/NiKrause/libp2p-webrtc-qr" target="_blank" rel="noopener noreferrer">libp2p-webrtc-qr</a>. Danach reisen die Bytes direkt, und kein Server hält sie je.</li>
+<li><strong>Der Index ist ein CRDT, die Bytes sind es nicht:</strong> Yjs trägt eine Karte aus Pfaden und Inhalts-Adressen; die Dateien selbst gehen über Bitswap. Dateiinhalte in ein CRDT zu legen ist genau der Fehler, den das hier vermeidet.</li>
+<li><strong>Beide Fassungen überleben einen Konflikt:</strong> Haben zwei Geräte dieselbe Datei geändert, bleiben beide erhalten — wie bei Dropbox. Der gerettete Name kommt aus der Inhalts-Adresse, zwei Geräte mit identischen Bytes landen also bei einem Eintrag statt bei zweien.</li>
+<li><strong>Ein echter Ordner unter Chromium:</strong> Ordner auswählen, und genau der wird abgeglichen — inklusive Änderungen, die außerhalb der App passieren. Sonst dient der private Speicher des Browsers, den jede Engine hat.</li>
+<li><strong>Öffnet sich ohne Netz:</strong> installierbar, und der Ordner ist da, wenn das Internet es nicht ist.</li>
+</ul>`,
+    },
+  },
+  {
     id: "libp2p-webrtc-qr",
     name: "libp2p WebRTC over QR",
     layers: ["sync"],

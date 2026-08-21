@@ -3,6 +3,7 @@
   import { siteConfig } from '@le-space/landing-shared/site-config';
   import LeSpaceLogo from '@le-space/landing-shared/components/LeSpaceLogo.svelte';
   import NetworkViz from '@le-space/landing-shared/components/NetworkViz.svelte';
+  import NewsTicker from '@le-space/landing-shared/components/NewsTicker.svelte';
 </script>
 
 <section class="hero">
@@ -14,14 +15,15 @@
       <LeSpaceLogo size={64} />
       <span class="brand">Le-Space</span>
     </a>
-    <!-- Announces one thing, above everything else, and can be removed later
-         without leaving a gap. Green because that is already the colour of a
-         working demo on the project cards. -->
-    <a class="whatsnew" href="https://qr01.le-space.de">
-      <span class="tag">{$t('hero.badge_new')}</span>
-      <span class="what">{$t('hero.badge_text')}</span>
-      <span class="arrow" aria-hidden="true">→</span>
-    </a>
+    <!-- Announcements, above everything else, and removable later without
+         leaving a gap. Green because that is already the colour of a working
+         demo on the project cards.
+
+         A list now rather than one line: it used to be a pair of translation
+         keys overwritten whenever something newer happened, which is why
+         nothing here ever said *when*. The entries and their dates live in
+         `data/news.js`. -->
+    <NewsTicker label={$t('hero.news_label')} />
 
     <p class="kicker">{$t('hero.kicker')}</p>
     <h1>{$t('hero.title')}</h1>
@@ -67,52 +69,6 @@
     font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: 0.06em;
-  }
-
-  .whatsnew {
-    display: inline-flex;
-    /* The sentence is long enough to wrap; the tag then stays on the first
-       line with the text rather than floating beside a two-line block. */
-    align-items: flex-start;
-    gap: 10px;
-    align-self: flex-start;
-    max-width: 640px;
-    margin-bottom: 18px;
-    padding: 7px 16px 7px 7px;
-    line-height: 1.45;
-    border: 1px solid color-mix(in srgb, var(--ls-green) 45%, transparent);
-    border-radius: 16px;
-    background: color-mix(in srgb, var(--ls-green) 10%, transparent);
-    color: var(--ls-text-dim);
-    font-size: 0.85rem;
-    width: fit-content;
-    transition: border-color 0.2s ease, background 0.2s ease;
-  }
-
-  .whatsnew:hover {
-    text-decoration: none;
-    border-color: var(--ls-green);
-    background: color-mix(in srgb, var(--ls-green) 16%, transparent);
-  }
-
-  .whatsnew .tag {
-    flex: none;
-    background: var(--ls-green);
-    color: var(--ls-bg-0);
-    font-weight: 700;
-    font-size: 0.72rem;
-    letter-spacing: 0.04em;
-    padding: 2px 9px;
-    border-radius: 999px;
-  }
-
-  .whatsnew .arrow {
-    flex: none;
-    color: var(--ls-green);
-  }
-
-  .whatsnew:hover .what {
-    color: var(--ls-text);
   }
 
   .kicker {
