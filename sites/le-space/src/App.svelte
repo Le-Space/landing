@@ -7,6 +7,7 @@
   import LeSpaceLogo from '@le-space/landing-shared/components/LeSpaceLogo.svelte';
   import SocialIcons from '@le-space/landing-shared/components/SocialIcons.svelte';
   import LegalModals from '@le-space/landing-shared/components/LegalModals.svelte';
+  import NewsTicker from '@le-space/landing-shared/components/NewsTicker.svelte';
 
   // The English page had the German address; the shared Footer on the other
   // site has always picked by locale.
@@ -38,6 +39,12 @@
         </a>
       {/each}
     </nav>
+
+    <!-- After the products rather than above them: this page is the identity
+         first and the announcement second. Same board and the same entries as
+         local-first.le-space.de - they are the company's news, not one site's,
+         so they live in the shared package. -->
+    <NewsTicker align="center" label={$t('news_label')} />
 
     <div class="socials">
       <SocialIcons />

@@ -9,6 +9,7 @@
     "./i18n": "./src/i18n.js",
     "./theme": "./src/theme.js",
     "./build-info": "./src/build-info.js",
+    "./news": "./src/data/news.js",
     "./projects": "./src/data/projects.js",
     "./faq": "./src/data/faq.js",
     "./history": "./src/data/history.js",
